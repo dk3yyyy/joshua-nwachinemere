@@ -79,13 +79,13 @@ test('public positioning is Python-first AI engineering without founder or reloc
   assert.match(html, /AI Engineer/);
   assert.match(html, /ML Engineer/);
   assert.match(html, /Python/);
-  assert.match(html, /RAG|retrieval-augmented generation/i);
+  assert.match(html, /RAG/);
   assert.match(html, /multimodal/i);
-  assert.match(html, /voice|speech/i);
-  assert.match(html, /model evaluation|ML evaluation/i);
+  assert.match(html, /voice AI/i);
+  assert.match(html, /ML evaluation/i);
+  assert.match(html, /DeepSeek/);
   assert.match(html, /building VolyxAI/i);
-  assert.doesNotMatch(html, /founder/i);
-  assert.doesNotMatch(html, /Lagos|relocat/i);
+  assert.doesNotMatch(html, /Ollama|\bfounder\b|Lagos|relocat/i);
   assert.doesNotMatch(html, /Languages<\/span><p>[^<]*(JavaScript|TypeScript)/i);
 });
 
