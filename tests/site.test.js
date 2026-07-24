@@ -16,6 +16,7 @@ test('favicon matches the split lime and cobalt JN identity', () => {
   assert.match(favicon, />J</);
   assert.match(favicon, />N</);
   assert.doesNotMatch(favicon, /terminal-style|#0b0e10|#d9ff57/i);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=2" type="image\/svg\+xml" \/>/);
 });
 
 test('page has one h1 and the expected primary sections', () => {
