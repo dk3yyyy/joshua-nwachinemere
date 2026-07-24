@@ -21,41 +21,42 @@ DOCX_PATH = PUBLIC / "Joshua_Nwachinemere_CV.docx"
 PDF_PATH = PUBLIC / "Joshua_Nwachinemere_CV.pdf"
 
 NAME = "JOSHUA NWACHINEMERE"
-HEADLINE = "AI Engineer | Applied AI, ML Systems, Automation"
+HEADLINE = "AI Engineer | Python, RAG, Multimodal AI & ML Evaluation"
 EMAIL = "josh0victor@outlook.com"
 PHONE = "+234 913 148 0096"
-LOCATION = "Lagos, Nigeria | Open to UK relocation"
+
 GITHUB_URL = "https://github.com/dk3yyyy"
 LINKEDIN_URL = "https://www.linkedin.com/in/joshua-nwachinemere"
 PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-portfolio"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
-    "AI Engineer and VolyxAI founder building applied AI, backend services, and automation systems with Python, "
-    "JavaScript, and TypeScript. Experience includes a multimodal macOS assistant, retrieval workflows, "
-    "real-time applications, ML evaluation, API integrations, and human-in-the-loop automation."
+    "Python-first AI Engineer building systems around language, vision, and speech models. Work spans RAG and "
+    "relevance-ranked retrieval, multimodal inputs, real-time transcription, model/API integration, FastAPI "
+    "services, asynchronous workflows, and ML evaluation. Building VolyxAI "
+    "with explicit data flow, validation, observability, and human control. Open to AI Engineer and ML Engineer opportunities."
 )
 
 EXPERIENCE = [
     {
-        "role": "Founder & AI Automation Engineer",
+        "role": "AI Engineer (Building VolyxAI)",
         "org": "VolyxAI",
         "date": "Nov 2025 - Present",
         "bullets": [
-            "Built and tested controlled workflow prototypes connecting conversational intake to schema validation, calendar scheduling, email confirmation, and approval-based handoffs.",
-            "Integrated language models, n8n, webhooks, Vapi, ElevenLabs, Google Calendar, and email services in controlled test environments.",
-            "Designed deterministic validation, bounded retries, idempotency controls, and human approval for consequential actions.",
+            "Developing applied AI systems that combine model and provider integration, RAG and context assembly, voice and multimodal workflows, and structured outputs.",
+            "Building Python services and event-driven n8n workflows around external APIs, webhooks, validation, retries, logging, and human approval.",
+            "Exploring provider routing, fallback, cost, latency, and privacy trade-offs across Azure AI Foundry, OpenAI-compatible APIs, and transcription providers.",
         ],
-        "tools": "Python, n8n, TypeScript, REST APIs, webhooks, Vapi, ElevenLabs, Azure AI Foundry",
+        "tools": "Python, FastAPI, n8n, REST APIs, webhooks, Azure AI Foundry, OpenAI-compatible APIs, PostgreSQL, Redis",
     },
     {
-        "role": "Independent Software & Automation Developer",
+        "role": "Independent AI, Backend & Automation Developer",
         "org": "Self-Employed / Independent Projects",
         "date": "Jan 2021 - Present",
         "bullets": [
             "Built Python automation and backend utilities for data processing, Telegram bots, API integrations, and operational tooling.",
-            "Developed stream-oriented utilities for processing large text datasets without loading complete files into memory.",
-            "Created asynchronous integrations for wallet analysis, malware scanning, user tracking, pagination, caching, and admin reporting.",
+            "Created asynchronous VirusTotal scanning and multi-chain wallet analytics with validation, caching, pagination, and rate-limit handling.",
+            "Developed and evaluated an experimental football forecasting pipeline with temporal features, calibrated models, FastAPI, and rolling-origin testing.",
         ],
         "tools": "Python, Async I/O, Telegram Bot API, aiohttp, SQL, Docker, REST APIs",
     },
@@ -77,8 +78,8 @@ PROJECTS = [
         "name": "Volyx Lens | Privacy-First Context-Aware AI Assistant",
         "stack": "JavaScript, Electron, Swift, Azure AI Foundry, Multimodal APIs",
         "bullets": [
-            "Developed and substantially extended a macOS assistant that combines explicitly selected screen context, microphone input, and meeting audio with user-configured AI providers.",
-            "Implemented local OCR, bounded screenshot memory, context ranking, provider routing, and consent before larger image uploads.",
+            "Built and hardened a privacy-oriented macOS assistant combining selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, and multiple AI providers.",
+            "Implemented bounded context memory, transcription and provider routing, explicit data-sharing controls, and cost-aware fallbacks.",
             "Hardened Electron boundaries with sandboxing, context isolation, restricted IPC, automated tests, secret scanning, and release checks.",
             "Source: https://github.com/dk3yyyy/volyx-lens",
         ],
@@ -89,7 +90,7 @@ PROJECTS = [
         "bullets": [
             "Built data scrapers, temporal feature engineering, XGBoost outcome and Poisson goal models, a FastAPI service, and a Streamlit dashboard.",
             "Evaluated with rolling-origin testing across 1,140 Premier League matches: 53.77% outcome accuracy versus a 56.70% bookmaker-implied benchmark, showing signal but no practical betting advantage.",
-            "Archived evidence: https://github.com/dk3yyyy/football_predictor/tree/repair/football-predictor-hardening",
+            "Source: https://github.com/dk3yyyy/football_predictor",
         ],
     },
     {
@@ -109,13 +110,23 @@ PROJECTS = [
             "Source: https://github.com/dk3yyyy/VirusTotal-Telegram-Bot",
         ],
     },
+    {
+        "name": "Solana & Ethereum Wallet Analyzer | Async API Aggregation",
+        "stack": "Python, aiohttp, Telegram Bot API, Solana RPC, Ethereum RPC, CoinGecko",
+        "bullets": [
+            "Built a read-only Telegram bot that validates wallet addresses, aggregates holdings and price data across Solana and Ethereum APIs, caches requests, and paginates token results.",
+            "Source: https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+        ],
+    },
 ]
 
 SKILLS = [
-    "Languages: Python, JavaScript, TypeScript, SQL",
-    "AI / ML: Azure AI Foundry, XGBoost, scikit-learn, pandas, Ollama, LangChain, Chroma, RAG, model evaluation",
-    "Backend & Automation: FastAPI, Express, Socket.IO, n8n, REST APIs, webhooks, SQLAlchemy, SQLite",
-    "Infrastructure: Docker, GitHub Actions, Linux, Microsoft Azure, Electron",
+    "Languages: Python, SQL",
+    "AI Engineering: RAG, context engineering, multimodal inference, voice AI, structured outputs, provider routing, model evaluation",
+    "Models & Providers: Azure AI Foundry, OpenAI, Anthropic, Gemini, DeepSeek, Deepgram",
+    "ML & Data: scikit-learn, XGBoost, pandas, feature engineering, temporal evaluation",
+    "Backend & Automation: FastAPI, asyncio, REST APIs, n8n, webhooks, SQLAlchemy",
+    "Data & Infrastructure: PostgreSQL, SQLite, Redis, Docker, GitHub Actions, Linux",
     "Security: Suricata, Snort, VirusTotal API, OSINT, DNS analysis, secure credential management",
 ]
 
@@ -186,7 +197,6 @@ def add_docx_contact(doc: Document) -> None:
     first = doc.add_paragraph()
     first.alignment = WD_ALIGN_PARAGRAPH.CENTER
     first.paragraph_format.space_after = Pt(0)
-    first.add_run(f"{LOCATION} | ")
     add_hyperlink(first, EMAIL, f"mailto:{EMAIL}")
     first.add_run(f" | {PHONE}")
 
@@ -340,7 +350,7 @@ def draw_later_page_header(canvas, document) -> None:
 def build_pdf() -> None:
     styles = pdf_styles()
     contact_markup = (
-        f'{LOCATION} | <link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
+        f'<link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
         f'<link href="{GITHUB_URL}" color="#1155CC">github.com/dk3yyyy</link> | '
         f'<link href="{LINKEDIN_URL}" color="#1155CC">linkedin.com/in/joshua-nwachinemere</link> | '
         f'<link href="{PORTFOLIO_URL}" color="#1155CC">dk3yyyy.github.io/joshua-portfolio</link>'

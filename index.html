@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090b0d" />
-    <meta name="description" content="Portfolio of Joshua Nwachinemere, an AI engineer building controlled agents, ML systems, backend services, and automations." />
+    <meta name="description" content="Joshua Nwachinemere is a Python-first AI Engineer building RAG, multimodal and voice AI systems, model integrations, backend services, and evaluation workflows." />
     <link rel="canonical" href="https://dk3yyyy.github.io/joshua-portfolio/" />
     <meta property="og:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta property="og:description" content="AI systems that move real work forward while keeping people in control." />
+    <meta property="og:description" content="Python-first AI engineering across RAG, multimodal and voice systems, model integration, backend services, and ML evaluation." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dk3yyyy.github.io/joshua-portfolio/" />
     <meta property="og:image" content="https://dk3yyyy.github.io/joshua-portfolio/og-card.png" />
@@ -17,7 +17,7 @@
     <meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer. Models into systems. Systems into useful work." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta name="twitter:description" content="AI systems that move real work forward while keeping people in control." />
+    <meta name="twitter:description" content="Python-first AI engineering across RAG, multimodal and voice systems, model integration, backend services, and ML evaluation." />
     <meta name="twitter:image" content="https://dk3yyyy.github.io/joshua-portfolio/og-card.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json">
@@ -39,15 +39,19 @@
             "name": "Joshua Nwachinemere",
             "url": "https://dk3yyyy.github.io/joshua-portfolio/",
             "jobTitle": "AI Engineer",
+            "knowsAbout": [
+              "Python",
+              "retrieval-augmented generation",
+              "multimodal AI",
+              "voice AI",
+              "model integration",
+              "machine learning evaluation",
+              "FastAPI"
+            ],
             "sameAs": [
               "https://github.com/dk3yyyy",
               "https://www.linkedin.com/in/joshua-nwachinemere/"
-            ],
-            "worksFor": {
-              "@type": "Organization",
-              "name": "VolyxAI",
-              "url": "https://volyxai.com"
-            }
+            ]
           }
         ]
       }
@@ -83,9 +87,9 @@
     <main id="main">
       <section class="hero section" id="top" aria-labelledby="hero-title">
         <div class="hero-copy" data-reveal>
-          <p class="eyebrow"><span class="status-dot"></span> Open to AI Engineer roles</p>
-          <h1 id="hero-title">I build AI systems that <em>do the work</em>, not just demo well.</h1>
-          <p class="hero-lede">I'm Joshua, an AI engineer and founder of VolyxAI. I turn models into practical tools with clear controls, reliable backends, and humans in the loop where judgment matters.</p>
+          <p class="eyebrow"><span class="status-dot"></span> Open to AI Engineer &amp; ML Engineer roles</p>
+          <h1 id="hero-title">I build the system <em>around the model.</em></h1>
+          <p class="hero-lede">I'm Joshua, a Python-first AI Engineer working across RAG and context retrieval, multimodal and voice AI, model integration, backend services, and ML evaluation. I'm building VolyxAI while developing practical systems with explicit controls and evidence before claims.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↓</span></a>
             <a class="button button-ghost" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">View CV <span aria-hidden="true">↗</span></a>
@@ -93,32 +97,32 @@
         </div>
 
         <figure class="runtime" data-reveal>
-          <figcaption class="sr-only">Example of a controlled AI workflow that validates input and routes consequential decisions for human review.</figcaption>
+          <figcaption class="sr-only">Example of an AI engineering workflow that retrieves context, routes to a model, validates output, and preserves human control.</figcaption>
           <div class="runtime-topbar">
-            <span class="runtime-title"><span class="prompt">~/</span> controlled-agent</span>
+            <span class="runtime-title"><span class="prompt">~/</span> ai-system</span>
             <span class="runtime-state">running</span>
           </div>
           <div class="runtime-body">
-            <div class="runtime-command"><span>$</span> run workflow --safe</div>
+            <div class="runtime-command"><span>$</span> run context_pipeline --evaluate</div>
             <ol class="runtime-log">
-              <li><span class="log-index">01</span><span class="log-copy"><strong>Input received</strong><small>Conversation + required fields</small></span><span class="log-state ok">ready</span></li>
-              <li><span class="log-index">02</span><span class="log-copy"><strong>Rules checked</strong><small>Validation before model call</small></span><span class="log-state ok">pass</span></li>
-              <li><span class="log-index">03</span><span class="log-copy"><strong>Decision routed</strong><small>Consequence detected</small></span><span class="log-state hold">review</span></li>
-              <li><span class="log-index">04</span><span class="log-copy"><strong>Context preserved</strong><small>Operator receives the full trail</small></span><span class="log-state muted">queued</span></li>
+              <li><span class="log-index">01</span><span class="log-copy"><strong>Context retrieved</strong><small>Relevant, bounded, source-aware</small></span><span class="log-state ok">ready</span></li>
+              <li><span class="log-index">02</span><span class="log-copy"><strong>Provider routed</strong><small>Language · vision · speech</small></span><span class="log-state ok">pass</span></li>
+              <li><span class="log-index">03</span><span class="log-copy"><strong>Output validated</strong><small>Schema + deterministic rules</small></span><span class="log-state hold">review</span></li>
+              <li><span class="log-index">04</span><span class="log-copy"><strong>Evaluation logged</strong><small>Trace, latency, quality, cost</small></span><span class="log-state muted">stored</span></li>
             </ol>
-            <div class="runtime-footer"><span>models</span><i></i><span>tools</span><i></i><span>approval</span><i></i><span>result</span></div>
+            <div class="runtime-footer"><span>retrieve</span><i></i><span>route</span><i></i><span>validate</span><i></i><span>evaluate</span></div>
           </div>
         </figure>
       </section>
 
       <section class="signal-bar" aria-label="Core engineering focus">
-        <p>Models into products</p><span>·</span><p>Backends that hold up</p><span>·</span><p>Automations with boundaries</p><span>·</span><p>Evaluation before claims</p>
+        <p>Python backends</p><span>·</span><p>RAG + context engineering</p><span>·</span><p>Multimodal + voice AI</p><span>·</span><p>Evaluation before claims</p>
       </section>
 
       <section class="work section" id="work" aria-labelledby="work-title">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">Selected work</p><h2 id="work-title">Four working systems. One archived experiment.</h2></div>
-          <p>Multimodal AI, real-time state, security scanning, and multi-chain API aggregation lead the portfolio. The forecasting experiment remains visible for its evaluation lessons, not as a product claim.</p>
+          <div><p class="eyebrow">Selected work</p><h2 id="work-title">AI, backend, and evaluation work with the evidence attached.</h2></div>
+          <p>Multimodal context retrieval, Python API integrations, real-time systems, and an honestly evaluated ML experiment. Each card links to the implementation.</p>
         </div>
 
         <div class="projects">
@@ -129,10 +133,10 @@
               <div class="vector-lines"><b style="--w:92%"></b><b style="--w:81%"></b><b style="--w:73%"></b><b style="--w:62%"></b><b style="--w:55%"></b></div>
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>01 / Multimodal AI</span><span>JavaScript</span></div>
+              <div class="project-meta"><span>01 / Multimodal AI</span><span>Context engineering</span></div>
               <h3>Volyx Lens</h3>
-              <p>A privacy-first macOS assistant using explicitly selected screen, microphone, and meeting context with user-configured AI providers. I added local OCR, bounded memory, provider routing, consent gates, and hardened Electron boundaries.</p>
-              <div class="project-footer"><span class="tags">Electron · Swift · Azure AI Foundry</span><a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
+              <p>A privacy-oriented macOS assistant combining selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, transcription, and multiple AI providers. I hardened its context boundaries, provider routing, consent controls, tests, and release checks.</p>
+              <div class="project-footer"><span class="tags">Azure AI Foundry · OpenAI-compatible APIs · Electron · Swift</span><a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
             </div>
           </article>
 
@@ -143,7 +147,7 @@
               <div class="game-ledger"><span>server-authoritative</span><span>ledger: append-only</span></div>
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>02 / Real-time systems</span><span>JavaScript</span></div>
+              <div class="project-meta"><span>02 / Real-time systems</span><span>Backend engineering</span></div>
               <h3>Noughtline</h3>
               <p>A React and Express multiplayer game with signed guest sessions, server-validated moves, reconnect handling, an append-only transaction ledger, and one-time crediting for verified Paystack references.</p>
               <div class="project-footer"><span class="tags">React · Socket.IO · SQLite</span><span class="project-links"><a href="https://noughtline.onrender.com" target="_blank" rel="noreferrer">Live <span aria-hidden="true">↗</span></a><a href="https://github.com/dk3yyyy/Noughtline" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></span></div>
@@ -176,7 +180,7 @@
             <div class="project-content">
               <div class="project-meta"><span>04 / API aggregation prototype</span><span>Python</span></div>
               <h3>Solana &amp; Ethereum Wallet Analyzer</h3>
-              <p>An async Telegram bot that validates Solana and Ethereum addresses, combines Solana RPC, Etherscan, CoinGecko, and DexScreener data, caches requests for five minutes, and paginates Solana token holdings in chat.</p>
+              <p>An async Telegram bot that validates Solana and Ethereum addresses, combines Solana and Ethereum RPC, CoinGecko, and DexScreener data, caches requests for five minutes, and paginates Solana token holdings in chat.</p>
               <div class="project-footer"><span class="tags">aiohttp · Telegram Bot API · Web3 data</span><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
             </div>
           </article>
@@ -193,7 +197,7 @@
               <h3>Football Predictor</h3>
               <p>An archived forecasting experiment combining calibrated XGBoost and Poisson score probabilities. Its real-data evaluation demonstrated signal over naive baselines but not practical value over bookmaker probabilities.</p>
               <ul class="project-notes"><li>Rolling-origin evaluation across 1,140 Premier League test matches</li><li>53.77% accuracy versus a 56.70% bookmaker benchmark; not a betting product</li></ul>
-              <div class="project-footer"><span class="tags">XGBoost · scikit-learn · FastAPI · Streamlit</span><a href="https://github.com/dk3yyyy/football_predictor/tree/repair/football-predictor-hardening" target="_blank" rel="noreferrer">View archived branch <span aria-hidden="true">↗</span></a></div>
+              <div class="project-footer"><span class="tags">XGBoost · scikit-learn · FastAPI · Streamlit</span><a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a></div>
             </div>
           </article>
         </div>
@@ -201,25 +205,25 @@
 
       <section class="approach section" id="approach" aria-labelledby="approach-title">
         <div class="approach-copy" data-reveal>
-          <p class="eyebrow">Founder build · VolyxAI</p>
-          <h2 id="approach-title">Useful automation needs a boundary.</h2>
-          <p>At VolyxAI, I'm working on controlled operations workflows: intake, validation, approval, and handoff. The model can help reason about messy input. Deterministic rules and clear ownership decide what happens next.</p>
+          <p class="eyebrow">AI engineering · current focus</p>
+          <h2 id="approach-title">From model call to an observable system.</h2>
+          <p>Building VolyxAI is one place I apply this approach: connect language, vision, and speech models to relevant context, structured outputs, reliable services, and human review where consequences matter.</p>
           <dl class="case-meta">
-            <div><dt>Role</dt><dd>Founder · AI and automation engineering</dd></div>
-            <div><dt>Status</dt><dd>Early-stage · workflow shown is illustrative</dd></div>
-            <div><dt>Decision</dt><dd>Consequential actions wait for human approval</dd></div>
+            <div><dt>Role</dt><dd>AI Engineer · building VolyxAI</dd></div>
+            <div><dt>Focus</dt><dd>RAG · voice · multimodal · model integration</dd></div>
+            <div><dt>Controls</dt><dd>Validation · retries · logging · human approval</dd></div>
           </dl>
           <a class="text-link" href="https://volyxai.com" target="_blank" rel="noreferrer">Visit VolyxAI <span aria-hidden="true">↗</span></a>
         </div>
         <figure class="flow-diagram" data-reveal>
-          <figcaption class="sr-only">Controlled workflow: receive an input, validate it, request human review, then hand off the approved action with its audit trail.</figcaption>
-          <div class="flow-node active"><span>01</span><strong>Receive</strong><small>voice · message · webhook</small></div>
+          <figcaption class="sr-only">AI system workflow: integrate model providers, retrieve relevant context, evaluate outputs, and operate with explicit controls.</figcaption>
+          <div class="flow-node active"><span>01</span><strong>Integrate</strong><small>language · vision · speech</small></div>
           <div class="flow-connector"><i></i></div>
-          <div class="flow-node"><span>02</span><strong>Validate</strong><small>schema · rules · context</small></div>
+          <div class="flow-node"><span>02</span><strong>Retrieve</strong><small>ranked · bounded · relevant context</small></div>
           <div class="flow-connector"><i></i></div>
-          <div class="flow-node review"><span>03</span><strong>Review</strong><small>person owns the decision</small></div>
+          <div class="flow-node review"><span>03</span><strong>Evaluate</strong><small>quality · latency · cost · failure</small></div>
           <div class="flow-connector"><i></i></div>
-          <div class="flow-node"><span>04</span><strong>Handoff</strong><small>action + full audit trail</small></div>
+          <div class="flow-node"><span>04</span><strong>Operate</strong><small>validation · retries · audit trail</small></div>
         </figure>
       </section>
 
@@ -228,13 +232,13 @@
         <div class="about-copy" data-reveal>
           <p class="eyebrow">About</p>
           <h2 id="about-title">An engineer who follows the system past the model call.</h2>
-          <p>I work across AI integration, backend engineering, and automation. That means tracing failures through webhooks, databases, queues, auth, retries, and the awkward edge cases between them.</p>
-          <p>I care about honest evaluation, readable code, and systems another person can operate without calling the original builder every time something breaks.</p>
+          <p>I build Python-based systems around language, vision, and speech models: provider integrations, RAG and context assembly, FastAPI services, asynchronous workflows, structured outputs, and evaluation.</p>
+          <p>I follow failures past the prompt into APIs, webhooks, databases, queues, auth, retries, and the edge cases between them. I care about evidence-backed claims and systems another person can inspect and operate.</p>
           <div class="stack" aria-label="Working capabilities and tools">
-            <div><span>Model work</span><p>Integration · retrieval · evaluation · structured outputs</p></div>
-            <div><span>Backend systems</span><p>FastAPI · Express · Socket.IO · REST · webhooks</p></div>
-            <div><span>Languages</span><p>Python · JavaScript · TypeScript · SQL</p></div>
-            <div><span>Automation</span><p>n8n · approval gates · retries · idempotency</p></div>
+            <div><span>AI engineering</span><p>RAG · context engineering · multimodal · voice · structured outputs</p></div>
+            <div><span>Models &amp; providers</span><p>Azure AI Foundry · OpenAI · Anthropic · Gemini · Deepgram · Ollama</p></div>
+            <div><span>Languages</span><p>Python · SQL</p></div>
+            <div><span>Backend &amp; evaluation</span><p>FastAPI · asyncio · REST · n8n · scikit-learn · XGBoost</p></div>
           </div>
         </div>
       </section>

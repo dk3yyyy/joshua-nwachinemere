@@ -71,7 +71,22 @@ test('strongest working project leads and forecasting experiment is archived las
   ]);
   assert.match(html, /project project-archive/);
   assert.match(html, /53\.77% accuracy versus a 56\.70% bookmaker benchmark/);
-  assert.match(html, /football_predictor\/tree\/repair\/football-predictor-hardening/);
+  assert.match(html, /https:\/\/github\.com\/dk3yyyy\/football_predictor/);
+  assert.doesNotMatch(html, /football_predictor\/tree\/repair\/football-predictor-hardening/);
+});
+
+test('public positioning is Python-first AI engineering without founder or relocation branding', () => {
+  assert.match(html, /AI Engineer/);
+  assert.match(html, /ML Engineer/);
+  assert.match(html, /Python/);
+  assert.match(html, /RAG|retrieval-augmented generation/i);
+  assert.match(html, /multimodal/i);
+  assert.match(html, /voice|speech/i);
+  assert.match(html, /model evaluation|ML evaluation/i);
+  assert.match(html, /building VolyxAI/i);
+  assert.doesNotMatch(html, /founder/i);
+  assert.doesNotMatch(html, /Lagos|relocat/i);
+  assert.doesNotMatch(html, /Languages<\/span><p>[^<]*(JavaScript|TypeScript)/i);
 });
 
 test('recruiter CV artifacts exist and the PDF is linked', async () => {

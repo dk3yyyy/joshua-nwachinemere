@@ -1,6 +1,6 @@
 # Joshua Nwachinemere | Portfolio
 
-A fast, responsive portfolio for Joshua Nwachinemere, AI Engineer and founder of VolyxAI.
+A fast, responsive portfolio for Joshua Nwachinemere, a Python-first AI Engineer building RAG, multimodal and voice systems, model integrations, backend services, and ML evaluation workflows.
 
 ## Run locally
 

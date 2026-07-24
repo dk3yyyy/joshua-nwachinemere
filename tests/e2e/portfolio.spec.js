@@ -16,7 +16,7 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
   page.on('pageerror', (error) => errors.push(error.message));
 
   await page.goto('./');
-  await expect(page.locator('h1')).toContainText('do the work');
+  await expect(page.locator('h1')).toContainText('around the model');
   await expect(page.locator('#work .project')).toHaveCount(5);
   await expect(page.locator('#contact')).toBeVisible();
 
