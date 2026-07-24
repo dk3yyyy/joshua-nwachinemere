@@ -6,6 +6,17 @@ const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
 const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8').catch(() => '');
+const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
+
+test('favicon matches the split lime and cobalt JN identity', () => {
+  assert.match(favicon, /#cfff48/i);
+  assert.match(favicon, /#2448ff/i);
+  assert.match(favicon, /#121410/i);
+  assert.match(favicon, /#fffef8/i);
+  assert.match(favicon, />J</);
+  assert.match(favicon, />N</);
+  assert.doesNotMatch(favicon, /terminal-style|#0b0e10|#d9ff57/i);
+});
 
 test('page has one h1 and the expected primary sections', () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
