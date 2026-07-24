@@ -54,10 +54,7 @@
         ]
       }
     </script>
-    <script>
-      document.documentElement.classList.add('js');
-      window.__revealFallback = window.setTimeout(() => document.documentElement.classList.remove('js'), 1500);
-    </script>
+    <script>document.documentElement.classList.add('js');</script>
     <title>Joshua Nwachinemere · AI Engineer</title>
   </head>
   <body>
@@ -98,6 +95,11 @@
               <div><dt><span>03</span> Routing</dt><dd>Language · vision · speech</dd></div>
               <div><dt><span>04</span> Evaluation</dt><dd>Quality · latency · failure</dd></div>
             </dl>
+            <div class="hero-project-proof">
+              <span>Flagship evidence</span>
+              <strong>Volyx Lens</strong>
+              <a href="#volyx-lens">Inspect the system <span aria-hidden="true">↓</span></a>
+            </div>
             <div class="hero-brief">
               <p class="hero-lede">I'm Joshua, a Python-first AI Engineer building the retrieval, multimodal input, model routing, backend reliability, and evaluation layers that turn model capability into useful systems.</p>
               <div class="hero-actions">
@@ -150,13 +152,19 @@
         </div>
 
         <div class="work-ledger">
-          <article class="case-study case-study-featured" data-reveal>
+          <article class="case-study case-study-featured" id="volyx-lens" data-reveal>
             <div class="case-id"><span>01</span><p>Direct AI evidence</p></div>
             <div class="case-copy">
               <div class="project-meta"><span>Multimodal AI</span><span>Context engineering</span></div>
               <h3>Volyx Lens</h3>
               <p>A privacy-oriented macOS assistant combining selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, transcription, and multiple AI providers. I hardened its context boundaries, provider routing, consent controls, tests, and release checks.</p>
               <ul class="evidence-list"><li>Screen, speech, and meeting context</li><li>Ranked retrieval with explicit boundaries</li><li>Provider routing and consent controls</li></ul>
+              <nav class="lens-artifacts" aria-label="Volyx Lens evidence trail">
+                <span>Inspectable trail</span>
+                <a href="https://github.com/dk3yyyy/volyx-lens/blob/main/docs/onboarding-welcome-eye.png" target="_blank" rel="noreferrer">Onboarding UI ↗</a>
+                <a href="https://github.com/dk3yyyy/volyx-lens#how-it-works-under-the-hood" target="_blank" rel="noreferrer">Architecture ↗</a>
+                <a href="https://github.com/dk3yyyy/volyx-lens/actions" target="_blank" rel="noreferrer">Release checks ↗</a>
+              </nav>
               <div class="project-footer"><span class="tags">Azure AI Foundry · OpenAI-compatible APIs · Electron · Swift</span><a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">Inspect source <span aria-hidden="true">↗</span></a></div>
             </div>
             <div class="case-canvas lens-canvas" aria-hidden="true">
@@ -181,12 +189,13 @@
             </div>
           </article>
 
-          <article class="case-study" data-reveal>
+          <article class="case-study case-study-supporting" data-reveal>
             <div class="case-id"><span>03</span><p>Python integration</p></div>
             <div class="case-copy">
               <div class="project-meta"><span>Async API integration</span><span>Python</span></div>
               <h3>VirusTotal Telegram Bot</h3>
               <p>An async Telegram bot for scanning files, URLs, and hashes through VirusTotal v3. It hashes locally before upload, follows the large-file upload flow, backs off on rate limits, and caches reports for interactive details.</p>
+              <p class="project-signal"><span>Flow</span> Hash locally → query → cache report</p>
               <div class="project-footer"><span class="tags">Pyrogram · aiohttp · VirusTotal API</span><a href="https://github.com/dk3yyyy/VirusTotal-Telegram-Bot" target="_blank" rel="noreferrer">Inspect source <span aria-hidden="true">↗</span></a></div>
             </div>
             <div class="case-canvas scan-canvas" aria-hidden="true">
@@ -195,12 +204,13 @@
             </div>
           </article>
 
-          <article class="case-study" data-reveal>
+          <article class="case-study case-study-supporting" data-reveal>
             <div class="case-id"><span>04</span><p>Python integration</p></div>
             <div class="case-copy">
               <div class="project-meta"><span>API aggregation prototype</span><span>Python</span></div>
               <h3>Solana &amp; Ethereum Wallet Analyzer</h3>
               <p>An async Telegram bot that validates Solana and Ethereum addresses, combines Solana and Ethereum RPC, CoinGecko, and DexScreener data, caches requests for five minutes, and paginates Solana token holdings in chat.</p>
+              <p class="project-signal"><span>Flow</span> Validate → gather → merge → cache</p>
               <div class="project-footer"><span class="tags">aiohttp · Telegram Bot API · Web3 data</span><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">Inspect source <span aria-hidden="true">↗</span></a></div>
             </div>
             <div class="case-canvas api-canvas" aria-hidden="true">
@@ -216,6 +226,7 @@
               <h3>Football Predictor</h3>
               <p>An archived forecasting experiment combining calibrated XGBoost and Poisson score probabilities. Its real-data evaluation demonstrated signal over naive baselines but not practical value over bookmaker probabilities.</p>
               <ul class="project-notes"><li>Rolling-origin evaluation across 1,140 Premier League test matches</li><li>53.77% accuracy versus a 56.70% bookmaker benchmark; not a betting product</li></ul>
+              <p class="project-signal"><span>Conclusion</span> Evidence changed the product decision</p>
               <div class="project-footer"><span class="tags">XGBoost · scikit-learn · FastAPI · Streamlit</span><a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">Inspect repository <span aria-hidden="true">↗</span></a></div>
             </div>
             <div class="case-canvas eval-canvas" aria-hidden="true">

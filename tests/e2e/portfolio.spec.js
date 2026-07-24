@@ -89,6 +89,21 @@ test('reduced-motion preference removes reveal movement and leaves content visib
   expect(parseFloat(motion.transitionDuration)).toBeLessThanOrEqual(0.001);
 });
 
+test('critical first viewport stays visible even before reveal observers respond', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.IntersectionObserver = class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+  });
+  await page.goto('./');
+
+  for (const selector of ['.hero-kicker', '.hero-copy', '.system-field']) {
+    await expect(page.locator(selector), `${selector} should never depend on an observer callback`).toHaveCSS('opacity', '1');
+  }
+});
+
 test('desktop hero explanation and primary action stay above the fold on laptop screens', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop');
 
@@ -143,6 +158,18 @@ test('desktop first fold pairs the manifesto with concrete engineering proof', a
   expect(fold.proofBottom).toBeLessThanOrEqual(900);
   expect(fold.fieldTop).toBeLessThan(900);
   expect(fold.fieldOpacity).toBe('1');
+});
+
+test('short laptop fold exposes a named inspectable project', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.goto('./');
+
+  const proof = page.locator('.hero-project-proof');
+  await expect(proof).toContainText('Volyx Lens');
+  await expect(proof.getByRole('link')).toBeVisible();
+  const box = await proof.boundingBox();
+  expect(box.y + box.height).toBeLessThanOrEqual(768);
 });
 
 test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
@@ -290,17 +317,45 @@ test('mobile project links meet touch-target guidance and page length stays focu
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('./');
 
-  const links = await page.locator('.project-footer a').all();
+  const links = await page.locator('.project-footer a, .lens-artifacts a').all();
   expect(links.length).toBeGreaterThan(0);
   for (const link of links) {
     const box = await link.boundingBox();
     expect(box).not.toBeNull();
+    expect(box.width).toBeGreaterThanOrEqual(44);
     expect(box.height).toBeGreaterThanOrEqual(44);
   }
 
   const metaSize = await page.locator('.project-meta').first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
   expect(metaSize).toBeGreaterThanOrEqual(12);
   expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_000);
+});
+
+test('mobile keeps visual proof for flagship projects and compacts supporting work', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  const projects = page.locator('#work .case-study');
+  await expect(projects.nth(0).locator('.case-canvas')).toBeVisible();
+  await expect(projects.nth(1).locator('.case-canvas')).toBeVisible();
+  await expect(projects.nth(2).locator('.case-canvas')).toBeHidden();
+  await expect(projects.nth(2).locator('.project-signal')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_500);
+
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.reload();
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_800);
+});
+
+test('Volyx Lens exposes more than a repository landing page', async ({ page }) => {
+  await page.goto('./');
+  const artifacts = page.locator('.lens-artifacts');
+  await expect(artifacts).toContainText(/onboarding|architecture|release/i);
+  await expect(artifacts.getByRole('link')).toHaveCount(3);
+  const hrefs = await artifacts.getByRole('link').evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+  expect(hrefs.some((href) => href.includes('/blob/main/docs/'))).toBe(true);
+  expect(hrefs.some((href) => href.includes('/actions'))).toBe(true);
 });
 
 test('published CV link resolves to a PDF', async ({ page, request }) => {

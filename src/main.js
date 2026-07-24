@@ -7,7 +7,6 @@ const nav = document.querySelector('.site-nav');
 const main = document.querySelector('main');
 const footer = document.querySelector('.site-footer');
 const progress = document.querySelector('.scroll-progress span');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const sectionLinks = [...(nav?.querySelectorAll('a[href^="#"]') ?? [])]
   .map((link) => ({ link, section: document.querySelector(link.hash) }))
   .filter(({ section }) => section);
@@ -142,21 +141,5 @@ fieldNodes.forEach((node) => {
   node.addEventListener('focus', () => activateFieldNode(node));
 });
 
-const revealItems = document.querySelectorAll('[data-reveal]');
-if (reduceMotion || !('IntersectionObserver' in window)) {
-  revealItems.forEach((item) => item.classList.add('is-visible'));
-} else {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -36px' });
-
-  revealItems.forEach((item) => observer.observe(item));
-}
-
 const year = new Date().getFullYear();
 document.querySelector('.site-footer p')?.setAttribute('title', `Portfolio updated ${year}`);
-window.clearTimeout(window.__revealFallback);
