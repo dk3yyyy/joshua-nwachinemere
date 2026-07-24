@@ -16,8 +16,9 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
   page.on('pageerror', (error) => errors.push(error.message));
 
   await page.goto('./');
-  await expect(page.locator('h1')).toContainText('around the model');
-  await expect(page.locator('#work .project')).toHaveCount(5);
+  await expect(page.locator('h1')).toContainText('Models answer.');
+  await expect(page.locator('h1')).toContainText('I engineer what happens next.');
+  await expect(page.locator('#work .case-study')).toHaveCount(5);
   await expect(page.locator('#contact')).toBeVisible();
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -28,6 +29,64 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
     path: new URL(`portfolio-${testInfo.project.name}.png`, output).pathname,
     fullPage: true,
   });
+});
+
+test('system field explains each engineering layer with keyboard-operable controls', async ({ page }) => {
+  await page.goto('./');
+  const field = page.locator('[data-system-field]');
+  const nodes = field.locator('[data-field-node]');
+  const detail = field.locator('[data-field-detail]');
+
+  await expect(field).toBeVisible();
+  await expect(nodes).toHaveCount(5);
+  await expect(nodes.first()).toHaveAttribute('aria-pressed', 'true');
+  const evaluate = field.getByRole('button', { name: /evaluate/i });
+  await evaluate.focus();
+  await page.keyboard.press('Enter');
+  await expect(evaluate).toHaveAttribute('aria-pressed', 'true');
+  await expect(detail).toContainText(/quality|latency|failure/i);
+});
+
+test('page holds its composition across phone, tablet, and laptop widths', async ({ page }) => {
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 390, height: 844 },
+    { width: 667, height: 900 },
+    { width: 768, height: 1024 },
+    { width: 1024, height: 768 },
+    { width: 1440, height: 1000 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./');
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('[data-system-field]')).toBeVisible();
+    const geometry = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      fieldRight: document.querySelector('[data-system-field]').getBoundingClientRect().right,
+    }));
+    expect(geometry.overflow, `${viewport.width}px page overflow`).toBeLessThanOrEqual(1);
+    expect(geometry.fieldRight, `${viewport.width}px system field clipping`).toBeLessThanOrEqual(viewport.width + 1);
+  }
+});
+
+test('reduced-motion preference removes reveal movement and leaves content visible', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('./');
+
+  const reveal = page.locator('[data-reveal]').first();
+  await expect(reveal).toBeVisible();
+  const motion = await reveal.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return {
+      opacity: styles.opacity,
+      transform: styles.transform,
+      transitionDuration: styles.transitionDuration,
+    };
+  });
+
+  expect(motion.opacity).toBe('1');
+  expect(motion.transform).toBe('none');
+  expect(parseFloat(motion.transitionDuration)).toBeLessThanOrEqual(0.001);
 });
 
 test('desktop hero explanation and primary action stay above the fold on laptop screens', async ({ page }, testInfo) => {
@@ -155,7 +214,7 @@ test('primary content stays visible without JavaScript', async ({ browser }) => 
   const page = await context.newPage();
   await page.goto(test.info().project.use.baseURL);
   await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
-  await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
+  await expect(page.locator('#work .case-study').first()).toHaveCSS('opacity', '1');
   await expect(page.locator('.nav-toggle')).toBeHidden();
   await expect(page.locator('.site-nav')).toBeVisible();
   await expect(page.locator('.site-nav a[href="#work"]')).toBeVisible();
@@ -166,7 +225,7 @@ test('reveal content fails open when the JavaScript bundle cannot load', async (
   await page.route('**/*.js', (route) => route.abort());
   await page.goto('./');
   await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
-  await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
+  await expect(page.locator('#work .case-study').first()).toHaveCSS('opacity', '1');
 });
 
 test('mobile project links meet touch-target guidance and page length stays focused', async ({ page }, testInfo) => {

@@ -14,6 +14,16 @@ test('page has one h1 and the expected primary sections', () => {
   }
 });
 
+test('landing page presents the inference field manual design contract', () => {
+  assert.match(html, /Models answer\./);
+  assert.match(html, /I engineer what happens next\./);
+  assert.match(html, /class="[^"]*system-field/);
+  assert.match(html, /data-system-field/);
+  assert.equal((html.match(/data-field-node/g) || []).length, 5);
+  assert.match(html, /aria-live="polite"/);
+  assert.equal((html.match(/class="[^"]*case-study/g) || []).length, 5);
+});
+
 test('production metadata permits indexing and exposes crawl discovery', () => {
   assert.doesNotMatch(html, /noindex|nofollow/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/"/);
@@ -69,7 +79,7 @@ test('strongest working project leads and forecasting experiment is archived las
     'Solana &amp; Ethereum Wallet Analyzer',
     'Football Predictor',
   ]);
-  assert.match(html, /project project-archive/);
+  assert.match(html, /case-study[^\n]*case-study-archive|case-study-archive[^\n]*case-study/);
   assert.match(html, /53\.77% accuracy versus a 56\.70% bookmaker benchmark/);
   assert.match(html, /https:\/\/github\.com\/dk3yyyy\/football_predictor/);
   assert.doesNotMatch(html, /football_predictor\/tree\/repair\/football-predictor-hardening/);

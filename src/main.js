@@ -6,7 +6,6 @@ const navLabel = navToggle?.querySelector('.sr-only');
 const nav = document.querySelector('.site-nav');
 const main = document.querySelector('main');
 const footer = document.querySelector('.site-footer');
-const signalBar = document.querySelector('.signal-bar');
 const progress = document.querySelector('.scroll-progress span');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const sectionLinks = [...(nav?.querySelectorAll('a[href^="#"]') ?? [])]
@@ -38,18 +37,14 @@ const openNav = () => {
 };
 
 const focusLinkTarget = (link) => {
-  const hash = link.hash;
-  if (!hash) return;
-
-  const target = document.querySelector(hash);
+  if (!link.hash) return;
+  const target = document.querySelector(link.hash);
   if (!target) return;
 
   const hadTabIndex = target.hasAttribute('tabindex');
   if (!hadTabIndex) target.setAttribute('tabindex', '-1');
   target.focus({ preventScroll: true });
-  if (!hadTabIndex) {
-    target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
-  }
+  if (!hadTabIndex) target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
 };
 
 navToggle?.addEventListener('click', () => {
@@ -81,7 +76,6 @@ window.addEventListener('keydown', (event) => {
   }
 
   if (event.key !== 'Tab') return;
-
   const focusTargets = [navToggle, ...nav.querySelectorAll('a')].filter(Boolean);
   const firstTarget = focusTargets[0];
   const lastTarget = focusTargets.at(-1);
@@ -98,7 +92,6 @@ window.addEventListener('keydown', (event) => {
 
 const updateActiveSection = () => {
   if (!sectionLinks.length) return;
-
   const activationLine = (header?.getBoundingClientRect().height ?? 0) + 32;
   const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
   let activeLink = null;
@@ -128,36 +121,39 @@ window.addEventListener('resize', updateActiveSection, { passive: true });
 window.addEventListener('hashchange', () => window.requestAnimationFrame(updateActiveSection));
 window.addEventListener('load', () => window.requestAnimationFrame(updateActiveSection));
 
-const updateSignalFocusability = () => {
-  if (!signalBar) return;
-  const scrollable = signalBar.scrollWidth > signalBar.clientWidth + 1;
-  if (scrollable) signalBar.setAttribute('tabindex', '0');
-  else signalBar.removeAttribute('tabindex');
-};
-
-updateSignalFocusability();
-window.addEventListener('resize', updateSignalFocusability, { passive: true });
-
 const mobileQuery = window.matchMedia('(max-width: 760px)');
 mobileQuery.addEventListener('change', (event) => {
   if (!event.matches) closeNav();
+});
+
+const systemField = document.querySelector('[data-system-field]');
+const fieldNodes = [...(systemField?.querySelectorAll('[data-field-node]') ?? [])];
+const fieldDetail = systemField?.querySelector('[data-field-detail]');
+const fieldStep = systemField?.querySelector('[data-field-step]');
+
+const activateFieldNode = (node) => {
+  fieldNodes.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === node)));
+  if (fieldDetail) fieldDetail.textContent = node.dataset.detail ?? '';
+  if (fieldStep) fieldStep.textContent = node.dataset.step ?? '';
+};
+
+fieldNodes.forEach((node) => {
+  node.addEventListener('click', () => activateFieldNode(node));
+  node.addEventListener('focus', () => activateFieldNode(node));
 });
 
 const revealItems = document.querySelectorAll('[data-reveal]');
 if (reduceMotion || !('IntersectionObserver' in window)) {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 } else {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -48px' },
-  );
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px' });
+
   revealItems.forEach((item) => observer.observe(item));
 }
 
