@@ -348,6 +348,16 @@ test('mobile keeps visual proof for flagship projects and compacts supporting wo
   expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_800);
 });
 
+test('mobile contact headline remains clear of decorative artwork', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Mobile layout contract');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./#contact');
+
+  await expect(page.locator('.contact-orbit')).toBeHidden();
+  await expect(page.locator('#contact-title')).toBeVisible();
+  await expect(page.locator('#contact-title')).toContainText('call the model');
+});
+
 test('Volyx Lens exposes more than a repository landing page', async ({ page }) => {
   await page.goto('./');
   const artifacts = page.locator('.lens-artifacts');

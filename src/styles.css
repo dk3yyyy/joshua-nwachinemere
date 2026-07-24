@@ -381,6 +381,7 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
   .capability-index { margin-top: 28px; }
   .capability-index div { padding-block: 12px; }
   .contact { min-height: 420px; padding-block: 32px; }
+  .contact-orbit { display: none; }
 }
 
 @media (max-width: 370px) {
