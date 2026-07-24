@@ -117,6 +117,34 @@ test('desktop hero explanation and primary action stay above the fold on laptop 
   }
 });
 
+test('desktop first fold pairs the manifesto with concrete engineering proof', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('./');
+
+  const proofItems = page.locator('.hero-proof-index > div');
+  await expect(proofItems).toHaveCount(4);
+  await expect(proofItems.first()).toContainText('Context');
+  await expect(proofItems.last()).toContainText('Evaluation');
+
+  const fold = await page.evaluate(() => {
+    const proof = document.querySelector('.hero-proof-index').getBoundingClientRect();
+    const fieldElement = document.querySelector('.system-field');
+    const field = fieldElement.getBoundingClientRect();
+    return {
+      proofTop: proof.top,
+      proofBottom: proof.bottom,
+      fieldTop: field.top,
+      fieldOpacity: getComputedStyle(fieldElement).opacity,
+    };
+  });
+
+  expect(fold.proofTop).toBeGreaterThanOrEqual(0);
+  expect(fold.proofBottom).toBeLessThanOrEqual(900);
+  expect(fold.fieldTop).toBeLessThan(900);
+  expect(fold.fieldOpacity).toBe('1');
+});
+
 test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('./');
@@ -149,6 +177,36 @@ test('mobile navigation traps keyboard focus and Escape restores the toggle', as
   await expect(toggle.locator('.sr-only')).toHaveText('Open navigation');
   await expect(page.locator('main')).not.toHaveAttribute('inert', '');
   await expect(toggle).toBeFocused();
+});
+
+test('mobile navigation remains a full viewport layer after the page has scrolled', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await page.locator('#contact').scrollIntoViewIfNeeded();
+  await expect(page.locator('.site-header')).toHaveClass(/is-scrolled/);
+
+  await page.getByRole('button', { name: 'Open navigation' }).click();
+
+  const layer = await page.evaluate(() => {
+    const nav = document.querySelector('.site-nav').getBoundingClientRect();
+    const links = [...document.querySelectorAll('.site-nav a')].map((link) => link.getBoundingClientRect());
+    return {
+      top: nav.top,
+      left: nav.left,
+      right: nav.right,
+      bottom: nav.bottom,
+      linksInsideLayer: links.every((link) => (
+        link.top >= nav.top && link.left >= nav.left && link.right <= nav.right && link.bottom <= nav.bottom
+      )),
+    };
+  });
+
+  expect(layer.top).toBeCloseTo(0, 0);
+  expect(layer.left).toBeCloseTo(0, 0);
+  expect(layer.right).toBeCloseTo(390, 0);
+  expect(layer.bottom).toBeCloseTo(844, 0);
+  expect(layer.linksInsideLayer).toBe(true);
 });
 
 test('mobile navigation link activation closes and focuses its destination', async ({ page }, testInfo) => {
