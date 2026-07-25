@@ -70,10 +70,16 @@ test('portfolio uses verified public links and preferred contact email', () => {
     'github.com/dk3yyyy/Noughtline',
     'github.com/dk3yyyy/VirusTotal-Telegram-Bot',
     'github.com/dk3yyyy/sol-eth-wallet-analyzer',
+    'chainscope-wallet-analyzer.onrender.com',
     'linkedin.com/in/joshua-nwachinemere',
     'volyxai.com',
   ]) assert.ok(html.includes(link), `Missing ${link}`);
   assert.ok(html.includes('josh0victor@outlook.com'));
+});
+
+test('wallet analyzer exposes separate verified live and source links', () => {
+  assert.match(html, /href="https:\/\/chainscope-wallet-analyzer\.onrender\.com"[^>]*>Live <span aria-hidden="true">↗<\/span><\/a>/);
+  assert.match(html, /href="https:\/\/github\.com\/dk3yyyy\/sol-eth-wallet-analyzer"[^>]*>Source <span aria-hidden="true">↗<\/span><\/a>/);
 });
 
 test('external links opened in new tabs are protected', () => {
