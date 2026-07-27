@@ -7,8 +7,19 @@ const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8'
 const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8').catch(() => '');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
+const telegramShareHtml = await readFile(new URL('../public/share-v3/index.html', import.meta.url), 'utf8');
 
 const socialCardUrl = 'https://dk3yyyy.github.io/joshua-portfolio/og-card-v3.png';
+const telegramShareUrl = 'https://dk3yyyy.github.io/joshua-portfolio/share-v3/';
+
+test('Telegram share path has a distinct cache identity and the approved card', () => {
+  assert.ok(telegramShareHtml.includes(`<link rel="canonical" href="${telegramShareUrl}"`));
+  assert.ok(telegramShareHtml.includes(`<meta property="og:url" content="${telegramShareUrl}"`));
+  assert.ok(telegramShareHtml.includes(`<meta property="og:image" content="${socialCardUrl}"`));
+  assert.ok(telegramShareHtml.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
+  assert.match(telegramShareHtml, /<meta name="robots" content="noindex,follow"/);
+  assert.match(telegramShareHtml, /window\.location\.replace\('\/joshua-portfolio\/'\)/);
+});
 
 test('social metadata uses a cache-busted large image card', async () => {
   const socialCard = await stat(new URL('../public/og-card-v3.png', import.meta.url));
