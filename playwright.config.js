@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const port = process.env.PORT || '4173';
-const baseURL = `http://127.0.0.1:${port}/joshua-portfolio/`;
+const baseURL = `http://127.0.0.1:${port}/joshua-nwachinemere/`;
 
 export default defineConfig({
   testDir: './tests/e2e',

@@ -9,8 +9,8 @@ const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url)
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const telegramShareHtml = await readFile(new URL('../public/share-v3/index.html', import.meta.url), 'utf8');
 
-const socialCardUrl = 'https://dk3yyyy.github.io/joshua-portfolio/og-card-v3.png';
-const telegramShareUrl = 'https://dk3yyyy.github.io/joshua-portfolio/share-v3/';
+const socialCardUrl = 'https://dk3yyyy.github.io/joshua-nwachinemere/og-card-v3.png';
+const telegramShareUrl = 'https://dk3yyyy.github.io/joshua-nwachinemere/share-v3/';
 
 test('Telegram share path has a distinct cache identity and the approved card', () => {
   assert.ok(telegramShareHtml.includes(`<link rel="canonical" href="${telegramShareUrl}"`));
@@ -18,7 +18,7 @@ test('Telegram share path has a distinct cache identity and the approved card', 
   assert.ok(telegramShareHtml.includes(`<meta property="og:image" content="${socialCardUrl}"`));
   assert.ok(telegramShareHtml.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
   assert.match(telegramShareHtml, /<meta name="robots" content="noindex,follow"/);
-  assert.match(telegramShareHtml, /window\.location\.replace\('\/joshua-portfolio\/'\)/);
+  assert.match(telegramShareHtml, /window\.location\.replace\('\/joshua-nwachinemere\/'\)/);
 });
 
 test('social metadata uses a cache-busted large image card', async () => {
@@ -27,7 +27,7 @@ test('social metadata uses a cache-busted large image card', async () => {
   assert.ok(html.includes(`<meta property="og:image" content="${socialCardUrl}"`));
   assert.ok(html.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
   assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere's portfolio homepage/);
-  assert.doesNotMatch(html, /content="https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/og-card\.png"/);
+  assert.doesNotMatch(html, /content="https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/og-card\.png"/);
 });
 
 test('favicon matches the split lime and cobalt JN identity', () => {
@@ -60,12 +60,12 @@ test('landing page presents the inference field manual design contract', () => {
 
 test('production metadata permits indexing and exposes crawl discovery', () => {
   assert.doesNotMatch(html, /noindex|nofollow/i);
-  assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/"/);
   assert.match(robots, /^User-agent: \*$/m);
   assert.match(robots, /^Allow: \/$/m);
   assert.doesNotMatch(robots, /^Disallow: \/$/m);
-  assert.match(robots, /^Sitemap: https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/sitemap\.xml$/m);
-  assert.match(sitemap, /<loc>https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/<\/loc>/);
+  assert.match(robots, /^Sitemap: https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/sitemap\.xml$/m);
+  assert.match(sitemap, /<loc>https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/<\/loc>/);
 });
 
 test('page publishes truthful ProfilePage and Person structured data', () => {
