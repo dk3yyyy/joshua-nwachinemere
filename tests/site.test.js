@@ -8,6 +8,17 @@ const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8').catch(() => '');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 
+const socialCardUrl = 'https://dk3yyyy.github.io/joshua-portfolio/og-card-v2.png';
+
+test('social metadata uses a cache-busted large image card', async () => {
+  const socialCard = await stat(new URL('../public/og-card-v2.png', import.meta.url));
+  assert.ok(socialCard.size > 1_000);
+  assert.ok(html.includes(`<meta property="og:image" content="${socialCardUrl}"`));
+  assert.ok(html.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
+  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer\./);
+  assert.doesNotMatch(html, /content="https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/og-card\.png"/);
+});
+
 test('favicon matches the split lime and cobalt JN identity', () => {
   assert.match(favicon, /#cfff48/i);
   assert.match(favicon, /#2448ff/i);
