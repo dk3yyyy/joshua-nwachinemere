@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f1f0e8" />
-    <meta name="description" content="Joshua Nwachinemere is an AI Engineer building Python systems for RAG, multimodal and voice AI, model integrations, backend services, and evaluation workflows." />
+    <meta name="description" content="Joshua Nwachinemere is an AI Engineer building Python systems for retrieval, context engineering, multimodal and voice AI, model integrations, backend services, and evaluation workflows." />
     <link rel="canonical" href="https://dk3yyyy.github.io/joshua-nwachinemere/" />
     <meta property="og:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta property="og:description" content="AI engineering with Python across RAG, multimodal and voice systems, model integration, backend services, and ML evaluation." />
+    <meta property="og:description" content="AI engineering with Python across retrieval, context engineering, multimodal and voice systems, model integration, backend services, and ML evaluation." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dk3yyyy.github.io/joshua-nwachinemere/" />
     <meta property="og:image" content="https://dk3yyyy.github.io/joshua-nwachinemere/og-card-v3.png" />
@@ -17,7 +17,7 @@
     <meta property="og:image:alt" content="Joshua Nwachinemere's portfolio homepage showing the headline: Models answer. I engineer what happens next." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta name="twitter:description" content="AI engineering with Python across RAG, multimodal and voice systems, model integration, backend services, and ML evaluation." />
+    <meta name="twitter:description" content="AI engineering with Python across retrieval, context engineering, multimodal and voice systems, model integration, backend services, and ML evaluation." />
     <meta name="twitter:image" content="https://dk3yyyy.github.io/joshua-nwachinemere/og-card-v3.png" />
     <meta name="twitter:image:alt" content="Joshua Nwachinemere's portfolio homepage showing the headline: Models answer. I engineer what happens next." />
     <link rel="icon" href="/joshua-nwachinemere/favicon.svg?v=2" type="image/svg+xml" />
@@ -40,7 +40,8 @@
             "jobTitle": "AI Engineer",
             "knowsAbout": [
               "Python",
-              "retrieval-augmented generation",
+              "retrieval",
+              "context engineering",
               "multimodal AI",
               "voice AI",
               "model integration",
@@ -57,8 +58,8 @@
     </script>
     <script>document.documentElement.classList.add('js');</script>
     <title>Joshua Nwachinemere · AI Engineer</title>
-    <script type="module" crossorigin src="/joshua-nwachinemere/assets/index-Cp5o5z9w.js"></script>
-    <link rel="stylesheet" crossorigin href="/joshua-nwachinemere/assets/index-CGV_6kmh.css">
+    <script type="module" crossorigin src="/joshua-nwachinemere/assets/index-DQWMRVt5.js"></script>
+    <link rel="stylesheet" crossorigin href="/joshua-nwachinemere/assets/index-6FK0NK0n.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -104,7 +105,7 @@
               <a href="#volyx-lens">View architecture and source <span aria-hidden="true">↓</span></a>
             </div>
             <div class="hero-brief">
-              <p class="hero-lede">I build Python systems for retrieval, multimodal input, model routing, backend reliability, and evaluation.</p>
+              <p class="hero-lede">I build Python systems for retrieval and context engineering, multimodal input, model routing, backend reliability, and evaluation.</p>
               <div class="hero-actions">
                 <a class="button button-primary" href="#work">View selected work <span aria-hidden="true">↓</span></a>
                 <a class="button button-ghost" href="/joshua-nwachinemere/Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">View CV <span aria-hidden="true">↗</span></a>
@@ -142,7 +143,7 @@
 
       <section class="role-rail" aria-label="Core engineering focus">
         <div><span>01</span><p>Python backends</p></div>
-        <div><span>02</span><p>RAG + context engineering</p></div>
+        <div><span>02</span><p>Retrieval + context engineering</p></div>
         <div><span>03</span><p>Multimodal + voice AI</p></div>
         <div><span>04</span><p>Evaluation before claims</p></div>
       </section>
@@ -252,26 +253,26 @@
           <h2 id="contributions-title">Merged upstream work</h2>
           <p class="section-intro">Focused fixes accepted into established open-source projects after maintainer review.</p>
         </div>
-        <div class="contribution-controls" aria-label="Browse merged contributions">
+        <div class="contribution-controls" id="contribution-controls" aria-label="Browse merged contributions">
           <p>Swipe or use the controls to view all three</p>
-          <span data-contribution-status aria-live="polite">Contribution 1 of 3</span>
-          <button type="button" data-contribution-prev aria-label="Previous contribution">←</button>
-          <button type="button" data-contribution-next aria-label="Next contribution">→</button>
+          <span id="contribution-status" data-contribution-status aria-live="polite" aria-atomic="true">Contribution 1 of 3</span>
+          <button type="button" data-contribution-prev aria-controls="contribution-rail" aria-label="Previous contribution">←</button>
+          <button type="button" data-contribution-next aria-controls="contribution-rail" aria-label="Next contribution">→</button>
         </div>
-        <div class="contribution-grid" id="contribution-rail" data-contribution-rail role="region" aria-label="Merged upstream contributions" tabindex="0">
-          <article class="contribution-card" data-reveal>
+        <div class="contribution-grid" id="contribution-rail" data-contribution-rail role="region" aria-roledescription="carousel" aria-label="Merged upstream contributions" aria-describedby="contribution-status" tabindex="0">
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="FastStream, contribution 1 of 3">
             <p class="contribution-meta"><span>FastStream</span><span>Merged into main · Jul 2026</span></p>
             <h3>FastAPI compatibility</h3>
             <p>Added support for FastAPI 0.140 compatibility after changes to its <code>Dependant</code> interface.</p>
             <a href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer">View merged PR #2961 <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="contribution-card" data-reveal>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="OpenAI Agents SDK, contribution 2 of 3">
             <p class="contribution-meta"><span>OpenAI Agents SDK</span><span>Merged into main · Jul 2026</span></p>
             <h3>Realtime retry handling</h3>
             <p>Fixed retry handling for pre-response WebSocket server errors in realtime sessions.</p>
             <a href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer">View merged PR #3991 <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="contribution-card" data-reveal>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="Calkit, contribution 3 of 3">
             <p class="contribution-meta"><span>Calkit</span><span>Merged into main · Jul 2026</span></p>
             <h3>Scoped project checks</h3>
             <p>Ensured single-item runs skip checks for unrelated subprojects.</p>
@@ -300,9 +301,9 @@
         <div class="about-copy" data-reveal>
           <p class="section-index">Engineer profile</p>
           <h2 id="about-title">What I build</h2>
-          <p class="about-lede">I build Python systems around language, vision, and speech models: provider integrations, RAG and context assembly, FastAPI services, async workflows, structured outputs, and evaluation.</p>
+          <p class="about-lede">I build Python systems around language, vision, and speech models: provider integrations, retrieval and context assembly, FastAPI services, async workflows, structured outputs, and evaluation.</p>
           <dl class="capability-index">
-            <div><dt>AI engineering</dt><dd>RAG · context engineering · multimodal · voice · structured outputs</dd></div>
+            <div><dt>AI engineering</dt><dd>retrieval · context engineering · multimodal · voice · structured outputs</dd></div>
             <div><dt>Models &amp; providers</dt><dd>Azure AI Foundry · OpenAI · Anthropic · Gemini · DeepSeek · Deepgram</dd></div>
             <div><dt>Languages</dt><dd>Python · SQL</dd></div>
             <div><dt>Backend &amp; evaluation</dt><dd>FastAPI · asyncio · REST · n8n · scikit-learn · XGBoost</dd></div>
