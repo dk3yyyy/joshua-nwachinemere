@@ -427,9 +427,21 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
 }
 
 @media (max-width: 600px) {
+  .brand-copy { font-size: 12px; }
+  .section-index { font-size: 12px; }
   .project-facts { grid-template-columns: 1fr; }
-  .project-facts div, .project-facts div:first-child, .project-facts div:last-child { padding: 7px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .project-facts div, .project-facts div:first-child, .project-facts div:last-child { padding: 6px 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .project-facts div:last-child { border-bottom: 0; }
+  .work-ledger { margin-top: 34px; }
+  .project-facts dt { font-size: 10px; }
+  .project-facts dd { font-size: 11px; line-height: 1.45; }
+  .evidence-list, .project-notes { font-size: 11px; line-height: 1.65; }
+  .lens-artifacts a { font-size: 10px; }
+  .project-footer .tags { font-size: 11px; }
+  .project-footer a { font-size: 12px; }
+  .project-signal { font-size: 10px !important; line-height: 1.45 !important; }
+  .capability-index dt { font-size: 12px; }
+  .capability-index dd { font-size: 11px; line-height: 1.65; }
 }
 
 @media (max-width: 370px) {

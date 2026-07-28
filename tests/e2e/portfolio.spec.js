@@ -381,6 +381,33 @@ test('mobile project links meet touch-target guidance and page length stays focu
   expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
 });
 
+test('mobile supporting typography remains comfortably readable', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  const minimumSizes = {
+    '.brand-copy': 12,
+    '.section-index': 12,
+    '.project-facts dt': 10,
+    '.project-facts dd': 11,
+    '.evidence-list': 11,
+    '.lens-artifacts a': 10,
+    '.project-footer .tags': 11,
+    '.project-footer a': 12,
+    '.project-signal': 10,
+    '.capability-index dt': 12,
+    '.capability-index dd': 11,
+  };
+
+  for (const [selector, minimum] of Object.entries(minimumSizes)) {
+    const locator = page.locator(selector).first();
+    await expect(locator).toBeVisible();
+    const size = await locator.evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+    expect(size, selector).toBeGreaterThanOrEqual(minimum);
+  }
+});
+
 test('mobile keeps visual proof for flagship projects and compacts supporting work', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.setViewportSize({ width: 390, height: 844 });
