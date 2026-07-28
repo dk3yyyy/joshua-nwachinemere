@@ -126,11 +126,38 @@ test('action labels name their destination consistently', () => {
   assert.doesNotMatch(html, />Inspect (?:the system|the evidence|source|repository)/);
 });
 
-test('VolyxAI and the downloadable CV frame independent work clearly', () => {
+test('generic capability copy leads with retrieval and context engineering, not standalone RAG', () => {
+  assert.match(html, /<meta name="description" content="[^"]*retrieval[^"]*context engineering/i);
+  assert.match(html, /<meta property="og:description" content="[^"]*retrieval[^"]*context engineering/i);
+  assert.match(html, /class="hero-lede">[^<]*retrieval[^<]*context engineering/i);
+  assert.match(html, /class="role-rail"[\s\S]*?retrieval[^<]*context engineering/i);
+  assert.match(html, /class="about-lede">[^<]*retrieval[^<]*context assembly/i);
+  assert.match(html, /<dt>AI engineering<\/dt><dd>retrieval[^<]*context engineering/i);
+  assert.doesNotMatch(html, /RAG \+ context engineering|RAG · context engineering/);
+});
+
+test('CV uses precise retrieval/context language and preserves VolyxAI date', () => {
+  assert.match(cvBuilder, /HEADLINE = "AI Engineer \| Python, Retrieval, Context Engineering, Multimodal AI & ML Evaluation"/);
+  assert.match(cvBuilder, /Work spans retrieval and\s+"\n\s+"context assembly/);
+  assert.doesNotMatch(cvBuilder, /\bRAG\b|retrieval-augmented generation/i);
+  assert.match(cvBuilder, /date": "Nov 2025 - Present"/);
+  assert.match(cvBuilder, /retrieval and context assembly/);
+});
+
+test('VolyxAI and Volyx Lens remain separate independent work', () => {
   assert.match(html, /independent product effort/i);
+  assert.match(html, /At VolyxAI, an independent product effort/);
+  const lensArticle = html.match(/<article class="case-study[\s\S]*?<h3>Volyx Lens<\/h3>[\s\S]*?<\/article>/)?.[0] ?? '';
+  const volyxMethod = html.match(/<div class="section approach-heading"[\s\S]*?<\/div>/)?.[0] ?? '';
+  assert.match(lensArticle, /<dd>Independent project<\/dd>/);
+  assert.doesNotMatch(lensArticle, /VolyxAI/i);
+  assert.doesNotMatch(volyxMethod, /Volyx Lens/i);
   assert.match(cvBuilder, /INDEPENDENT PRODUCT & ENGINEERING WORK/);
   assert.doesNotMatch(cvBuilder, /PROFESSIONAL EXPERIENCE/);
   assert.match(cvBuilder, /Independent product effort/);
+  assert.match(cvBuilder, /Volyx Lens \| Privacy-First Context-Aware AI Assistant/);
+  assert.doesNotMatch(cvBuilder.match(/\{\n\s+"name": "Volyx Lens[\s\S]*?\n\s+\},/)?.[0] ?? '', /VolyxAI/i);
+  assert.doesNotMatch(`${html}\n${cvBuilder}`, /\bNigeria\b|\bCAC\b/i);
 });
 
 test('production metadata permits indexing and exposes crawl discovery', () => {
@@ -205,7 +232,7 @@ test('public positioning is AI engineering with direct Python language without f
   assert.match(html, /ML Engineer/);
   assert.match(html, /Python/);
   assert.doesNotMatch(html, /Python-first/i);
-  assert.match(html, /RAG/);
+  assert.match(html, /retrieval/);
   assert.match(html, /multimodal/i);
   assert.match(html, /voice AI/i);
   assert.match(html, /ML evaluation/i);

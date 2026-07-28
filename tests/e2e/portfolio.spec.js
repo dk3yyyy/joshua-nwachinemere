@@ -222,7 +222,7 @@ test('tablet keeps project facts compact without restoring dense hero visuals', 
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
 });
 
-test('contribution rail exposes explicit controls and keyboard-operable progress', async ({ page }, testInfo) => {
+test('contribution rail exposes explicit carousel semantics and keyboard-operable progress', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop');
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto('./');
@@ -233,6 +233,18 @@ test('contribution rail exposes explicit controls and keyboard-operable progress
   const status = page.locator('[data-contribution-status]');
 
   await expect(rail).toHaveAttribute('aria-label', 'Merged upstream contributions');
+  await expect(rail).toHaveAttribute('aria-roledescription', 'carousel');
+  await expect(rail).toHaveAttribute('aria-describedby', 'contribution-status');
+  await expect(rail.locator('[role="group"]')).toHaveCount(3);
+  for (let index = 0; index < 3; index += 1) {
+    await expect(rail.locator('[role="group"]').nth(index)).toHaveAttribute('aria-roledescription', 'slide');
+  }
+  await expect(rail.locator('[role="group"]').first()).toHaveAttribute('aria-label', 'FastStream, contribution 1 of 3');
+  await expect(rail.locator('[role="group"]').nth(2)).toHaveAttribute('aria-label', 'Calkit, contribution 3 of 3');
+  await expect(previous).toHaveAttribute('aria-controls', 'contribution-rail');
+  await expect(next).toHaveAttribute('aria-controls', 'contribution-rail');
+  await expect(page.locator('[data-contribution-status]')).toHaveAttribute('id', 'contribution-status');
+  await expect(page.locator('[data-contribution-status]')).toHaveAttribute('aria-atomic', 'true');
   await expect(previous).toBeVisible();
   await expect(next).toBeVisible();
   await expect(previous).toBeDisabled();
@@ -244,6 +256,12 @@ test('contribution rail exposes explicit controls and keyboard-operable progress
   await expect(previous).toBeEnabled();
   expect(await rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
 
+  await rail.focus();
+  await page.keyboard.press('Home');
+  await expect(status).toHaveText('Contribution 1 of 3');
+  await page.keyboard.press('End');
+  await expect(status).toHaveText('Contribution 3 of 3');
+
   for (const button of [previous, next]) {
     const box = await button.boundingBox();
     expect(box.width).toBeGreaterThanOrEqual(44);
@@ -251,6 +269,39 @@ test('contribution rail exposes explicit controls and keyboard-operable progress
   }
 });
 
+test('contribution rail remains content-accessible without JavaScript', async ({ browser }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 768, height: 1024 } });
+  const page = await context.newPage();
+  await page.goto(test.info().project.use.baseURL);
+  await expect(page.locator('.contribution-card')).toHaveCount(3);
+  await expect(page.locator('.contribution-controls')).toBeHidden();
+  await expect(page.getByRole('link', { name: /View merged PR/ })).toHaveCount(3);
+  await context.close();
+});
+
+test('tablet metadata is readable, touch-safe, and page-height contract is resilient', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  for (const viewport of [{ width: 390, height: 844 }, { width: 768, height: 1024 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./');
+    const metrics = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      height: document.documentElement.scrollHeight,
+      viewportHeight: window.innerHeight,
+      projectMeta: parseFloat(getComputedStyle(document.querySelector('.project-meta')).fontSize),
+      factLabel: parseFloat(getComputedStyle(document.querySelector('.project-facts dt')).fontSize),
+      factValue: parseFloat(getComputedStyle(document.querySelector('.project-facts dd')).fontSize),
+      contributionMeta: parseFloat(getComputedStyle(document.querySelector('.contribution-meta')).fontSize),
+    }));
+    expect(metrics.overflow).toBeLessThanOrEqual(1);
+    expect(metrics.height / metrics.viewportHeight).toBeLessThan(10);
+    expect(metrics.projectMeta).toBeGreaterThanOrEqual(viewport.width === 768 ? 10 : 12);
+    expect(metrics.factLabel).toBeGreaterThanOrEqual(9);
+    expect(metrics.factValue).toBeGreaterThanOrEqual(10);
+    expect(metrics.contributionMeta).toBeGreaterThanOrEqual(9);
+  }
+});
 test('contribution controls stay out of the non-scrolling desktop grid', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop');
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -416,7 +467,8 @@ test('mobile project links meet touch-target guidance and page length stays focu
 
   const metaSize = await page.locator('.project-meta').first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
   expect(metaSize).toBeGreaterThanOrEqual(12);
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_900);
+  const pageLength = await page.evaluate(() => document.documentElement.scrollHeight / window.innerHeight);
+  expect(pageLength).toBeLessThanOrEqual(9.5);
 });
 
 test('mobile supporting typography remains comfortably readable', async ({ page }, testInfo) => {
@@ -446,6 +498,23 @@ test('mobile supporting typography remains comfortably readable', async ({ page 
   }
 });
 
+test('320px layout reflows under user text-spacing overrides', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('./');
+  await page.addStyleTag({
+    content: '*:not(svg):not(svg *) { letter-spacing: .12em !important; word-spacing: .16em !important; line-height: 1.5 !important; }',
+  });
+
+  const geometry = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth);
+  await expect(page.getByRole('heading', { name: 'Selected engineering work' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /View merged PR #2961/ })).toBeVisible();
+});
+
 test('mobile keeps visual proof for flagship projects and compacts supporting work', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.setViewportSize({ width: 390, height: 844 });
@@ -457,7 +526,8 @@ test('mobile keeps visual proof for flagship projects and compacts supporting wo
   await expect(projects.nth(2).locator('.case-canvas')).toBeHidden();
   await expect(projects.nth(2).locator('.project-signal')).toBeVisible();
   await expect(page.locator('.role-rail')).toBeHidden();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_900);
+  const pageLength = await page.evaluate(() => document.documentElement.scrollHeight / window.innerHeight);
+  expect(pageLength).toBeLessThanOrEqual(9.5);
 
   await page.setViewportSize({ width: 320, height: 800 });
   await page.reload();

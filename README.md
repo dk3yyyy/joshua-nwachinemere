@@ -1,6 +1,6 @@
 # Joshua Nwachinemere | Portfolio
 
-A fast, responsive portfolio for Joshua Nwachinemere, an AI Engineer building Python systems for RAG, multimodal and voice applications, model integrations, backend services, and ML evaluation workflows.
+A fast, responsive portfolio for Joshua Nwachinemere, an AI Engineer building Python systems for retrieval, context engineering, multimodal and voice applications, model integrations, backend services, and ML evaluation workflows.
 
 ## Run locally
 
@@ -16,6 +16,14 @@ npm run check
 ```
 
 The production files are generated in `dist/`.
+
+### Regenerate the CV artifacts
+
+```bash
+python scripts/build_cv.py
+```
+
+DOCX and PDF generation is byte-reproducible by default. Set `SOURCE_DATE_EPOCH` only when an intentional release timestamp is required; otherwise the generator uses the documented fixed source date encoded in `scripts/build_cv.py`.
 
 ## Content principles
 

@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import { resolvePreviewPort } from './scripts/preview-port.js';
 
-const port = process.env.PORT || '4173';
-const baseURL = `http://127.0.0.1:${port}/joshua-nwachinemere/`;
+const host = '127.0.0.1';
+const port = await resolvePreviewPort(process.env);
+const baseURL = `http://${host}:${port}/joshua-nwachinemere/`;
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -11,7 +13,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: `npm run preview -- --port ${port} --strictPort`,
+    command: `npm run preview -- --host ${host} --port ${port} --strictPort`,
     url: baseURL,
     reuseExistingServer: false,
   },

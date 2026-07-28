@@ -1,5 +1,15 @@
 import re
+import os
+import tempfile
+from datetime import datetime, timezone
+import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
+
+DEFAULT_SOURCE_DATE_EPOCH = 1785240000  # 2026-07-28 12:00:00 UTC
+BUILD_EPOCH = int(os.environ.get("SOURCE_DATE_EPOCH", DEFAULT_SOURCE_DATE_EPOCH))
+os.environ.setdefault("SOURCE_DATE_EPOCH", str(BUILD_EPOCH))
+ZIP_DATE_TIME = datetime.fromtimestamp(max(BUILD_EPOCH, 315532800), timezone.utc).timetuple()[:6]
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -7,12 +17,15 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.shared import Inches, Mm, Pt
+from reportlab import rl_config
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import Flowable, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate
+
+rl_config.invariant = 1
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -21,7 +34,7 @@ DOCX_PATH = PUBLIC / "Joshua_Nwachinemere_CV.docx"
 PDF_PATH = PUBLIC / "Joshua_Nwachinemere_CV.pdf"
 
 NAME = "JOSHUA NWACHINEMERE"
-HEADLINE = "AI Engineer | Python, RAG, Multimodal AI & ML Evaluation"
+HEADLINE = "AI Engineer | Python, Retrieval, Context Engineering, Multimodal AI & ML Evaluation"
 EMAIL = "josh0victor@outlook.com"
 PHONE = "+234 913 148 0096"
 
@@ -31,8 +44,8 @@ PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-nwachinemere"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
-    "AI Engineer building Python systems around language, vision, and speech models. Work spans RAG and "
-    "relevance-ranked retrieval, multimodal inputs, real-time transcription, model/API integration, FastAPI "
+    "AI Engineer building Python systems around language, vision, and speech models. Work spans retrieval and "
+    "context assembly, multimodal inputs, real-time transcription, model/API integration, FastAPI "
     "services, asynchronous workflows, and ML evaluation. Building VolyxAI "
     "with explicit data flow, validation, observability, and human control. Open to AI Engineer and ML Engineer opportunities."
 )
@@ -43,7 +56,7 @@ EXPERIENCE = [
         "org": "Independent product effort",
         "date": "Nov 2025 - Present",
         "bullets": [
-            "Developing applied AI systems that combine model and provider integration, RAG and context assembly, voice and multimodal workflows, and structured outputs.",
+            "Developing applied AI systems that combine model and provider integration, retrieval and context assembly, voice and multimodal workflows, and structured outputs.",
             "Building Python services and event-driven n8n workflows around external APIs, webhooks, validation, retries, logging, and human approval.",
             "Exploring provider routing, fallback, cost, latency, and privacy trade-offs across Azure AI Foundry, OpenAI-compatible APIs, and transcription providers.",
         ],
@@ -133,7 +146,7 @@ PROJECTS = [
 
 SKILLS = [
     "Languages: Python, SQL",
-    "AI Engineering: RAG, context engineering, multimodal inference, voice AI, structured outputs, provider routing, model evaluation",
+    "AI Engineering: retrieval, context engineering, multimodal inference, voice AI, structured outputs, provider routing, model evaluation",
     "Models & Providers: Azure AI Foundry, OpenAI, Anthropic, Gemini, DeepSeek, Deepgram",
     "ML & Data: scikit-learn, XGBoost, pandas, feature engineering, temporal evaluation",
     "Backend & Automation: FastAPI, asyncio, REST APIs, n8n, webhooks, SQLAlchemy",
@@ -168,6 +181,9 @@ def configure_docx() -> Document:
     doc.core_properties.title = "Joshua Nwachinemere CV"
     doc.core_properties.author = "Joshua Nwachinemere"
     doc.core_properties.subject = "AI Engineer CV"
+    created = modified = datetime.fromtimestamp(BUILD_EPOCH, timezone.utc)
+    doc.core_properties.created = created
+    doc.core_properties.modified = modified
     normal = doc.styles["Normal"]
     normal.font.name = "Arial"
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Arial")
@@ -176,7 +192,8 @@ def configure_docx() -> Document:
 
 
 def add_hyperlink(paragraph, text: str, url: str) -> None:
-    relationship_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
+    relationship_id = paragraph.part.rels._next_rId
+    paragraph.part.rels.add_relationship(RT.HYPERLINK, url, relationship_id, is_external=True)
     hyperlink = OxmlElement("w:hyperlink")
     hyperlink.set(qn("r:id"), relationship_id)
     run = OxmlElement("w:r")
@@ -222,7 +239,7 @@ def add_docx_contact(doc: Document) -> None:
 
 
 def add_docx_heading(doc: Document, text: str) -> None:
-    p = doc.add_paragraph()
+    p = doc.add_paragraph(style="Heading 1")
     p.paragraph_format.space_before = Pt(6)
     p.paragraph_format.space_after = Pt(2)
     r = p.add_run(text)
@@ -231,15 +248,68 @@ def add_docx_heading(doc: Document, text: str) -> None:
 
 
 def add_docx_bullets(doc: Document, bullets: list[str]) -> None:
+    numbering = doc.part.numbering_part.element
+    if not hasattr(doc, "_cv_bullet_num_id"):
+        abstract_ids = [int(x.get(qn("w:abstractNumId"))) for x in numbering.findall(qn("w:abstractNum"))]
+        num_ids = [int(x.get(qn("w:numId"))) for x in numbering.findall(qn("w:num"))]
+        abstract_id = max(abstract_ids, default=-1) + 1
+        num_id = max(num_ids, default=0) + 1
+        abstract = OxmlElement("w:abstractNum")
+        abstract.set(qn("w:abstractNumId"), str(abstract_id))
+        level = OxmlElement("w:lvl"); level.set(qn("w:ilvl"), "0")
+        fmt = OxmlElement("w:numFmt"); fmt.set(qn("w:val"), "bullet")
+        text = OxmlElement("w:lvlText"); text.set(qn("w:val"), "•")
+        level.extend([fmt, text]); abstract.append(level); numbering.append(abstract)
+        num = OxmlElement("w:num"); num.set(qn("w:numId"), str(num_id))
+        ref = OxmlElement("w:abstractNumId"); ref.set(qn("w:val"), str(abstract_id)); num.append(ref); numbering.append(num)
+        doc._cv_bullet_num_id = num_id
     for bullet in bullets:
         p = doc.add_paragraph()
         p.paragraph_format.left_indent = Inches(0.2)
         p.paragraph_format.first_line_indent = Inches(-0.12)
         p.paragraph_format.space_after = Pt(0)
-        add_text_with_links(p, f"- {bullet}")
+        num_pr = OxmlElement("w:numPr")
+        ilvl = OxmlElement("w:ilvl"); ilvl.set(qn("w:val"), "0")
+        num_id = OxmlElement("w:numId"); num_id.set(qn("w:val"), str(doc._cv_bullet_num_id))
+        num_pr.extend([ilvl, num_id]); p._p.get_or_add_pPr().append(num_pr)
+        add_text_with_links(p, bullet)
 
 
-def build_docx() -> None:
+def update_extended_properties(path: Path) -> None:
+    with zipfile.ZipFile(path) as source:
+        source_info = {info.filename: info for info in source.infolist()}
+        parts = {name: source.read(name) for name in source.namelist()}
+    root = ET.fromstring(parts["docProps/app.xml"])
+    ns = "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+    for tag in ("Pages", "Lines", "Characters", "CharactersWithSpaces"):
+        for node in root.findall(f"{{{ns}}}{tag}"):
+            root.remove(node)
+    document_root = ET.fromstring(parts["word/document.xml"])
+    paragraphs = len(document_root.findall(".//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p"))
+    words = sum(len((node.text or "").split()) for node in document_root.findall(".//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t"))
+    for tag, value in (("Paragraphs", paragraphs), ("Words", words)):
+        node = root.find(f"{{{ns}}}{tag}")
+        if node is None:
+            node = ET.SubElement(root, f"{{{ns}}}{tag}")
+        node.text = str(value)
+    parts["docProps/app.xml"] = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+    fd, temp = tempfile.mkstemp(suffix=".docx", dir=path.parent); os.close(fd)
+    try:
+        with zipfile.ZipFile(temp, "w", zipfile.ZIP_DEFLATED) as target:
+            for name, data in parts.items():
+                original = source_info[name]
+                info = zipfile.ZipInfo(name, ZIP_DATE_TIME)
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.create_system = original.create_system
+                info.external_attr = original.external_attr
+                info.internal_attr = original.internal_attr
+                target.writestr(info, data)
+        os.replace(temp, path)
+    finally:
+        if os.path.exists(temp): os.unlink(temp)
+
+
+def build_docx(output_path: Path = DOCX_PATH) -> None:
     doc = configure_docx()
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -319,7 +389,8 @@ def build_docx() -> None:
         p = doc.add_paragraph(line)
         p.paragraph_format.space_after = Pt(0)
 
-    doc.save(DOCX_PATH)
+    doc.save(output_path)
+    update_extended_properties(output_path)
 
 
 def pdf_styles():
@@ -369,7 +440,7 @@ def draw_later_page_header(canvas, document) -> None:
     canvas.restoreState()
 
 
-def build_pdf() -> None:
+def build_pdf(output_path: Path = PDF_PATH) -> None:
     styles = pdf_styles()
     contact_markup = (
         f'<link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
@@ -378,7 +449,7 @@ def build_pdf() -> None:
         f'<link href="{PORTFOLIO_URL}" color="#1155CC">dk3yyyy.github.io/joshua-nwachinemere</link>'
     )
     doc = SimpleDocTemplate(
-        str(PDF_PATH),
+        str(output_path),
         pagesize=A4,
         leftMargin=14 * mm,
         rightMargin=14 * mm,

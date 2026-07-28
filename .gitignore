@@ -3,6 +3,8 @@ dist/
 artifacts/
 test-results/
 playwright-report/
+__pycache__/
+*.py[cod]
 .DS_Store
 *.log
 .env

@@ -151,6 +151,9 @@ const contributionStatus = document.querySelector('[data-contribution-status]');
 const contributionPosition = (card) => card.offsetLeft - contributionCards[0].offsetLeft;
 const currentContributionIndex = () => {
   if (!contributionRail || !contributionCards.length) return 0;
+  const maximumScroll = Math.max(0, contributionRail.scrollWidth - contributionRail.clientWidth);
+  if (contributionRail.scrollLeft <= 1) return 0;
+  if (maximumScroll - contributionRail.scrollLeft <= 1) return contributionCards.length - 1;
   return contributionCards.reduce((nearest, card, index) => (
     Math.abs(contributionRail.scrollLeft - contributionPosition(card))
       < Math.abs(contributionRail.scrollLeft - contributionPosition(contributionCards[nearest]))
@@ -178,9 +181,10 @@ const showContribution = (index) => {
 contributionPrevious?.addEventListener('click', () => showContribution(currentContributionIndex() - 1));
 contributionNext?.addEventListener('click', () => showContribution(currentContributionIndex() + 1));
 contributionRail?.addEventListener('keydown', (event) => {
-  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Home' && event.key !== 'End') return;
   event.preventDefault();
-  showContribution(currentContributionIndex() + (event.key === 'ArrowRight' ? 1 : -1));
+  const target = event.key === 'Home' ? 0 : event.key === 'End' ? contributionCards.length - 1 : currentContributionIndex() + (event.key === 'ArrowRight' ? 1 : -1);
+  showContribution(target);
 });
 
 let contributionScrollFrame = 0;
