@@ -75,11 +75,18 @@ TRAINING = [
 
 OPEN_SOURCE_CONTRIBUTIONS = [
     {
+        "name": "FastStream | Merged PR #2961",
+        "stack": "Python, FastAPI compatibility, dependency injection, AsyncAPI, pytest | Jul 2026",
+        "bullets": [
+            "Restored FastAPI 0.140 compatibility by adapting FastStream's dependency layer to FastAPI's slotted Dependant model, preserving AsyncAPI metadata and adding nested-dependency regression coverage.",
+            "PR: https://github.com/ag2ai/faststream/pull/2961",
+        ],
+    },
+    {
         "name": "OpenAI Agents Python SDK | Merged PR #3991",
         "stack": "Python, WebSockets, retry policies, pytest | Jul 2026",
         "bullets": [
-            "Fixed pre-response WebSocket server-error frames bypassing the SDK retry policy while preserving overload and replay-safety boundaries.",
-            "Added regression coverage for retryable server errors and non-retryable overloaded responses.",
+            "Fixed pre-response WebSocket server-error frames bypassing the SDK retry policy, preserving overload and replay-safety boundaries with focused regression coverage.",
             "PR: https://github.com/openai/openai-agents-python/pull/3991",
         ],
     },
@@ -87,8 +94,7 @@ OPEN_SOURCE_CONTRIBUTIONS = [
         "name": "Calkit | Merged PR #1028",
         "stack": "Python, CLI workflow execution, pytest | Jul 2026",
         "bullets": [
-            "Fixed single-item workflow runs preparing unrelated subprojects and narrowed environment checks to the requested stage.",
-            "Added regression coverage for root-project and subproject execution paths.",
+            "Fixed single-item workflow runs preparing unrelated subprojects, narrowing checks to the requested stage with root-project and subproject regression coverage.",
             "PR: https://github.com/calkit/calkit/pull/1028",
         ],
     },
