@@ -31,7 +31,7 @@ PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-nwachinemere"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
-    "Python-first AI Engineer building systems around language, vision, and speech models. Work spans RAG and "
+    "AI Engineer building Python systems around language, vision, and speech models. Work spans RAG and "
     "relevance-ranked retrieval, multimodal inputs, real-time transcription, model/API integration, FastAPI "
     "services, asynchronous workflows, and ML evaluation. Building VolyxAI "
     "with explicit data flow, validation, observability, and human control. Open to AI Engineer and ML Engineer opportunities."

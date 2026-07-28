@@ -1,6 +1,6 @@
 # Joshua Nwachinemere | Portfolio
 
-A fast, responsive portfolio for Joshua Nwachinemere, a Python-first AI Engineer building RAG, multimodal and voice systems, model integrations, backend services, and ML evaluation workflows.
+A fast, responsive portfolio for Joshua Nwachinemere, an AI Engineer building Python systems for RAG, multimodal and voice applications, model integrations, backend services, and ML evaluation workflows.
 
 ## Run locally
 

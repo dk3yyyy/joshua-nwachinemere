@@ -125,10 +125,11 @@ test('strongest working project leads and forecasting experiment is archived las
   assert.doesNotMatch(html, /football_predictor\/tree\/repair\/football-predictor-hardening/);
 });
 
-test('public positioning is Python-first AI engineering without founder or relocation branding', () => {
+test('public positioning is AI engineering with direct Python language without founder or relocation branding', () => {
   assert.match(html, /AI Engineer/);
   assert.match(html, /ML Engineer/);
   assert.match(html, /Python/);
+  assert.doesNotMatch(html, /Python-first/i);
   assert.match(html, /RAG/);
   assert.match(html, /multimodal/i);
   assert.match(html, /voice AI/i);
