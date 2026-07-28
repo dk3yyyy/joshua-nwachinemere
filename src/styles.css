@@ -200,6 +200,7 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
 .eval-canvas p { position: absolute; left: 8%; bottom: 6%; z-index: 2; margin: 0; font: 900 clamp(1.2rem,2.5vw,2.5rem)/1 var(--sans); text-transform: uppercase; }
 
 .contributions { padding: 0 0 clamp(100px,14vw,190px); }
+.contribution-controls { display: none; }
 .contribution-grid { margin-top: clamp(50px,7vw,90px); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border: 2px solid var(--ink); }
 .contribution-card { min-width: 0; padding: clamp(24px,3vw,42px); display: flex; flex-direction: column; border-right: 2px solid var(--ink); background: var(--white); }
 .contribution-card:last-child { border-right: 0; }
@@ -284,9 +285,14 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
   .case-study { grid-template-columns: 54px 1fr; }
   .case-canvas { grid-column: 2; min-height: 400px; }
   .case-id p { display: none; }
-  .contribution-grid { grid-template-columns: 1fr; }
-  .contribution-card { min-height: 300px; border-right: 0; border-bottom: 2px solid var(--ink); }
-  .contribution-card:last-child { border-bottom: 0; }
+  .contribution-controls { margin-top: 38px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font: 700 9px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+  .contribution-controls p { margin: 0 auto 0 0; color: var(--muted); }
+  .contribution-controls [data-contribution-status] { min-width: 118px; text-align: right; }
+  .contribution-controls button { width: 44px; height: 44px; border: 2px solid var(--ink); background: var(--lime); color: var(--ink); font: 900 18px var(--sans); cursor: pointer; }
+  .contribution-controls button:hover:not(:disabled), .contribution-controls button:focus-visible { background: var(--blue); color: var(--white); }
+  .contribution-controls button:disabled { opacity: .38; cursor: not-allowed; }
+  .contribution-grid { margin-top: 16px; padding-bottom: 10px; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(76vw,390px); gap: 14px; overflow-x: auto; border: 0; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .contribution-card, .contribution-card:last-child { min-height: 300px; border: 2px solid var(--ink); scroll-snap-align: start; }
   .approach-heading { grid-template-columns: 1fr; }
   .approach-heading > p:last-child { grid-column: auto; max-width: 680px; }
   .operating-loop li { grid-template-columns: 54px 1fr; }
@@ -393,7 +399,7 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
   .source-screen { left: 4%; top: 10%; }.source-voice { left: 5%; top: 42%; }.source-meeting { left: 6%; bottom: 9%; }
   .lens-core { width: 92px; height: 92px; box-shadow: 6px 6px 0 var(--ink); }
   .lens-core strong { font-size: 11px; }.lens-output { right: 3%; padding: 7px; font-size: 7px; }
-  .case-study-supporting, .case-study-archive { padding-block: 22px; gap: 22px; }
+  .case-study-supporting, .case-study-archive { padding-block: 16px; gap: 20px; }
   .case-study-supporting .project-meta, .case-study-archive .project-meta { margin-bottom: 12px; }
   .case-study-supporting h3, .case-study-archive h3 { font-size: clamp(2.25rem, 11.5vw, 3.1rem); }
   .case-study-supporting .case-copy > p:not(.project-signal), .case-study-archive .case-copy > p:not(.project-signal) { margin-top: 14px; font-size: 13px; line-height: 1.55; }
@@ -406,23 +412,27 @@ h3 { margin: 0; font: 900 clamp(2.6rem,5vw,5.6rem)/.86 var(--sans); letter-spaci
   .case-study-featured .lens-artifacts { margin-top: 14px; }
   .lens-artifacts a { min-height: 44px; font-size: 9px; }
   .case-study-featured .project-footer, .case-study:nth-child(2) .project-footer { padding-top: 17px; }
-  .work { padding-block: 24px; }
-  .work-ledger { margin-top: 40px; }
-  .hero { padding-bottom: 42px; }
+  .work { padding-block: 18px; }
+  .work-ledger { margin-top: 24px; }
+  .case-study { padding-block: 16px; }
+  .case-study-supporting, .case-study-archive { padding-block: 14px; }
+  .hero { padding-bottom: 32px; }
   .role-rail div { min-height: 72px; }
   .field-canvas { height: 260px; }
-  .approach { padding-block: 36px; }
+  .contributions { padding-bottom: 39px; }
+  .contribution-card, .contribution-card:last-child { min-height: 240px; }
+  .approach { padding-block: 24px; }
   .approach-heading { gap: 20px; }
-  .operating-loop { margin-top: 32px; }
-  .operating-loop li { min-height: 84px; }
-  .approach-link { margin-top: 22px; }
-  .about { padding-block: 36px; }
-  .about-copy h2 { margin-top: 18px; }
-  .about-lede { margin-top: 24px; font-size: 1.12rem; line-height: 1.42; }
+  .operating-loop { margin-top: 24px; }
+  .operating-loop li { min-height: 68px; }
+  .approach-link { margin-top: 16px; }
+  .about { padding-block: 26px; }
+  .about-copy h2 { margin-top: 14px; }
+  .about-lede { margin-top: 18px; font-size: 1.12rem; line-height: 1.42; }
   .about-copy > p:not(.section-index):not(.about-lede) { margin-top: 16px; }
-  .capability-index { margin-top: 28px; }
-  .capability-index div { padding-block: 12px; }
-  .contact { min-height: 420px; padding-block: 32px; }
+  .capability-index { margin-top: 22px; }
+  .capability-index div { padding-block: 8px; }
+  .contact { min-height: 310px; padding-block: 18px; }
   .contact-orbit { display: none; }
 }
 

@@ -7,6 +7,7 @@ const nav = document.querySelector('.site-nav');
 const main = document.querySelector('main');
 const footer = document.querySelector('.site-footer');
 const progress = document.querySelector('.scroll-progress span');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const sectionLinks = [...(nav?.querySelectorAll('a[href^="#"]') ?? [])]
   .map((link) => ({ link, section: document.querySelector(link.hash) }))
   .filter(({ section }) => section);
@@ -140,6 +141,55 @@ fieldNodes.forEach((node) => {
   node.addEventListener('click', () => activateFieldNode(node));
   node.addEventListener('focus', () => activateFieldNode(node));
 });
+
+const contributionRail = document.querySelector('[data-contribution-rail]');
+const contributionCards = [...(contributionRail?.querySelectorAll('.contribution-card') ?? [])];
+const contributionPrevious = document.querySelector('[data-contribution-prev]');
+const contributionNext = document.querySelector('[data-contribution-next]');
+const contributionStatus = document.querySelector('[data-contribution-status]');
+
+const contributionPosition = (card) => card.offsetLeft - contributionCards[0].offsetLeft;
+const currentContributionIndex = () => {
+  if (!contributionRail || !contributionCards.length) return 0;
+  return contributionCards.reduce((nearest, card, index) => (
+    Math.abs(contributionRail.scrollLeft - contributionPosition(card))
+      < Math.abs(contributionRail.scrollLeft - contributionPosition(contributionCards[nearest]))
+      ? index
+      : nearest
+  ), 0);
+};
+
+const updateContributionControls = () => {
+  const index = currentContributionIndex();
+  if (contributionStatus) contributionStatus.textContent = `Contribution ${index + 1} of ${contributionCards.length}`;
+  if (contributionPrevious) contributionPrevious.disabled = index === 0;
+  if (contributionNext) contributionNext.disabled = index === contributionCards.length - 1;
+};
+
+const showContribution = (index) => {
+  if (!contributionRail || !contributionCards.length) return;
+  const boundedIndex = Math.max(0, Math.min(index, contributionCards.length - 1));
+  contributionRail.scrollTo({
+    left: contributionPosition(contributionCards[boundedIndex]),
+    behavior: reduceMotion.matches ? 'auto' : 'smooth',
+  });
+};
+
+contributionPrevious?.addEventListener('click', () => showContribution(currentContributionIndex() - 1));
+contributionNext?.addEventListener('click', () => showContribution(currentContributionIndex() + 1));
+contributionRail?.addEventListener('keydown', (event) => {
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+  event.preventDefault();
+  showContribution(currentContributionIndex() + (event.key === 'ArrowRight' ? 1 : -1));
+});
+
+let contributionScrollFrame = 0;
+contributionRail?.addEventListener('scroll', () => {
+  window.cancelAnimationFrame(contributionScrollFrame);
+  contributionScrollFrame = window.requestAnimationFrame(updateContributionControls);
+}, { passive: true });
+window.addEventListener('resize', updateContributionControls, { passive: true });
+updateContributionControls();
 
 const year = new Date().getFullYear();
 document.querySelector('.site-footer p')?.setAttribute('title', `Portfolio updated ${year}`);

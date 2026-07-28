@@ -4,6 +4,7 @@ import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
+const cvBuilder = await readFile(new URL('../scripts/build_cv.py', import.meta.url), 'utf8');
 const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8').catch(() => '');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
@@ -65,6 +66,13 @@ test('recruiter presentation favors plain labels and current evidence over edito
   assert.match(html, /<h2 id="about-title">What I build<\/h2>/);
 });
 
+test('hero exposes role fit and verified proof without requiring manifesto interpretation', () => {
+  assert.match(html, /class="hero-role"[\s\S]*?AI Engineer · Python systems/);
+  assert.match(html, /05 inspectable projects/);
+  assert.match(html, /03 merged upstream PRs/);
+  assert.match(html, /View selected work/);
+});
+
 test('all selected projects expose status ownership stack and evidence', () => {
   const projectArticles = [...html.matchAll(/<article class="case-study[\s\S]*?<\/article>/g)].map((match) => match[0]);
   assert.equal(projectArticles.length, 5);
@@ -77,6 +85,19 @@ test('all selected projects expose status ownership stack and evidence', () => {
   }
 });
 
+test('project maturity and outcome labels use one truthful vocabulary', () => {
+  for (const status of [
+    'Active pre-release',
+    'Public demo',
+    'Source available',
+    'Public prototype',
+    'Archived evaluation',
+  ]) assert.match(html, new RegExp(`<dt>Status<\\/dt><dd>${status}<\\/dd>`));
+  assert.doesNotMatch(html, /Engineering result:/);
+  assert.doesNotMatch(html, /signal over naive baselines/i);
+  assert.match(html, /ad-hoc signed test builds[^.]*not notarized/i);
+});
+
 test('merged upstream work links three verified pull requests and states engineering outcomes', () => {
   for (const href of [
     'https://github.com/ag2ai/faststream/pull/2961',
@@ -87,6 +108,29 @@ test('merged upstream work links three verified pull requests and states enginee
   assert.match(html, /FastAPI 0\.140 compatibility/);
   assert.match(html, /WebSocket server errors/);
   assert.match(html, /unrelated subprojects/);
+  assert.equal((html.match(/Merged into main · Jul 2026/g) || []).length, 3);
+  assert.match(html, /data-contribution-rail/);
+  assert.match(html, /aria-label="Previous contribution"/);
+  assert.match(html, /aria-label="Next contribution"/);
+});
+
+test('action labels name their destination consistently', () => {
+  for (const label of [
+    'View selected work',
+    'View architecture',
+    'View release checks',
+    'View source',
+    'Open demo',
+    'Email me about a role',
+  ]) assert.match(html, new RegExp(label));
+  assert.doesNotMatch(html, />Inspect (?:the system|the evidence|source|repository)/);
+});
+
+test('VolyxAI and the downloadable CV frame independent work clearly', () => {
+  assert.match(html, /independent product effort/i);
+  assert.match(cvBuilder, /INDEPENDENT PRODUCT & ENGINEERING WORK/);
+  assert.doesNotMatch(cvBuilder, /PROFESSIONAL EXPERIENCE/);
+  assert.match(cvBuilder, /Independent product effort/);
 });
 
 test('production metadata permits indexing and exposes crawl discovery', () => {
@@ -131,8 +175,8 @@ test('portfolio uses verified public links and preferred contact email', () => {
 });
 
 test('wallet analyzer exposes separate verified live and source links', () => {
-  assert.match(html, /href="https:\/\/chainscope-wallet-analyzer\.onrender\.com"[^>]*>Live <span aria-hidden="true">↗<\/span><\/a>/);
-  assert.match(html, /href="https:\/\/github\.com\/dk3yyyy\/sol-eth-wallet-analyzer"[^>]*>Source <span aria-hidden="true">↗<\/span><\/a>/);
+  assert.match(html, /href="https:\/\/chainscope-wallet-analyzer\.onrender\.com"[^>]*>Open demo <span aria-hidden="true">↗<\/span><\/a>/);
+  assert.match(html, /href="https:\/\/github\.com\/dk3yyyy\/sol-eth-wallet-analyzer"[^>]*>View source <span aria-hidden="true">↗<\/span><\/a>/);
 });
 
 test('external links opened in new tabs are protected', () => {
@@ -166,7 +210,7 @@ test('public positioning is AI engineering with direct Python language without f
   assert.match(html, /voice AI/i);
   assert.match(html, /ML evaluation/i);
   assert.match(html, /DeepSeek/);
-  assert.match(html, /building VolyxAI/i);
+  assert.match(html, /building(?: at)? VolyxAI/i);
   assert.doesNotMatch(html, /Ollama|\bfounder\b|Lagos|relocat/i);
   assert.doesNotMatch(html, /Languages<\/span><p>[^<]*(JavaScript|TypeScript)/i);
 });

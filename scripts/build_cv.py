@@ -39,8 +39,8 @@ SUMMARY = (
 
 EXPERIENCE = [
     {
-        "role": "AI Engineer (Building VolyxAI)",
-        "org": "VolyxAI",
+        "role": "AI Engineer · VolyxAI product work",
+        "org": "Independent product effort",
         "date": "Nov 2025 - Present",
         "bullets": [
             "Developing applied AI systems that combine model and provider integration, RAG and context assembly, voice and multimodal workflows, and structured outputs.",
@@ -50,8 +50,8 @@ EXPERIENCE = [
         "tools": "Python, FastAPI, n8n, REST APIs, webhooks, Azure AI Foundry, OpenAI-compatible APIs, PostgreSQL, Redis",
     },
     {
-        "role": "Independent AI, Backend & Automation Developer",
-        "org": "Self-Employed / Independent Projects",
+        "role": "AI, Backend & Automation Projects",
+        "org": "Independent engineering work",
         "date": "Jan 2021 - Present",
         "bullets": [
             "Built Python automation and backend utilities for data processing, Telegram bots, API integrations, and operational tooling.",
@@ -264,7 +264,7 @@ def build_docx() -> None:
     add_docx_heading(doc, "CORE SKILLS")
     add_docx_bullets(doc, SKILLS)
 
-    add_docx_heading(doc, "PROFESSIONAL EXPERIENCE")
+    add_docx_heading(doc, "INDEPENDENT PRODUCT & ENGINEERING WORK")
     for item in EXPERIENCE:
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(0)
@@ -395,7 +395,7 @@ def build_pdf() -> None:
         Paragraph(SUMMARY, styles["body"]),
         Paragraph("CORE SKILLS", styles["section"]),
         bullet_list(SKILLS, styles["body"]),
-        Paragraph("PROFESSIONAL EXPERIENCE", styles["section"]),
+        Paragraph("INDEPENDENT PRODUCT & ENGINEERING WORK", styles["section"]),
     ]
     for item in EXPERIENCE:
         story.append(Paragraph(f"{item['role']} | {item['date']}", styles["role"]))

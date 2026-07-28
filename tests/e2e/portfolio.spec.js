@@ -155,8 +155,8 @@ test('desktop first fold pairs the manifesto with concrete engineering proof', a
 
   const proofItems = page.locator('.hero-proof-index > div');
   await expect(proofItems).toHaveCount(4);
-  await expect(proofItems.first()).toContainText('Context');
-  await expect(proofItems.last()).toContainText('Evaluation');
+  await expect(proofItems.first()).toContainText('Role');
+  await expect(proofItems.nth(2)).toContainText('External review');
 
   const fold = await page.evaluate(() => {
     const proof = document.querySelector('.hero-proof-index').getBoundingClientRect();
@@ -220,6 +220,44 @@ test('tablet keeps project facts compact without restoring dense hero visuals', 
   ));
   expect(factColumns).toBe(3);
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
+test('contribution rail exposes explicit controls and keyboard-operable progress', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto('./');
+
+  const rail = page.locator('[data-contribution-rail]');
+  const previous = page.getByRole('button', { name: 'Previous contribution' });
+  const next = page.getByRole('button', { name: 'Next contribution' });
+  const status = page.locator('[data-contribution-status]');
+
+  await expect(rail).toHaveAttribute('aria-label', 'Merged upstream contributions');
+  await expect(previous).toBeVisible();
+  await expect(next).toBeVisible();
+  await expect(previous).toBeDisabled();
+  await expect(status).toHaveText('Contribution 1 of 3');
+
+  await next.focus();
+  await page.keyboard.press('Enter');
+  await expect(status).toHaveText('Contribution 2 of 3');
+  await expect(previous).toBeEnabled();
+  expect(await rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+
+  for (const button of [previous, next]) {
+    const box = await button.boundingBox();
+    expect(box.width).toBeGreaterThanOrEqual(44);
+    expect(box.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
+test('contribution controls stay out of the non-scrolling desktop grid', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('./');
+  await expect(page.locator('.contribution-controls')).toBeHidden();
+  const rail = page.locator('[data-contribution-rail]');
+  expect(await rail.evaluate((element) => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1);
 });
 
 test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
@@ -378,7 +416,7 @@ test('mobile project links meet touch-target guidance and page length stays focu
 
   const metaSize = await page.locator('.project-meta').first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
   expect(metaSize).toBeGreaterThanOrEqual(12);
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_900);
 });
 
 test('mobile supporting typography remains comfortably readable', async ({ page }, testInfo) => {
@@ -419,11 +457,11 @@ test('mobile keeps visual proof for flagship projects and compacts supporting wo
   await expect(projects.nth(2).locator('.case-canvas')).toBeHidden();
   await expect(projects.nth(2).locator('.project-signal')).toBeVisible();
   await expect(page.locator('.role-rail')).toBeHidden();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_900);
 
   await page.setViewportSize({ width: 320, height: 800 });
   await page.reload();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_100);
 });
 
 test('mobile contact headline remains clear of decorative artwork', async ({ page }, testInfo) => {
@@ -433,7 +471,7 @@ test('mobile contact headline remains clear of decorative artwork', async ({ pag
 
   await expect(page.locator('.contact-orbit')).toBeHidden();
   await expect(page.locator('#contact-title')).toBeVisible();
-  await expect(page.locator('#contact-title')).toContainText('call the model');
+  await expect(page.locator('#contact-title')).toContainText('Hiring an AI Engineer');
 });
 
 test('Volyx Lens exposes more than a repository landing page', async ({ page }) => {
