@@ -73,6 +73,27 @@ TRAINING = [
     }
 ]
 
+OPEN_SOURCE_CONTRIBUTIONS = [
+    {
+        "name": "OpenAI Agents Python SDK | Merged PR #3991",
+        "stack": "Python, WebSockets, retry policies, pytest | Jul 2026",
+        "bullets": [
+            "Fixed pre-response WebSocket server-error frames bypassing the SDK retry policy while preserving overload and replay-safety boundaries.",
+            "Added regression coverage for retryable server errors and non-retryable overloaded responses.",
+            "PR: https://github.com/openai/openai-agents-python/pull/3991",
+        ],
+    },
+    {
+        "name": "Calkit | Merged PR #1028",
+        "stack": "Python, CLI workflow execution, pytest | Jul 2026",
+        "bullets": [
+            "Fixed single-item workflow runs preparing unrelated subprojects and narrowed environment checks to the requested stage.",
+            "Added regression coverage for root-project and subproject execution paths.",
+            "PR: https://github.com/calkit/calkit/pull/1028",
+        ],
+    },
+]
+
 PROJECTS = [
     {
         "name": "Volyx Lens | Privacy-First Context-Aware AI Assistant",
@@ -100,22 +121,6 @@ PROJECTS = [
             "Built signed guest sessions, server-authoritative moves, reconnect and forfeit handling, transactional match settlement, and an append-only currency ledger.",
             "Added idempotent Paystack crediting plus automated API, economy, room-state, and two-client Socket.IO tests.",
             "Live: https://noughtline.onrender.com | Source: https://github.com/dk3yyyy/Noughtline",
-        ],
-    },
-    {
-        "name": "VirusTotal Telegram Bot | Security API Integration",
-        "stack": "Python, Pyrogram, aiohttp, VirusTotal API",
-        "bullets": [
-            "Built asynchronous file, URL, and hash scanning with local SHA-256 lookup, VirusTotal large-file upload handling, bounded retry backoff, and short-lived report caching.",
-            "Source: https://github.com/dk3yyyy/VirusTotal-Telegram-Bot",
-        ],
-    },
-    {
-        "name": "Solana & Ethereum Wallet Analyzer | Async API Aggregation",
-        "stack": "Python, aiohttp, Telegram Bot API, Solana RPC, Ethereum RPC, CoinGecko",
-        "bullets": [
-            "Built a read-only Telegram bot that validates wallet addresses, aggregates holdings and price data across Solana and Ethereum APIs, caches requests, and paginates token results.",
-            "Source: https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
         ],
     },
 ]
@@ -279,6 +284,17 @@ def build_docx() -> None:
         add_docx_bullets(doc, item["bullets"])
 
     doc.add_page_break()
+    add_docx_heading(doc, "OPEN-SOURCE CONTRIBUTIONS")
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(contribution["name"])
+        r.bold = True
+        p = doc.add_paragraph(contribution["stack"])
+        p.paragraph_format.space_after = Pt(0)
+        p.runs[0].italic = True
+        add_docx_bullets(doc, contribution["bullets"])
+
     add_docx_heading(doc, "SELECTED PROJECTS")
     for project in PROJECTS:
         p = doc.add_paragraph()
@@ -387,6 +403,12 @@ def build_pdf() -> None:
         story.append(bullet_list(item["bullets"], styles["body"]))
 
     story.append(PageBreak())
+    story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        story.append(Paragraph(contribution["name"], styles["role"]))
+        story.append(Paragraph(contribution["stack"], styles["org"]))
+        story.append(bullet_list(contribution["bullets"], styles["body"]))
+
     story.append(Paragraph("SELECTED PROJECTS", styles["section"]))
     for project in PROJECTS:
         story.append(Paragraph(project["name"], styles["role"]))
