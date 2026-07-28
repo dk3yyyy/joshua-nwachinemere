@@ -66,7 +66,7 @@
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="Joshua Nwachinemere, home">
         <span class="brand-mark" aria-hidden="true"><i>J</i><i>N</i></span>
-        <span class="brand-copy">Joshua Nwachinemere<small>AI engineer · Python first</small></span>
+        <span class="brand-copy">Joshua Nwachinemere<small>AI engineer · Python systems</small></span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span class="sr-only">Open navigation</span>
@@ -84,7 +84,6 @@
       <section class="hero section" id="top" aria-labelledby="hero-title">
         <div class="hero-kicker" data-reveal>
           <p><span class="status-dot"></span> Open to AI Engineer &amp; ML Engineer roles</p>
-          <span>Field manual / 2026</span>
         </div>
 
         <div class="hero-copy" data-reveal>
@@ -148,8 +147,8 @@
       <section class="work section" id="work" aria-labelledby="work-title">
         <div class="section-heading" data-reveal>
           <p class="section-index">Selected evidence / 05</p>
-          <h2 id="work-title">Not a wall of logos.<br /><em>Work you can inspect.</em></h2>
-          <p class="section-intro">Five builds showing context retrieval, model integration, async APIs, realtime state, and honest evaluation. Every claim has somewhere to go.</p>
+          <h2 id="work-title">Selected engineering work</h2>
+          <p class="section-intro">Five inspectable builds showing context retrieval, model integration, async APIs, realtime state, and honest evaluation.</p>
         </div>
 
         <div class="work-ledger">
@@ -158,7 +157,9 @@
             <div class="case-copy">
               <div class="project-meta"><span>Multimodal AI</span><span>Context engineering</span></div>
               <h3>Volyx Lens</h3>
+              <dl class="project-facts"><div><dt>Status</dt><dd>Active development</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Source · architecture · CI</dd></div></dl>
               <p>A privacy-oriented macOS assistant combining selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, transcription, and multiple AI providers. I hardened its context boundaries, provider routing, consent controls, tests, and release checks.</p>
+              <p class="project-outcome"><strong>Engineering result:</strong> context exposure is constrained by selected inputs, consent controls, and explicit provider boundaries.</p>
               <ul class="evidence-list"><li>Screen, speech, and meeting context</li><li>Ranked retrieval with explicit boundaries</li><li>Provider routing and consent controls</li></ul>
               <nav class="lens-artifacts" aria-label="Volyx Lens evidence trail">
                 <span>Inspectable trail</span>
@@ -181,7 +182,9 @@
             <div class="case-copy">
               <div class="project-meta"><span>Real-time systems</span><span>Backend engineering</span></div>
               <h3>Noughtline</h3>
+              <dl class="project-facts"><div><dt>Status</dt><dd>Live demo</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Live demo · tests · CI</dd></div></dl>
               <p>A React and Express multiplayer game with signed guest sessions, server-validated moves, reconnect handling, an append-only transaction ledger, and one-time crediting for verified Paystack references.</p>
+              <p class="project-outcome"><strong>Engineering result:</strong> moves are validated by the server and verified payment references can be credited only once.</p>
               <div class="project-footer"><span class="tags">React · Socket.IO · SQLite</span><span class="project-links"><a href="https://noughtline.onrender.com" target="_blank" rel="noreferrer">Live <span aria-hidden="true">↗</span></a><a href="https://github.com/dk3yyyy/Noughtline" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></span></div>
             </div>
             <div class="case-canvas state-canvas" aria-hidden="true">
@@ -195,7 +198,9 @@
             <div class="case-copy">
               <div class="project-meta"><span>Async API integration</span><span>Python</span></div>
               <h3>VirusTotal Telegram Bot</h3>
+              <dl class="project-facts"><div><dt>Status</dt><dd>Repository project</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Source · implementation</dd></div></dl>
               <p>An async Telegram bot for scanning files, URLs, and hashes through VirusTotal v3. It hashes locally before upload, follows the large-file upload flow, backs off on rate limits, and caches reports for interactive details.</p>
+              <p class="project-outcome"><strong>Engineering result:</strong> known hashes can be queried before upload, with rate-limit backoff and cached report details.</p>
               <p class="project-signal"><span>Flow</span> Hash locally → query → cache report</p>
               <div class="project-footer"><span class="tags">Pyrogram · aiohttp · VirusTotal API</span><a href="https://github.com/dk3yyyy/VirusTotal-Telegram-Bot" target="_blank" rel="noreferrer">Inspect source <span aria-hidden="true">↗</span></a></div>
             </div>
@@ -210,7 +215,9 @@
             <div class="case-copy">
               <div class="project-meta"><span>API aggregation prototype</span><span>Python</span></div>
               <h3>Solana &amp; Ethereum Wallet Analyzer</h3>
+              <dl class="project-facts"><div><dt>Status</dt><dd>Live prototype</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Live demo · tests · CI</dd></div></dl>
               <p>An async Telegram bot that validates Solana and Ethereum addresses, combines Solana and Ethereum RPC, CoinGecko, and DexScreener data, caches requests for five minutes, and paginates Solana token holdings in chat.</p>
+              <p class="project-outcome"><strong>Engineering result:</strong> validated multi-chain data is combined into one paginated view with five-minute request caching.</p>
               <p class="project-signal"><span>Flow</span> Validate → gather → merge → cache</p>
               <div class="project-footer"><span class="tags">aiohttp · Telegram Bot API · Web3 data</span><span class="project-links"><a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Live <span aria-hidden="true">↗</span></a><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></span></div>
             </div>
@@ -225,6 +232,7 @@
             <div class="case-copy">
               <div class="project-meta"><span>ML evaluation</span><span>Python</span></div>
               <h3>Football Predictor</h3>
+              <dl class="project-facts"><div><dt>Status</dt><dd>Archived experiment</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Evaluation report · tests · CI</dd></div></dl>
               <p>An archived forecasting experiment combining calibrated XGBoost and Poisson score probabilities. Its real-data evaluation demonstrated signal over naive baselines but not practical value over bookmaker probabilities.</p>
               <ul class="project-notes"><li>Rolling-origin evaluation across 1,140 Premier League test matches</li><li>53.77% accuracy versus a 56.70% bookmaker benchmark; not a betting product</li></ul>
               <p class="project-signal"><span>Conclusion</span> Evidence changed the product decision</p>
@@ -234,6 +242,34 @@
               <span class="eval-label label-model">model / 53.77</span><span class="eval-label label-benchmark">benchmark / 56.70</span>
               <div class="eval-grid"></div><div class="eval-line line-model"></div><div class="eval-line line-benchmark"></div><p>Evidence changed the conclusion.</p>
             </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contributions section" aria-labelledby="contributions-title">
+        <div class="section-heading" data-reveal>
+          <p class="section-index">External review / 03 merged</p>
+          <h2 id="contributions-title">Merged upstream work</h2>
+          <p class="section-intro">Focused fixes accepted into established open-source projects after maintainer review.</p>
+        </div>
+        <div class="contribution-grid">
+          <article class="contribution-card" data-reveal>
+            <p class="contribution-meta"><span>FastStream</span><span>Merged · Jul 2026</span></p>
+            <h3>FastAPI compatibility</h3>
+            <p>Added support for FastAPI 0.140 compatibility after changes to its <code>Dependant</code> interface.</p>
+            <a href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer">Inspect merged PR #2961 <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="contribution-card" data-reveal>
+            <p class="contribution-meta"><span>OpenAI Agents SDK</span><span>Merged · Jul 2026</span></p>
+            <h3>Realtime retry handling</h3>
+            <p>Fixed retry handling for pre-response WebSocket server errors in realtime sessions.</p>
+            <a href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer">Inspect merged PR #3991 <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="contribution-card" data-reveal>
+            <p class="contribution-meta"><span>Calkit</span><span>Merged · Jul 2026</span></p>
+            <h3>Scoped project checks</h3>
+            <p>Ensured single-item runs skip checks for unrelated subprojects.</p>
+            <a href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer">Inspect merged PR #1028 <span aria-hidden="true">↗</span></a>
           </article>
         </div>
       </section>
@@ -257,7 +293,7 @@
         <div class="about-mark" aria-hidden="true" data-reveal><span>J</span><span>N</span></div>
         <div class="about-copy" data-reveal>
           <p class="section-index">Engineer profile</p>
-          <h2 id="about-title">Past the prompt.<br /><em>Into the system.</em></h2>
+          <h2 id="about-title">What I build</h2>
           <p class="about-lede">I build Python-based systems around language, vision, and speech models: provider integrations, RAG and context assembly, FastAPI services, asynchronous workflows, structured outputs, and evaluation.</p>
           <p>I follow failures into APIs, webhooks, databases, queues, authentication, retries, and the edge cases between them. The work should be inspectable, operable, and honest about what the evidence supports.</p>
           <dl class="capability-index">

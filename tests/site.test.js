@@ -58,6 +58,37 @@ test('landing page presents the inference field manual design contract', () => {
   assert.equal((html.match(/class="[^"]*case-study/g) || []).length, 5);
 });
 
+test('recruiter presentation favors plain labels and current evidence over editorial framing', () => {
+  assert.doesNotMatch(html, /Field manual \/ 2026/i);
+  assert.match(html, /<h2 id="work-title">Selected engineering work<\/h2>/);
+  assert.match(html, /<h2 id="contributions-title">Merged upstream work<\/h2>/);
+  assert.match(html, /<h2 id="about-title">What I build<\/h2>/);
+});
+
+test('all selected projects expose status ownership stack and evidence', () => {
+  const projectArticles = [...html.matchAll(/<article class="case-study[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  assert.equal(projectArticles.length, 5);
+  for (const article of projectArticles) {
+    assert.match(article, /<dt>Status<\/dt>/);
+    assert.match(article, /<dt>Ownership<\/dt>/);
+    assert.match(article, /<dt>Evidence<\/dt>/);
+    assert.match(article, /class="tags"/);
+    assert.match(article, /href="https:\/\//);
+  }
+});
+
+test('merged upstream work links three verified pull requests and states engineering outcomes', () => {
+  for (const href of [
+    'https://github.com/ag2ai/faststream/pull/2961',
+    'https://github.com/openai/openai-agents-python/pull/3991',
+    'https://github.com/calkit/calkit/pull/1028',
+  ]) assert.ok(html.includes(href), `Missing ${href}`);
+  assert.equal((html.match(/class="contribution-card"/g) || []).length, 3);
+  assert.match(html, /FastAPI 0\.140 compatibility/);
+  assert.match(html, /WebSocket server errors/);
+  assert.match(html, /unrelated subprojects/);
+});
+
 test('production metadata permits indexing and exposes crawl discovery', () => {
   assert.doesNotMatch(html, /noindex|nofollow/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/"/);

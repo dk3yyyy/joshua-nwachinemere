@@ -31,7 +31,8 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
   });
 });
 
-test('system field explains each engineering layer with keyboard-operable controls', async ({ page }) => {
+test('system field explains each engineering layer with keyboard-operable controls', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile', 'The interactive field is intentionally omitted from the phone reading path');
   await page.goto('./');
   const field = page.locator('[data-system-field]');
   const nodes = field.locator('[data-field-node]');
@@ -59,7 +60,9 @@ test('page holds its composition across phone, tablet, and laptop widths', async
     await page.setViewportSize(viewport);
     await page.goto('./');
     await expect(page.locator('h1')).toBeVisible();
-    await expect(page.locator('[data-system-field]')).toBeVisible();
+    const field = page.locator('[data-system-field]');
+    if (viewport.width <= 860) await expect(field).toBeHidden();
+    else await expect(field).toBeVisible();
     const geometry = await page.evaluate(() => ({
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       fieldRight: document.querySelector('[data-system-field]').getBoundingClientRect().right,
@@ -67,6 +70,19 @@ test('page holds its composition across phone, tablet, and laptop widths', async
     expect(geometry.overflow, `${viewport.width}px page overflow`).toBeLessThanOrEqual(1);
     expect(geometry.fieldRight, `${viewport.width}px system field clipping`).toBeLessThanOrEqual(viewport.width + 1);
   }
+});
+
+test('responsive boundaries do not create multi-screen page-length cliffs', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  const heights = new Map();
+  for (const width of [600, 601, 860, 861]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('./');
+    heights.set(width, await page.evaluate(() => document.documentElement.scrollHeight));
+  }
+
+  expect(Math.abs(heights.get(601) - heights.get(600))).toBeLessThanOrEqual(1_800);
+  expect(Math.abs(heights.get(861) - heights.get(860))).toBeLessThanOrEqual(1_800);
 });
 
 test('reduced-motion preference removes reveal movement and leaves content visible', async ({ page }) => {
@@ -170,6 +186,40 @@ test('short laptop fold exposes a named inspectable project', async ({ page }, t
   await expect(proof.getByRole('link')).toBeVisible();
   const box = await proof.boundingBox();
   expect(box.y + box.height).toBeLessThanOrEqual(768);
+});
+
+test('mobile keeps the hero and project rhythm compact but readable', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  const heroSize = await page.locator('h1').evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+  expect(heroSize).toBeLessThanOrEqual(54);
+
+  const projectGaps = await page.locator('#work .case-study').evaluateAll((projects) => (
+    projects.map((project) => parseFloat(getComputedStyle(project).rowGap))
+  ));
+  expect(projectGaps).toHaveLength(5);
+  for (const gap of projectGaps) expect(gap).toBeGreaterThanOrEqual(20);
+
+  const factColumns = await page.locator('.project-facts').first().evaluate((element) => (
+    getComputedStyle(element).gridTemplateColumns.split(' ').length
+  ));
+  expect(factColumns).toBe(1);
+});
+
+test('tablet keeps project facts compact without restoring dense hero visuals', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.setViewportSize({ width: 768, height: 900 });
+  await page.goto('./');
+
+  await expect(page.locator('.system-field')).toBeHidden();
+  await expect(page.locator('.role-rail')).toBeHidden();
+  const factColumns = await page.locator('.project-facts').first().evaluate((element) => (
+    getComputedStyle(element).gridTemplateColumns.split(' ').length
+  ));
+  expect(factColumns).toBe(3);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
 });
 
 test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
@@ -328,7 +378,7 @@ test('mobile project links meet touch-target guidance and page length stays focu
 
   const metaSize = await page.locator('.project-meta').first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
   expect(metaSize).toBeGreaterThanOrEqual(12);
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_000);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
 });
 
 test('mobile keeps visual proof for flagship projects and compacts supporting work', async ({ page }, testInfo) => {
@@ -341,11 +391,12 @@ test('mobile keeps visual proof for flagship projects and compacts supporting wo
   await expect(projects.nth(1).locator('.case-canvas')).toBeVisible();
   await expect(projects.nth(2).locator('.case-canvas')).toBeHidden();
   await expect(projects.nth(2).locator('.project-signal')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_500);
+  await expect(page.locator('.role-rail')).toBeHidden();
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
 
   await page.setViewportSize({ width: 320, height: 800 });
   await page.reload();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(7_800);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_500);
 });
 
 test('mobile contact headline remains clear of decorative artwork', async ({ page }, testInfo) => {
