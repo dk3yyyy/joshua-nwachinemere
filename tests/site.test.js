@@ -7,8 +7,7 @@ const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url)
 const socialCard = await readFile(new URL('../public/og-card-v5.png', import.meta.url));
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const previewUrl = 'https://interview-dossier-preview.joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${previewUrl}og-card-v5.png`;
+const socialCardUrl = `${siteUrl}og-card-v5.png`;
 const projectNames = [
   'Volyx Lens',
   'Football Forecasting Lab',
@@ -191,11 +190,11 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes the approved landing-page social card for preview unfurls', () => {
+test('publishes production-aligned social metadata and the approved landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
-  assert.match(html, new RegExp(`<meta property="og:url" content="${previewUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.match(html, new RegExp(`<meta property="og:url" content="${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   assert.match(html, new RegExp(`<meta property="og:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   assert.match(html, new RegExp(`<meta property="og:image:secure_url" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   assert.match(html, /<meta property="og:image:type" content="image\/png"/);
