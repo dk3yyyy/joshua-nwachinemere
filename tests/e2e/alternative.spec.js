@@ -110,7 +110,7 @@ test('320px enhanced text spacing preserves content and controls', async ({ page
     await expect(heading).toBeVisible();
   }
   await expect(page.getByRole('link', { name: /FastStream.*PR #2961/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Email Joshua' })).toBeVisible();
+  await expect(page.getByLabel('Should we talk?').getByRole('link', { name: '(EMAIL JOSHUA ↗️)' })).toBeVisible();
 });
 
 test('responsive dossier is intentionally composed across phone, tablet, and short laptop', async ({ page }) => {
@@ -159,7 +159,7 @@ test('responsive dossier is intentionally composed across phone, tablet, and sho
   }
 });
 
-test('restrained palette and focus treatment remain legible', async ({ page }) => {
+test('restrained palette, hidden email, and focus treatment remain legible', async ({ page }) => {
   captureRuntime(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -167,13 +167,13 @@ test('restrained palette and focus treatment remain legible', async ({ page }) =
     const root = getComputedStyle(document.documentElement);
     const sectionBackgrounds = [...document.querySelectorAll('.interview-question')]
       .map((node) => getComputedStyle(node).backgroundColor);
-    const ornament = getComputedStyle(document.querySelector('.cover-main'), '::after');
     return {
       paper: root.getPropertyValue('--paper').trim(),
       ink: root.getPropertyValue('--ink').trim(),
       signal: root.getPropertyValue('--signal').trim(),
       sectionBackgrounds: [...new Set(sectionBackgrounds)],
-      ornamentDisplay: ornament.display,
+      beforeContent: getComputedStyle(document.querySelector('.cover-main'), '::before').content,
+      afterContent: getComputedStyle(document.querySelector('.cover-main'), '::after').content,
     };
   });
   expect(palette).toEqual({
@@ -181,8 +181,12 @@ test('restrained palette and focus treatment remain legible', async ({ page }) =
     ink: '#18202b',
     signal: '#a53a2c',
     sectionBackgrounds: ['rgb(244, 241, 233)', 'rgba(24, 32, 43, 0.024)'],
-    ornamentDisplay: 'none',
+    beforeContent: 'none',
+    afterContent: 'none',
   });
+
+  await expect(page.getByRole('link', { name: '(EMAIL JOSHUA ↗️)' })).toHaveCount(2);
+  await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
 
   const selected = page.getByRole('tab', { name: /Volyx Lens/ });
   await selected.focus();

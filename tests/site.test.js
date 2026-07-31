@@ -49,7 +49,9 @@ test('first screen exposes role fit, truthful proof, CV, and contact', () => {
   assert.match(html, /8 merged upstream PRs/);
   assert.match(html, /Open to AI Engineer &amp; ML Engineer roles/);
   assert.match(html, /%BASE_URL%Joshua_Nwachinemere_CV\.pdf/);
-  assert.match(html, /josh0victor@outlook\.com/);
+  assert.equal((html.match(/mailto:josh0victor@outlook\.com/g) || []).length, 2);
+  assert.equal((html.match(/\(EMAIL JOSHUA ↗️\)/g) || []).length, 2);
+  assert.doesNotMatch(html, />\s*josh0victor@outlook\.com/i);
 });
 
 test('project dossier uses accessible tabs with all five truthful projects present', () => {
@@ -98,6 +100,7 @@ test('responsive, focus, and reduced-motion contracts are explicit', () => {
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(css, /:focus-visible/);
   assert.match(css, /min-height:\s*44px/);
+  assert.doesNotMatch(css, /\.cover-main::(?:before|after)/);
 });
 
 test('metadata remains production-safe while branch preview indexing is provider-controlled', () => {
