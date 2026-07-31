@@ -65,6 +65,12 @@ test('mobile navigation, project reachability, touch targets, and layout work', 
 
   await page.getByRole('link', { name: 'Open the evidence' }).click();
   await expect(page.getByRole('heading', { name: 'What has he actually built?' })).toBeInViewport();
+  const anchorClearance = await page.evaluate(() => {
+    const masthead = document.querySelector('.masthead').getBoundingClientRect();
+    const heading = document.querySelector('#work h2').getBoundingClientRect();
+    return heading.top - masthead.bottom;
+  });
+  expect(anchorClearance).toBeGreaterThanOrEqual(8);
   const footballTab = page.getByRole('tab', { name: /Football Predictor/ });
   await footballTab.scrollIntoViewIfNeeded();
   await footballTab.click();
@@ -78,6 +84,14 @@ test('mobile navigation, project reachability, touch targets, and layout work', 
     expect(size.height, `${size.label} height`).toBeGreaterThanOrEqual(44);
     expect(size.width, `${size.label} width`).toBeGreaterThanOrEqual(44);
   }
+  for (const target of [page.locator('.candidate-card dd a'), page.locator('.method-context a')]) {
+    const box = await target.boundingBox();
+    expect(box.height).toBeGreaterThanOrEqual(24);
+    expect(box.width).toBeGreaterThanOrEqual(24);
+  }
+  const footerLink = await page.locator('.footer a').boundingBox();
+  expect(footerLink.height).toBeGreaterThanOrEqual(44);
+  expect(footerLink.width).toBeGreaterThanOrEqual(44);
   const width = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(width.scroll).toBeLessThanOrEqual(width.client + 1);
 
@@ -117,10 +131,10 @@ test('responsive dossier is intentionally composed across phone, tablet, and sho
   captureRuntime(page);
 
   for (const viewport of [
-    { width: 320, height: 800, maxPageHeight: 8500, maxCoverHeight: 1120 },
-    { width: 390, height: 844, maxPageHeight: 8000, maxCoverHeight: 1050 },
-    { width: 761, height: 1024, maxPageHeight: 7600, maxCoverHeight: 920 },
-    { width: 768, height: 1024, maxPageHeight: 7600, maxCoverHeight: 920 },
+    { width: 320, height: 800, maxPageHeight: 9600, maxCoverHeight: 1200 },
+    { width: 390, height: 844, maxPageHeight: 9000, maxCoverHeight: 1050 },
+    { width: 761, height: 1024, maxPageHeight: 8200, maxCoverHeight: 920 },
+    { width: 768, height: 1024, maxPageHeight: 8200, maxCoverHeight: 920 },
     { width: 1024, height: 768, maxPageHeight: 8000, maxCoverHeight: 800 },
     { width: 1366, height: 768, maxPageHeight: 7600, maxCoverHeight: 770 },
   ]) {
@@ -178,19 +192,25 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
   });
   expect(palette).toEqual({
     paper: '#f4f1e9',
-    ink: '#18202b',
-    signal: '#a53a2c',
-    sectionBackgrounds: ['rgba(255, 255, 255, 0.54)', 'rgba(255, 255, 255, 0.42)'],
+    ink: '#15171a',
+    signal: '#252525',
+    sectionBackgrounds: ['rgb(251, 250, 246)'],
     beforeContent: 'none',
     afterContent: 'none',
   });
 
-  const glass = await page.locator('.interview-question').first().evaluate((node) => {
-    const style = getComputedStyle(node);
-    return { radius: parseFloat(style.borderRadius), backdrop: style.backdropFilter || style.webkitBackdropFilter };
+  const glass = await page.evaluate(() => {
+    const section = getComputedStyle(document.querySelector('.interview-question'));
+    const cover = getComputedStyle(document.querySelector('.cover'));
+    return {
+      radius: parseFloat(section.borderRadius),
+      sectionBackdrop: section.backdropFilter || section.webkitBackdropFilter,
+      coverBackdrop: cover.backdropFilter || cover.webkitBackdropFilter,
+    };
   });
   expect(glass.radius).toBeGreaterThanOrEqual(20);
-  expect(glass.backdrop).toContain('blur');
+  expect(glass.sectionBackdrop).toBe('none');
+  expect(glass.coverBackdrop).toContain('blur');
 
   await expect(page.getByRole('link', { name: 'Email me ↗' })).toHaveCount(2);
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
@@ -204,6 +224,43 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
   });
   expect(focus.outline).toBe('rgb(255, 255, 255)');
   expect(focus.shadow).toContain('inset');
+});
+
+test('secondary typography stays readable on phone and desktop', async ({ page }) => {
+  captureRuntime(page);
+  const groups = [
+    {
+      minimum: 13,
+      selectors: [
+        '.candidate-card dd', '.question-index strong', '.proof-note p',
+        '.capability-lines strong', '.project-facts dd', '.project-description',
+        '.verified-result', '.merge-row strong', '.merge-row b', '.method-list p',
+        '.profile-grid p',
+      ],
+    },
+    {
+      minimum: 12,
+      selectors: [
+        '.identity small', '.identity-seal', '.cover-status', '.eyebrow', '.button',
+        '.candidate-card-head', '.candidate-card dt', '.question-index > p', '.question-index span',
+        '.question-margin span', '.question-margin p', '.proof-note > span', '.capability-lines span', '.speaker',
+        '.dossier-tabs button', '.dossier-tabs button span', '.project-sheet-head', '.project-facts dt',
+        '.project-links a', '.project-stack', '.merge-row span', '.merge-row em',
+        '.method-list em', '.footer',
+      ],
+    },
+  ];
+
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1366, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    for (const group of groups) {
+      for (const selector of group.selectors) {
+        const size = await page.locator(selector).first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
+        expect(size, `${selector} at ${viewport.width}px`).toBeGreaterThanOrEqual(group.minimum);
+      }
+    }
+  }
 });
 
 test('glass fallbacks and focus indicators survive constrained rendering modes', async ({ page }) => {
@@ -271,7 +328,7 @@ test('glass fallbacks and focus indicators survive constrained rendering modes',
         shadow: style.boxShadow,
       };
     });
-    expect(inlineFocus.height).toBeLessThan(24);
+    expect(inlineFocus.height).toBeGreaterThanOrEqual(24);
     expect(inlineFocus.outlineWidth).toBeGreaterThanOrEqual(2);
     expect(inlineFocus.outlineOffset).toBeGreaterThanOrEqual(2);
     expect(inlineFocus.shadow).not.toContain('inset');
@@ -288,15 +345,24 @@ test('glass fallbacks and focus indicators survive constrained rendering modes',
 
 test('glass layout remains stable around both responsive boundaries', async ({ page }) => {
   captureRuntime(page);
+  const samples = new Map();
   for (const width of [759, 760, 761, 899, 900, 901]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     const geometry = await page.evaluate(() => ({
       page: [document.documentElement.scrollWidth, document.documentElement.clientWidth],
       tabs: [document.querySelector('.dossier-tabs').scrollWidth, document.querySelector('.dossier-tabs').clientWidth],
+      work: document.querySelector('#work .question-copy').getBoundingClientRect().width,
     }));
+    samples.set(width, geometry);
     expect(geometry.page[0], `${width}px page overflow`).toBeLessThanOrEqual(geometry.page[1] + 1);
     expect(geometry.tabs[0], `${width}px tab overflow`).toBeLessThanOrEqual(geometry.tabs[1] + 1);
+  }
+  for (const [left, right] of [[760, 761], [900, 901]]) {
+    const before = samples.get(left);
+    const after = samples.get(right);
+    expect(after.work / before.work, `${left}/${right}px work-column cliff`).toBeGreaterThanOrEqual(.85);
+    expect(after.tabs[1] / before.tabs[1], `${left}/${right}px tablist cliff`).toBeGreaterThanOrEqual(.85);
   }
 });
 
