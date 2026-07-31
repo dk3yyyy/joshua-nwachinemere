@@ -31,6 +31,8 @@ EXPECTED_CREDENTIALS = [
     ("Google AI Specialization | Google/Coursera | February 2026", "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30"),
     ("Model Context Protocol: Advanced Topics | Anthropic training | March 2026", "https://verify.skilljar.com/c/fwqra86yief7"),
 ]
+EXPECTED_EMAIL = "joshua0nwachinemere@gmail.com"
+RETIRED_EMAIL = "josh0victor@outlook.com"
 
 
 def xml_part(name):
@@ -43,6 +45,29 @@ def doc_text(root):
 
 
 class CvArtifactTests(unittest.TestCase):
+    def test_contact_email_is_current_and_clickable_in_both_artifacts(self):
+        root = xml_part("word/document.xml")
+        docx_text = doc_text(root)
+        with zipfile.ZipFile(DOCX) as archive:
+            rels = archive.read("word/_rels/document.xml.rels").decode()
+        self.assertIn(EXPECTED_EMAIL, docx_text)
+        self.assertNotIn(RETIRED_EMAIL, docx_text)
+        self.assertIn(f"mailto:{EXPECTED_EMAIL}", rels)
+        self.assertNotIn(RETIRED_EMAIL, rels)
+
+        reader = PdfReader(str(PDF))
+        pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        pdf_uris = []
+        for page in reader.pages:
+            for annotation in page.get("/Annots", []):
+                action = annotation.get_object().get("/A")
+                if action and action.get("/URI"):
+                    pdf_uris.append(str(action.get("/URI")))
+        self.assertIn(EXPECTED_EMAIL, pdf_text)
+        self.assertNotIn(RETIRED_EMAIL, pdf_text)
+        self.assertIn(f"mailto:{EXPECTED_EMAIL}", pdf_uris)
+        self.assertFalse(any(RETIRED_EMAIL in uri for uri in pdf_uris))
+
     def test_major_sections_use_heading_one_outline_semantics(self):
         root = xml_part("word/document.xml")
         found = {}

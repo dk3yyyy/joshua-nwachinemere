@@ -46,7 +46,9 @@ const pullRequestUrls = [
   'https://github.com/faststream-community/faststream_fastapi/pull/2',
   'https://github.com/calkit/calkit/pull/1028',
 ];
-const mailto = 'mailto:josh0victor@outlook.com?subject=AI%20Engineer%20opportunity';
+const contactEmail = 'joshua0nwachinemere@gmail.com';
+const retiredEmail = 'josh0victor@outlook.com';
+const mailto = `mailto:${contactEmail}?subject=AI%20Engineer%20opportunity`;
 
 const occurrences = (source, value) => source.split(value).length - 1;
 const textOnly = html
@@ -181,7 +183,8 @@ test('preserves private functional email, base-safe CV, canonical, and structure
     assert.equal(label.trim(), 'Email me');
   }
   assert.equal(occurrences(textOnly, 'Email me'), emailLinks.length);
-  assert.doesNotMatch(html.replaceAll(mailto, ''), /josh0victor@outlook\.com/i);
+  assert.doesNotMatch(html.replaceAll(mailto, ''), new RegExp(contactEmail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.doesNotMatch(html, new RegExp(retiredEmail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
   assert.doesNotMatch(html, /aria-label="[^"]*@|content="[^"]*@/i);
   assert.match(html, /href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf"/);
   assert.match(html, new RegExp(`<link rel="canonical" href="${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));

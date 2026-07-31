@@ -30,7 +30,7 @@ DOCX and PDF generation is byte-reproducible by default. Set `SOURCE_DATE_EPOCH`
 - Project claims are based on Joshua's original public repositories.
 - The site avoids unsupported customer, scale, and performance claims.
 - The visual identity is face-free and uses a terminal/workflow motif.
-- Contact: `josh0victor@outlook.com`
+- Contact: `joshua0nwachinemere@gmail.com`
 
 ## Deployment
 
