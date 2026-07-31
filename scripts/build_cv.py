@@ -40,7 +40,7 @@ PHONE = "+234 913 148 0096"
 
 GITHUB_URL = "https://github.com/dk3yyyy"
 LINKEDIN_URL = "https://www.linkedin.com/in/joshua-nwachinemere"
-PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-nwachinemere"
+PORTFOLIO_URL = "https://joshua-nwachinemere.pages.dev"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
@@ -235,7 +235,7 @@ def add_docx_contact(doc: Document) -> None:
     second.add_run(" | ")
     add_hyperlink(second, "linkedin.com/in/joshua-nwachinemere", LINKEDIN_URL)
     second.add_run(" | ")
-    add_hyperlink(second, "dk3yyyy.github.io/joshua-nwachinemere", PORTFOLIO_URL)
+    add_hyperlink(second, "joshua-nwachinemere.pages.dev", PORTFOLIO_URL)
 
 
 def add_docx_heading(doc: Document, text: str) -> None:
@@ -446,7 +446,7 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
         f'<link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
         f'<link href="{GITHUB_URL}" color="#1155CC">github.com/dk3yyyy</link> | '
         f'<link href="{LINKEDIN_URL}" color="#1155CC">linkedin.com/in/joshua-nwachinemere</link> | '
-        f'<link href="{PORTFOLIO_URL}" color="#1155CC">dk3yyyy.github.io/joshua-nwachinemere</link>'
+        f'<link href="{PORTFOLIO_URL}" color="#1155CC">joshua-nwachinemere.pages.dev</link>'
     )
     doc = SimpleDocTemplate(
         str(output_path),

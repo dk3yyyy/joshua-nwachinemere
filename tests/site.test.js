@@ -10,23 +10,44 @@ const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url)
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const telegramShareHtml = await readFile(new URL('../public/share-v3/index.html', import.meta.url), 'utf8');
 
-const socialCardUrl = 'https://dk3yyyy.github.io/joshua-nwachinemere/og-card-v3.png';
-const telegramShareUrl = 'https://dk3yyyy.github.io/joshua-nwachinemere/share-v3/';
+const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
+const socialCardUrl = `${siteUrl}og-card-v4.png`;
+const telegramShareUrl = `${siteUrl}share-v3/`;
+const legacySitePattern = /https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/?/;
 
 test('Telegram share path has a distinct cache identity and the approved card', () => {
   assert.ok(telegramShareHtml.includes(`<link rel="canonical" href="${telegramShareUrl}"`));
   assert.ok(telegramShareHtml.includes(`<meta property="og:url" content="${telegramShareUrl}"`));
   assert.ok(telegramShareHtml.includes(`<meta property="og:image" content="${socialCardUrl}"`));
+  assert.ok(telegramShareHtml.includes(`<meta property="og:image:secure_url" content="${socialCardUrl}"`));
   assert.ok(telegramShareHtml.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
   assert.match(telegramShareHtml, /<meta name="robots" content="noindex,follow"/);
-  assert.match(telegramShareHtml, /window\.location\.replace\('\/joshua-nwachinemere\/'\)/);
+  assert.match(telegramShareHtml, /window\.location\.replace\('\/'\)/);
 });
 
-test('social metadata uses a cache-busted large image card', async () => {
-  const socialCard = await stat(new URL('../public/og-card-v3.png', import.meta.url));
+test('production identity consistently uses the Cloudflare portfolio URL', () => {
+  assert.ok(html.includes(`<link rel="canonical" href="${siteUrl}"`));
+  assert.ok(html.includes(`<meta property="og:url" content="${siteUrl}"`));
+  assert.ok(robots.includes(`Sitemap: ${siteUrl}sitemap.xml`));
+  assert.ok(sitemap.includes(`<loc>${siteUrl}</loc>`));
+  for (const source of [html, telegramShareHtml, robots, sitemap, cvBuilder]) {
+    assert.doesNotMatch(source, legacySitePattern);
+  }
+});
+
+test('social metadata uses a cache-busted 1200 by 630 image card', async () => {
+  const socialCardPath = new URL('../public/og-card-v4.png', import.meta.url);
+  const socialCard = await stat(socialCardPath);
+  const png = await readFile(socialCardPath);
   assert.ok(socialCard.size > 1_000);
+  assert.equal(png.subarray(1, 4).toString(), 'PNG');
+  assert.equal(png.readUInt32BE(16), 1200);
+  assert.equal(png.readUInt32BE(20), 630);
   assert.ok(html.includes(`<meta property="og:image" content="${socialCardUrl}"`));
+  assert.ok(html.includes(`<meta property="og:image:secure_url" content="${socialCardUrl}"`));
+  assert.ok(html.includes('<meta property="og:site_name" content="Joshua Nwachinemere · AI Engineer"'));
   assert.ok(html.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
+  assert.ok(html.includes(`<link rel="image_src" href="${socialCardUrl}"`));
   assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere's portfolio homepage/);
   assert.doesNotMatch(html, /content="https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/og-card\.png"/);
 });
@@ -162,12 +183,12 @@ test('VolyxAI and Volyx Lens remain separate independent work', () => {
 
 test('production metadata permits indexing and exposes crawl discovery', () => {
   assert.doesNotMatch(html, /noindex|nofollow/i);
-  assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/"/);
+  assert.ok(html.includes(`<link rel="canonical" href="${siteUrl}"`));
   assert.match(robots, /^User-agent: \*$/m);
   assert.match(robots, /^Allow: \/$/m);
   assert.doesNotMatch(robots, /^Disallow: \/$/m);
-  assert.match(robots, /^Sitemap: https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/sitemap\.xml$/m);
-  assert.match(sitemap, /<loc>https:\/\/dk3yyyy\.github\.io\/joshua-nwachinemere\/<\/loc>/);
+  assert.ok(robots.includes(`Sitemap: ${siteUrl}sitemap.xml`));
+  assert.ok(sitemap.includes(`<loc>${siteUrl}</loc>`));
 });
 
 test('page publishes truthful ProfilePage and Person structured data', () => {
