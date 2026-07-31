@@ -110,7 +110,7 @@ test('320px enhanced text spacing preserves content and controls', async ({ page
     await expect(heading).toBeVisible();
   }
   await expect(page.getByRole('link', { name: /FastStream.*PR #2961/ })).toBeVisible();
-  await expect(page.getByLabel('Should we talk?').getByRole('link', { name: '(EMAIL JOSHUA ↗️)' })).toBeVisible();
+  await expect(page.getByLabel('Should we talk?').getByRole('link', { name: 'Email me ↗' })).toBeVisible();
 });
 
 test('responsive dossier is intentionally composed across phone, tablet, and short laptop', async ({ page }) => {
@@ -185,7 +185,7 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
     afterContent: 'none',
   });
 
-  await expect(page.getByRole('link', { name: '(EMAIL JOSHUA ↗️)' })).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'Email me ↗' })).toHaveCount(2);
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
 
   const selected = page.getByRole('tab', { name: /Volyx Lens/ });

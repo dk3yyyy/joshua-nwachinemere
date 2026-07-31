@@ -50,7 +50,7 @@ test('first screen exposes role fit, truthful proof, CV, and contact', () => {
   assert.match(html, /Open to AI Engineer &amp; ML Engineer roles/);
   assert.match(html, /%BASE_URL%Joshua_Nwachinemere_CV\.pdf/);
   assert.equal((html.match(/mailto:josh0victor@outlook\.com/g) || []).length, 2);
-  assert.equal((html.match(/\(EMAIL JOSHUA ↗️\)/g) || []).length, 2);
+  assert.equal((html.match(/>Email me ↗<\/a>/g) || []).length, 2);
   assert.doesNotMatch(html, />\s*josh0victor@outlook\.com/i);
 });
 
