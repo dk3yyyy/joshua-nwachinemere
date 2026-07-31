@@ -108,8 +108,12 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await expect(page.locator('.contribution-row')).toHaveCount(8);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
   await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
+  await expect(page.locator('body')).not.toContainText('joshua0nwachinemere@gmail.com');
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
-  await expect(page.getByRole('link', { name: 'Email me', exact: true })).toHaveAttribute('href', /^mailto:/);
+  await expect(page.getByRole('link', { name: 'Email me', exact: true })).toHaveAttribute(
+    'href',
+    'mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity',
+  );
 
   const palette = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);

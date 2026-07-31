@@ -37,7 +37,7 @@ PDF_PATH = PUBLIC / "Joshua_Nwachinemere_CV.pdf"
 
 NAME = "JOSHUA NWACHINEMERE"
 HEADLINE = "AI Engineer | Python, Retrieval, Context Engineering, Multimodal AI & ML Evaluation"
-EMAIL = "josh0victor@outlook.com"
+EMAIL = "joshua0nwachinemere@gmail.com"
 PHONE = "+234 913 148 0096"
 
 GITHUB_URL = "https://github.com/dk3yyyy"
