@@ -76,7 +76,10 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>applied AI<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. The work below includes source, tests, architecture and measured limitations.'));
   assert.ok(textOnly.includes('5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked'));
-  assert.ok(textOnly.includes('UK-focused · Planning to relocate in August 2026 for an MSc in Artificial Intelligence at Northumbria University · Interested in part-time AI engineering work during study, subject to Student visa conditions, and future full-time graduate roles.'));
+  assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));
+  assert.ok(!textOnly.includes('Planning to relocate'));
+  assert.ok(!textOnly.includes('Student visa conditions'));
+  assert.ok(textOnly.includes('MSc Artificial Intelligence · Northumbria University · September 2026 intake'));
   assert.match(html, />View selected work<\/a>/);
   assert.match(html, />Download CV ↗<\/a>/);
 });
@@ -123,7 +126,8 @@ test('includes the approved approach, background, contact, and footer copy', () 
   assert.ok(textOnly.includes('VolyxAI product work'));
   assert.ok(textOnly.includes('Independent product effort'));
   assert.ok(textOnly.includes('I’m interested in AI Engineer and Applied AI Engineer roles involving Python services, retrieval and context systems, multimodal or voice workflows, evaluation and reliability.'));
-  assert.ok(textOnly.includes('Open to part-time work during study, subject to Student visa conditions, and future full-time graduate roles.'));
+  assert.ok(!textOnly.includes('Open to part-time work during study'));
+  assert.ok(!textOnly.includes('future full-time graduate roles'));
   assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));
   assert.ok(textOnly.includes('AI Engineer · Python and applied AI'));
   assert.ok(textOnly.includes('Back to top ↑'));
