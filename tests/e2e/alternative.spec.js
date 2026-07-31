@@ -180,10 +180,17 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
     paper: '#f4f1e9',
     ink: '#18202b',
     signal: '#a53a2c',
-    sectionBackgrounds: ['rgb(244, 241, 233)', 'rgba(24, 32, 43, 0.024)'],
+    sectionBackgrounds: ['rgba(255, 255, 255, 0.54)', 'rgba(255, 255, 255, 0.42)'],
     beforeContent: 'none',
     afterContent: 'none',
   });
+
+  const glass = await page.locator('.interview-question').first().evaluate((node) => {
+    const style = getComputedStyle(node);
+    return { radius: parseFloat(style.borderRadius), backdrop: style.backdropFilter || style.webkitBackdropFilter };
+  });
+  expect(glass.radius).toBeGreaterThanOrEqual(20);
+  expect(glass.backdrop).toContain('blur');
 
   await expect(page.getByRole('link', { name: 'Email me ↗' })).toHaveCount(2);
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
