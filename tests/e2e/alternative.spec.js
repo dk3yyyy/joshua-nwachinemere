@@ -254,7 +254,31 @@ test('glass fallbacks and focus indicators survive constrained rendering modes',
     expect(focusStyle.shadow).not.toBe('none');
   }
 
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  for (const inlineLink of [
+    page.locator('.candidate-card dd a'),
+    page.locator('.footer a'),
+  ]) {
+    await inlineLink.focus();
+    const inlineFocus = await inlineLink.evaluate((node) => {
+      const style = getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      return {
+        height: rect.height,
+        outlineWidth: parseFloat(style.outlineWidth),
+        outlineOffset: parseFloat(style.outlineOffset),
+        shadow: style.boxShadow,
+      };
+    });
+    expect(inlineFocus.height).toBeLessThan(24);
+    expect(inlineFocus.outlineWidth).toBeGreaterThanOrEqual(2);
+    expect(inlineFocus.outlineOffset).toBeGreaterThanOrEqual(2);
+    expect(inlineFocus.shadow).not.toContain('inset');
+  }
+
   await page.emulateMedia({ forcedColors: 'active' });
+  await page.setViewportSize({ width: 1366, height: 768 });
   await page.reload();
   const forcedFocus = page.getByRole('link', { name: 'Contact' });
   await forcedFocus.focus();
