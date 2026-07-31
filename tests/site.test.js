@@ -121,6 +121,15 @@ test('keeps all five repository URLs and all eight contribution rows visible', (
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
 });
 
+test('keeps project actions focused on demos, source, and explanatory evidence', () => {
+  assert.doesNotMatch(html, /href="[^"]*\/actions(?:[/?#][^"]*)?"/i);
+  assert.doesNotMatch(textOnly, /View CI|View release checks/i);
+  assert.match(textOnly, /Open live demo/);
+  assert.match(textOnly, /View source/);
+  assert.match(textOnly, /Read architecture/);
+  assert.match(textOnly, /Read evaluation report/);
+});
+
 test('includes the approved approach, background, contact, and footer copy', () => {
   for (const heading of ['Engineering approach', 'Background', 'Interested in working together?']) {
     assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
