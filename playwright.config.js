@@ -3,7 +3,7 @@ import { resolvePreviewPort } from './scripts/preview-port.js';
 
 const host = '127.0.0.1';
 const port = await resolvePreviewPort(process.env);
-const baseURL = `http://${host}:${port}/joshua-nwachinemere/`;
+const baseURL = `http://${host}:${port}/`;
 
 export default defineConfig({
   testDir: './tests/e2e',
