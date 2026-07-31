@@ -3,18 +3,38 @@ import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
-const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
-const js = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
-const cvBuilder = await readFile(new URL('../scripts/build_cv.py', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const links = [
+const projectNames = [
+  'Volyx Lens',
+  'Football Forecasting Lab',
+  'Telegram Social Video Downloader',
+  'ChainScope Wallet Analyzer',
+  'Telegram User Counter',
+];
+const projectIds = [
+  'project-lens',
+  'project-football',
+  'project-downloader',
+  'project-wallet',
+  'project-user-count',
+];
+const maturityLabels = [
+  'Active pre-release',
+  'Experimental evaluation',
+  'Reference implementation',
+  'Public prototype',
+  'Repository-only',
+];
+const repositoryUrls = [
   'https://github.com/dk3yyyy/volyx-lens',
   'https://github.com/dk3yyyy/football_predictor',
   'https://github.com/dk3yyyy/telegram-social-video-downloader',
   'https://github.com/dk3yyyy/sol-eth-wallet-analyzer',
   'https://github.com/dk3yyyy/user_count',
+];
+const pullRequestUrls = [
   'https://github.com/openai/openai-agents-python/pull/3991',
   'https://github.com/pydantic/pydantic-ai-harness/pull/503',
   'https://github.com/generative-computing/mellea/pull/1471',
@@ -24,106 +44,126 @@ const links = [
   'https://github.com/faststream-community/faststream_fastapi/pull/2',
   'https://github.com/calkit/calkit/pull/1028',
 ];
+const mailto = 'mailto:josh0victor@outlook.com?subject=AI%20Engineer%20opportunity';
 
-test('alternative is a pre-answered interview, not a reskin of the system-field site', () => {
-  assert.match(html, /The pre-answered technical interview/i);
-  assert.match(html, /Choose your first question/i);
-  assert.ok((html.match(/data-interview-link/g) || []).length >= 4);
-  assert.doesNotMatch(html, /system-field|field-node|role-rail|contribution-rail/);
-  assert.doesNotMatch(css, /node-context|field-route-active|role-rail-track/);
-});
+const occurrences = (source, value) => source.split(value).length - 1;
+const textOnly = html
+  .replace(/<script[\s\S]*?<\/script>/gi, '')
+  .replace(/<style[\s\S]*?<\/style>/gi, '')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
 
-test('page has one h1 and a question-answer-verification information architecture', () => {
+test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
-  for (const id of ['proof', 'work', 'contributions', 'method', 'profile', 'contact']) {
-    assert.match(html, new RegExp(`id="${id}"`));
+  assert.match(html, /<a class="skip-link" href="#main">Skip to main content<\/a>/);
+  assert.match(html, /<main id="main">/);
+  for (const id of ['top', 'work', ...projectIds, 'contributions', 'approach', 'background', 'contact']) {
+    assert.equal(occurrences(html, `id="${id}"`), 1, `Expected one #${id}`);
   }
-  assert.equal((html.match(/class="interview-question/g) || []).length, 5);
-  assert.ok((html.match(/class="proof-note/g) || []).length >= 5);
-});
-
-test('first screen exposes role fit, truthful proof, CV, and contact', () => {
-  assert.match(html, /AI Engineer/);
-  assert.match(html, /Python systems/);
-  assert.match(html, /5 inspectable projects/);
-  assert.match(html, /8 merged upstream PRs/);
-  assert.match(html, /Open to AI Engineer &amp; ML Engineer roles/);
-  assert.match(html, /%BASE_URL%Joshua_Nwachinemere_CV\.pdf/);
-  assert.equal((html.match(/mailto:josh0victor@outlook\.com/g) || []).length, 2);
-  assert.equal((html.match(/>Email me ↗<\/a>/g) || []).length, 2);
-  assert.doesNotMatch(html, />\s*josh0victor@outlook\.com/i);
-});
-
-test('project dossier uses accessible tabs with all five truthful projects present', () => {
-  assert.match(html, /role="tablist"/);
-  assert.equal((html.match(/role="tab"/g) || []).length, 5);
-  assert.equal((html.match(/role="tabpanel"/g) || []).length, 5);
-  const rankedProjects = ['Volyx Lens', 'Football Forecasting Lab', 'Telegram Social Video Downloader', 'ChainScope Wallet Analyzer', 'Telegram User Counter'];
-  for (const title of rankedProjects) {
-    assert.match(html, new RegExp(title));
+  const nav = html.match(/<nav class="primary-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
+  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'CV ↗', 'Contact']) {
+    assert.ok(nav.includes(`>${label}</a>`), `Missing navigation label: ${label}`);
   }
-  const projectTabs = [...html.matchAll(/role="tab"[^>]*aria-label="([^"]+)"[^>]*aria-controls="([^"]+)"/g)].map((match) => [match[1], match[2]]);
-  assert.deepEqual(projectTabs, [
-    ['Volyx Lens', 'project-lens'],
-    ['Football Forecasting Lab', 'project-football'],
-    ['Telegram Social Video Downloader', 'project-downloader'],
-    ['ChainScope Wallet Analyzer', 'project-wallet'],
-    ['Telegram User Counter', 'project-user-count'],
-  ]);
-  assert.doesNotMatch(html, /Noughtline|VirusTotal Telegram Bot/);
-  for (const label of ['Status', 'Ownership', 'Evidence']) assert.match(html, new RegExp(`<dt>${label}<\\/dt>`));
+  const positions = ['#work', '#contributions', '#approach', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
+    .map((target) => nav.indexOf(target));
+  assert.ok(positions.every((position) => position >= 0));
+  assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
 });
 
-test('project maturity and evaluation claims remain exact', () => {
-  for (const status of ['Active pre-release', 'Experimental evaluation', 'Reference implementation', 'Public prototype', 'Repository-only']) {
-    assert.match(html, new RegExp(status));
+test('hero and availability copy are exact and direct', () => {
+  assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
+  assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>applied AI<\/em>\.<\/h1>/);
+  assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. The work below includes source, tests, architecture and measured limitations.'));
+  assert.ok(textOnly.includes('5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked'));
+  assert.ok(textOnly.includes('UK-focused · Planning to relocate in August 2026 for an MSc in Artificial Intelligence at Northumbria University · Interested in part-time AI engineering work during study, subject to Student visa conditions, and future full-time graduate roles.'));
+  assert.match(html, />View selected work<\/a>/);
+  assert.match(html, />Download CV ↗<\/a>/);
+});
+
+test('renders exactly two primary and three additional projects in source order', () => {
+  assert.equal((html.match(/class="project-card project-card--primary"/g) || []).length, 2);
+  assert.equal((html.match(/class="project-card project-card--compact"/g) || []).length, 3);
+  assert.equal((html.match(/<h3[^>]*data-project-name/g) || []).length, 5);
+  const positions = projectNames.map((name) => html.indexOf(`>${name}</h3>`));
+  assert.ok(positions.every((position) => position >= 0));
+  assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
+  for (const name of projectNames) assert.equal(occurrences(textOnly, name), 1, `Expected one visible project name: ${name}`);
+  assert.doesNotMatch(html, /role="tab(?:list|panel)?"|aria-selected=|data-tab/i);
+});
+
+test('project maturity, ownership, limitations, and evaluation evidence remain exact', () => {
+  for (const label of maturityLabels) {
+    assert.equal(occurrences(textOnly, label), 1, `Expected exact maturity label once: ${label}`);
   }
-  assert.match(html, /53\.77% accuracy versus a 56\.70% bookmaker benchmark/);
-  assert.match(html, /ad-hoc signed test builds[^.]*not notarized/i);
-  assert.doesNotMatch(html, /customers served|production scale|industry-leading/i);
-});
-
-test('all five project and eight independently verified contribution links remain available', () => {
-  for (const link of links) assert.ok(html.includes(link), `Missing ${link}`);
-  assert.equal((html.match(/class="merge-row/g) || []).length, 8);
-});
-
-test('VolyxAI and Volyx Lens remain separate', () => {
-  const lens = html.match(/<section[^>]+id="project-lens"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.equal(occurrences(textOnly, 'Independent project'), 5);
+  assert.ok(textOnly.includes('53.77% accuracy versus a 56.70% bookmaker benchmark across 1,140 rolling-origin test matches. The model did not beat the benchmark.'));
+  assert.ok(textOnly.includes('Public builds are ad-hoc signed test builds, not notarized releases.'));
+  assert.ok(textOnly.includes('Selected-input boundaries, explicit consent, restricted provider routing, sandboxing, context isolation and automated release checks.'));
+  assert.doesNotMatch(textOnly, /Verified behaviour/i);
+  const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(lens, /Independent project/);
   assert.doesNotMatch(lens, /VolyxAI/i);
-  assert.match(html, /VolyxAI, an independent product effort/i);
-  assert.doesNotMatch(`${html}\n${cvBuilder}`, /\bNigeria\b|\bCAC\b/i);
 });
 
-test('enhancement script implements tab keyboard behavior and mobile navigation recovery', () => {
-  assert.match(js, /ArrowLeft/);
-  assert.match(js, /ArrowRight/);
-  assert.match(js, /Home/);
-  assert.match(js, /End/);
-  assert.match(js, /Escape/);
-  assert.match(js, /prefers-reduced-motion/);
+test('keeps all five repository URLs and all eight contribution rows visible', () => {
+  for (const url of [...repositoryUrls, ...pullRequestUrls]) assert.ok(html.includes(url), `Missing ${url}`);
+  assert.equal((html.match(/class="contribution-row"/g) || []).length, 8);
+  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 8);
+  assert.ok(textOnly.includes('Independent open-source contributions; not employment with the upstream projects.'));
+  const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
 });
 
-test('responsive, focus, and reduced-motion contracts are explicit', () => {
-  assert.match(css, /@media \(max-width: 760px\)/);
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
-  assert.match(css, /:focus-visible/);
-  assert.match(css, /min-height:\s*44px/);
-  assert.doesNotMatch(css, /\.cover-main::(?:before|after)/);
+test('includes the approved approach, background, contact, and footer copy', () => {
+  for (const heading of ['Engineering approach', 'Background', 'Interested in working together?']) {
+    assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  assert.ok(textOnly.includes('My experience is based on independent product work, engineering projects, technical training and open-source contributions. It is not presented as conventional employment.'));
+  assert.ok(textOnly.includes('VolyxAI product work'));
+  assert.ok(textOnly.includes('Independent product effort'));
+  assert.ok(textOnly.includes('I’m interested in AI Engineer and Applied AI Engineer roles involving Python services, retrieval and context systems, multimodal or voice workflows, evaluation and reliability.'));
+  assert.ok(textOnly.includes('Open to part-time work during study, subject to Student visa conditions, and future full-time graduate roles.'));
+  assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));
+  assert.ok(textOnly.includes('AI Engineer · Python and applied AI'));
+  assert.ok(textOnly.includes('Back to top ↑'));
 });
 
-test('metadata remains production-safe while branch preview indexing is provider-controlled', () => {
+test('forbids the retired concept, unsupported claims, and unapproved projects', () => {
+  assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|question|answer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
+  assert.doesNotMatch(textOnly, /\b(?:customers?|users served|revenue|commercial outcomes?|production scale|industry-leading|senior|staff|principal)\b/i);
+  assert.doesNotMatch(textOnly, /\b\d[\d,]*\s+(?:customers?|users?)\b/i);
+  assert.doesNotMatch(textOnly, /Noughtline|Tic Tac Toe|VirusTotal(?: Bot| Telegram Bot)?|local_AI_agent/i);
+  assert.doesNotMatch(textOnly, /\b(?:Nigeria|Lagos|Abuja|Owerri, Nigeria)\b/i);
+  assert.doesNotMatch(textOnly, /UK-based|authori[sz]ed to work|no sponsorship required|unrestricted (?:UK|US)|US work authori[sz]ation/i);
+  assert.doesNotMatch(html, /href="[^"]*volyxai\.com/i);
+});
+
+test('preserves private functional email, base-safe CV, canonical, and structured metadata', () => {
+  const emailLinks = [...html.matchAll(/<a[^>]+href="(mailto:[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.ok(emailLinks.length >= 1);
+  for (const [, href, label] of emailLinks) {
+    assert.equal(href, mailto);
+    assert.equal(label.trim(), 'Email me ↗');
+  }
+  assert.equal(occurrences(textOnly, 'Email me ↗'), emailLinks.length);
+  assert.doesNotMatch(html.replaceAll(mailto, ''), /josh0victor@outlook\.com/i);
+  assert.doesNotMatch(html, /aria-label="[^"]*@|content="[^"]*@/i);
+  assert.match(html, /href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf"/);
   assert.match(html, new RegExp(`<link rel="canonical" href="${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   assert.doesNotMatch(html, /<meta name="robots"[^>]*noindex/i);
   assert.match(html, /"@type": "ProfilePage"/);
   assert.match(html, /"@type": "Person"/);
 });
 
-test('external new-tab links are protected', () => {
+test('all external new-tab links are protected and fragments resolve uniquely', () => {
   const targets = [...html.matchAll(/<a[^>]*target="_blank"[^>]*>/g)].map((match) => match[0]);
-  assert.ok(targets.length >= 10);
+  assert.ok(targets.length >= 20);
   for (const anchor of targets) assert.match(anchor, /rel="noreferrer"/);
+  const fragments = [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
+  for (const fragment of new Set(fragments)) {
+    assert.equal(occurrences(html, `id="${fragment}"`), 1, `Fragment #${fragment} must resolve once`);
+  }
 });
 
 test('CV and identity artifacts remain intact', async () => {

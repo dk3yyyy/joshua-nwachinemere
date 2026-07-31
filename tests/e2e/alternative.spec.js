@@ -1,429 +1,361 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const pageErrors = [];
-const failedRequests = [];
+const projects = [
+  'Volyx Lens',
+  'Football Forecasting Lab',
+  'Telegram Social Video Downloader',
+  'ChainScope Wallet Analyzer',
+  'Telegram User Counter',
+];
 
-function captureRuntime(page) {
+const viewports = [
+  { width: 320, height: 800, maxPageHeight: 7000, maxHeroHeight: 900 },
+  { width: 390, height: 844, maxPageHeight: 6500, maxHeroHeight: 820 },
+  { width: 768, height: 1024, maxPageHeight: 5200, maxHeroHeight: 760 },
+  { width: 1024, height: 768 },
+  { width: 1366, height: 768, maxPageHeight: 4500, maxHeroHeight: 720 },
+];
+
+function monitorRuntime(page) {
+  const errors = [];
   page.on('console', (message) => {
-    if (message.type() === 'error') pageErrors.push(`console: ${message.text()}`);
+    if (message.type() === 'error') errors.push(`console: ${message.text()}`);
   });
-  page.on('pageerror', (error) => pageErrors.push(`pageerror: ${error.message}`));
-  page.on('requestfailed', (request) => failedRequests.push(`${request.method()} ${request.url()}: ${request.failure()?.errorText}`));
+  page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
+  page.on('requestfailed', (request) => {
+    if (new URL(request.url()).origin === new URL(page.url()).origin) {
+      errors.push(`request: ${request.method()} ${request.url()} ${request.failure()?.errorText}`);
+    }
+  });
+  return errors;
 }
 
-test.beforeEach(() => {
-  pageErrors.length = 0;
-  failedRequests.length = 0;
-});
+async function expectNoOverflow(page, label) {
+  const geometry = await page.evaluate(() => ({
+    page: [document.documentElement.scrollWidth, document.documentElement.clientWidth],
+    containers: [...document.querySelectorAll('.primary-nav, .project-card, .contribution-list')].map((node) => ({
+      className: node.className,
+      scrollWidth: node.scrollWidth,
+      clientWidth: node.clientWidth,
+    })),
+  }));
+  expect(geometry.page[0], `${label} page overflow`).toBeLessThanOrEqual(geometry.page[1] + 1);
+  for (const item of geometry.containers) {
+    expect(item.scrollWidth, `${label} ${item.className} overflow`).toBeLessThanOrEqual(item.clientWidth + 1);
+  }
+}
 
-test.afterEach(() => {
-  expect(pageErrors, pageErrors.join('\n')).toEqual([]);
-  expect(failedRequests, failedRequests.join('\n')).toEqual([]);
-});
+async function expectTouchTargets(page, label) {
+  const targets = await page.locator('a:visible, button:visible').evaluateAll((nodes) => nodes.map((node) => {
+    const rect = node.getBoundingClientRect();
+    return { label: node.textContent.trim().replace(/\s+/g, ' '), width: rect.width, height: rect.height };
+  }));
+  expect(targets.length).toBeGreaterThan(20);
+  for (const target of targets) {
+    expect(target.width, `${label}: ${target.label} width`).toBeGreaterThanOrEqual(44);
+    expect(target.height, `${label}: ${target.label} height`).toBeGreaterThanOrEqual(44);
+  }
+}
 
-test('desktop interview dossier is usable, accessible, and free of overflow', async ({ page }) => {
-  captureRuntime(page);
+async function expectKeyboardFocusVisibility(page, label) {
+  const menu = page.locator('.menu-button');
+  if (await menu.isVisible()) {
+    await menu.focus();
+    await page.keyboard.press('Enter');
+    await expect(menu).toHaveAttribute('aria-expanded', 'true');
+  }
+
+  await page.locator('body').focus();
+  const focusableCount = await page.locator('a:visible, button:visible').count();
+  const focused = [];
+  for (let index = 0; index < focusableCount + 2; index += 1) {
+    await page.keyboard.press('Tab');
+    const item = await page.evaluate(() => {
+      const node = document.activeElement;
+      const rect = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      return {
+        tag: node.tagName,
+        label: (node.textContent || node.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
+        width: rect.width,
+        height: rect.height,
+        outlineStyle: style.outlineStyle,
+        outlineWidth: parseFloat(style.outlineWidth),
+      };
+    });
+    if (!['A', 'BUTTON'].includes(item.tag)) continue;
+    focused.push(item);
+    expect(item.width, `${label}: focused ${item.label} width`).toBeGreaterThanOrEqual(44);
+    expect(item.height, `${label}: focused ${item.label} height`).toBeGreaterThanOrEqual(44);
+    expect(item.outlineStyle, `${label}: focused ${item.label} outline`).not.toBe('none');
+    expect(item.outlineWidth, `${label}: focused ${item.label} outline width`).toBeGreaterThanOrEqual(2);
+  }
+  expect(focused.length, `${label}: keyboard-reached visible targets`).toBeGreaterThanOrEqual(focusableCount);
+}
+
+test('professional portfolio is complete, accessible, private, and runtime-clean', async ({ page }) => {
+  const errors = monitorRuntime(page);
+  await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Inspect the work');
-  await expect(page.getByText('5 inspectable projects')).toBeVisible();
-  await expect(page.getByText('8 merged upstream PRs')).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
 
-  const pageWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
-  expect(pageWidth.scroll).toBeLessThanOrEqual(pageWidth.client + 1);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for applied AI.');
+  await expect(page.locator('[data-project-name]')).toHaveCount(5);
+  for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
+  await expect(page.locator('.project-card--primary')).toHaveCount(2);
+  await expect(page.locator('.project-card--compact')).toHaveCount(3);
+  await expect(page.locator('.contribution-row')).toHaveCount(8);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
+  await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
+  await expect(page.getByRole('link', { name: 'Email me ↗', exact: true })).toHaveAttribute('href', /^mailto:/);
 
-  await page.getByRole('tab', { name: /Football Forecasting Lab/ }).click();
-  await expect(page.getByRole('tabpanel', { name: /Football Forecasting Lab/ })).toBeVisible();
-  await expect(page.getByText('Temporal forecasting experiment')).toBeVisible();
-
-  const tab = page.getByRole('tab', { name: /Football Forecasting Lab/ });
-  await tab.focus();
-  await page.keyboard.press('ArrowRight');
-  await expect(page.getByRole('tab', { name: /Telegram Social Video Downloader/ })).toBeFocused();
-  await expect(page.getByRole('tabpanel', { name: /Telegram Social Video Downloader/ })).toBeVisible();
-  await page.keyboard.press('End');
-  await expect(page.getByRole('tab', { name: /Telegram User Counter/ })).toBeFocused();
-  await expect(page.getByText('Transactional registration and milestone delivery')).toBeVisible();
+  const palette = await page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement);
+    const hero = getComputedStyle(document.querySelector('.hero'));
+    const contact = getComputedStyle(document.querySelector('.closing'));
+    const accent = getComputedStyle(document.querySelector('.hero h1 em'));
+    return {
+      paper: root.getPropertyValue('--paper').trim(),
+      surface: root.getPropertyValue('--surface').trim(),
+      ink: root.getPropertyValue('--ink').trim(),
+      muted: root.getPropertyValue('--muted').trim(),
+      signal: root.getPropertyValue('--signal').trim(),
+      heroBackground: hero.backgroundColor,
+      contactBackground: contact.backgroundColor,
+      accentFamily: accent.fontFamily,
+    };
+  });
+  expect(palette).toMatchObject({
+    paper: '#f3f3f0', surface: '#fbfbf9', ink: '#15171a', muted: '#565b60', signal: '#45494d',
+    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(21, 23, 26)',
+  });
+  expect(palette.accentFamily).toContain('Newsreader');
 
   const axe = await new AxeBuilder({ page }).analyze();
   expect(axe.violations).toEqual([]);
+  expect(errors).toEqual([]);
 });
 
-test('mobile navigation, project reachability, touch targets, and layout work', async ({ page }) => {
-  captureRuntime(page);
+test('responsive composition meets page, hero, grid, overflow, and target budgets', async ({ page }, testInfo) => {
+  const errors = monitorRuntime(page);
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+
+    const layout = await page.evaluate(() => ({
+      pageHeight: document.documentElement.scrollHeight,
+      heroHeight: document.querySelector('.hero').getBoundingClientRect().height,
+      additionalColumns: getComputedStyle(document.querySelector('.additional-project-grid')).gridTemplateColumns.split(' ').length,
+      contributionColumns: getComputedStyle(document.querySelector('.contribution-list')).gridTemplateColumns.split(' ').length,
+    }));
+    if (viewport.maxPageHeight) expect(layout.pageHeight, `${viewport.width}px page height`).toBeLessThanOrEqual(viewport.maxPageHeight);
+    if (viewport.maxHeroHeight) expect(layout.heroHeight, `${viewport.width}px hero height`).toBeLessThanOrEqual(viewport.maxHeroHeight);
+    if (viewport.width < 680) expect(layout.additionalColumns).toBe(1);
+    if (viewport.width >= 768 && viewport.width <= 1024) expect(layout.additionalColumns).toBe(2);
+    if (viewport.width === 1366) expect(layout.additionalColumns).toBe(3);
+    expect(layout.contributionColumns).toBe(viewport.width >= 768 ? 2 : 1);
+    await expectNoOverflow(page, `${viewport.width}px`);
+    await expectTouchTargets(page, `${viewport.width}px`);
+    await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+  }
+  expect(errors).toEqual([]);
+});
+
+test('phone spacing preserves approved gutters, card padding, rhythm, and readable background flow', async ({ page }) => {
+  for (const viewport of viewports.filter(({ width }) => width <= 390)) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const spacing = await page.evaluate(() => {
+      const hero = document.querySelector('.hero').getBoundingClientRect();
+      const primary = getComputedStyle(document.querySelector('.project-card--primary'));
+      const compact = getComputedStyle(document.querySelector('.project-card--compact'));
+      const section = getComputedStyle(document.querySelector('.section'));
+      const background = getComputedStyle(document.querySelector('.background-list'));
+      return {
+        gutterLeft: hero.left,
+        gutterRight: innerWidth - hero.right,
+        primaryPadding: parseFloat(primary.paddingLeft),
+        compactPadding: parseFloat(compact.paddingLeft),
+        sectionPaddingTop: parseFloat(section.paddingTop),
+        sectionPaddingBottom: parseFloat(section.paddingBottom),
+        backgroundColumns: background.gridTemplateColumns.split(' ').length,
+      };
+    });
+    expect(spacing.gutterLeft, `${viewport.width}px left gutter`).toBeGreaterThanOrEqual(16);
+    expect(spacing.gutterRight, `${viewport.width}px right gutter`).toBeGreaterThanOrEqual(16);
+    expect(spacing.primaryPadding, `${viewport.width}px primary padding`).toBeGreaterThanOrEqual(20);
+    expect(spacing.compactPadding, `${viewport.width}px compact padding`).toBeGreaterThanOrEqual(20);
+    expect(spacing.sectionPaddingTop, `${viewport.width}px section top rhythm`).toBeGreaterThanOrEqual(40);
+    expect(spacing.sectionPaddingBottom, `${viewport.width}px section bottom rhythm`).toBeGreaterThanOrEqual(40);
+    expect(spacing.backgroundColumns, `${viewport.width}px background columns`).toBe(1);
+  }
+});
+
+test('approved typography and responsive spacing tokens hold at every required width', async ({ page }) => {
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const tokens = await page.evaluate(() => {
+      const number = (selector, property) => parseFloat(getComputedStyle(document.querySelector(selector))[property]);
+      const supportSizes = [...document.querySelectorAll('.hero-proof, .availability, .ownership-note, .contact-availability')]
+        .map((node) => parseFloat(getComputedStyle(node).fontSize));
+      const compactMetaGaps = [...document.querySelectorAll('.project-card--compact')].map((card) => {
+        const meta = card.querySelector('.project-meta').getBoundingClientRect();
+        const body = card.querySelector('.project-meta + p').getBoundingClientRect();
+        return body.top - meta.bottom;
+      });
+      return {
+        supportSizes,
+        actionSize: number('.project-links a', 'fontSize'),
+        compactTitleSize: number('.project-card--compact h3', 'fontSize'),
+        primaryPadding: number('.project-card--primary', 'paddingLeft'),
+        compactPadding: number('.project-card--compact', 'paddingLeft'),
+        sectionPadding: number('.section', 'paddingTop'),
+        primaryMetadataGap: number('.project-header', 'marginBottom'),
+        compactMetaGaps,
+        actionGap: number('.project-links', 'columnGap'),
+      };
+    });
+    expect(Math.min(...tokens.supportSizes), `${viewport.width}px supporting-copy floor`).toBeGreaterThanOrEqual(16);
+    expect(tokens.actionSize, `${viewport.width}px action-label size`).toBeGreaterThanOrEqual(13);
+    expect(tokens.compactTitleSize, `${viewport.width}px compact title size`).toBeGreaterThanOrEqual(viewport.width < 768 ? 24 : 26);
+    expect(tokens.primaryMetadataGap, `${viewport.width}px primary metadata gap`).toBeGreaterThanOrEqual(16);
+    expect(Math.min(...tokens.compactMetaGaps), `${viewport.width}px compact metadata gap`).toBeGreaterThanOrEqual(16);
+    expect(tokens.actionGap, `${viewport.width}px action grouping`).toBeGreaterThanOrEqual(8);
+    const expected = viewport.width < 768
+      ? { primary: 20, compact: 20, section: 40 }
+      : viewport.width <= 900
+        ? { primary: 24, compact: 24, section: 52 }
+        : { primary: 32, compact: 24, section: 72 };
+    expect(tokens.primaryPadding, `${viewport.width}px primary card token`).toBeGreaterThanOrEqual(expected.primary);
+    expect(tokens.compactPadding, `${viewport.width}px compact card token`).toBeGreaterThanOrEqual(expected.compact);
+    expect(tokens.sectionPadding, `${viewport.width}px section token`).toBeGreaterThanOrEqual(expected.section);
+  }
+});
+
+test('accessibility and keyboard focus are verified at every required width', async ({ page }) => {
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const axe = await new AxeBuilder({ page }).analyze();
+    expect(axe.violations, `${viewport.width}px Axe violations`).toEqual([]);
+    await expectKeyboardFocusVisibility(page, `${viewport.width}px`);
+  }
+});
+
+test('short desktop first fold contains the hiring essentials and selected-work start', async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.goto('/');
+  const essentials = [
+    page.getByRole('heading', { level: 1 }),
+    page.locator('.hero-intro'),
+    page.locator('.availability'),
+    page.getByRole('link', { name: 'View selected work' }),
+    page.getByRole('link', { name: 'Download CV ↗' }).first(),
+    page.getByRole('heading', { name: 'Selected AI engineering work' }),
+  ];
+  for (const locator of essentials) {
+    await expect(locator).toBeVisible();
+    const box = await locator.boundingBox();
+    expect(box.y, await locator.textContent()).toBeLessThan(768);
+  }
+});
+
+test('mobile navigation is keyboard-operable, dismisses on Escape, and restores focus', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const menu = page.locator('.menu-button');
-  await expect(menu).toBeVisible();
-  await expect(menu).toHaveAccessibleName(/Open navigation/);
-  await menu.click();
+  await expect(menu).toHaveAccessibleName('Open navigation');
+  await menu.focus();
+  await page.keyboard.press('Enter');
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
-  await expect(menu).toHaveAccessibleName(/Close navigation/);
   await expect(page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Work' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(menu).toHaveAttribute('aria-expanded', 'false');
+  await expect(menu).toBeFocused();
 
-  await page.getByRole('link', { name: 'Open the evidence' }).click();
-  await expect(page.getByRole('heading', { name: 'What has he actually built?' })).toBeInViewport();
-  const anchorClearance = await page.evaluate(() => {
-    const masthead = document.querySelector('.masthead').getBoundingClientRect();
-    const heading = document.querySelector('#work h2').getBoundingClientRect();
-    return heading.top - masthead.bottom;
+  await page.keyboard.press('Enter');
+  await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Work' }).click();
+  await expect(menu).toHaveAttribute('aria-expanded', 'false');
+  const clearance = await page.evaluate(() => {
+    const header = document.querySelector('.masthead').getBoundingClientRect();
+    const section = document.querySelector('#work').getBoundingClientRect();
+    return section.top - header.bottom;
   });
-  expect(anchorClearance).toBeGreaterThanOrEqual(8);
-  const finalTab = page.getByRole('tab', { name: /Telegram User Counter/ });
-  await finalTab.scrollIntoViewIfNeeded();
-  await finalTab.click();
-  await expect(page.getByRole('tabpanel', { name: /Telegram User Counter/ })).toBeVisible();
-
-  const sizes = await page.locator('button, .button, .project-links a').evaluateAll((nodes) => nodes.map((node) => {
-    const rect = node.getBoundingClientRect();
-    return { label: node.textContent?.trim(), width: rect.width, height: rect.height };
-  }).filter((size) => size.width > 0 && size.height > 0));
-  for (const size of sizes) {
-    expect(size.height, `${size.label} height`).toBeGreaterThanOrEqual(44);
-    expect(size.width, `${size.label} width`).toBeGreaterThanOrEqual(44);
-  }
-  for (const target of [page.locator('.candidate-card dd a'), page.locator('.method-context a')]) {
-    const box = await target.boundingBox();
-    expect(box.height).toBeGreaterThanOrEqual(24);
-    expect(box.width).toBeGreaterThanOrEqual(24);
-  }
-  const footerLink = await page.locator('.footer a').boundingBox();
-  expect(footerLink.height).toBeGreaterThanOrEqual(44);
-  expect(footerLink.width).toBeGreaterThanOrEqual(44);
-  const width = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
-  expect(width.scroll).toBeLessThanOrEqual(width.client + 1);
-
-  const axe = await new AxeBuilder({ page }).analyze();
-  expect(axe.violations).toEqual([]);
+  expect(clearance).toBeGreaterThanOrEqual(8);
 });
 
-test('320px enhanced text spacing preserves content and controls', async ({ page }) => {
-  captureRuntime(page);
+test('all content and navigation remain available without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('/');
+  await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
+  await expect(page.locator('.menu-button')).toBeHidden();
+  await expect(page.locator('.project-card:visible')).toHaveCount(5);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.getByText(/53\.77% accuracy versus a 56\.70% bookmaker benchmark/)).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Email me ↗' })).toBeVisible();
+  await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
+  await expectNoOverflow(page, 'no-JS mobile');
+  await context.close();
+});
+
+test('reduced motion, reduced transparency, no-backdrop-filter, and forced colours remain usable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const motion = await page.locator('.project-card').first().evaluate((node) => {
+    const style = getComputedStyle(node);
+    return { animation: style.animationName, transition: style.transitionDuration, transform: style.transform };
+  });
+  expect(motion.animation).toBe('none');
+  expect(parseFloat(motion.transition)).toBeLessThanOrEqual(.01);
+  expect(motion.transform).toBe('none');
+  await expect(page.locator('.project-card:visible')).toHaveCount(5);
+
+  const session = await page.context().newCDPSession(page);
+  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-transparency', value: 'reduce' }] });
+  await page.reload();
+  for (const selector of ['.masthead', '.project-card', '.closing']) {
+    const style = await page.locator(selector).first().evaluate((node) => {
+      const value = getComputedStyle(node);
+      return { background: value.backgroundColor, backdrop: value.backdropFilter || value.webkitBackdropFilter };
+    });
+    expect(style.background).toMatch(/^rgb\(/);
+    expect(style.backdrop).toBe('none');
+  }
+  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [] });
+  await page.emulateMedia({ forcedColors: 'active' });
+  await page.reload();
+  const menu = page.locator('.menu-button');
+  const contact = page.getByRole('link', { name: 'Contact' });
+  if (await menu.isVisible()) {
+    await menu.focus();
+    await page.keyboard.press('Enter');
+    await expect(menu).toHaveAttribute('aria-expanded', 'true');
+    for (let index = 0; index < 6; index += 1) await page.keyboard.press('Tab');
+    await expect(contact).toBeFocused();
+  } else {
+    await contact.focus();
+  }
+  expect(await contact.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
+  expect(await page.locator('.project-card').first().evaluate((node) => getComputedStyle(node).borderStyle)).not.toBe('none');
+});
+
+test('320px WCAG text spacing retains every content group without clipping', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/');
   await page.addStyleTag({ content: `
     * { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; }
     p, li, dd { margin-bottom: 2em !important; }
   ` });
-
-  const layout = await page.evaluate(() => ({
-    scrollWidth: document.documentElement.scrollWidth,
-    clientWidth: document.documentElement.clientWidth,
-    tabsScrollWidth: document.querySelector('.dossier-tabs').scrollWidth,
-    tabsClientWidth: document.querySelector('.dossier-tabs').clientWidth,
-  }));
-  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
-  expect(layout.tabsScrollWidth).toBeLessThanOrEqual(layout.tabsClientWidth + 1);
-  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.getByRole('tab', { name: /Telegram User Counter/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open the evidence' })).toBeVisible();
-  for (const heading of await page.getByRole('heading', { level: 2 }).all()) {
-    await heading.scrollIntoViewIfNeeded();
-    await expect(heading).toBeVisible();
-  }
-  await expect(page.getByRole('link', { name: /FastStream.*PR #2961/ })).toBeVisible();
-  await expect(page.getByLabel('Should we talk?').getByRole('link', { name: 'Email me ↗' })).toBeVisible();
-});
-
-test('responsive dossier is intentionally composed across phone, tablet, and short laptop', async ({ page }) => {
-  captureRuntime(page);
-
-  for (const viewport of [
-    { width: 320, height: 800, maxPageHeight: 9600, maxCoverHeight: 1200 },
-    { width: 390, height: 844, maxPageHeight: 9000, maxCoverHeight: 1050 },
-    { width: 761, height: 1024, maxPageHeight: 8200, maxCoverHeight: 920 },
-    { width: 768, height: 1024, maxPageHeight: 8200, maxCoverHeight: 920 },
-    { width: 1024, height: 768, maxPageHeight: 8000, maxCoverHeight: 800 },
-    { width: 1366, height: 768, maxPageHeight: 7600, maxCoverHeight: 770 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-
-    const layout = await page.evaluate(() => {
-      const cover = document.querySelector('.cover').getBoundingClientRect();
-      const tabs = document.querySelector('.dossier-tabs');
-      const questionIndex = document.querySelector('.question-index');
-      const visibleTabs = [...tabs.querySelectorAll('[role="tab"]')].map((tab) => {
-        const rect = tab.getBoundingClientRect();
-        return { width: rect.width, height: rect.height };
-      });
-      return {
-        pageHeight: document.documentElement.scrollHeight,
-        pageWidth: document.documentElement.scrollWidth,
-        clientWidth: document.documentElement.clientWidth,
-        coverHeight: cover.height,
-        tabScrollWidth: tabs.scrollWidth,
-        tabClientWidth: tabs.clientWidth,
-        questionColumns: getComputedStyle(questionIndex).gridTemplateColumns.split(' ').length,
-        visibleTabs,
-      };
-    });
-
-    expect(layout.pageWidth, `${viewport.width}px page overflow`).toBeLessThanOrEqual(layout.clientWidth + 1);
-    expect(layout.pageHeight, `${viewport.width}px page length`).toBeLessThanOrEqual(viewport.maxPageHeight);
-    expect(layout.coverHeight, `${viewport.width}px cover height`).toBeLessThanOrEqual(viewport.maxCoverHeight);
-    expect(layout.tabScrollWidth, `${viewport.width}px dossier selector overflow`).toBeLessThanOrEqual(layout.tabClientWidth + 1);
-    expect(layout.visibleTabs).toHaveLength(5);
-    for (const tab of layout.visibleTabs) {
-      expect(tab.height, `${viewport.width}px tab target height`).toBeGreaterThanOrEqual(44);
-    }
-    if (viewport.width <= 390) expect(layout.questionColumns).toBe(2);
-  }
-});
-
-test('restrained palette, hidden email, and focus treatment remain legible', async ({ page }) => {
-  captureRuntime(page);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-  const palette = await page.evaluate(() => {
-    const root = getComputedStyle(document.documentElement);
-    const sectionBackgrounds = [...document.querySelectorAll('.interview-question')]
-      .map((node) => getComputedStyle(node).backgroundColor);
-    return {
-      paper: root.getPropertyValue('--paper').trim(),
-      paperDeep: root.getPropertyValue('--paper-deep').trim(),
-      surface: root.getPropertyValue('--surface').trim(),
-      ink: root.getPropertyValue('--ink').trim(),
-      signal: root.getPropertyValue('--signal').trim(),
-      displayInk: getComputedStyle(document.querySelector('.cover h1')).color,
-      displayCharcoal: getComputedStyle(document.querySelector('.cover h1 em')).color,
-      answerCharcoal: getComputedStyle(document.querySelector('.answer-lede')).color,
-      sectionBackgrounds: [...new Set(sectionBackgrounds)],
-      beforeContent: getComputedStyle(document.querySelector('.cover-main'), '::before').content,
-      afterContent: getComputedStyle(document.querySelector('.cover-main'), '::after').content,
-    };
-  });
-  expect(palette).toEqual({
-    paper: '#f3f3f0',
-    paperDeep: '#e3e4e1',
-    surface: '#fbfbf9',
-    ink: '#15171a',
-    signal: '#45494d',
-    displayInk: 'rgb(21, 23, 26)',
-    displayCharcoal: 'rgb(69, 73, 77)',
-    answerCharcoal: 'rgb(69, 73, 77)',
-    sectionBackgrounds: ['rgb(251, 251, 249)'],
-    beforeContent: 'none',
-    afterContent: 'none',
-  });
-
-  const glass = await page.evaluate(() => {
-    const section = getComputedStyle(document.querySelector('.interview-question'));
-    const cover = getComputedStyle(document.querySelector('.cover'));
-    return {
-      radius: parseFloat(section.borderRadius),
-      sectionBackdrop: section.backdropFilter || section.webkitBackdropFilter,
-      coverBackdrop: cover.backdropFilter || cover.webkitBackdropFilter,
-    };
-  });
-  expect(glass.radius).toBeGreaterThanOrEqual(20);
-  expect(glass.sectionBackdrop).toBe('none');
-  expect(glass.coverBackdrop).toContain('blur');
-
-  await expect(page.getByRole('link', { name: 'Email me ↗' })).toHaveCount(2);
-  await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
-
-  const selected = page.getByRole('tab', { name: /Volyx Lens/ });
-  await selected.focus();
-  await expect(selected).toBeFocused();
-  const focus = await selected.evaluate((node) => {
-    const style = getComputedStyle(node);
-    return { outline: style.outlineColor, shadow: style.boxShadow };
-  });
-  expect(focus.outline).toBe('rgb(255, 255, 255)');
-  expect(focus.shadow).toContain('inset');
-});
-
-test('inline evidence links retain full touch targets', async ({ page }) => {
-  captureRuntime(page);
-  for (const viewport of [{ width: 320, height: 800 }, { width: 390, height: 844 }, { width: 1366, height: 768 }]) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    for (const target of [
-      page.locator('.candidate-card dd').getByRole('link', { name: 'Volyx Lens' }),
-      page.locator('.method-context').getByRole('link', { name: 'Visit VolyxAI ↗' }),
-    ]) {
-      const box = await target.boundingBox();
-      expect(box, `target missing at ${viewport.width}px`).not.toBeNull();
-      expect(box.height, `target too short at ${viewport.width}px`).toBeGreaterThanOrEqual(44);
-    }
-  }
-});
-
-test('secondary typography stays readable on phone and desktop', async ({ page }) => {
-  captureRuntime(page);
-  const groups = [
-    {
-      minimum: 13,
-      selectors: [
-        '.candidate-card dd', '.question-index strong', '.proof-note p',
-        '.capability-lines strong', '.project-facts dd', '.project-description',
-        '.verified-result', '.merge-row strong', '.merge-row b', '.method-list p',
-        '.profile-grid p',
-      ],
-    },
-    {
-      minimum: 12,
-      selectors: [
-        '.identity small', '.identity-seal', '.cover-status', '.eyebrow', '.button',
-        '.candidate-card-head', '.candidate-card dt', '.question-index > p', '.question-index span',
-        '.question-margin span', '.question-margin p', '.proof-note > span', '.capability-lines span', '.speaker',
-        '.dossier-tabs button', '.dossier-tabs button span', '.project-sheet-head', '.project-facts dt',
-        '.project-links a', '.project-stack', '.merge-row span', '.merge-row em',
-        '.method-list em', '.footer',
-      ],
-    },
-  ];
-
-  for (const viewport of [{ width: 390, height: 844 }, { width: 1366, height: 768 }]) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    for (const group of groups) {
-      for (const selector of group.selectors) {
-        const size = await page.locator(selector).first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
-        expect(size, `${selector} at ${viewport.width}px`).toBeGreaterThanOrEqual(group.minimum);
-      }
-    }
-  }
-});
-
-test('glass fallbacks and focus indicators survive constrained rendering modes', async ({ page }) => {
-  captureRuntime(page);
-  const session = await page.context().newCDPSession(page);
-  await session.send('Emulation.setEmulatedMedia', {
-    media: 'screen',
-    features: [{ name: 'prefers-reduced-transparency', value: 'reduce' }],
-  });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-
-  const fallback = await page.evaluate(() => {
-    const selectors = [
-      '.masthead', '.cover', '.cover-main', '.interview-question', '.proof-note',
-      '.dossier-tabs', '.project-sheet', '.profile-grid > div', '.candidate-card',
-      '.candidate-card > a', '.closing', '.primary-nav',
-    ];
-    return selectors.map((selector) => {
-      const style = getComputedStyle(document.querySelector(selector));
-      return { selector, background: style.backgroundColor, backdrop: style.backdropFilter || style.webkitBackdropFilter };
-    });
-  });
-  for (const surface of fallback) {
-    expect(surface.backdrop, `${surface.selector} still blurs`).toBe('none');
-    expect(surface.background, `${surface.selector} is not opaque`).toMatch(/^rgb\(/);
-  }
-
-  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [] });
-  await page.setViewportSize({ width: 1366, height: 768 });
-  await page.reload();
-  for (const target of [
-    page.getByRole('link', { name: 'Joshua Nwachinemere' }),
-    page.getByRole('link', { name: 'Contact' }),
-    page.locator('.candidate-card').getByRole('link', { name: 'Email me ↗' }),
-    page.locator('.question-index').getByRole('link').first(),
-    page.getByRole('tab', { name: /Volyx Lens/ }),
-    page.locator('.project-links').getByRole('link').first(),
-    page.locator('.closing-actions').getByRole('link').first(),
-  ]) {
-    await target.focus();
-    const focusStyle = await target.evaluate((node) => {
-      const style = getComputedStyle(node);
-      return { outlineWidth: parseFloat(style.outlineWidth), outlineOffset: parseFloat(style.outlineOffset), shadow: style.boxShadow };
-    });
-    expect(focusStyle.outlineWidth).toBeGreaterThanOrEqual(3);
-    expect(focusStyle.outlineOffset).toBeLessThan(0);
-    expect(focusStyle.shadow).not.toBe('none');
-  }
-
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.reload();
-  for (const inlineLink of [
-    page.locator('.candidate-card dd a'),
-    page.locator('.footer a'),
-  ]) {
-    await inlineLink.focus();
-    const inlineFocus = await inlineLink.evaluate((node) => {
-      const style = getComputedStyle(node);
-      const rect = node.getBoundingClientRect();
-      return {
-        height: rect.height,
-        outlineWidth: parseFloat(style.outlineWidth),
-        outlineOffset: parseFloat(style.outlineOffset),
-        shadow: style.boxShadow,
-      };
-    });
-    expect(inlineFocus.height).toBeGreaterThanOrEqual(24);
-    expect(inlineFocus.outlineWidth).toBeGreaterThanOrEqual(2);
-    expect(inlineFocus.outlineOffset).toBeGreaterThanOrEqual(2);
-    expect(inlineFocus.shadow).not.toContain('inset');
-  }
-
-  await page.emulateMedia({ forcedColors: 'active' });
-  await page.setViewportSize({ width: 1366, height: 768 });
-  await page.reload();
-  const forcedFocus = page.getByRole('link', { name: 'Contact' });
-  await forcedFocus.focus();
-  await expect(forcedFocus).toBeFocused();
-  expect(await forcedFocus.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
-});
-
-test('glass layout remains stable around both responsive boundaries', async ({ page }) => {
-  captureRuntime(page);
-  const samples = new Map();
-  for (const width of [759, 760, 761, 899, 900, 901]) {
-    await page.setViewportSize({ width, height: 900 });
-    await page.goto('/');
-    const geometry = await page.evaluate(() => ({
-      page: [document.documentElement.scrollWidth, document.documentElement.clientWidth],
-      tabs: [document.querySelector('.dossier-tabs').scrollWidth, document.querySelector('.dossier-tabs').clientWidth],
-      work: document.querySelector('#work .question-copy').getBoundingClientRect().width,
-    }));
-    samples.set(width, geometry);
-    expect(geometry.page[0], `${width}px page overflow`).toBeLessThanOrEqual(geometry.page[1] + 1);
-    expect(geometry.tabs[0], `${width}px tab overflow`).toBeLessThanOrEqual(geometry.tabs[1] + 1);
-  }
-  for (const [left, right] of [[760, 761], [900, 901]]) {
-    const before = samples.get(left);
-    const after = samples.get(right);
-    expect(after.work / before.work, `${left}/${right}px work-column cliff`).toBeGreaterThanOrEqual(.85);
-    expect(after.tabs[1] / before.tabs[1], `${left}/${right}px tablist cliff`).toBeGreaterThanOrEqual(.85);
-  }
-});
-
-test('short-laptop first screen contains role, named proof, and primary actions', async ({ page }) => {
-  captureRuntime(page);
-  await page.setViewportSize({ width: 1366, height: 768 });
-  await page.goto('/');
-  for (const locator of [
-    page.getByRole('heading', { level: 1 }),
-    page.getByText('AI Engineer', { exact: true }).first(),
-    page.getByText('Volyx Lens', { exact: true }).first(),
-    page.getByRole('link', { name: 'Open the evidence' }),
-    page.getByRole('link', { name: 'Read the CV' }),
-  ]) {
-    await expect(locator).toBeVisible();
-    const box = await locator.boundingBox();
-    expect(box.y + box.height).toBeLessThanOrEqual(768);
-  }
-});
-
-test('reduced motion disables progress decoration and preserves all content', async ({ page }) => {
-  captureRuntime(page);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await expect(page.locator('.reading-progress')).toBeHidden();
-  await expect(page.getByRole('heading', { name: 'Should we talk?' })).toBeAttached();
-  await expect(page.getByRole('tab', { name: /Volyx Lens/ })).toHaveAttribute('aria-selected', 'true');
-});
-
-test('core content remains available without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
-  const page = await context.newPage();
-  await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.getByRole('tabpanel')).toHaveCount(5);
-  await expect(page.getByText('53.77% accuracy versus a 56.70% bookmaker benchmark')).toBeVisible();
-  await context.close();
+  await expectNoOverflow(page, '320px text spacing');
+  await expect(page.locator('.project-card:visible')).toHaveCount(5);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.getByRole('heading', { name: 'Interested in working together?' })).toBeVisible();
 });
