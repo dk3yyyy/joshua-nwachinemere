@@ -129,6 +129,8 @@ test('keeps project actions focused on demos, source, and explanatory evidence',
   assert.match(textOnly, /View source/);
   assert.match(textOnly, /Read architecture/);
   assert.match(textOnly, /Read evaluation report/);
+  const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.match(lens, /<a href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">Visit live site<\/a>/);
 });
 
 test('includes the approved approach, background, contact, and footer copy', () => {
