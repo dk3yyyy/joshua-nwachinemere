@@ -11,10 +11,10 @@ const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url)
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
 const links = [
   'https://github.com/dk3yyyy/volyx-lens',
-  'https://github.com/dk3yyyy/Noughtline',
-  'https://github.com/dk3yyyy/VirusTotal-Telegram-Bot',
-  'https://github.com/dk3yyyy/sol-eth-wallet-analyzer',
   'https://github.com/dk3yyyy/football_predictor',
+  'https://github.com/dk3yyyy/telegram-social-video-downloader',
+  'https://github.com/dk3yyyy/sol-eth-wallet-analyzer',
+  'https://github.com/dk3yyyy/user_count',
   'https://github.com/openai/openai-agents-python/pull/3991',
   'https://github.com/pydantic/pydantic-ai-harness/pull/503',
   'https://github.com/generative-computing/mellea/pull/1471',
@@ -58,14 +58,24 @@ test('project dossier uses accessible tabs with all five truthful projects prese
   assert.match(html, /role="tablist"/);
   assert.equal((html.match(/role="tab"/g) || []).length, 5);
   assert.equal((html.match(/role="tabpanel"/g) || []).length, 5);
-  for (const title of ['Volyx Lens', 'Noughtline', 'VirusTotal Telegram Bot', 'Solana &amp; Ethereum Wallet Analyzer', 'Football Predictor']) {
+  const rankedProjects = ['Volyx Lens', 'Football Forecasting Lab', 'Telegram Social Video Downloader', 'ChainScope Wallet Analyzer', 'Telegram User Counter'];
+  for (const title of rankedProjects) {
     assert.match(html, new RegExp(title));
   }
+  const projectTabs = [...html.matchAll(/role="tab"[^>]*aria-label="([^"]+)"[^>]*aria-controls="([^"]+)"/g)].map((match) => [match[1], match[2]]);
+  assert.deepEqual(projectTabs, [
+    ['Volyx Lens', 'project-lens'],
+    ['Football Forecasting Lab', 'project-football'],
+    ['Telegram Social Video Downloader', 'project-downloader'],
+    ['ChainScope Wallet Analyzer', 'project-wallet'],
+    ['Telegram User Counter', 'project-user-count'],
+  ]);
+  assert.doesNotMatch(html, /Noughtline|VirusTotal Telegram Bot/);
   for (const label of ['Status', 'Ownership', 'Evidence']) assert.match(html, new RegExp(`<dt>${label}<\\/dt>`));
 });
 
 test('project maturity and evaluation claims remain exact', () => {
-  for (const status of ['Active pre-release', 'Public demo', 'Source available', 'Public prototype', 'Archived evaluation']) {
+  for (const status of ['Active pre-release', 'Experimental evaluation', 'Reference implementation', 'Public prototype', 'Repository-only']) {
     assert.match(html, new RegExp(status));
   }
   assert.match(html, /53\.77% accuracy versus a 56\.70% bookmaker benchmark/);

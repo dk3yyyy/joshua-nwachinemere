@@ -140,11 +140,11 @@
 
           <div class="dossier">
             <div class="dossier-tabs" role="tablist" aria-label="Selected project dossiers">
-              <button type="button" id="tab-lens" role="tab" aria-selected="true" aria-controls="project-lens"><span>01</span>Volyx Lens</button>
-              <button type="button" id="tab-noughtline" role="tab" aria-selected="false" aria-controls="project-noughtline" tabindex="-1"><span>02</span>Noughtline</button>
-              <button type="button" id="tab-vt" role="tab" aria-selected="false" aria-controls="project-vt" tabindex="-1"><span>03</span>VirusTotal Bot</button>
-              <button type="button" id="tab-wallet" role="tab" aria-selected="false" aria-controls="project-wallet" tabindex="-1"><span>04</span>Wallet Analyzer</button>
-              <button type="button" id="tab-football" role="tab" aria-selected="false" aria-controls="project-football" tabindex="-1"><span>05</span>Football Predictor</button>
+              <button type="button" id="tab-lens" role="tab" aria-label="Volyx Lens" aria-selected="true" aria-controls="project-lens"><span>01</span>Volyx Lens</button>
+              <button type="button" id="tab-football" role="tab" aria-label="Football Forecasting Lab" aria-selected="false" aria-controls="project-football" tabindex="-1"><span>02</span>Football ML</button>
+              <button type="button" id="tab-downloader" role="tab" aria-label="Telegram Social Video Downloader" aria-selected="false" aria-controls="project-downloader" tabindex="-1"><span>03</span>Media Workflow</button>
+              <button type="button" id="tab-wallet" role="tab" aria-label="ChainScope Wallet Analyzer" aria-selected="false" aria-controls="project-wallet" tabindex="-1"><span>04</span>ChainScope</button>
+              <button type="button" id="tab-user-count" role="tab" aria-label="Telegram User Counter" aria-selected="false" aria-controls="project-user-count" tabindex="-1"><span>05</span>User Counter</button>
             </div>
 
             <section class="project-sheet project-lens" id="project-lens" role="tabpanel" aria-labelledby="tab-lens">
@@ -159,51 +159,51 @@
               </div>
             </section>
 
-            <section class="project-sheet project-noughtline" id="project-noughtline" role="tabpanel" aria-labelledby="tab-noughtline">
-              <div class="project-sheet-head"><span>Dossier 02 / Real-time systems</span><span>Supporting evidence</span></div>
+            <section class="project-sheet project-football" id="project-football" role="tabpanel" aria-labelledby="tab-football">
+              <div class="project-sheet-head"><span>Dossier 02 / ML evaluation</span><span>Direct AI evidence</span></div>
               <div class="project-sheet-body">
-                <div class="project-title"><p>Server-authoritative multiplayer</p><h3>Noughtline</h3><span class="project-number" aria-hidden="true">02</span></div>
-                <dl class="project-facts"><div><dt>Status</dt><dd>Public demo</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Live demo · tests · CI</dd></div></dl>
-                <p class="project-description">A React and Express multiplayer game with signed guest sessions, server-validated moves, reconnect handling, an append-only transaction ledger, and one-time crediting for verified Paystack references.</p>
-                <p class="verified-result"><span>Verified behaviour</span> Moves are validated by the server and verified payment references can be credited only once.</p>
-                <div class="project-links"><a href="https://noughtline.onrender.com" target="_blank" rel="noreferrer">Live demo ↗</a><a href="https://github.com/dk3yyyy/Noughtline" target="_blank" rel="noreferrer">Source ↗</a></div>
-                <p class="project-stack">React · Socket.IO · SQLite</p>
+                <div class="project-title"><p>Temporal forecasting experiment</p><h3>Football Forecasting Lab</h3><span class="project-number" aria-hidden="true">02</span></div>
+                <dl class="project-facts"><div><dt>Status</dt><dd>Experimental evaluation</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Evaluation report · tests · CI</dd></div></dl>
+                <p class="project-description">A leakage-aware football forecasting pipeline with chronological train, calibration, and frozen test windows; calibrated XGBoost and Poisson probabilities; and explicit live, retrospective, and synthetic-data boundaries.</p>
+                <p class="verified-result"><span>Measured result</span> 53.77% accuracy versus a 56.70% bookmaker benchmark across 1,140 rolling-origin test matches. The model did not beat the benchmark.</p>
+                <div class="project-links"><a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">Evaluation repository ↗</a><a href="https://github.com/dk3yyyy/football_predictor/tree/main/docs/evaluation" target="_blank" rel="noreferrer">Report ↗</a><a href="https://github.com/dk3yyyy/football_predictor/actions" target="_blank" rel="noreferrer">CI ↗</a></div>
+                <p class="project-stack">Python · XGBoost · scikit-learn · FastAPI · Streamlit</p>
               </div>
             </section>
 
-            <section class="project-sheet project-vt" id="project-vt" role="tabpanel" aria-labelledby="tab-vt">
-              <div class="project-sheet-head"><span>Dossier 03 / Async integration</span><span>Python evidence</span></div>
+            <section class="project-sheet project-downloader" id="project-downloader" role="tabpanel" aria-labelledby="tab-downloader">
+              <div class="project-sheet-head"><span>Dossier 03 / Workflow automation</span><span>Systems evidence</span></div>
               <div class="project-sheet-body">
-                <div class="project-title"><p>Bounded malware-analysis flow</p><h3>VirusTotal Telegram Bot</h3><span class="project-number" aria-hidden="true">03</span></div>
-                <dl class="project-facts"><div><dt>Status</dt><dd>Source available</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Source · implementation</dd></div></dl>
-                <p class="project-description">An async Telegram bot for VirusTotal v3. It hashes locally before upload, follows the large-file flow, backs off on rate limits, and caches reports for interactive details.</p>
-                <p class="verified-result"><span>Engineering flow</span> Hash locally → query → cache report.</p>
-                <div class="project-links"><a href="https://github.com/dk3yyyy/VirusTotal-Telegram-Bot" target="_blank" rel="noreferrer">Source ↗</a></div>
-                <p class="project-stack">Pyrogram · aiohttp · VirusTotal API</p>
+                <div class="project-title"><p>Reliable media workflow</p><h3>Telegram Social Video Downloader</h3><span class="project-number" aria-hidden="true">03</span></div>
+                <dl class="project-facts"><div><dt>Status</dt><dd>Reference implementation</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Architecture · tests · CI</dd></div></dl>
+                <p class="project-description">A sanitized n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates, persists queue state in SQLite, recovers interrupted work, and normalizes media for Telegram.</p>
+                <p class="verified-result"><span>Failure controls</span> Bounded workers and queue limits, host allowlisting, restart recovery, idempotent update handling, and non-root container execution.</p>
+                <div class="project-links"><a href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer">Source ↗</a><a href="https://github.com/dk3yyyy/telegram-social-video-downloader/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Architecture ↗</a><a href="https://github.com/dk3yyyy/telegram-social-video-downloader/actions" target="_blank" rel="noreferrer">CI ↗</a></div>
+                <p class="project-stack">Python · FastAPI · n8n · SQLite · Docker</p>
               </div>
             </section>
 
             <section class="project-sheet project-wallet" id="project-wallet" role="tabpanel" aria-labelledby="tab-wallet">
-              <div class="project-sheet-head"><span>Dossier 04 / API aggregation</span><span>Python evidence</span></div>
+              <div class="project-sheet-head"><span>Dossier 04 / API aggregation</span><span>Systems evidence</span></div>
               <div class="project-sheet-body">
-                <div class="project-title"><p>Multi-source data aggregation</p><h3>Solana &amp; Ethereum Wallet Analyzer</h3><span class="project-number" aria-hidden="true">04</span></div>
+                <div class="project-title"><p>Multi-source data aggregation</p><h3>ChainScope Wallet Analyzer</h3><span class="project-number" aria-hidden="true">04</span></div>
                 <dl class="project-facts"><div><dt>Status</dt><dd>Public prototype</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Live demo · tests · CI</dd></div></dl>
-                <p class="project-description">An async Telegram bot that validates Solana and Ethereum addresses, combines four RPC and market-data sources, caches requests for five minutes, and paginates Solana holdings in chat.</p>
-                <p class="verified-result"><span>Engineering flow</span> Validate → gather → merge → cache.</p>
-                <div class="project-links"><a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Live demo ↗</a><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">Source ↗</a></div>
-                <p class="project-stack">aiohttp · Telegram Bot API · Web3 data</p>
+                <p class="project-description">A read-only FastAPI, web, and Telegram application that validates Solana and Ethereum addresses, combines RPC and market-data providers, bounds concurrency, and preserves partial results when upstream token metadata fails.</p>
+                <p class="verified-result"><span>Engineering flow</span> Validate → gather concurrently → merge → cache → disclose partial provider failures.</p>
+                <div class="project-links"><a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Live demo ↗</a><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">Source ↗</a><a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer/actions" target="_blank" rel="noreferrer">CI ↗</a></div>
+                <p class="project-stack">Python · FastAPI · aiohttp · React · Telegram</p>
               </div>
             </section>
 
-            <section class="project-sheet project-football" id="project-football" role="tabpanel" aria-labelledby="tab-football">
-              <div class="project-sheet-head"><span>Dossier 05 / ML evaluation</span><span>Archived experiment</span></div>
+            <section class="project-sheet project-user-count" id="project-user-count" role="tabpanel" aria-labelledby="tab-user-count">
+              <div class="project-sheet-head"><span>Dossier 05 / Transactional reliability</span><span>Backend evidence</span></div>
               <div class="project-sheet-body">
-                <div class="project-title"><p>Forecasting experiment</p><h3>Football Predictor</h3><span class="project-number" aria-hidden="true">05</span></div>
-                <dl class="project-facts"><div><dt>Status</dt><dd>Archived evaluation</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Evaluation report · tests · CI</dd></div></dl>
-                <p class="project-description">An archived XGBoost and Poisson forecasting experiment. Across 1,140 rolling-origin test matches, it reached 53.77% accuracy versus a 56.70% bookmaker benchmark, so I did not present it as a betting product.</p>
-                <p class="verified-result"><span>Decision</span> Evidence changed the product decision.</p>
-                <div class="project-links"><a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">Evaluation repository ↗</a></div>
-                <p class="project-stack">XGBoost · scikit-learn · FastAPI · Streamlit</p>
+                <div class="project-title"><p>Transactional registration and milestone delivery</p><h3>Telegram User Counter</h3><span class="project-number" aria-hidden="true">05</span></div>
+                <dl class="project-facts"><div><dt>Status</dt><dd>Repository-only</dd></div><div><dt>Ownership</dt><dd>Independent project</dd></div><div><dt>Evidence</dt><dd>Source · tests · CI</dd></div></dl>
+                <p class="project-description">An async Telegram service that registers users once and records newly reached milestones in the same database transaction, then delivers notifications through a durable pending/sent/superseded workflow.</p>
+                <p class="verified-result"><span>Failure controls</span> Gap-safe milestone claims, ordered retries, startup reconciliation, explicit database failure, and optional Redis degradation.</p>
+                <div class="project-links"><a href="https://github.com/dk3yyyy/user_count" target="_blank" rel="noreferrer">Source ↗</a><a href="https://github.com/dk3yyyy/user_count/actions" target="_blank" rel="noreferrer">CI ↗</a></div>
+                <p class="project-stack">Python · SQLAlchemy · PostgreSQL · Redis · Telegram</p>
               </div>
             </section>
           </div>

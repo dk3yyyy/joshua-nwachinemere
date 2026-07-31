@@ -32,18 +32,18 @@ test('desktop interview dossier is usable, accessible, and free of overflow', as
   const pageWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(pageWidth.scroll).toBeLessThanOrEqual(pageWidth.client + 1);
 
-  await page.getByRole('tab', { name: /Noughtline/ }).click();
-  await expect(page.getByRole('tabpanel', { name: /Noughtline/ })).toBeVisible();
-  await expect(page.getByText('Server-authoritative multiplayer')).toBeVisible();
+  await page.getByRole('tab', { name: /Football Forecasting Lab/ }).click();
+  await expect(page.getByRole('tabpanel', { name: /Football Forecasting Lab/ })).toBeVisible();
+  await expect(page.getByText('Temporal forecasting experiment')).toBeVisible();
 
-  const tab = page.getByRole('tab', { name: /Noughtline/ });
+  const tab = page.getByRole('tab', { name: /Football Forecasting Lab/ });
   await tab.focus();
   await page.keyboard.press('ArrowRight');
-  await expect(page.getByRole('tab', { name: /VirusTotal Bot/ })).toBeFocused();
-  await expect(page.getByRole('tabpanel', { name: /VirusTotal Bot/ })).toBeVisible();
+  await expect(page.getByRole('tab', { name: /Telegram Social Video Downloader/ })).toBeFocused();
+  await expect(page.getByRole('tabpanel', { name: /Telegram Social Video Downloader/ })).toBeVisible();
   await page.keyboard.press('End');
-  await expect(page.getByRole('tab', { name: /Football Predictor/ })).toBeFocused();
-  await expect(page.getByText('53.77% accuracy versus a 56.70% bookmaker benchmark')).toBeVisible();
+  await expect(page.getByRole('tab', { name: /Telegram User Counter/ })).toBeFocused();
+  await expect(page.getByText('Transactional registration and milestone delivery')).toBeVisible();
 
   const axe = await new AxeBuilder({ page }).analyze();
   expect(axe.violations).toEqual([]);
@@ -71,10 +71,10 @@ test('mobile navigation, project reachability, touch targets, and layout work', 
     return heading.top - masthead.bottom;
   });
   expect(anchorClearance).toBeGreaterThanOrEqual(8);
-  const footballTab = page.getByRole('tab', { name: /Football Predictor/ });
-  await footballTab.scrollIntoViewIfNeeded();
-  await footballTab.click();
-  await expect(page.getByRole('tabpanel', { name: /Football Predictor/ })).toBeVisible();
+  const finalTab = page.getByRole('tab', { name: /Telegram User Counter/ });
+  await finalTab.scrollIntoViewIfNeeded();
+  await finalTab.click();
+  await expect(page.getByRole('tabpanel', { name: /Telegram User Counter/ })).toBeVisible();
 
   const sizes = await page.locator('button, .button, .project-links a').evaluateAll((nodes) => nodes.map((node) => {
     const rect = node.getBoundingClientRect();
@@ -117,7 +117,7 @@ test('320px enhanced text spacing preserves content and controls', async ({ page
   expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
   expect(layout.tabsScrollWidth).toBeLessThanOrEqual(layout.tabsClientWidth + 1);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.getByRole('tab', { name: /Football Predictor/ })).toBeVisible();
+  await expect(page.getByRole('tab', { name: /Telegram User Counter/ })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open the evidence' })).toBeVisible();
   for (const heading of await page.getByRole('heading', { level: 2 }).all()) {
     await heading.scrollIntoViewIfNeeded();
