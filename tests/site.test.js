@@ -73,7 +73,7 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
 
 test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
-  assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>applied AI<\/em>\.<\/h1>/);
+  assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>Applied AI<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. The work below includes source, tests, architecture and measured limitations.'));
   assert.ok(textOnly.includes('5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked'));
   assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));

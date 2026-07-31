@@ -100,7 +100,7 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for applied AI.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for Applied AI.');
   await expect(page.locator('[data-project-name]')).toHaveCount(5);
   for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
   await expect(page.locator('.project-card--primary')).toHaveCount(2);
@@ -219,6 +219,9 @@ test('approved typography and responsive spacing tokens hold at every required w
         primaryMetadataGap: number('.project-header', 'marginBottom'),
         compactMetaGaps,
         actionGap: number('.project-links', 'columnGap'),
+        availabilityColor: getComputedStyle(document.querySelector('.availability')).color,
+        primaryInkColor: getComputedStyle(document.querySelector('.hero h1')).color,
+        availabilityWeight: Number(getComputedStyle(document.querySelector('.availability')).fontWeight),
       };
     });
     expect(Math.min(...tokens.supportSizes), `${viewport.width}px supporting-copy floor`).toBeGreaterThanOrEqual(16);
@@ -227,6 +230,8 @@ test('approved typography and responsive spacing tokens hold at every required w
     expect(tokens.primaryMetadataGap, `${viewport.width}px primary metadata gap`).toBeGreaterThanOrEqual(16);
     expect(Math.min(...tokens.compactMetaGaps), `${viewport.width}px compact metadata gap`).toBeGreaterThanOrEqual(16);
     expect(tokens.actionGap, `${viewport.width}px action grouping`).toBeGreaterThanOrEqual(8);
+    expect(tokens.availabilityColor, `${viewport.width}px availability ink`).toBe(tokens.primaryInkColor);
+    expect(tokens.availabilityWeight, `${viewport.width}px availability weight`).toBeGreaterThanOrEqual(500);
     const expected = viewport.width < 768
       ? { primary: 20, compact: 20, section: 40 }
       : viewport.width <= 900

@@ -59,7 +59,7 @@ h1, h2, h3 { margin-top: 0; font-weight: 600; letter-spacing: -.035em; line-heig
 .button-primary { color: var(--surface); background: var(--signal); }
 .button-secondary { background: var(--surface); }
 .button:hover, .project-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.availability { max-width: 900px; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 16px; line-height: 1.5; }
+.availability { max-width: 900px; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 1.5; }
 
 .section { padding: 72px 0; border-top: 1px solid var(--line); }
 .section-header { max-width: 740px; margin-bottom: 26px; }
