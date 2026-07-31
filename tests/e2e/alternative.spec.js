@@ -202,8 +202,78 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
     const style = getComputedStyle(node);
     return { outline: style.outlineColor, shadow: style.boxShadow };
   });
-  expect(focus.outline).toBe('rgb(244, 241, 233)');
-  expect(focus.shadow).not.toBe('none');
+  expect(focus.outline).toBe('rgb(255, 255, 255)');
+  expect(focus.shadow).toContain('inset');
+});
+
+test('glass fallbacks and focus indicators survive constrained rendering modes', async ({ page }) => {
+  captureRuntime(page);
+  const session = await page.context().newCDPSession(page);
+  await session.send('Emulation.setEmulatedMedia', {
+    media: 'screen',
+    features: [{ name: 'prefers-reduced-transparency', value: 'reduce' }],
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const fallback = await page.evaluate(() => {
+    const selectors = [
+      '.masthead', '.cover', '.cover-main', '.interview-question', '.proof-note',
+      '.dossier-tabs', '.project-sheet', '.profile-grid > div', '.candidate-card',
+      '.candidate-card > a', '.closing', '.primary-nav',
+    ];
+    return selectors.map((selector) => {
+      const style = getComputedStyle(document.querySelector(selector));
+      return { selector, background: style.backgroundColor, backdrop: style.backdropFilter || style.webkitBackdropFilter };
+    });
+  });
+  for (const surface of fallback) {
+    expect(surface.backdrop, `${surface.selector} still blurs`).toBe('none');
+    expect(surface.background, `${surface.selector} is not opaque`).toMatch(/^rgb\(/);
+  }
+
+  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [] });
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.reload();
+  for (const target of [
+    page.getByRole('link', { name: 'Joshua Nwachinemere' }),
+    page.getByRole('link', { name: 'Contact' }),
+    page.locator('.candidate-card').getByRole('link', { name: 'Email me ↗' }),
+    page.locator('.question-index').getByRole('link').first(),
+    page.getByRole('tab', { name: /Volyx Lens/ }),
+    page.locator('.project-links').getByRole('link').first(),
+    page.locator('.closing-actions').getByRole('link').first(),
+  ]) {
+    await target.focus();
+    const focusStyle = await target.evaluate((node) => {
+      const style = getComputedStyle(node);
+      return { outlineWidth: parseFloat(style.outlineWidth), outlineOffset: parseFloat(style.outlineOffset), shadow: style.boxShadow };
+    });
+    expect(focusStyle.outlineWidth).toBeGreaterThanOrEqual(3);
+    expect(focusStyle.outlineOffset).toBeLessThan(0);
+    expect(focusStyle.shadow).not.toBe('none');
+  }
+
+  await page.emulateMedia({ forcedColors: 'active' });
+  await page.reload();
+  const forcedFocus = page.getByRole('link', { name: 'Contact' });
+  await forcedFocus.focus();
+  await expect(forcedFocus).toBeFocused();
+  expect(await forcedFocus.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
+});
+
+test('glass layout remains stable around both responsive boundaries', async ({ page }) => {
+  captureRuntime(page);
+  for (const width of [759, 760, 761, 899, 900, 901]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    const geometry = await page.evaluate(() => ({
+      page: [document.documentElement.scrollWidth, document.documentElement.clientWidth],
+      tabs: [document.querySelector('.dossier-tabs').scrollWidth, document.querySelector('.dossier-tabs').clientWidth],
+    }));
+    expect(geometry.page[0], `${width}px page overflow`).toBeLessThanOrEqual(geometry.page[1] + 1);
+    expect(geometry.tabs[0], `${width}px tab overflow`).toBeLessThanOrEqual(geometry.tabs[1] + 1);
+  }
 });
 
 test('short-laptop first screen contains role, named proof, and primary actions', async ({ page }) => {
