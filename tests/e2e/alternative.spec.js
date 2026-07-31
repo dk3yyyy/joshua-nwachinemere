@@ -183,18 +183,28 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
       .map((node) => getComputedStyle(node).backgroundColor);
     return {
       paper: root.getPropertyValue('--paper').trim(),
+      paperDeep: root.getPropertyValue('--paper-deep').trim(),
+      surface: root.getPropertyValue('--surface').trim(),
       ink: root.getPropertyValue('--ink').trim(),
       signal: root.getPropertyValue('--signal').trim(),
+      displayInk: getComputedStyle(document.querySelector('.cover h1')).color,
+      displayCharcoal: getComputedStyle(document.querySelector('.cover h1 em')).color,
+      answerCharcoal: getComputedStyle(document.querySelector('.answer-lede')).color,
       sectionBackgrounds: [...new Set(sectionBackgrounds)],
       beforeContent: getComputedStyle(document.querySelector('.cover-main'), '::before').content,
       afterContent: getComputedStyle(document.querySelector('.cover-main'), '::after').content,
     };
   });
   expect(palette).toEqual({
-    paper: '#f4f1e9',
+    paper: '#f3f3f0',
+    paperDeep: '#e3e4e1',
+    surface: '#fbfbf9',
     ink: '#15171a',
-    signal: '#252525',
-    sectionBackgrounds: ['rgb(251, 250, 246)'],
+    signal: '#45494d',
+    displayInk: 'rgb(21, 23, 26)',
+    displayCharcoal: 'rgb(69, 73, 77)',
+    answerCharcoal: 'rgb(69, 73, 77)',
+    sectionBackgrounds: ['rgb(251, 251, 249)'],
     beforeContent: 'none',
     afterContent: 'none',
   });
@@ -224,6 +234,22 @@ test('restrained palette, hidden email, and focus treatment remain legible', asy
   });
   expect(focus.outline).toBe('rgb(255, 255, 255)');
   expect(focus.shadow).toContain('inset');
+});
+
+test('inline evidence links retain full touch targets', async ({ page }) => {
+  captureRuntime(page);
+  for (const viewport of [{ width: 320, height: 800 }, { width: 390, height: 844 }, { width: 1366, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    for (const target of [
+      page.locator('.candidate-card dd').getByRole('link', { name: 'Volyx Lens' }),
+      page.locator('.method-context').getByRole('link', { name: 'Visit VolyxAI ↗' }),
+    ]) {
+      const box = await target.boundingBox();
+      expect(box, `target missing at ${viewport.width}px`).not.toBeNull();
+      expect(box.height, `target too short at ${viewport.width}px`).toBeGreaterThanOrEqual(44);
+    }
+  }
 });
 
 test('secondary typography stays readable on phone and desktop', async ({ page }) => {
