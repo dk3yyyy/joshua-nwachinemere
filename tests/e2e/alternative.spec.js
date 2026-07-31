@@ -109,7 +109,7 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
   await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
-  await expect(page.getByRole('link', { name: 'Email me ↗', exact: true })).toHaveAttribute('href', /^mailto:/);
+  await expect(page.getByRole('link', { name: 'Email me', exact: true })).toHaveAttribute('href', /^mailto:/);
 
   const palette = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);
@@ -257,7 +257,7 @@ test('short desktop first fold contains the hiring essentials and selected-work 
     page.locator('.hero-intro'),
     page.locator('.availability'),
     page.getByRole('link', { name: 'View selected work' }),
-    page.getByRole('link', { name: 'Download CV ↗' }).first(),
+    page.getByRole('link', { name: 'Download CV' }).first(),
     page.getByRole('heading', { name: 'Selected AI engineering work' }),
   ];
   for (const locator of essentials) {
@@ -300,7 +300,7 @@ test('all content and navigation remain available without JavaScript', async ({ 
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
   await expect(page.getByText(/53\.77% accuracy versus a 56\.70% bookmaker benchmark/)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Email me ↗' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
   await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
   await expectNoOverflow(page, 'no-JS mobile');
   await context.close();

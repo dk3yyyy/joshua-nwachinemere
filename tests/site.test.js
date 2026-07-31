@@ -62,7 +62,7 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
     assert.equal(occurrences(html, `id="${id}"`), 1, `Expected one #${id}`);
   }
   const nav = html.match(/<nav class="primary-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
-  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'CV ↗', 'Contact']) {
+  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'CV', 'Contact']) {
     assert.ok(nav.includes(`>${label}</a>`), `Missing navigation label: ${label}`);
   }
   const positions = ['#work', '#contributions', '#approach', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
@@ -81,7 +81,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.ok(!textOnly.includes('Student visa conditions'));
   assert.ok(textOnly.includes('MSc Artificial Intelligence · Northumbria University · September 2026 intake'));
   assert.match(html, />View selected work<\/a>/);
-  assert.match(html, />Download CV ↗<\/a>/);
+  assert.match(html, />Download CV<\/a>/);
 });
 
 test('renders exactly two primary and three additional projects in source order', () => {
@@ -134,6 +134,7 @@ test('includes the approved approach, background, contact, and footer copy', () 
 });
 
 test('forbids the retired concept, unsupported claims, and unapproved projects', () => {
+  assert.doesNotMatch(textOnly, /↗|→|➡|🔗|🚀/u);
   assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|question|answer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
   assert.doesNotMatch(textOnly, /\b(?:customers?|users served|revenue|commercial outcomes?|production scale|industry-leading|senior|staff|principal)\b/i);
   assert.doesNotMatch(textOnly, /\b\d[\d,]*\s+(?:customers?|users?)\b/i);
@@ -148,9 +149,9 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.ok(emailLinks.length >= 1);
   for (const [, href, label] of emailLinks) {
     assert.equal(href, mailto);
-    assert.equal(label.trim(), 'Email me ↗');
+    assert.equal(label.trim(), 'Email me');
   }
-  assert.equal(occurrences(textOnly, 'Email me ↗'), emailLinks.length);
+  assert.equal(occurrences(textOnly, 'Email me'), emailLinks.length);
   assert.doesNotMatch(html.replaceAll(mailto, ''), /josh0victor@outlook\.com/i);
   assert.doesNotMatch(html, /aria-label="[^"]*@|content="[^"]*@/i);
   assert.match(html, /href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf"/);
