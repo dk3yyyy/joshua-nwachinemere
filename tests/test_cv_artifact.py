@@ -97,10 +97,20 @@ class CvArtifactTests(unittest.TestCase):
         referenced_relationships = {node.get(f"{R}id") for node in hyperlinks}
         external = [r for r in relationships if r.get("TargetMode") == "External"]
         external_relationships = {relationship.get("Id") for relationship in external}
-        self.assertEqual(document.count("<w:hyperlink"), 11)
+        self.assertEqual(document.count("<w:hyperlink"), 16)
         self.assertEqual(external_relationships, referenced_relationships)
         self.assertTrue(all(r.get("Target", "").startswith(("http://", "https://", "mailto:")) for r in external))
-        for url in ["faststream/pull/2961", "openai-agents-python/pull/3991", "calkit/pull/1028", "football_predictor"]:
+        for url in [
+            "openai-agents-python/pull/3991",
+            "pydantic-ai-harness/pull/503",
+            "mellea/pull/1471",
+            "faststream/pull/2961",
+            "arrow-rs/pull/10486",
+            "altair/pull/4089",
+            "faststream_fastapi/pull/2",
+            "calkit/pull/1028",
+            "football_predictor",
+        ]:
             self.assertIn(url, rels)
         doc = Document(DOCX)
         text = "\n".join(p.text for p in doc.paragraphs)
@@ -127,7 +137,18 @@ class CvArtifactTests(unittest.TestCase):
         reader = PdfReader(str(PDF))
         self.assertEqual(len(reader.pages), 2)
         text = "\n".join(page.extract_text() or "" for page in reader.pages)
-        for expected in ["JOSHUA NWACHINEMERE", "PROFILE", "OPEN-SOURCE CONTRIBUTIONS", "EDUCATION"]:
+        for expected in [
+            "JOSHUA NWACHINEMERE",
+            "PROFILE",
+            "OPEN-SOURCE CONTRIBUTIONS",
+            "OpenAI Agents Python SDK",
+            "Pydantic AI Harness",
+            "Mellea",
+            "FastStream",
+            "Additional verified upstream merges",
+            "8 merged PRs",
+            "EDUCATION",
+        ]:
             self.assertIn(expected, text)
 
     def test_forbidden_whole_words_absent(self):

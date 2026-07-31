@@ -147,16 +147,18 @@ const contributionCards = [...(contributionRail?.querySelectorAll('.contribution
 const contributionPrevious = document.querySelector('[data-contribution-prev]');
 const contributionNext = document.querySelector('[data-contribution-next]');
 const contributionStatus = document.querySelector('[data-contribution-status]');
+const contributionControls = document.querySelector('.contribution-controls');
 
 const contributionPosition = (card) => card.offsetLeft - contributionCards[0].offsetLeft;
 const currentContributionIndex = () => {
   if (!contributionRail || !contributionCards.length) return 0;
+  const currentScroll = contributionRail.scrollLeft;
   const maximumScroll = Math.max(0, contributionRail.scrollWidth - contributionRail.clientWidth);
-  if (contributionRail.scrollLeft <= 1) return 0;
+  if (currentScroll <= 1) return 0;
   if (maximumScroll - contributionRail.scrollLeft <= 1) return contributionCards.length - 1;
   return contributionCards.reduce((nearest, card, index) => (
-    Math.abs(contributionRail.scrollLeft - contributionPosition(card))
-      < Math.abs(contributionRail.scrollLeft - contributionPosition(contributionCards[nearest]))
+    Math.abs(currentScroll - contributionPosition(card))
+      < Math.abs(currentScroll - contributionPosition(contributionCards[nearest]))
       ? index
       : nearest
   ), 0);
@@ -187,13 +189,118 @@ contributionRail?.addEventListener('keydown', (event) => {
   showContribution(target);
 });
 
-let contributionScrollFrame = 0;
+let contributionControlFrame = 0;
 contributionRail?.addEventListener('scroll', () => {
-  window.cancelAnimationFrame(contributionScrollFrame);
-  contributionScrollFrame = window.requestAnimationFrame(updateContributionControls);
+  window.cancelAnimationFrame(contributionControlFrame);
+  contributionControlFrame = window.requestAnimationFrame(updateContributionControls);
 }, { passive: true });
 window.addEventListener('resize', updateContributionControls, { passive: true });
 updateContributionControls();
+
+const roleRail = document.querySelector('.role-rail');
+const roleRailTrack = document.querySelector('[data-role-rail-track]');
+const roleRailMotionToggle = document.querySelector('[data-role-rail-motion]');
+const roleRailMotionIcon = document.querySelector('[data-role-rail-motion-icon]');
+const roleRailItems = [...(roleRailTrack?.children ?? [])];
+const roleRailAutoQuery = window.matchMedia('(min-width: 861px)');
+let roleRailFrame = 0;
+let roleRailPreviousTime = 0;
+let roleRailLoopWidth = 0;
+let roleRailPosition = 0;
+let roleRailVisible = false;
+let roleRailUserPaused = false;
+let roleRailViewportWidth = window.innerWidth;
+
+const stopRoleRail = () => {
+  window.cancelAnimationFrame(roleRailFrame);
+  roleRailFrame = 0;
+  roleRailPreviousTime = 0;
+};
+
+const removeRoleRailClones = () => {
+  roleRailTrack?.querySelectorAll('[data-role-rail-clone]').forEach((clone) => clone.remove());
+};
+
+const roleRailCanRun = () => Boolean(
+  roleRailTrack
+  && roleRailLoopWidth
+  && roleRailVisible
+  && !roleRailUserPaused
+  && document.visibilityState === 'visible'
+);
+
+const roleRailTick = (time) => {
+  roleRailFrame = 0;
+  if (!roleRailCanRun()) {
+    roleRailPreviousTime = 0;
+    return;
+  }
+  if (roleRailPreviousTime) {
+    roleRailPosition += Math.min(time - roleRailPreviousTime, 64) * 0.06;
+    if (roleRailPosition >= roleRailLoopWidth) roleRailPosition -= roleRailLoopWidth;
+    roleRailTrack.style.transform = `translate3d(${-roleRailPosition}px, 0, 0)`;
+  }
+  roleRailPreviousTime = time;
+  roleRailFrame = window.requestAnimationFrame(roleRailTick);
+};
+
+const startRoleRail = () => {
+  if (roleRailFrame || !roleRailCanRun()) return;
+  roleRailPreviousTime = performance.now();
+  roleRailFrame = window.requestAnimationFrame(roleRailTick);
+};
+
+const syncRoleRail = () => {
+  stopRoleRail();
+  removeRoleRailClones();
+  roleRailLoopWidth = 0;
+  roleRailPosition = 0;
+  if (roleRailTrack) roleRailTrack.style.transform = '';
+  if (!roleRailTrack || !roleRailItems.length || !roleRailAutoQuery.matches || reduceMotion.matches) return;
+
+  roleRailItems.forEach((item) => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute('data-role-rail-clone', '');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('inert', '');
+    roleRailTrack.append(clone);
+  });
+  roleRailLoopWidth = roleRailTrack.querySelector('[data-role-rail-clone]').offsetLeft - roleRailItems[0].offsetLeft;
+  startRoleRail();
+};
+
+if (roleRail && 'IntersectionObserver' in window) {
+  const roleRailObserver = new IntersectionObserver(([entry]) => {
+    roleRailVisible = entry.isIntersecting;
+    if (roleRailVisible) startRoleRail();
+    else stopRoleRail();
+  }, { threshold: 0.1 });
+  roleRailObserver.observe(roleRail);
+} else {
+  roleRailVisible = true;
+}
+
+roleRailMotionToggle?.addEventListener('click', () => {
+  roleRailUserPaused = !roleRailUserPaused;
+  roleRailMotionToggle.setAttribute('aria-pressed', String(roleRailUserPaused));
+  roleRailMotionToggle.setAttribute('aria-label', roleRailUserPaused ? 'Play capability motion' : 'Pause capability motion');
+  if (roleRailMotionIcon) roleRailMotionIcon.textContent = roleRailUserPaused ? '▶' : 'Ⅱ';
+  if (roleRailUserPaused) stopRoleRail();
+  else startRoleRail();
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') startRoleRail();
+  else stopRoleRail();
+});
+roleRailAutoQuery.addEventListener('change', syncRoleRail);
+reduceMotion.addEventListener('change', syncRoleRail);
+window.addEventListener('resize', () => {
+  if (window.innerWidth === roleRailViewportWidth) return;
+  roleRailViewportWidth = window.innerWidth;
+  syncRoleRail();
+}, { passive: true });
+window.addEventListener('load', syncRoleRail, { once: true });
+syncRoleRail();
 
 const year = new Date().getFullYear();
 document.querySelector('.site-footer p')?.setAttribute('title', `Portfolio updated ${year}`);

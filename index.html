@@ -98,7 +98,7 @@
             <dl class="hero-proof-index" aria-label="Recruiter proof summary">
               <div><dt><span>01</span> Role</dt><dd>AI Engineer</dd></div>
               <div><dt><span>02</span> Evidence</dt><dd>05 inspectable projects</dd></div>
-              <div><dt><span>03</span> External review</dt><dd>03 merged upstream PRs</dd></div>
+              <div><dt><span>03</span> External review</dt><dd>08 merged upstream PRs</dd></div>
               <div><dt><span>04</span> Core</dt><dd>Python · FastAPI · AI integration</dd></div>
             </dl>
             <div class="hero-project-proof">
@@ -143,11 +143,18 @@
         </figure>
       </section>
 
-      <section class="role-rail" aria-label="Core engineering focus">
-        <div><span>01</span><p>Python backends</p></div>
-        <div><span>02</span><p>Retrieval + context engineering</p></div>
-        <div><span>03</span><p>Multimodal + voice AI</p></div>
-        <div><span>04</span><p>Evaluation before claims</p></div>
+      <section class="role-rail" aria-label="Core engineering focus" tabindex="0">
+        <div class="role-rail-viewport">
+          <div class="role-rail-track" data-role-rail-track>
+            <div><span>01</span><p>Python backends</p></div>
+            <div><span>02</span><p>Retrieval + context engineering</p></div>
+            <div><span>03</span><p>Multimodal + voice AI</p></div>
+            <div><span>04</span><p>Evaluation before claims</p></div>
+          </div>
+        </div>
+        <button class="role-rail-motion" type="button" data-role-rail-motion aria-label="Pause capability motion" aria-pressed="false">
+          <span aria-hidden="true" data-role-rail-motion-icon>Ⅱ</span>
+        </button>
       </section>
 
       <section class="work section" id="work" aria-labelledby="work-title">
@@ -251,36 +258,83 @@
 
       <section class="contributions section" aria-labelledby="contributions-title">
         <div class="section-heading" data-reveal>
-          <p class="section-index">External review / 03 merged</p>
+          <p class="section-index">External review / 08 merged</p>
           <h2 id="contributions-title">Merged upstream work</h2>
-          <p class="section-intro">Focused fixes accepted into established open-source projects after maintainer review.</p>
+          <p class="section-intro">Four role-relevant contributions up front, plus four more verified merges. Every link goes to the maintainer-accepted pull request.</p>
         </div>
-        <div class="contribution-controls" id="contribution-controls" aria-label="Browse merged contributions">
-          <p>Swipe or use the controls to view all three</p>
-          <span id="contribution-status" data-contribution-status aria-live="polite" aria-atomic="true">Contribution 1 of 3</span>
+        <div class="contribution-controls" id="contribution-controls" aria-label="Browse featured merged contributions">
+          <p>Swipe or use the controls to view the four featured contributions</p>
+          <span id="contribution-status" data-contribution-status aria-live="polite" aria-atomic="true">Contribution 1 of 4</span>
           <button type="button" data-contribution-prev aria-controls="contribution-rail" aria-label="Previous contribution">←</button>
           <button type="button" data-contribution-next aria-controls="contribution-rail" aria-label="Next contribution">→</button>
         </div>
         <div class="contribution-grid" id="contribution-rail" data-contribution-rail role="region" aria-roledescription="carousel" aria-label="Merged upstream contributions" aria-describedby="contribution-status" tabindex="0">
-          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="FastStream, contribution 1 of 3">
-            <p class="contribution-meta"><span>FastStream</span><span>Merged into main · Jul 2026</span></p>
-            <h3>FastAPI compatibility</h3>
-            <p>Added support for FastAPI 0.140 compatibility after changes to its <code>Dependant</code> interface.</p>
-            <a href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer">View merged PR #2961 <span aria-hidden="true">↗</span></a>
-          </article>
-          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="OpenAI Agents SDK, contribution 2 of 3">
-            <p class="contribution-meta"><span>OpenAI Agents SDK</span><span>Merged into main · Jul 2026</span></p>
-            <h3>Realtime retry handling</h3>
-            <p>Fixed retry handling for pre-response WebSocket server errors in realtime sessions.</p>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="OpenAI Agents SDK, contribution 1 of 4">
+            <p class="contribution-meta"><span>OpenAI Agents SDK</span><span>Merged · Jul 2026</span></p>
+            <h3>WebSocket retry policy</h3>
+            <p>Made pre-response WebSocket <code>server_error</code> frames follow existing retry advice while preserving replay-safety boundaries.</p>
             <a href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer">View merged PR #3991 <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="Calkit, contribution 3 of 3">
-            <p class="contribution-meta"><span>Calkit</span><span>Merged into main · Jul 2026</span></p>
-            <h3>Scoped project checks</h3>
-            <p>Ensured single-item runs skip checks for unrelated subprojects.</p>
-            <a href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer">View merged PR #1028 <span aria-hidden="true">↗</span></a>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="Pydantic AI Harness, contribution 2 of 4">
+            <p class="contribution-meta"><span>Pydantic AI Harness</span><span>Merged · Jul 2026</span></p>
+            <h3>Code Mode failure recovery</h3>
+            <p>Reported unexpected host-side execution failures back to the model after resetting an invalid Code Mode session instead of silently losing state.</p>
+            <a href="https://github.com/pydantic/pydantic-ai-harness/pull/503" target="_blank" rel="noreferrer">View merged PR #503 <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="Mellea, contribution 3 of 4">
+            <p class="contribution-meta"><span>Mellea</span><span>Merged · Jul 2026</span></p>
+            <h3>Deterministic tracing tests</h3>
+            <p>Added mocked-backend tests for span timing, context propagation, token usage, and consecutive generations while retaining live coverage.</p>
+            <a href="https://github.com/generative-computing/mellea/pull/1471" target="_blank" rel="noreferrer">View merged PR #1471 <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="contribution-card" data-reveal role="group" aria-roledescription="slide" aria-label="FastStream, contribution 4 of 4">
+            <p class="contribution-meta"><span>FastStream</span><span>Merged · Jul 2026</span></p>
+            <h3>FastAPI 0.140 compatibility</h3>
+            <p>Adapted FastStream to FastAPI's slotted <code>Dependant</code> while preserving native dependency fields and FastStream schema metadata.</p>
+            <a href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer">View merged PR #2961 <span aria-hidden="true">↗</span></a>
           </article>
         </div>
+
+        <details class="more-contributions">
+          <summary>
+            <span>View 4 more merged contributions</span>
+            <small>Apache Arrow Rust · Altair · FastStream FastAPI · Calkit</small>
+          </summary>
+          <ul class="additional-contribution-list">
+            <li class="additional-contribution">
+              <div>
+                <p class="contribution-meta"><span>Apache Arrow Rust</span><span>Merged · Jul 2026</span></p>
+                <h3>ListView nullability validation</h3>
+                <p>Switched JSON ListView construction to checked validation so nulls in non-nullable child fields return an error, with ListView and LargeListView regressions.</p>
+              </div>
+              <a href="https://github.com/apache/arrow-rs/pull/10486" target="_blank" rel="noreferrer">View PR #10486 <span aria-hidden="true">↗</span></a>
+            </li>
+            <li class="additional-contribution">
+              <div>
+                <p class="contribution-meta"><span>Altair</span><span>Merged · Jul 2026</span></p>
+                <h3>Clear JupyterChart dependency errors</h3>
+                <p>Restored the <code>enable_offline()</code> fallback and made missing <code>anywidget</code> behavior explicit for base-only installations.</p>
+              </div>
+              <a href="https://github.com/vega/altair/pull/4089" target="_blank" rel="noreferrer">View PR #4089 <span aria-hidden="true">↗</span></a>
+            </li>
+            <li class="additional-contribution">
+              <div>
+                <p class="contribution-meta"><span>FastStream FastAPI</span><span>Merged · Jul 2026</span></p>
+                <h3>Schema metadata preservation</h3>
+                <p>Preserved native FastAPI dependency fields and the FastStream metadata required for typed subscriber schema generation.</p>
+              </div>
+              <a href="https://github.com/faststream-community/faststream_fastapi/pull/2" target="_blank" rel="noreferrer">View PR #2 <span aria-hidden="true">↗</span></a>
+            </li>
+            <li class="additional-contribution">
+              <div>
+                <p class="contribution-meta"><span>Calkit</span><span>Merged · Jul 2026</span></p>
+                <h3>Scoped single-item runs</h3>
+                <p>Skipped environment and notebook preparation for unrelated subprojects while retaining checks for the selected subproject stage.</p>
+              </div>
+              <a href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer">View PR #1028 <span aria-hidden="true">↗</span></a>
+            </li>
+          </ul>
+        </details>
       </section>
 
       <section class="approach" id="approach" aria-labelledby="approach-title">

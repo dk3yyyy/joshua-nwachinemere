@@ -214,12 +214,108 @@ test('tablet keeps project facts compact without restoring dense hero visuals', 
   await page.goto('./');
 
   await expect(page.locator('.system-field')).toBeHidden();
-  await expect(page.locator('.role-rail')).toBeHidden();
+  const roleRail = page.locator('.role-rail');
+  const roleTrack = page.locator('[data-role-rail-track]');
+  await expect(roleRail).toBeVisible();
+  await expect(roleRail).toHaveAttribute('tabindex', '0');
+  await expect(roleTrack.locator('[data-role-rail-clone]')).toHaveCount(0);
+  const roleMetrics = await roleRail.evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+    overflowX: getComputedStyle(element).overflowX,
+  }));
+  expect(roleMetrics.scrollWidth).toBeGreaterThan(roleMetrics.clientWidth + 100);
+  expect(roleMetrics.overflowX).toBe('auto');
+  await roleRail.scrollIntoViewIfNeeded();
+  await expect(roleTrack).toHaveCSS('transform', 'none');
+  const tabletTarget = await roleTrack.locator(':scope > div').nth(2).evaluate((element) => element.offsetLeft);
+  await roleRail.evaluate((element, left) => element.scrollTo({ left, behavior: 'auto' }), tabletTarget);
+  await page.waitForTimeout(200);
+  const tabletManualPosition = await roleRail.evaluate((element) => element.scrollLeft);
+  await page.waitForTimeout(500);
+  expect(await roleRail.evaluate((element) => element.scrollLeft)).toBeCloseTo(tabletManualPosition, 0);
   const factColumns = await page.locator('.project-facts').first().evaluate((element) => (
     getComputedStyle(element).gridTemplateColumns.split(' ').length
   ));
   expect(factColumns).toBe(3);
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
+test('mobile capability strip is a stable manual rail with natural backward and forward scrolling', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  const rail = page.locator('.role-rail');
+  const track = page.locator('[data-role-rail-track]');
+  await rail.scrollIntoViewIfNeeded();
+  await expect(track.locator('[data-role-rail-clone]')).toHaveCount(0);
+  await expect(track).toHaveCSS('transform', 'none');
+  const metrics = await rail.evaluate((element) => ({
+    overflow: getComputedStyle(element).overflowX,
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+  expect(metrics.overflow).toBe('auto');
+  expect(metrics.scrollWidth).toBeGreaterThan(metrics.clientWidth);
+
+  const itemPositions = await track.locator(':scope > div').evaluateAll((items) => items.map((item) => item.offsetLeft));
+  await rail.evaluate((element, left) => element.scrollTo({ left, behavior: 'auto' }), itemPositions[2]);
+  await page.waitForTimeout(250);
+  const forwardLeft = await rail.evaluate((element) => element.scrollLeft);
+  expect(forwardLeft).toBeGreaterThan(itemPositions[1]);
+
+  await rail.evaluate((element, left) => element.scrollTo({ left, behavior: 'auto' }), itemPositions[1]);
+  await page.waitForTimeout(250);
+  const backwardLeft = await rail.evaluate((element) => element.scrollLeft);
+  expect(backwardLeft).toBeLessThan(forwardLeft);
+  await page.waitForTimeout(700);
+  expect(await rail.evaluate((element) => element.scrollLeft)).toBeCloseTo(backwardLeft, 0);
+
+  await page.setViewportSize({ width: 390, height: 760 });
+  await page.waitForTimeout(300);
+  expect(await rail.evaluate((element) => element.scrollLeft)).toBeCloseTo(backwardLeft, 0);
+
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
+test('mobile contributions are a stable manual carousel with reachable backward and final cards', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  const rail = page.locator('[data-contribution-rail]');
+  await rail.scrollIntoViewIfNeeded();
+  await expect(rail.locator('[data-contribution-clone]')).toHaveCount(0);
+  await expect(rail).toHaveCSS('scroll-snap-type', 'x mandatory');
+  await expect(rail).not.toHaveClass(/is-auto-scrolling/);
+
+  const scrollLeft = () => rail.evaluate((element) => element.scrollLeft);
+  const initialLeft = await scrollLeft();
+  await page.waitForTimeout(700);
+  expect(await scrollLeft()).toBeCloseTo(initialLeft, 0);
+
+  const cards = rail.locator('.contribution-card');
+  const cardPositions = await cards.evaluateAll((items) => items.map((item) => item.offsetLeft - items[0].offsetLeft));
+  await rail.evaluate((element, left) => element.scrollTo({ left, behavior: 'auto' }), cardPositions[2]);
+  await expect(page.locator('[data-contribution-status]')).toHaveText('Contribution 3 of 4');
+  const forwardLeft = await scrollLeft();
+
+  await rail.evaluate((element, left) => element.scrollTo({ left, behavior: 'auto' }), cardPositions[1]);
+  await expect(page.locator('[data-contribution-status]')).toHaveText('Contribution 2 of 4');
+  const backwardLeft = await scrollLeft();
+  expect(backwardLeft).toBeLessThan(forwardLeft);
+  await page.waitForTimeout(700);
+  expect(await scrollLeft()).toBeCloseTo(backwardLeft, 0);
+
+  await rail.focus();
+  await page.keyboard.press('End');
+  await expect(page.locator('[data-contribution-status]')).toHaveText('Contribution 4 of 4');
+  expect(await scrollLeft()).toBeGreaterThan(cardPositions[2]);
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  await expect(page.locator('[data-contribution-clone]')).toHaveCount(0);
 });
 
 test('contribution rail exposes explicit carousel semantics and keyboard-operable progress', async ({ page }, testInfo) => {
@@ -235,12 +331,12 @@ test('contribution rail exposes explicit carousel semantics and keyboard-operabl
   await expect(rail).toHaveAttribute('aria-label', 'Merged upstream contributions');
   await expect(rail).toHaveAttribute('aria-roledescription', 'carousel');
   await expect(rail).toHaveAttribute('aria-describedby', 'contribution-status');
-  await expect(rail.locator('[role="group"]')).toHaveCount(3);
-  for (let index = 0; index < 3; index += 1) {
+  await expect(rail.locator('[role="group"]')).toHaveCount(4);
+  for (let index = 0; index < 4; index += 1) {
     await expect(rail.locator('[role="group"]').nth(index)).toHaveAttribute('aria-roledescription', 'slide');
   }
-  await expect(rail.locator('[role="group"]').first()).toHaveAttribute('aria-label', 'FastStream, contribution 1 of 3');
-  await expect(rail.locator('[role="group"]').nth(2)).toHaveAttribute('aria-label', 'Calkit, contribution 3 of 3');
+  await expect(rail.locator('[role="group"]').first()).toHaveAttribute('aria-label', 'OpenAI Agents SDK, contribution 1 of 4');
+  await expect(rail.locator('[role="group"]').nth(3)).toHaveAttribute('aria-label', 'FastStream, contribution 4 of 4');
   await expect(previous).toHaveAttribute('aria-controls', 'contribution-rail');
   await expect(next).toHaveAttribute('aria-controls', 'contribution-rail');
   await expect(page.locator('[data-contribution-status]')).toHaveAttribute('id', 'contribution-status');
@@ -248,19 +344,19 @@ test('contribution rail exposes explicit carousel semantics and keyboard-operabl
   await expect(previous).toBeVisible();
   await expect(next).toBeVisible();
   await expect(previous).toBeDisabled();
-  await expect(status).toHaveText('Contribution 1 of 3');
+  await expect(status).toHaveText('Contribution 1 of 4');
 
   await next.focus();
   await page.keyboard.press('Enter');
-  await expect(status).toHaveText('Contribution 2 of 3');
+  await expect(status).toHaveText('Contribution 2 of 4');
   await expect(previous).toBeEnabled();
   expect(await rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
 
   await rail.focus();
   await page.keyboard.press('Home');
-  await expect(status).toHaveText('Contribution 1 of 3');
+  await expect(status).toHaveText('Contribution 1 of 4');
   await page.keyboard.press('End');
-  await expect(status).toHaveText('Contribution 3 of 3');
+  await expect(status).toHaveText('Contribution 4 of 4');
 
   for (const button of [previous, next]) {
     const box = await button.boundingBox();
@@ -274,10 +370,26 @@ test('contribution rail remains content-accessible without JavaScript', async ({
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 768, height: 1024 } });
   const page = await context.newPage();
   await page.goto(test.info().project.use.baseURL);
-  await expect(page.locator('.contribution-card')).toHaveCount(3);
+  await expect(page.locator('.contribution-card')).toHaveCount(4);
   await expect(page.locator('.contribution-controls')).toBeHidden();
-  await expect(page.getByRole('link', { name: /View merged PR/ })).toHaveCount(3);
+  await expect(page.getByRole('link', { name: /View merged PR/ })).toHaveCount(4);
+  await expect(page.locator('.additional-contribution a')).toHaveCount(4);
   await context.close();
+});
+
+test('additional merged contributions are collapsed by default and keyboard-expandable', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+  await page.goto('./');
+
+  const details = page.locator('.more-contributions');
+  const summary = details.locator('summary');
+  await expect(details).not.toHaveAttribute('open', '');
+  await expect(summary).toContainText('View 4 more merged contributions');
+  await summary.focus();
+  await page.keyboard.press('Enter');
+  await expect(details).toHaveAttribute('open', '');
+  await expect(details.locator('.additional-contribution')).toHaveCount(4);
+  await expect(details.locator('a')).toHaveCount(4);
 });
 
 test('tablet metadata is readable, touch-safe, and page-height contract is resilient', async ({ page }, testInfo) => {
@@ -302,13 +414,115 @@ test('tablet metadata is readable, touch-safe, and page-height contract is resil
     expect(metrics.contributionMeta).toBeGreaterThanOrEqual(9);
   }
 });
-test('contribution controls stay out of the non-scrolling desktop grid', async ({ page }, testInfo) => {
+test('desktop capability strip auto-scrolls while contributions retain their grid', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop');
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('./');
+
+  const contributionGrid = page.locator('[data-contribution-rail]');
   await expect(page.locator('.contribution-controls')).toBeHidden();
-  const rail = page.locator('[data-contribution-rail]');
-  expect(await rail.evaluate((element) => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1);
+  await expect(contributionGrid.locator('[data-contribution-clone]')).toHaveCount(0);
+  expect(await contributionGrid.evaluate((element) => ({
+    columns: getComputedStyle(element).gridTemplateColumns.split(' ').length,
+    overflow: element.scrollWidth - element.clientWidth,
+  }))).toEqual({ columns: 2, overflow: 0 });
+
+  const rail = page.locator('.role-rail');
+  const track = page.locator('[data-role-rail-track]');
+  await expect(track.locator('[data-role-rail-clone]')).toHaveCount(4);
+  for (const clone of await track.locator('[data-role-rail-clone]').all()) {
+    await expect(clone).toHaveAttribute('aria-hidden', 'true');
+    await expect(clone).toHaveAttribute('inert', '');
+  }
+
+  const trackX = () => track.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41);
+  const offscreenX = await trackX();
+  await page.waitForTimeout(350);
+  expect(await trackX()).toBe(offscreenX);
+
+  await rail.scrollIntoViewIfNeeded();
+  const initialX = await trackX();
+  await expect.poll(trackX, { timeout: 2500 }).toBeLessThan(initialX - 8);
+
+  await rail.hover();
+  const hoveredX = await trackX();
+  await page.waitForTimeout(350);
+  expect(await trackX()).toBeLessThan(hoveredX - 8);
+
+  const motionToggle = page.locator('[data-role-rail-motion]');
+  await expect(motionToggle).toBeVisible();
+  await expect(motionToggle).toHaveAccessibleName('Pause capability motion');
+  await expect(motionToggle).toHaveAttribute('aria-pressed', 'false');
+  await motionToggle.click();
+  await expect(motionToggle).toHaveAccessibleName('Play capability motion');
+  await expect(motionToggle).toHaveAttribute('aria-pressed', 'true');
+  const pausedX = await trackX();
+  await page.waitForTimeout(350);
+  expect(await trackX()).toBeCloseTo(pausedX, 0);
+  await motionToggle.click();
+  await expect.poll(trackX, { timeout: 2500 }).toBeLessThan(pausedX - 8);
+
+  await page.evaluate(() => {
+    const nativeRequestAnimationFrame = window.requestAnimationFrame.bind(window);
+    window.__portfolioRafRequests = 0;
+    window.requestAnimationFrame = (callback) => {
+      window.__portfolioRafRequests += 1;
+      return nativeRequestAnimationFrame(callback);
+    };
+  });
+  await page.waitForTimeout(250);
+  const visibleRafRequests = await page.evaluate(() => window.__portfolioRafRequests);
+  expect(visibleRafRequests).toBeGreaterThan(5);
+  await motionToggle.click();
+  await page.evaluate(() => { window.__portfolioRafRequests = 0; });
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => window.__portfolioRafRequests)).toBe(0);
+  await motionToggle.click();
+  await page.waitForTimeout(150);
+  expect(await page.evaluate(() => window.__portfolioRafRequests)).toBeGreaterThan(0);
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  });
+  await expect.poll(() => rail.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return rect.bottom <= 0 || rect.top >= window.innerHeight;
+  })).toBe(true);
+  await page.waitForTimeout(100);
+  await page.evaluate(() => { window.__portfolioRafRequests = 0; });
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => window.__portfolioRafRequests)).toBe(0);
+
+  await rail.evaluate((element) => element.scrollIntoView({ behavior: 'instant', block: 'center' }));
+  await expect.poll(() => rail.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  })).toBe(true);
+  await page.evaluate(() => { window.__portfolioRafRequests = 0; });
+  await page.waitForTimeout(250);
+  expect(await page.evaluate(() => window.__portfolioRafRequests)).toBeGreaterThan(5);
+
+  await page.setViewportSize({ width: 860, height: 1000 });
+  await expect(track.locator('[data-role-rail-clone]')).toHaveCount(0);
+  await expect(track).toHaveCSS('transform', 'none');
+  await expect(motionToggle).toBeHidden();
+  await page.setViewportSize({ width: 861, height: 1000 });
+  await expect(track.locator('[data-role-rail-clone]')).toHaveCount(4);
+  await expect(motionToggle).toBeVisible();
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  const reducedTrack = page.locator('[data-role-rail-track]');
+  const reducedRail = page.locator('.role-rail');
+  await expect(reducedTrack.locator('[data-role-rail-clone]')).toHaveCount(0);
+  await expect(reducedTrack).toHaveCSS('transform', 'none');
+  await expect(page.locator('[data-role-rail-motion]')).toBeHidden();
+  await expect(reducedRail).toHaveCSS('overflow-x', 'auto');
+  expect(await reducedRail.evaluate((element) => element.scrollWidth)).toBeGreaterThan(
+    await reducedRail.evaluate((element) => element.clientWidth),
+  );
+  await reducedRail.evaluate((element) => element.scrollTo({ left: element.scrollWidth, behavior: 'auto' }));
+  expect(await reducedRail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
 });
 
 test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
@@ -525,13 +739,116 @@ test('mobile keeps visual proof for flagship projects and compacts supporting wo
   await expect(projects.nth(1).locator('.case-canvas')).toBeVisible();
   await expect(projects.nth(2).locator('.case-canvas')).toBeHidden();
   await expect(projects.nth(2).locator('.project-signal')).toBeVisible();
-  await expect(page.locator('.role-rail')).toBeHidden();
+  await expect(page.locator('.role-rail')).toBeVisible();
   const pageLength = await page.evaluate(() => document.documentElement.scrollHeight / window.innerHeight);
   expect(pageLength).toBeLessThanOrEqual(9.5);
 
   await page.setViewportSize({ width: 320, height: 800 });
   await page.reload();
   expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_100);
+});
+
+test('work heading never splits a word across lines', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'Responsive heading-wrap regression');
+
+  for (const viewport of [
+    { width: 320, height: 800 },
+    { width: 375, height: 812 },
+    { width: 390, height: 844 },
+    { width: 600, height: 900 },
+    { width: 667, height: 900 },
+    { width: 700, height: 900 },
+    { width: 720, height: 900 },
+    { width: 744, height: 900 },
+    { width: 768, height: 900 },
+    { width: 820, height: 900 },
+    { width: 1024, height: 768 },
+    { width: 1280, height: 768 },
+    { width: 1440, height: 1000 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./#work');
+
+    const heading = page.locator('#work-title');
+    await expect(heading).toBeVisible();
+    const headingStyle = await heading.evaluate((element) => {
+      const style = getComputedStyle(element);
+      const bounds = element.getBoundingClientRect();
+      return {
+        overflowWrap: style.overflowWrap,
+        wordBreak: style.wordBreak,
+        left: bounds.left,
+        right: bounds.right,
+        clientWidth: element.clientWidth,
+        scrollWidth: element.scrollWidth,
+        viewportWidth: window.innerWidth,
+      };
+    });
+    expect(headingStyle.overflowWrap, `${viewport.width}px overflow-wrap`).toBe('normal');
+    expect(headingStyle.wordBreak, `${viewport.width}px word-break`).toBe('normal');
+    expect(headingStyle.left).toBeGreaterThanOrEqual(0);
+    expect(headingStyle.right).toBeLessThanOrEqual(headingStyle.viewportWidth);
+    expect(
+      headingStyle.scrollWidth,
+      `${viewport.width}px heading text overflow: ${JSON.stringify(headingStyle)}`,
+    ).toBeLessThanOrEqual(headingStyle.clientWidth);
+    const wordLines = await heading.evaluate((element) => {
+      const node = element.firstChild;
+      const text = node.textContent;
+      return [...text.matchAll(/\S+/g)].map((match) => {
+        const lineTops = [];
+        for (let index = match.index; index < match.index + match[0].length; index += 1) {
+          const range = document.createRange();
+          range.setStart(node, index);
+          range.setEnd(node, index + 1);
+          lineTops.push(Math.round(range.getBoundingClientRect().top));
+        }
+        return { word: match[0], lines: new Set(lineTops).size };
+      });
+    });
+
+    expect(
+      wordLines,
+      `${viewport.width}px heading word geometry: ${JSON.stringify(wordLines)}`,
+    ).toEqual([
+      { word: 'Selected', lines: 1 },
+      { word: 'engineering', lines: 1 },
+      { word: 'work', lines: 1 },
+    ]);
+  }
+});
+
+test('mobile Server State label stays clear of the game board', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Mobile visual-overlap regression');
+
+  for (const viewport of [{ width: 390, height: 844 }, { width: 375, height: 812 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./#work');
+
+    const canvas = page.locator('.state-canvas');
+    await expect(canvas).toBeVisible();
+    const geometry = await canvas.evaluate((element) => {
+      const labelElement = element.querySelector('.state-label');
+      const label = labelElement.getBoundingClientRect();
+      const board = element.querySelector('.state-board').getBoundingClientRect();
+      return {
+        labelBottom: label.bottom,
+        labelTop: label.top,
+        boardTop: board.top,
+        computedLabelTop: getComputedStyle(labelElement).top,
+        viewportWidth: window.innerWidth,
+      };
+    });
+
+    expect(
+      geometry.boardTop - geometry.labelBottom,
+      `${viewport.width}px label-to-board clearance: ${JSON.stringify(geometry)}`,
+    ).toBeGreaterThanOrEqual(8);
+  }
+
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('./#work');
+  await expect(page.locator('.state-canvas')).toBeHidden();
 });
 
 test('mobile contact headline remains clear of decorative artwork', async ({ page }, testInfo) => {

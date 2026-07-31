@@ -90,7 +90,7 @@ test('recruiter presentation favors plain labels and current evidence over edito
 test('hero exposes role fit and verified proof without requiring manifesto interpretation', () => {
   assert.match(html, /class="hero-role"[\s\S]*?AI Engineer · Python systems/);
   assert.match(html, /05 inspectable projects/);
-  assert.match(html, /03 merged upstream PRs/);
+  assert.match(html, /08 merged upstream PRs/);
   assert.match(html, /View selected work/);
 });
 
@@ -119,17 +119,31 @@ test('project maturity and outcome labels use one truthful vocabulary', () => {
   assert.match(html, /ad-hoc signed test builds[^.]*not notarized/i);
 });
 
-test('merged upstream work links three verified pull requests and states engineering outcomes', () => {
-  for (const href of [
-    'https://github.com/ag2ai/faststream/pull/2961',
+test('merged upstream work features four role-relevant PRs and links all eight verified merges', () => {
+  const featuredHrefs = [
     'https://github.com/openai/openai-agents-python/pull/3991',
+    'https://github.com/pydantic/pydantic-ai-harness/pull/503',
+    'https://github.com/generative-computing/mellea/pull/1471',
+    'https://github.com/ag2ai/faststream/pull/2961',
+  ];
+  const additionalHrefs = [
+    'https://github.com/apache/arrow-rs/pull/10486',
+    'https://github.com/vega/altair/pull/4089',
+    'https://github.com/faststream-community/faststream_fastapi/pull/2',
     'https://github.com/calkit/calkit/pull/1028',
-  ]) assert.ok(html.includes(href), `Missing ${href}`);
-  assert.equal((html.match(/class="contribution-card"/g) || []).length, 3);
+  ];
+  for (const href of [...featuredHrefs, ...additionalHrefs]) {
+    assert.ok(html.includes(href), `Missing ${href}`);
+  }
+  assert.equal((html.match(/class="contribution-card"/g) || []).length, 4);
+  assert.equal((html.match(/class="additional-contribution"/g) || []).length, 4);
+  assert.match(html, /WebSocket retry policy/);
+  assert.match(html, /Code Mode failure recovery/);
+  assert.match(html, /Deterministic tracing tests/);
   assert.match(html, /FastAPI 0\.140 compatibility/);
-  assert.match(html, /WebSocket server errors/);
-  assert.match(html, /unrelated subprojects/);
-  assert.equal((html.match(/Merged into main · Jul 2026/g) || []).length, 3);
+  assert.match(html, /<details class="more-contributions">/);
+  assert.match(html, /<summary>[\s\S]*View 4 more merged contributions/);
+  assert.equal((html.match(/Merged · Jul 2026/g) || []).length, 8);
   assert.match(html, /data-contribution-rail/);
   assert.match(html, /aria-label="Previous contribution"/);
   assert.match(html, /aria-label="Next contribution"/);

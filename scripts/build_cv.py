@@ -88,27 +88,42 @@ TRAINING = [
 
 OPEN_SOURCE_CONTRIBUTIONS = [
     {
-        "name": "FastStream | Merged PR #2961",
-        "stack": "Python, FastAPI compatibility, dependency injection, AsyncAPI, pytest | Jul 2026",
-        "bullets": [
-            "Restored FastAPI 0.140 compatibility by adapting FastStream's dependency layer to FastAPI's slotted Dependant model, preserving AsyncAPI metadata and adding nested-dependency regression coverage.",
-            "PR: https://github.com/ag2ai/faststream/pull/2961",
-        ],
-    },
-    {
         "name": "OpenAI Agents Python SDK | Merged PR #3991",
         "stack": "Python, WebSockets, retry policies, pytest | Jul 2026",
         "bullets": [
-            "Fixed pre-response WebSocket server-error frames bypassing the SDK retry policy, preserving overload and replay-safety boundaries with focused regression coverage.",
+            "Made transient pre-response WebSocket server errors follow the SDK's retry policy while preserving non-transient handling and replay-safety checks.",
             "PR: https://github.com/openai/openai-agents-python/pull/3991",
         ],
     },
     {
-        "name": "Calkit | Merged PR #1028",
-        "stack": "Python, CLI workflow execution, pytest | Jul 2026",
+        "name": "Pydantic AI Harness | Merged PR #503",
+        "stack": "Python, agent recovery, Code Mode, pytest | Jul 2026",
         "bullets": [
-            "Fixed single-item workflow runs preparing unrelated subprojects, narrowing checks to the requested stage with root-project and subproject regression coverage.",
-            "PR: https://github.com/calkit/calkit/pull/1028",
+            "Surfaced unexpected Code Mode execution failures to the model as retries after resetting invalid session state, enabling recovery from lost imports and variables.",
+            "PR: https://github.com/pydantic/pydantic-ai-harness/pull/503",
+        ],
+    },
+    {
+        "name": "Mellea | Merged PR #1471",
+        "stack": "Python, OpenTelemetry tracing, async tests, pytest | Jul 2026",
+        "bullets": [
+            "Added deterministic mocked-backend tests for async span timing, context propagation, token usage, span lifetime, and consecutive generations.",
+            "PR: https://github.com/generative-computing/mellea/pull/1471",
+        ],
+    },
+    {
+        "name": "FastStream | Merged PR #2961",
+        "stack": "Python, FastAPI compatibility, dependency injection, pytest | Jul 2026",
+        "bullets": [
+            "Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata.",
+            "PR: https://github.com/ag2ai/faststream/pull/2961",
+        ],
+    },
+    {
+        "name": "Additional verified upstream merges | 4 of 8 merged PRs",
+        "stack": "Correctness, dependency errors, schema generation, workflow scoping | Jul 2026",
+        "bullets": [
+            "Apache Arrow Rust: https://github.com/apache/arrow-rs/pull/10486 | Altair: https://github.com/vega/altair/pull/4089 | FastStream FastAPI: https://github.com/faststream-community/faststream_fastapi/pull/2 | Calkit: https://github.com/calkit/calkit/pull/1028",
         ],
     },
 ]
@@ -404,6 +419,8 @@ def pdf_styles():
         "org": ParagraphStyle("CVOrg", parent=styles["Normal"], fontName="Helvetica-Oblique", fontSize=10, leading=12.5, spaceAfter=1.5),
         "body": ParagraphStyle("CVBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.7, leading=13.7, spaceAfter=2.5),
         "tools": ParagraphStyle("CVTools", parent=styles["Normal"], fontName="Helvetica", fontSize=9.9, leading=12.5, spaceAfter=5),
+        "contribution_role": ParagraphStyle("CVContributionRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10, leading=11.5, spaceBefore=3, spaceAfter=.5),
+        "contribution_body": ParagraphStyle("CVContributionBody", parent=styles["Normal"], fontName="Helvetica", fontSize=9.8, leading=11.5, spaceAfter=1),
     }
 
 
@@ -482,9 +499,8 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
     story.append(PageBreak())
     story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
     for contribution in OPEN_SOURCE_CONTRIBUTIONS:
-        story.append(Paragraph(contribution["name"], styles["role"]))
-        story.append(Paragraph(contribution["stack"], styles["org"]))
-        story.append(bullet_list(contribution["bullets"], styles["body"]))
+        story.append(Paragraph(contribution["name"], styles["contribution_role"]))
+        story.append(bullet_list(contribution["bullets"], styles["contribution_body"]))
 
     story.append(Paragraph("SELECTED PROJECTS", styles["section"]))
     for project in PROJECTS:
