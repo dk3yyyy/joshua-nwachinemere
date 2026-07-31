@@ -4,8 +4,11 @@ import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
+const socialCard = await readFile(new URL('../public/og-card-v5.png', import.meta.url));
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
+const previewUrl = 'https://interview-dossier-preview.joshua-nwachinemere.pages.dev/';
+const socialCardUrl = `${previewUrl}og-card-v5.png`;
 const projectNames = [
   'Volyx Lens',
   'Football Forecasting Lab',
@@ -177,6 +180,22 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.doesNotMatch(html, /<meta name="robots"[^>]*noindex/i);
   assert.match(html, /"@type": "ProfilePage"/);
   assert.match(html, /"@type": "Person"/);
+});
+
+test('publishes the approved landing-page social card for preview unfurls', () => {
+  assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
+  assert.equal(socialCard.readUInt32BE(16), 1200);
+  assert.equal(socialCard.readUInt32BE(20), 630);
+  assert.match(html, new RegExp(`<meta property="og:url" content="${previewUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.match(html, new RegExp(`<meta property="og:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.match(html, new RegExp(`<meta property="og:image:secure_url" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.match(html, /<meta property="og:image:type" content="image\/png"/);
+  assert.match(html, /<meta property="og:image:width" content="1200"/);
+  assert.match(html, /<meta property="og:image:height" content="630"/);
+  assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere's AI Engineer portfolio landing page"/);
+  assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere's AI Engineer portfolio landing page"/);
+  assert.doesNotMatch(html, /og-card-v4\.png/);
 });
 
 test('all external new-tab links are protected and fragments resolve uniquely', () => {
