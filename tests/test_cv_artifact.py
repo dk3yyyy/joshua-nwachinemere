@@ -23,7 +23,13 @@ R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 EXPECTED_HEADINGS = [
     "PROFILE", "CORE SKILLS", "INDEPENDENT PRODUCT & ENGINEERING WORK",
     "TECHNICAL TRAINING", "OPEN-SOURCE CONTRIBUTIONS", "SELECTED PROJECTS",
-    "CERTIFICATIONS", "EDUCATION",
+    "CERTIFICATIONS & TRAINING", "EDUCATION",
+]
+
+EXPECTED_CREDENTIALS = [
+    ("Scientific Computing with Python Developer Certification | freeCodeCamp | May 2026", "https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7"),
+    ("Google AI Specialization | Google/Coursera | February 2026", "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30"),
+    ("Model Context Protocol: Advanced Topics | Anthropic training | March 2026", "https://verify.skilljar.com/c/fwqra86yief7"),
 ]
 
 
@@ -97,10 +103,20 @@ class CvArtifactTests(unittest.TestCase):
         referenced_relationships = {node.get(f"{R}id") for node in hyperlinks}
         external = [r for r in relationships if r.get("TargetMode") == "External"]
         external_relationships = {relationship.get("Id") for relationship in external}
-        self.assertEqual(document.count("<w:hyperlink"), 11)
+        self.assertEqual(document.count("<w:hyperlink"), 19)
         self.assertEqual(external_relationships, referenced_relationships)
         self.assertTrue(all(r.get("Target", "").startswith(("http://", "https://", "mailto:")) for r in external))
-        for url in ["faststream/pull/2961", "openai-agents-python/pull/3991", "calkit/pull/1028", "football_predictor"]:
+        for url in [
+            "openai-agents-python/pull/3991",
+            "pydantic-ai-harness/pull/503",
+            "mellea/pull/1471",
+            "faststream/pull/2961",
+            "arrow-rs/pull/10486",
+            "altair/pull/4089",
+            "faststream_fastapi/pull/2",
+            "calkit/pull/1028",
+            "football_predictor",
+        ]:
             self.assertIn(url, rels)
         doc = Document(DOCX)
         text = "\n".join(p.text for p in doc.paragraphs)
@@ -108,6 +124,24 @@ class CvArtifactTests(unittest.TestCase):
         self.assertLess(text.index("OPEN-SOURCE CONTRIBUTIONS"), text.index("EDUCATION"))
         for fact in ["53.77%", "56.70%", "1,140"]:
             self.assertIn(fact, text)
+
+    def test_selected_credentials_are_named_dated_and_verifiable(self):
+        root = xml_part("word/document.xml")
+        text = doc_text(root)
+        paragraphs = ["".join(paragraph.itertext()).strip() for paragraph in root.findall(f".//{W}p")]
+        start = paragraphs.index("CERTIFICATIONS & TRAINING") + 1
+        end = paragraphs.index("EDUCATION")
+        credential_paragraphs = [paragraph for paragraph in paragraphs[start:end] if paragraph]
+        with zipfile.ZipFile(DOCX) as archive:
+            rels = archive.read("word/_rels/document.xml.rels").decode()
+        expected_paragraphs = [f"{label} | Verify credential" for label, _ in EXPECTED_CREDENTIALS]
+        self.assertEqual(credential_paragraphs, expected_paragraphs)
+        self.assertEqual(text.count("Verify credential"), 3)
+        for label, url in EXPECTED_CREDENTIALS:
+            self.assertIn(label, text)
+            self.assertIn(url, rels)
+        for excluded in ["Google AI Professional Certificate", "Google Cybersecurity Professional Certificate", "Claude Code in Action", "Introduction to Model Context Protocol", "AI Fluency"]:
+            self.assertNotIn(excluded, text)
 
     def test_rebuilds_are_byte_reproducible(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -127,7 +161,23 @@ class CvArtifactTests(unittest.TestCase):
         reader = PdfReader(str(PDF))
         self.assertEqual(len(reader.pages), 2)
         text = "\n".join(page.extract_text() or "" for page in reader.pages)
-        for expected in ["JOSHUA NWACHINEMERE", "PROFILE", "OPEN-SOURCE CONTRIBUTIONS", "EDUCATION"]:
+        for expected in [
+            "JOSHUA NWACHINEMERE",
+            "PROFILE",
+            "OPEN-SOURCE CONTRIBUTIONS",
+            "OpenAI Agents Python SDK",
+            "Pydantic AI Harness",
+            "Mellea",
+            "FastStream",
+            "Additional verified upstream merges",
+            "8 merged PRs",
+            "CERTIFICATIONS & TRAINING",
+            "Scientific Computing with Python Developer Certification | freeCodeCamp | May 2026",
+            "Google AI Specialization | Google/Coursera | February 2026",
+            "Model Context Protocol: Advanced Topics",
+            "EDUCATION",
+            "MSc Artificial Intelligence · Northumbria University · September 2026 intake",
+        ]:
             self.assertIn(expected, text)
 
     def test_forbidden_whole_words_absent(self):

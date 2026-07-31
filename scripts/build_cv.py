@@ -5,6 +5,8 @@ from datetime import datetime, timezone
 import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from typing import Any
+from collections.abc import Sequence
 
 DEFAULT_SOURCE_DATE_EPOCH = 1785240000  # 2026-07-28 12:00:00 UTC
 BUILD_EPOCH = int(os.environ.get("SOURCE_DATE_EPOCH", DEFAULT_SOURCE_DATE_EPOCH))
@@ -23,7 +25,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.platypus import Flowable, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate
+from reportlab.platypus import KeepTogether, PageBreak, Paragraph, SimpleDocTemplate
 
 rl_config.invariant = 1
 
@@ -40,7 +42,7 @@ PHONE = "+234 913 148 0096"
 
 GITHUB_URL = "https://github.com/dk3yyyy"
 LINKEDIN_URL = "https://www.linkedin.com/in/joshua-nwachinemere"
-PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-nwachinemere"
+PORTFOLIO_URL = "https://joshua-nwachinemere.pages.dev"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
@@ -88,27 +90,42 @@ TRAINING = [
 
 OPEN_SOURCE_CONTRIBUTIONS = [
     {
-        "name": "FastStream | Merged PR #2961",
-        "stack": "Python, FastAPI compatibility, dependency injection, AsyncAPI, pytest | Jul 2026",
-        "bullets": [
-            "Restored FastAPI 0.140 compatibility by adapting FastStream's dependency layer to FastAPI's slotted Dependant model, preserving AsyncAPI metadata and adding nested-dependency regression coverage.",
-            "PR: https://github.com/ag2ai/faststream/pull/2961",
-        ],
-    },
-    {
         "name": "OpenAI Agents Python SDK | Merged PR #3991",
         "stack": "Python, WebSockets, retry policies, pytest | Jul 2026",
         "bullets": [
-            "Fixed pre-response WebSocket server-error frames bypassing the SDK retry policy, preserving overload and replay-safety boundaries with focused regression coverage.",
+            "Made transient pre-response WebSocket server errors follow the SDK's retry policy while preserving non-transient handling and replay-safety checks.",
             "PR: https://github.com/openai/openai-agents-python/pull/3991",
         ],
     },
     {
-        "name": "Calkit | Merged PR #1028",
-        "stack": "Python, CLI workflow execution, pytest | Jul 2026",
+        "name": "Pydantic AI Harness | Merged PR #503",
+        "stack": "Python, agent recovery, Code Mode, pytest | Jul 2026",
         "bullets": [
-            "Fixed single-item workflow runs preparing unrelated subprojects, narrowing checks to the requested stage with root-project and subproject regression coverage.",
-            "PR: https://github.com/calkit/calkit/pull/1028",
+            "Surfaced unexpected Code Mode execution failures to the model as retries after resetting invalid session state, enabling recovery from lost imports and variables.",
+            "PR: https://github.com/pydantic/pydantic-ai-harness/pull/503",
+        ],
+    },
+    {
+        "name": "Mellea | Merged PR #1471",
+        "stack": "Python, OpenTelemetry tracing, async tests, pytest | Jul 2026",
+        "bullets": [
+            "Added deterministic mocked-backend tests for async span timing, context propagation, token usage, span lifetime, and consecutive generations.",
+            "PR: https://github.com/generative-computing/mellea/pull/1471",
+        ],
+    },
+    {
+        "name": "FastStream | Merged PR #2961",
+        "stack": "Python, FastAPI compatibility, dependency injection, pytest | Jul 2026",
+        "bullets": [
+            "Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata.",
+            "PR: https://github.com/ag2ai/faststream/pull/2961",
+        ],
+    },
+    {
+        "name": "Additional verified upstream merges | 4 of 8 merged PRs",
+        "stack": "Correctness, dependency errors, schema generation, workflow scoping | Jul 2026",
+        "bullets": [
+            "Apache Arrow Rust: https://github.com/apache/arrow-rs/pull/10486 | Altair: https://github.com/vega/altair/pull/4089 | FastStream FastAPI: https://github.com/faststream-community/faststream_fastapi/pull/2 | Calkit: https://github.com/calkit/calkit/pull/1028",
         ],
     },
 ]
@@ -155,17 +172,18 @@ SKILLS = [
 ]
 
 CERTIFICATIONS = [
-    "Google AI Professional Certificate | Coursera",
-    "Google Cybersecurity Professional Certificate | Coursera",
+    {"text": "Scientific Computing with Python Developer Certification | freeCodeCamp | May 2026", "url": "https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7"},
+    {"text": "Google AI Specialization | Google/Coursera | February 2026", "url": "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30"},
+    {"text": "Model Context Protocol: Advanced Topics | Anthropic training | March 2026", "url": "https://verify.skilljar.com/c/fwqra86yief7"},
 ]
 
 EDUCATION = [
-    "Bachelor of Technology (BTech), Mathematics | 2016 - 2021",
-    "Federal University of Technology, Owerri (FUTO)",
+    "Bachelor of Technology (BTech), Mathematics · Federal University of Technology, Owerri (FUTO) · 2016–2021",
+    "MSc Artificial Intelligence · Northumbria University · September 2026 intake",
 ]
 
 
-def configure_docx() -> Document:
+def configure_docx() -> Any:
     doc = Document()
     section = doc.sections[0]
     section.page_width = Mm(210)
@@ -235,7 +253,7 @@ def add_docx_contact(doc: Document) -> None:
     second.add_run(" | ")
     add_hyperlink(second, "linkedin.com/in/joshua-nwachinemere", LINKEDIN_URL)
     second.add_run(" | ")
-    add_hyperlink(second, "dk3yyyy.github.io/joshua-nwachinemere", PORTFOLIO_URL)
+    add_hyperlink(second, "joshua-nwachinemere.pages.dev", PORTFOLIO_URL)
 
 
 def add_docx_heading(doc: Document, text: str) -> None:
@@ -247,7 +265,7 @@ def add_docx_heading(doc: Document, text: str) -> None:
     r.font.size = Pt(11.5)
 
 
-def add_docx_bullets(doc: Document, bullets: list[str]) -> None:
+def add_docx_bullets(doc: Any, bullets: Sequence[str | dict[str, str]]) -> None:
     numbering = doc.part.numbering_part.element
     if not hasattr(doc, "_cv_bullet_num_id"):
         abstract_ids = [int(x.get(qn("w:abstractNumId"))) for x in numbering.findall(qn("w:abstractNum"))]
@@ -272,7 +290,11 @@ def add_docx_bullets(doc: Document, bullets: list[str]) -> None:
         ilvl = OxmlElement("w:ilvl"); ilvl.set(qn("w:val"), "0")
         num_id = OxmlElement("w:numId"); num_id.set(qn("w:val"), str(doc._cv_bullet_num_id))
         num_pr.extend([ilvl, num_id]); p._p.get_or_add_pPr().append(num_pr)
-        add_text_with_links(p, bullet)
+        if isinstance(bullet, dict):
+            p.add_run(f"{bullet['text']} | ")
+            add_hyperlink(p, "Verify credential", bullet["url"])
+        else:
+            add_text_with_links(p, bullet)
 
 
 def update_extended_properties(path: Path) -> None:
@@ -382,7 +404,7 @@ def build_docx(output_path: Path = DOCX_PATH) -> None:
         p.runs[0].italic = True
         add_docx_bullets(doc, project["bullets"])
 
-    add_docx_heading(doc, "CERTIFICATIONS")
+    add_docx_heading(doc, "CERTIFICATIONS & TRAINING")
     add_docx_bullets(doc, CERTIFICATIONS)
     add_docx_heading(doc, "EDUCATION")
     for line in EDUCATION:
@@ -400,14 +422,18 @@ def pdf_styles():
         "headline": ParagraphStyle("CVHeadline", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10.5, leading=12, alignment=TA_CENTER, spaceAfter=2),
         "contact": ParagraphStyle("CVContact", parent=styles["Normal"], fontName="Helvetica", fontSize=8.1, leading=10, alignment=TA_CENTER, spaceAfter=5),
         "section": ParagraphStyle("CVSection", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=12, leading=15, textColor=colors.HexColor("#111111"), spaceBefore=10, spaceAfter=5, borderWidth=0, borderPadding=0),
+        "closing_section": ParagraphStyle("CVClosingSection", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=12, leading=15, textColor=colors.HexColor("#111111"), spaceBefore=5, spaceAfter=3, borderWidth=0, borderPadding=0),
         "role": ParagraphStyle("CVRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10.8, leading=13.5, spaceBefore=5, spaceAfter=1.5),
         "org": ParagraphStyle("CVOrg", parent=styles["Normal"], fontName="Helvetica-Oblique", fontSize=10, leading=12.5, spaceAfter=1.5),
         "body": ParagraphStyle("CVBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.7, leading=13.7, spaceAfter=2.5),
         "tools": ParagraphStyle("CVTools", parent=styles["Normal"], fontName="Helvetica", fontSize=9.9, leading=12.5, spaceAfter=5),
+        "contribution_role": ParagraphStyle("CVContributionRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10, leading=11.5, spaceBefore=3, spaceAfter=.5),
+        "contribution_body": ParagraphStyle("CVContributionBody", parent=styles["Normal"], fontName="Helvetica", fontSize=9.8, leading=11.5, spaceAfter=1),
+        "credential": ParagraphStyle("CVCredential", parent=styles["Normal"], fontName="Helvetica", fontSize=9.6, leading=11, spaceAfter=0),
     }
 
 
-def bullet_list(lines: list[str], style: ParagraphStyle) -> KeepTogether:
+def bullet_list(lines: Sequence[str | dict[str, str]], style: ParagraphStyle) -> KeepTogether:
     bullet_style = ParagraphStyle(
         f"{style.name}Bullet",
         parent=style,
@@ -416,17 +442,17 @@ def bullet_list(lines: list[str], style: ParagraphStyle) -> KeepTogether:
         spaceAfter=1,
     )
     return KeepTogether(
-        [
-            Paragraph(
-                "- "
-                + URL_PATTERN.sub(
+        [Paragraph(
+            "- " + (
+                f"{line['text']} | <link href=\"{line['url']}\" color=\"#1155CC\">Verify credential</link>"
+                if isinstance(line, dict)
+                else URL_PATTERN.sub(
                     lambda match: f'<link href="{match.group(0)}" color="#1155CC">{match.group(0)}</link>',
                     line,
-                ),
-                bullet_style,
-            )
-            for line in lines
-        ]
+                )
+            ),
+            bullet_style,
+        ) for line in lines]
     )
 
 
@@ -446,7 +472,7 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
         f'<link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
         f'<link href="{GITHUB_URL}" color="#1155CC">github.com/dk3yyyy</link> | '
         f'<link href="{LINKEDIN_URL}" color="#1155CC">linkedin.com/in/joshua-nwachinemere</link> | '
-        f'<link href="{PORTFOLIO_URL}" color="#1155CC">dk3yyyy.github.io/joshua-nwachinemere</link>'
+        f'<link href="{PORTFOLIO_URL}" color="#1155CC">joshua-nwachinemere.pages.dev</link>'
     )
     doc = SimpleDocTemplate(
         str(output_path),
@@ -458,7 +484,7 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
         title="Joshua Nwachinemere CV",
         author="Joshua Nwachinemere",
     )
-    story: list[Flowable] = [
+    story: list[Any] = [
         Paragraph(NAME, styles["name"]),
         Paragraph(HEADLINE, styles["headline"]),
         Paragraph(contact_markup, styles["contact"]),
@@ -482,9 +508,8 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
     story.append(PageBreak())
     story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
     for contribution in OPEN_SOURCE_CONTRIBUTIONS:
-        story.append(Paragraph(contribution["name"], styles["role"]))
-        story.append(Paragraph(contribution["stack"], styles["org"]))
-        story.append(bullet_list(contribution["bullets"], styles["body"]))
+        story.append(Paragraph(contribution["name"], styles["contribution_role"]))
+        story.append(bullet_list(contribution["bullets"], styles["contribution_body"]))
 
     story.append(Paragraph("SELECTED PROJECTS", styles["section"]))
     for project in PROJECTS:
@@ -492,11 +517,11 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
         story.append(Paragraph(project["stack"], styles["org"]))
         story.append(bullet_list(project["bullets"], styles["body"]))
 
-    story.append(Paragraph("CERTIFICATIONS", styles["section"]))
-    story.append(bullet_list(CERTIFICATIONS, styles["body"]))
-    story.append(Paragraph("EDUCATION", styles["section"]))
+    story.append(Paragraph("CERTIFICATIONS & TRAINING", styles["closing_section"]))
+    story.append(bullet_list(CERTIFICATIONS, styles["credential"]))
+    story.append(Paragraph("EDUCATION", styles["closing_section"]))
     for line in EDUCATION:
-        story.append(Paragraph(line, styles["body"]))
+        story.append(Paragraph(line, styles["credential"]))
 
     doc.build(story, onLaterPages=draw_later_page_header)
 

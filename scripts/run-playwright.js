@@ -7,7 +7,7 @@ const playwrightCli = require.resolve('@playwright/test/cli');
 const port = await resolvePreviewPort(process.env);
 const host = '127.0.0.1';
 
-console.log(`[playwright] isolated preview: http://${host}:${port}/joshua-nwachinemere/`);
+console.log(`[playwright] isolated preview: http://${host}:${port}/`);
 
 const child = spawn(
   process.execPath,
