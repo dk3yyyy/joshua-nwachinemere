@@ -150,6 +150,7 @@ test('responsive composition meets page, hero, grid, overflow, and target budget
       heroHeight: document.querySelector('.hero').getBoundingClientRect().height,
       additionalColumns: getComputedStyle(document.querySelector('.additional-project-grid')).gridTemplateColumns.split(' ').length,
       contributionColumns: getComputedStyle(document.querySelector('.contribution-list')).gridTemplateColumns.split(' ').length,
+      credentialColumns: getComputedStyle(document.querySelector('.credential-links')).gridTemplateColumns.split(' ').length,
     }));
     if (viewport.maxPageHeight) expect(layout.pageHeight, `${viewport.width}px page height`).toBeLessThanOrEqual(viewport.maxPageHeight);
     if (viewport.maxHeroHeight) expect(layout.heroHeight, `${viewport.width}px hero height`).toBeLessThanOrEqual(viewport.maxHeroHeight);
@@ -157,6 +158,7 @@ test('responsive composition meets page, hero, grid, overflow, and target budget
     if (viewport.width >= 768 && viewport.width <= 1024) expect(layout.additionalColumns).toBe(2);
     if (viewport.width === 1366) expect(layout.additionalColumns).toBe(3);
     expect(layout.contributionColumns).toBe(viewport.width >= 768 ? 2 : 1);
+    expect(layout.credentialColumns).toBe(viewport.width < 768 ? 1 : 3);
     await expectNoOverflow(page, `${viewport.width}px`);
     await expectTouchTargets(page, `${viewport.width}px`);
     await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });

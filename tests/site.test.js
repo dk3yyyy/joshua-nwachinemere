@@ -133,6 +133,24 @@ test('includes the approved approach, background, contact, and footer copy', () 
   assert.ok(textOnly.includes('Back to top ↑'));
 });
 
+test('shows a focused and verifiable certification set', () => {
+  const certificationSection = html.match(/<article class="certifications">[\s\S]*?<\/article>/)?.[0] ?? '';
+  const expected = [
+    ['Scientific Computing with Python', 'freeCodeCamp · May 2026', 'https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7'],
+    ['Google AI Specialization', 'Google/Coursera · Feb 2026', 'https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30'],
+    ['Model Context Protocol: Advanced Topics', 'Anthropic training · Mar 2026', 'https://verify.skilljar.com/c/fwqra86yief7'],
+  ];
+  assert.ok(certificationSection, 'Missing certifications article');
+  assert.match(certificationSection, /<h3>Certifications &amp; training<\/h3>/);
+  assert.equal((certificationSection.match(/<a\b/g) ?? []).length, 3, 'Certification set must contain exactly three links');
+  for (const [name, metadata, url] of expected) {
+    assert.ok(certificationSection.includes(name), `Missing credential: ${name}`);
+    assert.ok(certificationSection.includes(metadata), `Missing credential metadata: ${metadata}`);
+    assert.ok(certificationSection.includes(`href="${url}"`), `Missing verification URL: ${url}`);
+  }
+  assert.doesNotMatch(certificationSection, /Google AI Professional Certificate|Google Cybersecurity|Claude Code in Action|Introduction to Model Context Protocol|AI Fluency/i);
+});
+
 test('forbids the retired concept, unsupported claims, and unapproved projects', () => {
   assert.doesNotMatch(textOnly, /↗|→|➡|🔗|🚀/u);
   assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|question|answer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
