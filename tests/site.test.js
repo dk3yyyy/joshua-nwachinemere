@@ -222,6 +222,15 @@ test('CV and identity artifacts remain intact', async () => {
   const docx = await stat(new URL('../public/Joshua_Nwachinemere_CV.docx', import.meta.url));
   assert.ok(pdf.size > 1_000);
   assert.ok(docx.size > 1_000);
-  assert.match(favicon, />J</);
-  assert.match(favicon, />N</);
+});
+
+test('uses the approved terminal-window favicon in the portfolio visual system', () => {
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=3" type="image\/svg\+xml" \/>/);
+  assert.match(favicon, /<title id="title">Terminal window<\/title>/);
+  assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
+  assert.match(favicon, /fill="#f3f3f0"/);
+  assert.match(favicon, /stroke="#15171a"/);
+  assert.match(favicon, /data-mark="prompt"/);
+  assert.match(favicon, /data-mark="cursor"/);
+  assert.doesNotMatch(favicon, /JN split monogram|#cfff48|#2448ff|>J<|>N</);
 });
