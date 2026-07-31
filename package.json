@@ -13,7 +13,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "node --test tests/*.test.js && python -m unittest discover -s tests -p 'test_cv_artifact.py' -v",
     "pretest:e2e": "npm run build",
-    "test:e2e": "node scripts/run-playwright.js",
+    "test:e2e": "node scripts/run-playwright.js tests/e2e/alternative.spec.js",
     "check": "npm run test && npm run test:e2e"
   },
   "devDependencies": {

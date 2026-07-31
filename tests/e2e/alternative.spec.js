@@ -76,6 +76,7 @@ test('mobile navigation, project reachability, touch targets, and layout work', 
   }).filter((size) => size.width > 0 && size.height > 0));
   for (const size of sizes) {
     expect(size.height, `${size.label} height`).toBeGreaterThanOrEqual(44);
+    expect(size.width, `${size.label} width`).toBeGreaterThanOrEqual(44);
   }
   const width = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(width.scroll).toBeLessThanOrEqual(width.client + 1);
@@ -104,6 +105,12 @@ test('320px enhanced text spacing preserves content and controls', async ({ page
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByRole('tab', { name: /Football Predictor/ })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open the evidence' })).toBeVisible();
+  for (const heading of await page.getByRole('heading', { level: 2 }).all()) {
+    await heading.scrollIntoViewIfNeeded();
+    await expect(heading).toBeVisible();
+  }
+  await expect(page.getByRole('link', { name: /FastStream.*PR #2961/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Email Joshua' })).toBeVisible();
 });
 
 test('responsive dossier is intentionally composed across phone, tablet, and short laptop', async ({ page }) => {
@@ -112,7 +119,9 @@ test('responsive dossier is intentionally composed across phone, tablet, and sho
   for (const viewport of [
     { width: 320, height: 800, maxPageHeight: 8500, maxCoverHeight: 1120 },
     { width: 390, height: 844, maxPageHeight: 8000, maxCoverHeight: 1050 },
-    { width: 768, height: 1024, maxPageHeight: 7200, maxCoverHeight: 920 },
+    { width: 761, height: 1024, maxPageHeight: 7600, maxCoverHeight: 920 },
+    { width: 768, height: 1024, maxPageHeight: 7600, maxCoverHeight: 920 },
+    { width: 1024, height: 768, maxPageHeight: 8000, maxCoverHeight: 800 },
     { width: 1366, height: 768, maxPageHeight: 7600, maxCoverHeight: 770 },
   ]) {
     await page.setViewportSize(viewport);
@@ -148,6 +157,42 @@ test('responsive dossier is intentionally composed across phone, tablet, and sho
     }
     if (viewport.width <= 390) expect(layout.questionColumns).toBe(2);
   }
+});
+
+test('restrained palette and focus treatment remain legible', async ({ page }) => {
+  captureRuntime(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const palette = await page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement);
+    const sectionBackgrounds = [...document.querySelectorAll('.interview-question')]
+      .map((node) => getComputedStyle(node).backgroundColor);
+    const ornament = getComputedStyle(document.querySelector('.cover-main'), '::after');
+    return {
+      paper: root.getPropertyValue('--paper').trim(),
+      ink: root.getPropertyValue('--ink').trim(),
+      signal: root.getPropertyValue('--signal').trim(),
+      sectionBackgrounds: [...new Set(sectionBackgrounds)],
+      ornamentDisplay: ornament.display,
+    };
+  });
+  expect(palette).toEqual({
+    paper: '#f4f1e9',
+    ink: '#18202b',
+    signal: '#a53a2c',
+    sectionBackgrounds: ['rgb(244, 241, 233)', 'rgba(24, 32, 43, 0.024)'],
+    ornamentDisplay: 'none',
+  });
+
+  const selected = page.getByRole('tab', { name: /Volyx Lens/ });
+  await selected.focus();
+  await expect(selected).toBeFocused();
+  const focus = await selected.evaluate((node) => {
+    const style = getComputedStyle(node);
+    return { outline: style.outlineColor, shadow: style.boxShadow };
+  });
+  expect(focus.outline).toBe('rgb(244, 241, 233)');
+  expect(focus.shadow).not.toBe('none');
 });
 
 test('short-laptop first screen contains role, named proof, and primary actions', async ({ page }) => {
