@@ -76,7 +76,7 @@
         <div class="hero-copy">
           <p class="eyebrow">Joshua Nwachinemere · AI Engineer</p>
           <h1 id="hero-title">AI Engineer building reliable Python systems for <em>Applied AI</em>.</h1>
-          <p class="hero-intro">I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. The work below includes source, tests, architecture and measured limitations.</p>
+          <p class="hero-intro">I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. Every featured project links to its source, tests, architecture or measured results.</p>
           <p class="hero-proof">5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#work">View selected work</a>
@@ -89,7 +89,7 @@
       <section class="work section" id="work" aria-labelledby="work-title">
         <header class="section-header">
           <h2 id="work-title">Selected AI engineering work</h2>
-          <p>Two projects showing multimodal integration, backend engineering and careful evaluation. Each states its ownership, maturity, limitations and available evidence.</p>
+          <p>Three featured projects showing multimodal product engineering, local retrieval and temporal ML evaluation, with implementation detail and inspectable evidence.</p>
         </header>
 
         <div class="primary-projects">
@@ -97,15 +97,18 @@
             <header class="project-header">
               <p class="project-category">Multimodal context assistant</p>
               <h3 id="project-lens-title" data-project-name>Volyx Lens</h3>
-              <p class="project-meta"><span>Active pre-release</span> · <span>Independent project</span></p>
+              <p class="project-meta"><span>Active product build</span> · <span>Independent project</span></p>
             </header>
+            <figure class="project-visual project-visual--lens">
+              <img src="%BASE_URL%images/volyx-lens-context-aperture.jpg" width="3200" height="2344" alt="High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs" decoding="async" fetchpriority="high" />
+              <figcaption><strong>Context Aperture</strong> — This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.</figcaption>
+            </figure>
             <div class="project-content">
               <div class="project-overview">
                 <p>A macOS assistant that combines selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, transcription and multiple AI providers.</p>
                 <dl class="project-details">
-                  <div><dt>My work</dt><dd>Built and hardened bounded context selection, provider routing, explicit consent controls, Electron boundaries, automated tests and release checks.</dd></div>
-                  <div><dt>Implemented controls</dt><dd>Selected-input boundaries, explicit consent, restricted provider routing, sandboxing, context isolation and automated release checks.</dd></div>
-                  <div><dt>Scope</dt><dd>Public builds are ad-hoc signed test builds, not notarized releases.</dd></div>
+                  <div><dt>My work</dt><dd>Built focused context selection, provider-aware routing, consent controls, secure Electron boundaries, automated tests and release checks.</dd></div>
+                  <div><dt>Implemented controls</dt><dd>User-selected inputs, consent-led capture, sandboxed execution, context isolation and provider-aware routing.</dd></div>
                 </dl>
               </div>
               <div class="project-evidence">
@@ -119,18 +122,51 @@
             </div>
           </article>
 
+          <article class="project-card project-card--primary" id="project-local-ai" aria-labelledby="project-local-ai-title">
+            <header class="project-header">
+              <p class="project-category">Local RAG and evaluation</p>
+              <h3 id="project-local-ai-title" data-project-name>Local Review Intelligence</h3>
+              <p class="project-meta"><span>Versioned evaluation</span> · <span>Independent project</span></p>
+            </header>
+            <figure class="project-visual project-visual--dashboard">
+              <img src="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg" width="1440" height="1000" alt="Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table" loading="lazy" decoding="async" />
+              <figcaption><strong>Review intelligence workspace</strong> — The dashboard turns local review data into clear metrics, a rating distribution and an inspectable review table, with grounded Q&amp;A directly below.</figcaption>
+            </figure>
+            <div class="project-content">
+              <div class="project-overview">
+                <p>A local-first review-intelligence system for adaptable CSV datasets, semantic retrieval and grounded answers with inspectable citations. Citation validation and a single bounded repair pass keep responses grounded and evidence-linked.</p>
+                <dl class="project-details">
+                  <div><dt>My work</dt><dd>Built adaptable field mapping, stable record identity, recoverable vector indexes, citation validation, bounded repair, privacy-safe diagnostics and an installable CLI.</dd></div>
+                  <div><dt>Evaluation result</dt><dd>Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.</dd></div>
+                </dl>
+              </div>
+              <div class="project-evidence">
+                <p class="project-stack"><span>Stack</span> Python · Ollama · Chroma · Streamlit · Typer</p>
+                <div class="project-links">
+                  <a href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">View source</a>
+                  <a href="https://github.com/dk3yyyy/local_AI_agent/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
+                  <a href="%BASE_URL%evidence/local-review-intelligence-evaluation-report.json" target="_blank" rel="noreferrer">Inspect benchmark JSON</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
           <article class="project-card project-card--primary" id="project-football" aria-labelledby="project-football-title">
             <header class="project-header">
               <p class="project-category">Temporal ML evaluation</p>
               <h3 id="project-football-title" data-project-name>Football Forecasting Lab</h3>
-              <p class="project-meta"><span>Experimental evaluation</span> · <span>Independent project</span></p>
+              <p class="project-meta"><span>Rolling-origin evaluation</span> · <span>Independent project</span></p>
             </header>
+            <figure class="project-visual project-visual--dashboard project-visual--football">
+              <img src="%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg" width="1440" height="1000" alt="Redesigned Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities" loading="lazy" decoding="async" />
+              <figcaption><strong>Match-intelligence workspace</strong> — A redesigned five-view command center for upcoming forecasts, evaluation, live results and methodology; this captured state uses its isolated synthetic interface-test dataset.</figcaption>
+            </figure>
             <div class="project-content">
               <div class="project-overview">
                 <p>A leakage-aware football forecasting pipeline with chronological train, calibration and frozen test windows, using calibrated XGBoost and Poisson probabilities.</p>
                 <dl class="project-details">
-                  <div><dt>My work</dt><dd>Built the data pipeline, temporal features, model evaluation, FastAPI service and Streamlit interface, with explicit live, retrospective and synthetic-data boundaries.</dd></div>
-                  <div><dt>Evaluation result</dt><dd>53.77% accuracy versus a 56.70% bookmaker benchmark across 1,140 rolling-origin test matches. The model did not beat the benchmark.</dd></div>
+                  <div><dt>My work</dt><dd>Built the data pipeline, temporal features, model evaluation, FastAPI service and Streamlit interface, with dedicated workflows for live, retrospective and synthetic datasets.</dd></div>
+                  <div><dt>Evaluation result</dt><dd>Evaluated across 1,140 rolling-origin test matches with 53.77% accuracy, using a 56.70% bookmaker benchmark for comparison.</dd></div>
                 </dl>
               </div>
               <div class="project-evidence">
@@ -143,56 +179,12 @@
             </div>
           </article>
         </div>
-
-        <section class="additional-work" aria-labelledby="additional-work-title">
-          <header class="section-header section-header--compact">
-            <h3 id="additional-work-title">Additional backend projects</h3>
-            <p>Three smaller projects covering workflow recovery, API aggregation and transactional delivery.</p>
-          </header>
-          <div class="additional-project-grid">
-            <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title">
-              <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
-              <p class="project-meta"><span>Reference implementation</span> · <span>Independent project</span></p>
-              <p>An n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates and persists queue state in SQLite.</p>
-              <p class="reliability-work"><strong>Reliability work</strong> Bounded workers, queue limits, host allowlisting, restart recovery, idempotent update handling and non-root container execution.</p>
-              <p class="project-stack"><span>Stack</span> Python · FastAPI · n8n · SQLite · Docker</p>
-              <div class="project-links">
-                <a href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer">View source</a>
-                <a href="https://github.com/dk3yyyy/telegram-social-video-downloader/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
-              </div>
-            </article>
-
-            <article class="project-card project-card--compact" id="project-wallet" aria-labelledby="project-wallet-title">
-              <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
-              <p class="project-meta"><span>Public prototype</span> · <span>Independent project</span></p>
-              <p>A read-only FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers.</p>
-              <p class="reliability-work"><strong>Reliability work</strong> Bounded concurrency, caching and partial results when upstream token metadata fails.</p>
-              <p class="project-stack"><span>Stack</span> Python · FastAPI · aiohttp · React · Telegram</p>
-              <div class="project-links">
-                <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Open live demo</a>
-                <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source</a>
-              </div>
-            </article>
-
-            <article class="project-card project-card--compact" id="project-user-count" aria-labelledby="project-user-count-title">
-              <h3 id="project-user-count-title" data-project-name>Telegram User Counter</h3>
-              <p class="project-meta"><span>Repository-only</span> · <span>Independent project</span></p>
-              <p>An async Telegram service that registers users once, records new milestones transactionally and delivers notifications through a durable pending, sent and superseded workflow.</p>
-              <p class="reliability-work"><strong>Reliability work</strong> Gap-safe milestone claims, ordered retries, startup reconciliation, explicit database failure and optional Redis degradation.</p>
-              <p class="project-stack"><span>Stack</span> Python · SQLAlchemy · PostgreSQL · Redis · Telegram</p>
-              <div class="project-links">
-                <a href="https://github.com/dk3yyyy/user_count" target="_blank" rel="noreferrer">View source</a>
-              </div>
-            </article>
-          </div>
-        </section>
       </section>
 
       <section class="contributions section" id="contributions" aria-labelledby="contributions-title">
         <header class="section-header">
           <h2 id="contributions-title">Merged open-source contributions</h2>
-          <p>Eight pull requests independently verified as authored by Joshua and merged into maintained open-source projects. The changes cover retry policy, failure recovery, deterministic tests, compatibility, validation, dependency errors, schema preservation and workflow scoping.</p>
-          <p class="ownership-note">Independent open-source contributions; not employment with the upstream projects.</p>
+          <p>Eight pull requests authored by Joshua, independently verified and merged into maintained open-source projects. The changes strengthen retry policy, recovery workflows, deterministic tests, compatibility, validation, dependency diagnostics, schema preservation and workflow scoping.</p>
         </header>
         <div class="contribution-list" aria-label="Merged open-source pull requests">
           <a class="contribution-row" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer"><span>01</span><strong>OpenAI Agents SDK</strong><span>WebSocket retry policy · PR #3991</span></a>
@@ -206,23 +198,55 @@
         </div>
       </section>
 
+      <section class="additional-work section" id="additional-work" aria-labelledby="additional-work-title">
+        <header class="section-header section-header--compact">
+          <h2 id="additional-work-title">Additional engineering projects</h2>
+          <p>Two focused systems showing durable workflows, API aggregation and resilient execution.</p>
+        </header>
+        <div class="additional-project-grid">
+          <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title">
+            <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
+            <p class="project-meta"><span>Reference implementation</span> · <span>Independent project</span></p>
+            <p>An n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates and persists queue state in SQLite.</p>
+            <p class="reliability-work"><strong>Reliability work</strong> Bounded workers, queue limits, host allowlisting, restart recovery, idempotent update handling and non-root container execution.</p>
+            <p class="project-stack"><span>Stack</span> Python · FastAPI · n8n · SQLite · Docker</p>
+            <div class="project-links">
+              <a href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer">View source</a>
+              <a href="https://github.com/dk3yyyy/telegram-social-video-downloader/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
+            </div>
+          </article>
+
+          <article class="project-card project-card--compact" id="project-wallet" aria-labelledby="project-wallet-title">
+            <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
+            <p class="project-meta"><span>Public prototype</span> · <span>Independent project</span></p>
+            <p>A FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers.</p>
+            <p class="reliability-work"><strong>Reliability work</strong> Bounded concurrency, caching and useful partial results across RPC and market-data providers.</p>
+            <p class="project-stack"><span>Stack</span> Python · FastAPI · aiohttp · React · Telegram</p>
+            <div class="project-links">
+              <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Open live demo</a>
+              <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="approach section" id="approach" aria-labelledby="approach-title">
         <header class="section-header">
-          <h2 id="approach-title">Engineering approach</h2>
-          <p>I set explicit system boundaries, make failure paths visible and evaluate behaviour before making claims.</p>
+          <h2 id="approach-title">Engineering approach, demonstrated</h2>
+          <p>The principles below are tied to concrete implementation and evaluation work in the projects above.</p>
         </header>
         <div class="approach-grid">
-          <article><h3>Bound inputs and context</h3><p>Limit what enters the system, rank retrieved context and keep data-sharing choices explicit.</p></article>
-          <article><h3>Isolate providers</h3><p>Put language, vision and speech providers behind interfaces so routing and fallback behaviour remain controlled.</p></article>
-          <article><h3>Validate outputs and failures</h3><p>Use schemas, deterministic checks, retries and human approval where the workflow requires them.</p></article>
-          <article><h3>Evaluate before claiming</h3><p>Measure quality against an appropriate baseline and document limitations, latency, cost and failure behaviour when evidence is available.</p></article>
+          <article><h3>Route selected context</h3><p>Lens makes screen, microphone and system audio intentional inputs, then routes the chosen context to the configured provider.</p></article>
+          <article><h3>Keep retrieval ready</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
+          <article><h3>Build resilient workflows</h3><p>The wallet analyzer combines caching with useful partial results across providers, while the downloader persists queue state and resumes cleanly after restarts.</p></article>
+          <article><h3>Evaluate with clear baselines</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
         </div>
       </section>
 
       <section class="background section" id="background" aria-labelledby="background-title">
         <header class="section-header">
           <h2 id="background-title">Background</h2>
-          <p>My experience is based on independent product work, engineering projects, technical training and open-source contributions. It is not presented as conventional employment.</p>
+          <p>My path combines independent product work, engineering projects, technical training and merged open-source contributions.</p>
         </header>
         <div class="background-list">
           <article>
