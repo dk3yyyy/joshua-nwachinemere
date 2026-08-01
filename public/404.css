@@ -1,0 +1,11 @@
+@font-face { font-family: 'Manrope'; src: url('/fonts/manrope-variable.woff2') format('woff2'); font-style: normal; font-weight: 400 700; font-display: swap; }
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { display: grid; margin: 0; place-items: center; padding: 24px; color: #15171a; background: #f3f3f0; font: 400 18px/1.55 Manrope, Arial, sans-serif; }
+main { width: min(680px, 100%); padding: clamp(32px, 7vw, 72px); border: 1px solid #c4c6c2; border-radius: 24px; background: #fbfbf9; }
+.code { margin: 0 0 14px; color: #565b60; font-size: 14px; font-weight: 700; letter-spacing: .14em; }
+h1 { margin: 0 0 16px; font-size: clamp(38px, 7vw, 64px); letter-spacing: -.045em; line-height: 1.05; }
+p { max-width: 520px; }
+a { display: inline-flex; min-height: 44px; align-items: center; margin-top: 12px; padding: 9px 16px; border-radius: 8px; color: #fbfbf9; background: #15171a; font-weight: 700; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid #15171a; outline-offset: 4px; }
