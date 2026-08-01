@@ -101,6 +101,7 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await page.evaluate(() => document.fonts.ready);
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for Applied AI.');
+  await expect(page.locator('.hero-system-map')).toBeVisible();
   await expect(page.locator('[data-project-name]')).toHaveCount(5);
   for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
   await expect(page.locator('.project-card--primary')).toHaveCount(3);
@@ -181,12 +182,14 @@ test('responsive composition meets page, hero, grid, overflow, and target budget
       additionalColumns: getComputedStyle(document.querySelector('.additional-project-grid')).gridTemplateColumns.split(' ').length,
       contributionColumns: getComputedStyle(document.querySelector('.contribution-list')).gridTemplateColumns.split(' ').length,
       credentialColumns: getComputedStyle(document.querySelector('.credential-links')).gridTemplateColumns.split(' ').length,
+      systemMapDisplay: getComputedStyle(document.querySelector('.hero-system-map')).display,
     }));
     if (viewport.maxPageHeight) expect(layout.pageHeight, `${viewport.width}px page height`).toBeLessThanOrEqual(viewport.maxPageHeight);
     if (viewport.maxHeroHeight) expect(layout.heroHeight, `${viewport.width}px hero height`).toBeLessThanOrEqual(viewport.maxHeroHeight);
     if (viewport.width < 680) expect(layout.additionalColumns).toBe(1);
     if (viewport.width >= 768 && viewport.width <= 1024) expect(layout.additionalColumns).toBe(2);
     if (viewport.width === 1366) expect(layout.additionalColumns).toBe(2);
+    expect(layout.systemMapDisplay, `${viewport.width}px desktop-only system map`).toBe(viewport.width > 1050 ? 'block' : 'none');
     expect(layout.contributionColumns).toBe(viewport.width >= 768 ? 2 : 1);
     expect(layout.credentialColumns).toBe(viewport.width < 768 ? 1 : 3);
     await expectNoOverflow(page, `${viewport.width}px`);
