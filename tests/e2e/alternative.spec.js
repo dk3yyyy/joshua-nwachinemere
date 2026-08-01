@@ -14,6 +14,8 @@ const viewports = [
   { width: 390, height: 844, maxPageHeight: 7400, maxHeroHeight: 820 },
   { width: 768, height: 1024, maxPageHeight: 7150, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
+  { width: 1050, height: 800 },
+  { width: 1051, height: 800 },
   { width: 1366, height: 768, maxPageHeight: 6700, maxHeroHeight: 720 },
 ];
 
