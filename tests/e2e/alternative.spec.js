@@ -3,18 +3,18 @@ import AxeBuilder from '@axe-core/playwright';
 
 const projects = [
   'Volyx Lens',
+  'Local Review Intelligence',
   'Football Forecasting Lab',
   'Telegram Social Video Downloader',
   'ChainScope Wallet Analyzer',
-  'Telegram User Counter',
 ];
 
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 7000, maxHeroHeight: 900 },
-  { width: 390, height: 844, maxPageHeight: 6500, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 5200, maxHeroHeight: 760 },
+  { width: 320, height: 800, maxPageHeight: 8300, maxHeroHeight: 900 },
+  { width: 390, height: 844, maxPageHeight: 7400, maxHeroHeight: 820 },
+  { width: 768, height: 1024, maxPageHeight: 7150, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
-  { width: 1366, height: 768, maxPageHeight: 4500, maxHeroHeight: 720 },
+  { width: 1366, height: 768, maxPageHeight: 6700, maxHeroHeight: 720 },
 ];
 
 function monitorRuntime(page) {
@@ -103,8 +103,34 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for Applied AI.');
   await expect(page.locator('[data-project-name]')).toHaveCount(5);
   for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
-  await expect(page.locator('.project-card--primary')).toHaveCount(2);
-  await expect(page.locator('.project-card--compact')).toHaveCount(3);
+  await expect(page.locator('.project-card--primary')).toHaveCount(3);
+  await expect(page.locator('.project-card--compact')).toHaveCount(2);
+  await expect(page.locator('.project-visual img')).toHaveCount(3);
+  await expect(page.locator('.visual-link')).toHaveCount(0);
+  const lensImageRatio = await page.locator('.project-visual--lens img').evaluate((image) => {
+    const rect = image.getBoundingClientRect();
+    return {
+      rendered: rect.width / rect.height,
+      intrinsic: image.naturalWidth / image.naturalHeight,
+    };
+  });
+  expect(Math.abs(lensImageRatio.rendered - lensImageRatio.intrinsic)).toBeLessThan(0.01);
+  const dashboardImageRatio = await page.locator('#project-local-ai .project-visual--dashboard img').evaluate((image) => {
+    const rect = image.getBoundingClientRect();
+    return {
+      rendered: rect.width / rect.height,
+      intrinsic: image.naturalWidth / image.naturalHeight,
+    };
+  });
+  expect(Math.abs(dashboardImageRatio.rendered - dashboardImageRatio.intrinsic)).toBeLessThan(0.01);
+  const footballImageRatio = await page.locator('.project-visual--football img').evaluate((image) => {
+    const rect = image.getBoundingClientRect();
+    return {
+      rendered: rect.width / rect.height,
+      intrinsic: image.naturalWidth / image.naturalHeight,
+    };
+  });
+  expect(Math.abs(footballImageRatio.rendered - footballImageRatio.intrinsic)).toBeLessThan(0.01);
   await expect(page.locator('.contribution-row')).toHaveCount(8);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
   await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
@@ -160,12 +186,12 @@ test('responsive composition meets page, hero, grid, overflow, and target budget
     if (viewport.maxHeroHeight) expect(layout.heroHeight, `${viewport.width}px hero height`).toBeLessThanOrEqual(viewport.maxHeroHeight);
     if (viewport.width < 680) expect(layout.additionalColumns).toBe(1);
     if (viewport.width >= 768 && viewport.width <= 1024) expect(layout.additionalColumns).toBe(2);
-    if (viewport.width === 1366) expect(layout.additionalColumns).toBe(3);
+    if (viewport.width === 1366) expect(layout.additionalColumns).toBe(2);
     expect(layout.contributionColumns).toBe(viewport.width >= 768 ? 2 : 1);
     expect(layout.credentialColumns).toBe(viewport.width < 768 ? 1 : 3);
     await expectNoOverflow(page, `${viewport.width}px`);
     await expectTouchTargets(page, `${viewport.width}px`);
-    await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+    await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot(), contentType: 'image/png' });
   }
   expect(errors).toEqual([]);
 });
@@ -310,7 +336,7 @@ test('all content and navigation remain available without JavaScript', async ({ 
   await expect(page.locator('.menu-button')).toBeHidden();
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
-  await expect(page.getByText(/53\.77% accuracy versus a 56\.70% bookmaker benchmark/)).toBeVisible();
+  await expect(page.getByText(/Evaluated across 1,140 rolling-origin test matches with 53\.77% accuracy/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
   await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
   await expectNoOverflow(page, 'no-JS mobile');

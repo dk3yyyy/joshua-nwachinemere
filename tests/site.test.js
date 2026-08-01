@@ -1,40 +1,43 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const socialCard = await readFile(new URL('../public/og-card-v5.png', import.meta.url));
+const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
+const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
 const socialCardUrl = `${siteUrl}og-card-v5.png`;
 const projectNames = [
   'Volyx Lens',
+  'Local Review Intelligence',
   'Football Forecasting Lab',
   'Telegram Social Video Downloader',
   'ChainScope Wallet Analyzer',
-  'Telegram User Counter',
 ];
 const projectIds = [
   'project-lens',
+  'project-local-ai',
   'project-football',
   'project-downloader',
   'project-wallet',
-  'project-user-count',
 ];
 const maturityLabels = [
-  'Active pre-release',
-  'Experimental evaluation',
+  'Active product build',
+  'Versioned evaluation',
+  'Rolling-origin evaluation',
   'Reference implementation',
   'Public prototype',
-  'Repository-only',
 ];
 const repositoryUrls = [
   'https://github.com/dk3yyyy/volyx-lens',
+  'https://github.com/dk3yyyy/local_AI_agent',
   'https://github.com/dk3yyyy/football_predictor',
   'https://github.com/dk3yyyy/telegram-social-video-downloader',
   'https://github.com/dk3yyyy/sol-eth-wallet-analyzer',
-  'https://github.com/dk3yyyy/user_count',
 ];
 const pullRequestUrls = [
   'https://github.com/openai/openai-agents-python/pull/3991',
@@ -78,7 +81,7 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
 test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
   assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>Applied AI<\/em>\.<\/h1>/);
-  assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. The work below includes source, tests, architecture and measured limitations.'));
+  assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. Every featured project links to its source, tests, architecture or measured results.'));
   assert.ok(textOnly.includes('5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked'));
   assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
@@ -88,9 +91,9 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, />Download CV<\/a>/);
 });
 
-test('renders exactly two primary and three additional projects in source order', () => {
-  assert.equal((html.match(/class="project-card project-card--primary"/g) || []).length, 2);
-  assert.equal((html.match(/class="project-card project-card--compact"/g) || []).length, 3);
+test('renders exactly three featured and two additional projects in source order', () => {
+  assert.equal((html.match(/class="project-card project-card--primary"/g) || []).length, 3);
+  assert.equal((html.match(/class="project-card project-card--compact"/g) || []).length, 2);
   assert.equal((html.match(/<h3[^>]*data-project-name/g) || []).length, 5);
   const positions = projectNames.map((name) => html.indexOf(`>${name}</h3>`));
   assert.ok(positions.every((position) => position >= 0));
@@ -99,27 +102,94 @@ test('renders exactly two primary and three additional projects in source order'
   assert.doesNotMatch(html, /role="tab(?:list|panel)?"|aria-selected=|data-tab/i);
 });
 
-test('project maturity, ownership, limitations, and evaluation evidence remain exact', () => {
+test('project maturity, ownership, and evaluation evidence remain exact', () => {
   for (const label of maturityLabels) {
     assert.equal(occurrences(textOnly, label), 1, `Expected exact maturity label once: ${label}`);
   }
   assert.equal(occurrences(textOnly, 'Independent project'), 5);
-  assert.ok(textOnly.includes('53.77% accuracy versus a 56.70% bookmaker benchmark across 1,140 rolling-origin test matches. The model did not beat the benchmark.'));
-  assert.ok(textOnly.includes('Public builds are ad-hoc signed test builds, not notarized releases.'));
-  assert.ok(textOnly.includes('Selected-input boundaries, explicit consent, restricted provider routing, sandboxing, context isolation and automated release checks.'));
-  assert.doesNotMatch(textOnly, /Verified behaviour/i);
+  assert.ok(textOnly.includes('Evaluated across 1,140 rolling-origin test matches with 53.77% accuracy, using a 56.70% bookmaker benchmark for comparison.'));
+  assert.doesNotMatch(textOnly, /The model did not beat the benchmark/i);
+  assert.ok(textOnly.includes('Three featured projects showing multimodal product engineering, local retrieval and temporal ML evaluation, with implementation detail and inspectable evidence.'));
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.doesNotMatch(lens, /<dt>Scope<\/dt>|ad-hoc signed test builds|notarized releases/i);
+  assert.ok(textOnly.includes('User-selected inputs, consent-led capture, sandboxed execution, context isolation and provider-aware routing.'));
+  assert.ok(textOnly.includes('Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.'));
+  assert.ok(textOnly.includes('Citation validation and a single bounded repair pass keep responses grounded and evidence-linked.'));
+  const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.doesNotMatch(localProject, /<dt>Limitations<\/dt>|Three of 25|median latency|dirty worktree|both 0\.560|general reliability/i);
+  assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>Inspect benchmark JSON<\/a>/);
+  assert.doesNotMatch(html, /local_AI_agent\/tree\/main\/evaluation\/results\/v0\.2\.0-ollama-0\.32\.5/);
+  assert.equal(createHash('sha256').update(localReviewReport).digest('hex'), '2e2f76e4d74b6ddedb1e37039fbd603d10116d14e01849f04b1df94530193341');
+  assert.equal(localReviewReportJson.schema_version, 3);
+  assert.equal(localReviewReportJson.provenance.git_commit, '25b65ff85f243f731fa6c376eaefb133c6f4e7e7');
+  assert.equal(localReviewReportJson.provenance.git_dirty, false);
+  assert.equal(localReviewReportJson.diagnostics.raw_responses_included, false);
+  assert.deepEqual(localReviewReportJson.results.rag, {
+    abstention_case_count: 5,
+    abstention_recall: 1,
+    answer_success_rate: 0.88,
+    answerable_case_count: 25,
+    case_count: 30,
+    citation_validity: 0.88,
+    expected_action_accuracy: 0.9,
+    reference_term_support_proxy: 0.86,
+    retrieval_recall: 0.9133333333333333,
+  });
+  assert.doesNotMatch(textOnly, /Verified behaviour/i);
   assert.match(lens, /Independent project/);
   assert.doesNotMatch(lens, /VolyxAI/i);
+});
+
+test('adds honest, accessible visual product evidence without the rejected control token', async () => {
+  const expectedMedia = [
+    ['project-lens', '%BASE_URL%images/volyx-lens-context-aperture.jpg', 'High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs'],
+    ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg', 'Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table'],
+    ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Redesigned Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities'],
+  ];
+  for (const [projectId, source, alt] of expectedMedia) {
+    const project = html.match(new RegExp(`<article[^>]+id="${projectId}"[\\s\\S]*?<\\/article>`))?.[0] ?? '';
+    assert.ok(project.includes(`src="${source}"`), `Missing media source for ${projectId}`);
+    assert.ok(project.includes(`alt="${alt}"`), `Missing descriptive alt text for ${projectId}`);
+    assert.match(project, /<figcaption>[\s\S]+<\/figcaption>/);
+  }
+  const lensImage = await stat(new URL('../public/images/volyx-lens-context-aperture.jpg', import.meta.url));
+  const localDashboardImage = await stat(new URL('../public/images/local-review-intelligence-dashboard-5b174ed3.jpg', import.meta.url));
+  const footballDashboardImage = await stat(new URL('../public/images/football-forecasting-dashboard-12cff076.jpg', import.meta.url));
+  assert.ok(lensImage.size > 10_000);
+  assert.ok(localDashboardImage.size > 10_000);
+  assert.ok(footballDashboardImage.size > 10_000);
+  const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.match(
+    localProject,
+    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-5b174ed3\.jpg" width="1440" height="1000"/,
+  );
+  assert.doesNotMatch(localProject, /local-review-intelligence-evidence\.jpg/);
+  const footballProject = html.match(/<article[^>]+id="project-football"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.match(
+    footballProject,
+    /<img src="%BASE_URL%images\/football-forecasting-dashboard-12cff076\.jpg" width="1440" height="1000"/,
+  );
+  assert.match(footballProject, /isolated synthetic interface-test dataset/);
+  assert.doesNotMatch(html, /class="visual-link"/);
+  assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
+  assert.ok(textOnly.includes('This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.'));
 });
 
 test('keeps all five repository URLs and all eight contribution rows visible', () => {
   for (const url of [...repositoryUrls, ...pullRequestUrls]) assert.ok(html.includes(url), `Missing ${url}`);
   assert.equal((html.match(/class="contribution-row"/g) || []).length, 8);
   assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 8);
-  assert.ok(textOnly.includes('Independent open-source contributions; not employment with the upstream projects.'));
+  assert.ok(textOnly.includes('Eight pull requests authored by Joshua, independently verified and merged into maintained open-source projects.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
+});
+
+test('places merged upstream work before the smaller backend projects', () => {
+  const contributionPosition = html.indexOf('id="contributions"');
+  const additionalPosition = html.indexOf('id="additional-work"');
+  assert.ok(contributionPosition >= 0);
+  assert.ok(additionalPosition >= 0);
+  assert.ok(contributionPosition < additionalPosition);
 });
 
 test('keeps project actions focused on demos, source, and explanatory evidence', () => {
@@ -128,7 +198,7 @@ test('keeps project actions focused on demos, source, and explanatory evidence',
   assert.match(textOnly, /Open live demo/);
   assert.match(textOnly, /View source/);
   assert.match(textOnly, /Read architecture/);
-  assert.match(textOnly, /Read evaluation report/);
+  assert.match(textOnly, /Inspect benchmark JSON/);
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(lens, /<a href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">Visit live site<\/a>/);
 });
@@ -137,7 +207,10 @@ test('includes the approved approach, background, contact, and footer copy', () 
   for (const heading of ['Engineering approach', 'Background', 'Interested in working together?']) {
     assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
-  assert.ok(textOnly.includes('My experience is based on independent product work, engineering projects, technical training and open-source contributions. It is not presented as conventional employment.'));
+  assert.ok(textOnly.includes('My path combines independent product work, engineering projects, technical training and merged open-source contributions.'));
+  for (const heading of ['Route selected context', 'Keep retrieval ready', 'Build resilient workflows', 'Evaluate with clear baselines']) {
+    assert.match(textOnly, new RegExp(heading));
+  }
   assert.ok(textOnly.includes('VolyxAI product work'));
   assert.ok(textOnly.includes('Independent product effort'));
   assert.ok(textOnly.includes('I’m interested in AI Engineer and Applied AI Engineer roles involving Python services, retrieval and context systems, multimodal or voice workflows, evaluation and reliability.'));
@@ -146,6 +219,13 @@ test('includes the approved approach, background, contact, and footer copy', () 
   assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));
   assert.ok(textOnly.includes('AI Engineer · Python and applied AI'));
   assert.ok(textOnly.includes('Back to top ↑'));
+});
+
+test('visible portfolio copy stays capability-led rather than limitation-led', () => {
+  assert.doesNotMatch(textOnly, /measured limitations|not presented as conventional employment|not employment with the upstream projects|Degrade without hiding failure|reports its loss|The model did not beat the benchmark|ad-hoc signed test builds|notarized releases|Active pre-release|Experimental evaluation/i);
+  assert.doesNotMatch(html, /<dt>Limitations<\/dt>|<dt>Scope<\/dt>/i);
+  assert.ok(textOnly.includes('Two focused systems showing durable workflows, API aggregation and resilient execution.'));
+  assert.ok(textOnly.includes('Bounded concurrency, caching and useful partial results across RPC and market-data providers.'));
 });
 
 test('shows a focused and verifiable certification set', () => {
@@ -168,10 +248,10 @@ test('shows a focused and verifiable certification set', () => {
 
 test('forbids the retired concept, unsupported claims, and unapproved projects', () => {
   assert.doesNotMatch(textOnly, /↗|→|➡|🔗|🚀/u);
-  assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|question|answer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
+  assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
   assert.doesNotMatch(textOnly, /\b(?:customers?|users served|revenue|commercial outcomes?|production scale|industry-leading|senior|staff|principal)\b/i);
   assert.doesNotMatch(textOnly, /\b\d[\d,]*\s+(?:customers?|users?)\b/i);
-  assert.doesNotMatch(textOnly, /Noughtline|Tic Tac Toe|VirusTotal(?: Bot| Telegram Bot)?|local_AI_agent/i);
+  assert.doesNotMatch(textOnly, /Noughtline|Tic Tac Toe|VirusTotal(?: Bot| Telegram Bot)?|Telegram User Counter/i);
   assert.doesNotMatch(textOnly, /\b(?:Nigeria|Lagos|Abuja|Owerri, Nigeria)\b/i);
   assert.doesNotMatch(textOnly, /UK-based|authori[sz]ed to work|no sponsorship required|unrestricted (?:UK|US)|US work authori[sz]ation/i);
   assert.doesNotMatch(html, /href="[^"]*volyxai\.com/i);
