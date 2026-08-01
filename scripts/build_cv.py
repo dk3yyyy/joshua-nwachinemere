@@ -36,7 +36,7 @@ DOCX_PATH = PUBLIC / "Joshua_Nwachinemere_CV.docx"
 PDF_PATH = PUBLIC / "Joshua_Nwachinemere_CV.pdf"
 
 NAME = "JOSHUA NWACHINEMERE"
-HEADLINE = "AI Engineer | Python, Retrieval, Context Engineering, Multimodal AI & ML Evaluation"
+HEADLINE = "AI Engineer | Python, Retrieval Systems, Multimodal AI & ML Evaluation"
 EMAIL = "joshua0nwachinemere@gmail.com"
 PHONE = "+234 913 148 0096"
 
@@ -46,80 +46,56 @@ PORTFOLIO_URL = "https://joshua-nwachinemere.pages.dev"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
-    "AI Engineer building Python systems around language, vision, and speech models. Work spans retrieval and "
-    "context assembly, multimodal inputs, real-time transcription, model/API integration, FastAPI "
-    "services, asynchronous workflows, and ML evaluation. Building VolyxAI "
-    "with explicit data flow, validation, observability, and human control. Open to AI Engineer and ML Engineer opportunities."
+    "AI Engineer building Python systems for retrieval, multimodal inference, speech, model APIs, and ML evaluation. "
+    "Built local review intelligence with citation validation and benchmarked evaluation, a privacy-oriented macOS "
+    "assistant, and a temporal forecasting pipeline. Contributed eight merged fixes and tests across AI and data "
+    "infrastructure projects, including OpenAI Agents SDK and Pydantic AI Harness."
 )
 
 EXPERIENCE = [
     {
-        "role": "AI Engineer · VolyxAI product work",
-        "org": "Independent product effort",
+        "role": "AI Engineer",
+        "org": "VolyxAI | Independent AI product development",
         "date": "Nov 2025 - Present",
         "bullets": [
-            "Developing applied AI systems that combine model and provider integration, retrieval and context assembly, voice and multimodal workflows, and structured outputs.",
-            "Building Python services and event-driven n8n workflows around external APIs, webhooks, validation, retries, logging, and human approval.",
-            "Exploring provider routing, fallback, cost, latency, and privacy trade-offs across Azure AI Foundry, OpenAI-compatible APIs, and transcription providers.",
+            "Build applied AI systems integrating retrieval, multimodal inputs, voice workflows, model APIs, and structured outputs.",
+            "Develop Python services and n8n workflows with webhooks, validation, retries, logging, human approval, and provider fallback.",
         ],
         "tools": "Python, FastAPI, n8n, REST APIs, webhooks, Azure AI Foundry, OpenAI-compatible APIs, PostgreSQL, Redis",
     },
     {
-        "role": "AI, Backend & Automation Projects",
-        "org": "Independent engineering work",
-        "date": "Jan 2021 - Present",
+        "role": "Python Automation Developer",
+        "org": "Freelance | Independent paid client work",
+        "date": "Jan 2023 - Present",
         "bullets": [
-            "Built Python automation and backend utilities for data processing, Telegram bots, API integrations, and operational tooling.",
-            "Created asynchronous VirusTotal scanning and multi-chain wallet analytics with validation, caching, pagination, and rate-limit handling.",
-            "Developed and evaluated an experimental football forecasting pipeline with temporal features, calibrated models, FastAPI, and rolling-origin testing.",
+            "Developed streaming utilities for large text datasets, including domain filtering, deduplication, splitting, and list curation.",
+            "Built Telegram integrations and asynchronous services using PostgreSQL, Redis, and Docker; integrated external APIs with explicit error handling, rate limits, and operational logging.",
+            "Developed licensing and key-management components for proprietary Python tools, and published reusable command-line utilities for splitting and sorting large text datasets.",
         ],
-        "tools": "Python, Async I/O, Telegram Bot API, aiohttp, SQL, Docker, REST APIs",
+        "tools": "Python, scripting, asyncio, Telegram Bot API, aiohttp, PostgreSQL, Redis, Docker, REST APIs",
     },
-]
-
-TRAINING = [
-    {
-        "name": "Threat Detection & Response Capstone | Capstone IT Staffing (Remote)",
-        "date": "Jul 2025 - Aug 2025",
-        "bullets": [
-            "Deployed Suricata on Ubuntu, wrote custom Snort rules, and automated alert enrichment with Python and public OSINT sources.",
-            "Built a DNS intelligence CLI with asynchronous resolution, WHOIS lookups, trace output, and JSON export.",
-        ],
-    }
 ]
 
 OPEN_SOURCE_CONTRIBUTIONS = [
     {
         "name": "OpenAI Agents Python SDK | Merged PR #3991",
         "stack": "Python, WebSockets, retry policies, pytest | Jul 2026",
-        "bullets": [
-            "Made transient pre-response WebSocket server errors follow the SDK's retry policy while preserving non-transient handling and replay-safety checks.",
-            "PR: https://github.com/openai/openai-agents-python/pull/3991",
-        ],
+        "bullets": ["Made transient pre-response WebSocket server errors follow the SDK's retry policy while preserving non-transient handling and replay-safety checks. PR: https://github.com/openai/openai-agents-python/pull/3991"],
     },
     {
         "name": "Pydantic AI Harness | Merged PR #503",
         "stack": "Python, agent recovery, Code Mode, pytest | Jul 2026",
-        "bullets": [
-            "Surfaced unexpected Code Mode execution failures to the model as retries after resetting invalid session state, enabling recovery from lost imports and variables.",
-            "PR: https://github.com/pydantic/pydantic-ai-harness/pull/503",
-        ],
+        "bullets": ["Surfaced unexpected Code Mode execution failures to the model as retries after resetting invalid session state, enabling recovery from lost imports and variables. PR: https://github.com/pydantic/pydantic-ai-harness/pull/503"],
     },
     {
         "name": "Mellea | Merged PR #1471",
         "stack": "Python, OpenTelemetry tracing, async tests, pytest | Jul 2026",
-        "bullets": [
-            "Added deterministic mocked-backend tests for async span timing, context propagation, token usage, span lifetime, and consecutive generations.",
-            "PR: https://github.com/generative-computing/mellea/pull/1471",
-        ],
+        "bullets": ["Added deterministic mocked-backend tests for async span timing, context propagation, token usage, span lifetime, and consecutive generations. PR: https://github.com/generative-computing/mellea/pull/1471"],
     },
     {
         "name": "FastStream | Merged PR #2961",
         "stack": "Python, FastAPI compatibility, dependency injection, pytest | Jul 2026",
-        "bullets": [
-            "Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata.",
-            "PR: https://github.com/ag2ai/faststream/pull/2961",
-        ],
+        "bullets": ["Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata. PR: https://github.com/ag2ai/faststream/pull/2961"],
     },
     {
         "name": "Additional verified upstream merges | 4 of 8 merged PRs",
@@ -132,12 +108,20 @@ OPEN_SOURCE_CONTRIBUTIONS = [
 
 PROJECTS = [
     {
+        "name": "Local Review Intelligence | Local Retrieval & Evaluation",
+        "stack": "Python, Ollama, ChromaDB, LangChain, Streamlit",
+        "bullets": [
+            "Built a local-first review intelligence application with adaptive CSV mapping, content-addressed Chroma storage, reconciled indexing, a Streamlit dashboard, and an installable CLI.",
+            "Implemented stable source IDs, validated citations, bounded answer repair, safe abstention, and a versioned 30-case evaluation comparing semantic retrieval with BM25.",
+            "Source: https://github.com/dk3yyyy/local_AI_agent",
+        ],
+    },
+    {
         "name": "Volyx Lens | Privacy-First Context-Aware AI Assistant",
         "stack": "JavaScript, Electron, Swift, Azure AI Foundry, Multimodal APIs",
         "bullets": [
             "Built and hardened a privacy-oriented macOS assistant combining selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, and multiple AI providers.",
-            "Implemented bounded context memory, transcription and provider routing, explicit data-sharing controls, and cost-aware fallbacks.",
-            "Hardened Electron boundaries with sandboxing, context isolation, restricted IPC, automated tests, secret scanning, and release checks.",
+            "Implemented bounded context memory, provider routing, explicit data-sharing controls, sandboxed Electron boundaries, automated tests, secret scanning, and release checks.",
             "Source: https://github.com/dk3yyyy/volyx-lens",
         ],
     },
@@ -146,40 +130,30 @@ PROJECTS = [
         "stack": "Python, XGBoost, scikit-learn, FastAPI, Streamlit, SQLAlchemy",
         "bullets": [
             "Built data scrapers, temporal feature engineering, XGBoost outcome and Poisson goal models, a FastAPI service, and a Streamlit dashboard.",
-            "Evaluated with rolling-origin testing across 1,140 Premier League matches: 53.77% outcome accuracy versus a 56.70% bookmaker-implied benchmark, showing signal but no practical betting advantage.",
+            "Evaluated with rolling-origin testing across 1,140 Premier League matches: 53.77% outcome accuracy versus a 56.70% bookmaker-implied benchmark; the model did not outperform the benchmark.",
             "Source: https://github.com/dk3yyyy/football_predictor",
-        ],
-    },
-    {
-        "name": "Noughtline | Real-Time Multiplayer System",
-        "stack": "React, Express, Socket.IO, SQLite, Paystack",
-        "bullets": [
-            "Built signed guest sessions, server-authoritative moves, reconnect and forfeit handling, transactional match settlement, and an append-only currency ledger.",
-            "Added idempotent Paystack crediting plus automated API, economy, room-state, and two-client Socket.IO tests.",
-            "Live: https://noughtline.onrender.com | Source: https://github.com/dk3yyyy/Noughtline",
         ],
     },
 ]
 
 SKILLS = [
     "Languages: Python, SQL",
-    "AI Engineering: retrieval, context engineering, multimodal inference, voice AI, structured outputs, provider routing, model evaluation",
-    "Models & Providers: Azure AI Foundry, OpenAI, Anthropic, Gemini, DeepSeek, Deepgram",
+    "AI Engineering: retrieval, multimodal inference, voice AI, structured outputs, provider routing, model evaluation",
+    "Models & Providers: Azure AI Foundry, OpenAI-compatible APIs, Deepgram",
     "ML & Data: scikit-learn, XGBoost, pandas, feature engineering, temporal evaluation",
     "Backend & Automation: FastAPI, asyncio, REST APIs, n8n, webhooks, SQLAlchemy",
     "Data & Infrastructure: PostgreSQL, SQLite, Redis, Docker, GitHub Actions, Linux",
-    "Security: Suricata, Snort, VirusTotal API, OSINT, DNS analysis, secure credential management",
 ]
 
 CERTIFICATIONS = [
     {"text": "Scientific Computing with Python Developer Certification | freeCodeCamp | May 2026", "url": "https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7"},
-    {"text": "Google AI Specialization | Google/Coursera | February 2026", "url": "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30"},
+    {"text": "Google AI Professional Certificate | Google/Coursera | February 2026", "url": "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30"},
     {"text": "Model Context Protocol: Advanced Topics | Anthropic training | March 2026", "url": "https://verify.skilljar.com/c/fwqra86yief7"},
 ]
 
 EDUCATION = [
-    "Bachelor of Technology (BTech), Mathematics · Federal University of Technology, Owerri (FUTO) · 2016–2021",
     "MSc Artificial Intelligence · Northumbria University · September 2026 intake",
+    "Bachelor of Technology (BTech), Mathematics · Federal University of Technology, Owerri (FUTO) · 2016–2021",
 ]
 
 
@@ -205,7 +179,7 @@ def configure_docx() -> Any:
     normal = doc.styles["Normal"]
     normal.font.name = "Arial"
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Arial")
-    normal.font.size = Pt(10.2)
+    normal.font.size = Pt(10.5)
     return doc
 
 
@@ -263,6 +237,13 @@ def add_docx_heading(doc: Document, text: str) -> None:
     r = p.add_run(text)
     r.bold = True
     r.font.size = Pt(11.5)
+
+
+def add_docx_stack(doc: Any, text: str) -> None:
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(0)
+    if text:
+        p.add_run(text).italic = True
 
 
 def add_docx_bullets(doc: Any, bullets: Sequence[str | dict[str, str]]) -> None:
@@ -353,10 +334,27 @@ def build_docx(output_path: Path = DOCX_PATH) -> None:
     p = doc.add_paragraph(SUMMARY)
     p.paragraph_format.space_after = Pt(2)
 
-    add_docx_heading(doc, "CORE SKILLS")
-    add_docx_bullets(doc, SKILLS)
+    add_docx_heading(doc, "SELECTED AI & ML PROJECTS")
+    for project in PROJECTS:
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(project["name"])
+        r.bold = True
+        add_docx_stack(doc, project["stack"])
+        add_docx_bullets(doc, project["bullets"])
 
-    add_docx_heading(doc, "INDEPENDENT PRODUCT & ENGINEERING WORK")
+    add_docx_heading(doc, "OPEN-SOURCE CONTRIBUTIONS")
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        if contribution["name"].startswith("Mellea"):
+            doc.add_page_break()
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(contribution["name"])
+        r.bold = True
+        add_docx_stack(doc, contribution["stack"])
+        add_docx_bullets(doc, contribution["bullets"])
+
+    add_docx_heading(doc, "EXPERIENCE")
     for item in EXPERIENCE:
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(0)
@@ -372,44 +370,16 @@ def build_docx(output_path: Path = DOCX_PATH) -> None:
         r.bold = True
         p.add_run(item["tools"])
 
-    add_docx_heading(doc, "TECHNICAL TRAINING")
-    for item in TRAINING:
-        p = doc.add_paragraph()
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(item["name"])
-        r.bold = True
-        p.add_run(f" | {item['date']}").italic = True
-        add_docx_bullets(doc, item["bullets"])
+    add_docx_heading(doc, "CORE SKILLS")
+    add_docx_bullets(doc, SKILLS)
 
-    doc.add_page_break()
-    add_docx_heading(doc, "OPEN-SOURCE CONTRIBUTIONS")
-    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
-        p = doc.add_paragraph()
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(contribution["name"])
-        r.bold = True
-        p = doc.add_paragraph(contribution["stack"])
-        p.paragraph_format.space_after = Pt(0)
-        p.runs[0].italic = True
-        add_docx_bullets(doc, contribution["bullets"])
-
-    add_docx_heading(doc, "SELECTED PROJECTS")
-    for project in PROJECTS:
-        p = doc.add_paragraph()
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(project["name"])
-        r.bold = True
-        p = doc.add_paragraph(project["stack"])
-        p.paragraph_format.space_after = Pt(0)
-        p.runs[0].italic = True
-        add_docx_bullets(doc, project["bullets"])
-
-    add_docx_heading(doc, "CERTIFICATIONS & TRAINING")
-    add_docx_bullets(doc, CERTIFICATIONS)
     add_docx_heading(doc, "EDUCATION")
     for line in EDUCATION:
         p = doc.add_paragraph(line)
         p.paragraph_format.space_after = Pt(0)
+
+    add_docx_heading(doc, "CERTIFICATIONS & TRAINING")
+    add_docx_bullets(doc, CERTIFICATIONS)
 
     doc.save(output_path)
     update_extended_properties(output_path)
@@ -428,8 +398,8 @@ def pdf_styles():
         "body": ParagraphStyle("CVBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.7, leading=13.7, spaceAfter=2.5),
         "tools": ParagraphStyle("CVTools", parent=styles["Normal"], fontName="Helvetica", fontSize=9.9, leading=12.5, spaceAfter=5),
         "contribution_role": ParagraphStyle("CVContributionRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10, leading=11.5, spaceBefore=3, spaceAfter=.5),
-        "contribution_body": ParagraphStyle("CVContributionBody", parent=styles["Normal"], fontName="Helvetica", fontSize=9.8, leading=11.5, spaceAfter=1),
-        "credential": ParagraphStyle("CVCredential", parent=styles["Normal"], fontName="Helvetica", fontSize=9.6, leading=11, spaceAfter=0),
+        "contribution_body": ParagraphStyle("CVContributionBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.2, leading=12, spaceAfter=1),
+        "credential": ParagraphStyle("CVCredential", parent=styles["Normal"], fontName="Helvetica", fontSize=10, leading=11.5, spaceAfter=0),
     }
 
 
@@ -490,38 +460,39 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
         Paragraph(contact_markup, styles["contact"]),
         Paragraph("PROFILE", styles["section"]),
         Paragraph(SUMMARY, styles["body"]),
-        Paragraph("CORE SKILLS", styles["section"]),
-        bullet_list(SKILLS, styles["body"]),
-        Paragraph("INDEPENDENT PRODUCT & ENGINEERING WORK", styles["section"]),
+        Paragraph("SELECTED AI & ML PROJECTS", styles["section"]),
     ]
+    for project in PROJECTS:
+        story.append(Paragraph(project["name"], styles["role"]))
+        if project["stack"]:
+            story.append(Paragraph(project["stack"], styles["org"]))
+        story.append(bullet_list(project["bullets"], styles["body"]))
+
+    story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        if contribution["name"].startswith("Mellea"):
+            story.append(PageBreak())
+        story.append(Paragraph(contribution["name"], styles["contribution_role"]))
+        if contribution["stack"]:
+            story.append(Paragraph(contribution["stack"], styles["org"]))
+        story.append(bullet_list(contribution["bullets"], styles["contribution_body"]))
+
+    story.append(Paragraph("EXPERIENCE", styles["section"]))
     for item in EXPERIENCE:
         story.append(Paragraph(f"{item['role']} | {item['date']}", styles["role"]))
         story.append(Paragraph(item["org"], styles["org"]))
         story.append(bullet_list(item["bullets"], styles["body"]))
         story.append(Paragraph(f"<b>Key tools:</b> {item['tools']}", styles["tools"]))
 
-    story.append(Paragraph("TECHNICAL TRAINING", styles["section"]))
-    for item in TRAINING:
-        story.append(Paragraph(f"{item['name']} | {item['date']}", styles["role"]))
-        story.append(bullet_list(item["bullets"], styles["body"]))
+    story.append(Paragraph("CORE SKILLS", styles["section"]))
+    story.append(bullet_list(SKILLS, styles["body"]))
 
-    story.append(PageBreak())
-    story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
-    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
-        story.append(Paragraph(contribution["name"], styles["contribution_role"]))
-        story.append(bullet_list(contribution["bullets"], styles["contribution_body"]))
-
-    story.append(Paragraph("SELECTED PROJECTS", styles["section"]))
-    for project in PROJECTS:
-        story.append(Paragraph(project["name"], styles["role"]))
-        story.append(Paragraph(project["stack"], styles["org"]))
-        story.append(bullet_list(project["bullets"], styles["body"]))
-
-    story.append(Paragraph("CERTIFICATIONS & TRAINING", styles["closing_section"]))
-    story.append(bullet_list(CERTIFICATIONS, styles["credential"]))
     story.append(Paragraph("EDUCATION", styles["closing_section"]))
     for line in EDUCATION:
         story.append(Paragraph(line, styles["credential"]))
+
+    story.append(Paragraph("CERTIFICATIONS & TRAINING", styles["closing_section"]))
+    story.append(bullet_list(CERTIFICATIONS, styles["credential"]))
 
     doc.build(story, onLaterPages=draw_later_page_header)
 
