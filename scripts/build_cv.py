@@ -239,6 +239,13 @@ def add_docx_heading(doc: Document, text: str) -> None:
     r.font.size = Pt(11.5)
 
 
+def add_docx_stack(doc: Any, text: str) -> None:
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(0)
+    if text:
+        p.add_run(text).italic = True
+
+
 def add_docx_bullets(doc: Any, bullets: Sequence[str | dict[str, str]]) -> None:
     numbering = doc.part.numbering_part.element
     if not hasattr(doc, "_cv_bullet_num_id"):
@@ -333,22 +340,18 @@ def build_docx(output_path: Path = DOCX_PATH) -> None:
         p.paragraph_format.space_after = Pt(0)
         r = p.add_run(project["name"])
         r.bold = True
-        p = doc.add_paragraph(project["stack"])
-        p.paragraph_format.space_after = Pt(0)
-        p.runs[0].italic = True
+        add_docx_stack(doc, project["stack"])
         add_docx_bullets(doc, project["bullets"])
 
     add_docx_heading(doc, "OPEN-SOURCE CONTRIBUTIONS")
-    for index, contribution in enumerate(OPEN_SOURCE_CONTRIBUTIONS):
-        if index == 2:
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        if contribution["name"].startswith("Mellea"):
             doc.add_page_break()
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(0)
         r = p.add_run(contribution["name"])
         r.bold = True
-        p = doc.add_paragraph(contribution["stack"])
-        p.paragraph_format.space_after = Pt(0)
-        p.runs[0].italic = True
+        add_docx_stack(doc, contribution["stack"])
         add_docx_bullets(doc, contribution["bullets"])
 
     add_docx_heading(doc, "EXPERIENCE")
@@ -461,15 +464,17 @@ def build_pdf(output_path: Path = PDF_PATH) -> None:
     ]
     for project in PROJECTS:
         story.append(Paragraph(project["name"], styles["role"]))
-        story.append(Paragraph(project["stack"], styles["org"]))
+        if project["stack"]:
+            story.append(Paragraph(project["stack"], styles["org"]))
         story.append(bullet_list(project["bullets"], styles["body"]))
 
     story.append(Paragraph("OPEN-SOURCE CONTRIBUTIONS", styles["section"]))
-    for index, contribution in enumerate(OPEN_SOURCE_CONTRIBUTIONS):
-        if index == 2:
+    for contribution in OPEN_SOURCE_CONTRIBUTIONS:
+        if contribution["name"].startswith("Mellea"):
             story.append(PageBreak())
         story.append(Paragraph(contribution["name"], styles["contribution_role"]))
-        story.append(Paragraph(contribution["stack"], styles["org"]))
+        if contribution["stack"]:
+            story.append(Paragraph(contribution["stack"], styles["org"]))
         story.append(bullet_list(contribution["bullets"], styles["contribution_body"]))
 
     story.append(Paragraph("EXPERIENCE", styles["section"]))

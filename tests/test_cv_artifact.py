@@ -5,6 +5,7 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest import mock
 import xml.etree.ElementTree as ET
 
 from docx import Document
@@ -144,6 +145,34 @@ class CvArtifactTests(unittest.TestCase):
             if paragraph.find(f".//{W}br[@{W}type='page']") is not None
         ]
         self.assertEqual(page_break_paragraphs, [mellea_index - 1])
+
+    def test_docx_page_break_tracks_mellea_after_contribution_reordering(self):
+        mellea = next(item for item in BUILD_CV.OPEN_SOURCE_CONTRIBUTIONS if item["name"].startswith("Mellea"))
+        others = [item for item in BUILD_CV.OPEN_SOURCE_CONTRIBUTIONS if item is not mellea]
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(
+            BUILD_CV, "OPEN_SOURCE_CONTRIBUTIONS", [mellea, *others]
+        ):
+            output = Path(directory) / "reordered.docx"
+            BUILD_CV.build_docx(output)
+            with zipfile.ZipFile(output) as archive:
+                root = ET.fromstring(archive.read("word/document.xml"))
+        paragraphs = root.findall(f".//{W}body/{W}p")
+        mellea_index = next(
+            index for index, paragraph in enumerate(paragraphs)
+            if "Mellea | Merged PR #1471" in "".join(paragraph.itertext())
+        )
+        page_break_paragraphs = [
+            index for index, paragraph in enumerate(paragraphs)
+            if paragraph.find(f".//{W}br[@{W}type='page']") is not None
+        ]
+        self.assertEqual(page_break_paragraphs, [mellea_index - 1])
+
+    def test_docx_accepts_an_entry_with_no_stack_text(self):
+        project = {**BUILD_CV.PROJECTS[0], "stack": ""}
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(BUILD_CV, "PROJECTS", [project]):
+            output = Path(directory) / "empty-stack.docx"
+            BUILD_CV.build_docx(output)
+            self.assertTrue(output.is_file())
 
     def test_sections_and_roles_use_clear_early_career_positioning(self):
         docx_text = re.sub(r"\s+", " ", doc_text(xml_part("word/document.xml")))
@@ -286,6 +315,11 @@ class CvArtifactTests(unittest.TestCase):
         with zipfile.ZipFile(DOCX) as archive:
             rels = archive.read("word/_rels/document.xml.rels").decode()
         expected_paragraphs = [f"{label} | Verify credential" for label, _ in EXPECTED_CREDENTIALS]
+        self.assertEqual(
+            [paragraph for paragraph in paragraphs[start - 1:] if paragraph],
+            ["CERTIFICATIONS & TRAINING", *expected_paragraphs],
+            "CERTIFICATIONS & TRAINING must remain the final section",
+        )
         self.assertEqual(credential_paragraphs, expected_paragraphs)
         self.assertEqual(text.count("Verify credential"), 3)
         for label, url in EXPECTED_CREDENTIALS:
