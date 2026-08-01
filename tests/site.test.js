@@ -154,7 +154,7 @@ test('adds honest, accessible visual product evidence without the rejected contr
   const expectedMedia = [
     ['project-lens', '%BASE_URL%images/volyx-lens-context-aperture.jpg', 'High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs'],
     ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg', 'Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table'],
-    ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Redesigned Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities'],
+    ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities'],
   ];
   for (const [projectId, source, alt] of expectedMedia) {
     const project = html.match(new RegExp(`<article[^>]+id="${projectId}"[\\s\\S]*?<\\/article>`))?.[0] ?? '';
@@ -180,6 +180,7 @@ test('adds honest, accessible visual product evidence without the rejected contr
     /<img src="%BASE_URL%images\/football-forecasting-dashboard-12cff076\.jpg" width="1440" height="1000"/,
   );
   assert.match(footballProject, /isolated synthetic interface-test dataset/);
+  assert.doesNotMatch(footballProject, /redesigned/i);
   assert.doesNotMatch(html, /class="visual-link"/);
   assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
   assert.ok(textOnly.includes('This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.'));
