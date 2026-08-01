@@ -142,7 +142,7 @@ PROJECTS = [
         ],
     },
     {
-        "name": "Football Predictor | Experimental ML Pipeline",
+        "name": "Football Forecasting Lab | Temporal ML Evaluation Pipeline",
         "stack": "Python, XGBoost, scikit-learn, FastAPI, Streamlit, SQLAlchemy",
         "bullets": [
             "Built data scrapers, temporal feature engineering, XGBoost outcome and Poisson goal models, a FastAPI service, and a Streamlit dashboard.",

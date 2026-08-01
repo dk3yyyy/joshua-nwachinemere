@@ -33,6 +33,8 @@ EXPECTED_CREDENTIALS = [
 ]
 EXPECTED_EMAIL = "joshua0nwachinemere@gmail.com"
 RETIRED_EMAIL = "josh0victor@outlook.com"
+EXPECTED_FOOTBALL_PROJECT = "Football Forecasting Lab | Temporal ML Evaluation Pipeline"
+RETIRED_FOOTBALL_PROJECT = "Football Predictor | Experimental ML Pipeline"
 
 
 def xml_part(name):
@@ -67,6 +69,15 @@ class CvArtifactTests(unittest.TestCase):
         self.assertNotIn(RETIRED_EMAIL, pdf_text)
         self.assertIn(f"mailto:{EXPECTED_EMAIL}", pdf_uris)
         self.assertFalse(any(RETIRED_EMAIL in uri for uri in pdf_uris))
+
+    def test_football_project_uses_capability_first_title_in_both_artifacts(self):
+        docx_text = doc_text(xml_part("word/document.xml"))
+        reader = PdfReader(str(PDF))
+        pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
+
+        for artifact_text in (docx_text, pdf_text):
+            self.assertIn(EXPECTED_FOOTBALL_PROJECT, artifact_text)
+            self.assertNotIn(RETIRED_FOOTBALL_PROJECT, artifact_text)
 
     def test_major_sections_use_heading_one_outline_semantics(self):
         root = xml_part("word/document.xml")
