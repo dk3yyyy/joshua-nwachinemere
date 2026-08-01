@@ -127,7 +127,7 @@ test('project maturity, ownership, and evaluation evidence remain exact', () => 
   assert.ok(textOnly.includes('Citation validation and a single bounded repair pass keep responses grounded and evidence-linked.'));
   const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.doesNotMatch(localProject, /<dt>Limitations<\/dt>|Three of 25|median latency|dirty worktree|both 0\.560|general reliability/i);
-  assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>Inspect benchmark JSON<\/a>/);
+  assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View results<\/a>/);
   assert.doesNotMatch(html, /local_AI_agent\/tree\/main\/evaluation\/results\/v0\.2\.0-ollama-0\.32\.5/);
   assert.equal(createHash('sha256').update(localReviewReport).digest('hex'), '2e2f76e4d74b6ddedb1e37039fbd603d10116d14e01849f04b1df94530193341');
   assert.equal(localReviewReportJson.schema_version, 3);
@@ -208,7 +208,7 @@ test('keeps project actions focused on demos, source, and explanatory evidence',
   assert.match(textOnly, /Open live demo/);
   assert.match(textOnly, /View source/);
   assert.match(textOnly, /Read architecture/);
-  assert.match(textOnly, /Inspect benchmark JSON/);
+  assert.match(textOnly, /View results/);
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(lens, /<a href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">Visit live site<\/a>/);
 });

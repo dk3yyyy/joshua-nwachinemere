@@ -280,6 +280,31 @@ test('approved typography and responsive spacing tokens hold at every required w
   }
 });
 
+test('featured project actions match the approved 44px mobile button size', async ({ page }) => {
+  for (const viewport of viewports.filter(({ width }) => width <= 390)) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+
+    const groups = await page.locator('.project-card--primary .project-links').evaluateAll((rows) => rows.map((row) => (
+      [...row.querySelectorAll('a')].map((link) => {
+        const box = link.getBoundingClientRect();
+        return { label: link.textContent.trim(), width: box.width, height: box.height };
+      })
+    )));
+
+    expect(groups.length, `${viewport.width}px featured action groups`).toBeGreaterThan(0);
+    for (const group of groups) {
+      expect(group.length, `${viewport.width}px actions per group`).toBeGreaterThan(0);
+      const widths = group.map(({ width }) => width);
+      expect(Math.max(...widths) - Math.min(...widths), `${viewport.width}px equal action widths`).toBeLessThanOrEqual(0.02);
+      for (const action of group) {
+        expect(action.height, `${viewport.width}px ${action.label} height`).toBe(44);
+      }
+    }
+  }
+});
+
 test('accessibility and keyboard focus are verified at every required width', async ({ page }) => {
   for (const viewport of viewports) {
     await page.setViewportSize(viewport);
