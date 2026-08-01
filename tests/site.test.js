@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const socialCard = await readFile(new URL('../public/og-card-v5.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
@@ -89,6 +90,15 @@ test('hero and availability copy are exact and direct', () => {
   assert.ok(textOnly.includes('MSc Artificial Intelligence · Northumbria University · September 2026 intake'));
   assert.match(html, />View selected work<\/a>/);
   assert.match(html, />Download CV<\/a>/);
+  assert.match(html, /class="hero-system-map"[^>]+aria-label="Applied AI workflow: 1 Input, multimodal; 2 Context, retrieval; 3 Model, orchestration; 4 Evaluation, reliability\."/);
+  for (const label of ['Input', 'Context', 'Model', 'Evaluation']) assert.match(html, new RegExp(`<strong>${label}<\\/strong>`));
+  assert.match(css, /@media \(min-width: 1051px\)[\s\S]*?\.hero-system-map \{ display: block;/);
+  assert.match(css, /\.hero-system-map \{ display: none; \}/);
+  assert.match(css, /\.system-map-canvas \{[^}]*border-radius: 28px;/);
+  assert.equal((html.match(/marker-end="url\(#system-arrow\)"/g) || []).length, 3);
+  assert.match(css, /\.system-map-lines \{[^}]*stroke: #8b8f8b;/);
+  assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
+  assert.match(html, /Context retrieved · models routed · results evaluated/);
 });
 
 test('renders exactly three featured and two additional projects in source order', () => {
