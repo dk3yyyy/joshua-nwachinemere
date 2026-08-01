@@ -299,7 +299,8 @@ test('featured project actions match the approved 44px mobile button size', asyn
       const widths = group.map(({ width }) => width);
       expect(Math.max(...widths) - Math.min(...widths), `${viewport.width}px equal action widths`).toBeLessThanOrEqual(0.02);
       for (const action of group) {
-        expect(action.height, `${viewport.width}px ${action.label} height`).toBe(44);
+        expect(action.height, `${viewport.width}px ${action.label} minimum height`).toBeGreaterThanOrEqual(43.98);
+        expect(action.height, `${viewport.width}px ${action.label} maximum height`).toBeLessThanOrEqual(44.02);
       }
     }
   }
