@@ -1,0 +1,5219 @@
+{
+  "schemaVersion": 1,
+  "kbVersion": "2026.08.01-v1",
+  "researchCutoff": "2026-08-01",
+  "excludedSensitiveFields": [
+    "phone number from the downloadable CV",
+    "inferred geographic location or timezone",
+    "secondary personal email not used by the portfolio or CV",
+    "non-public personal or administrative information"
+  ],
+  "sourceConflicts": [
+    {
+      "id": "merged-pr-count",
+      "resolution": "Use nine independently merged third-party PRs as the current GitHub-verified count; the production portfolio and CV still display eight and are stale relative to Mellea PR #1469."
+    },
+    {
+      "id": "independent-work-start",
+      "resolution": "Treat January 2021 as the broader independent-engineering start and January 2023 as the paid freelance Python-automation start; they describe different scopes."
+    },
+    {
+      "id": "linkedin-access",
+      "resolution": "Only the canonical URL is evidenced by the CV and GitHub; LinkedIn profile content was not ingested because its public page was behind an authwall."
+    },
+    {
+      "id": "cross-posts",
+      "resolution": "Hashnode is canonical where a topic appears there; DEV and Medium adaptations are alternateSources. Medium-only healthcare and DEV-first AI-concepts posts retain their available canonical source."
+    }
+  ],
+  "records": [
+    {
+      "id": "identity-full-name",
+      "type": "profile",
+      "subject": "Joshua Nwachinemere",
+      "title": "Full name and primary handle",
+      "aliases": [
+        "Joshua Nwachinemere",
+        "dk3yyyy",
+        "Josh"
+      ],
+      "keywords": [
+        "identity",
+        "name",
+        "handle",
+        "username",
+        "GitHub",
+        "DEV",
+        "Hashnode"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua Nwachinemere is an AI engineer whose GitHub, DEV Community and Hashnode username is dk3yyyy.",
+      "source": {
+        "title": "GitHub profile — dk3yyyy",
+        "url": "https://github.com/dk3yyyy",
+        "kind": "github-profile",
+        "publisher": "GitHub",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Joshua Nwachinemere",
+          "dk3yyyy"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "profile-title",
+      "type": "profile",
+      "subject": "Joshua Nwachinemere",
+      "title": "Professional title and positioning",
+      "aliases": [
+        "AI Engineer",
+        "Applied AI Engineer",
+        "title",
+        "role"
+      ],
+      "keywords": [
+        "AI Engineer",
+        "applied AI",
+        "Python",
+        "retrieval",
+        "multimodal",
+        "evaluation"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "retrieval",
+          "multimodal inference",
+          "voice AI",
+          "model evaluation",
+          "structured outputs"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua describes himself as an AI Engineer who builds reliable Python systems for applied AI across retrieval, multimodal inference, voice workflows, model integrations and evaluation.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "AI Engineer",
+          "Applied AI Engineer"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "profile-positioning",
+      "type": "profile",
+      "subject": "Joshua Nwachinemere",
+      "title": "Portfolio positioning statement",
+      "aliases": [
+        "positioning",
+        "what he builds",
+        "evidence-first"
+      ],
+      "keywords": [
+        "retrieval",
+        "context pipelines",
+        "multimodal",
+        "voice",
+        "FastAPI",
+        "evaluation",
+        "evidence-first"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "retrieval",
+          "context pipelines",
+          "voice workflows",
+          "model evaluation"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's portfolio positions his work around retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools, with every featured project linking to source, tests, architecture and results.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "profile-roles-sought",
+      "type": "profile",
+      "subject": "Joshua Nwachinemere",
+      "title": "Roles sought and availability",
+      "aliases": [
+        "open to work",
+        "hiring",
+        "roles sought",
+        "availability",
+        "AI Engineer roles"
+      ],
+      "keywords": [
+        "open to roles",
+        "AI Engineer",
+        "Applied AI Engineer",
+        "ML Engineer",
+        "opportunity"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "applied AI"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua is open to AI Engineer and Applied AI Engineer roles; his GitHub bio phrases this as open to AI/ML roles.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "profile-github-activity",
+      "type": "profile",
+      "subject": "Joshua Nwachinemere",
+      "title": "GitHub account activity summary",
+      "aliases": [
+        "GitHub stats",
+        "repos",
+        "followers",
+        "achievements"
+      ],
+      "keywords": [
+        "GitHub",
+        "42 repos",
+        "followers",
+        "Pull Shark",
+        "Developer Program"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's GitHub account dk3yyyy was created on 2025-06-24 and shows 43 public repositories, 7 followers and 15 following, with achievements including Pull Shark x2, Galaxy Brain, Pair Extraordinaire, YOLO and Quickdraw.",
+      "source": {
+        "title": "GitHub API — users/dk3yyyy",
+        "url": "https://api.github.com/users/dk3yyyy",
+        "kind": "github-profile-api",
+        "publisher": "GitHub",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "profile-contact-email",
+      "type": "profile-contact",
+      "subject": "Joshua Nwachinemere",
+      "title": "Public portfolio and CV email",
+      "aliases": [
+        "email",
+        "contact",
+        "contact Joshua",
+        "portfolio email",
+        "CV email"
+      ],
+      "keywords": [
+        "contact",
+        "email",
+        "hire",
+        "opportunity"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's confirmed public portfolio and CV contact email is joshua0nwachinemere@gmail.com.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev/#contact",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "joshua0nwachinemere@gmail.com"
+        ]
+      },
+      "confidence": "owner-confirmed",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contact-github",
+      "type": "profile-contact",
+      "subject": "Joshua Nwachinemere",
+      "title": "GitHub profile URL",
+      "aliases": [
+        "GitHub",
+        "github.com/dk3yyyy"
+      ],
+      "keywords": [
+        "GitHub",
+        "profile",
+        "repositories"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's GitHub profile is at https://github.com/dk3yyyy.",
+      "source": {
+        "title": "GitHub profile — dk3yyyy",
+        "url": "https://github.com/dk3yyyy",
+        "kind": "github-profile",
+        "publisher": "GitHub",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "github.com/dk3yyyy"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contact-linkedin",
+      "type": "profile-contact",
+      "subject": "Joshua Nwachinemere",
+      "title": "LinkedIn profile URL",
+      "aliases": [
+        "LinkedIn",
+        "linkedin.com/in/joshua-nwachinemere"
+      ],
+      "keywords": [
+        "LinkedIn",
+        "profile"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's canonical LinkedIn URL, per his CV and GitHub, is https://www.linkedin.com/in/joshua-nwachinemere; profile content was not inspected because it is behind LinkedIn's authwall.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "linkedin.com/in/joshua-nwachinemere"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.8,
+      "routable": true
+    },
+    {
+      "id": "contact-portfolio-site",
+      "type": "profile-contact",
+      "subject": "Joshua Nwachinemere",
+      "title": "Portfolio website URL",
+      "aliases": [
+        "portfolio",
+        "website",
+        "joshua-nwachinemere.pages.dev"
+      ],
+      "keywords": [
+        "portfolio",
+        "site",
+        "Cloudflare Pages"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "evidence-first portfolio"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's portfolio site is https://joshua-nwachinemere.pages.dev, a static Vite site deployed on Cloudflare Pages.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "volyxai-company",
+      "type": "employment",
+      "subject": "VolyxAI",
+      "title": "VolyxAI — independent AI product effort",
+      "aliases": [
+        "VolyxAI",
+        "company",
+        "Volyx",
+        "employer"
+      ],
+      "keywords": [
+        "VolyxAI",
+        "independent product",
+        "applied AI",
+        "startup"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "applied AI product development"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "VolyxAI is Joshua's independent AI product effort under which he builds applied AI systems; it is listed as an organization on his GitHub profile.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "VolyxAI"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "role-ai-engineer-volyxai",
+      "type": "employment",
+      "subject": "Joshua Nwachinemere",
+      "title": "AI Engineer at VolyxAI",
+      "aliases": [
+        "AI Engineer VolyxAI",
+        "current role",
+        "VolyxAI role"
+      ],
+      "keywords": [
+        "AI Engineer",
+        "VolyxAI",
+        "retrieval",
+        "multimodal",
+        "voice",
+        "n8n",
+        "FastAPI"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "FastAPI",
+          "n8n",
+          "Azure AI Foundry",
+          "PostgreSQL",
+          "Redis"
+        ],
+        "capabilities": [
+          "retrieval",
+          "multimodal inputs",
+          "voice workflows",
+          "structured outputs",
+          "provider fallback"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2025-11",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua has been AI Engineer at VolyxAI since November 2025 (independent AI product development), building applied AI systems that integrate retrieval, multimodal inputs, voice workflows, model APIs and structured outputs, plus Python services and n8n workflows with webhooks, validation, retries, logging, human approval and provider fallback.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "works-at",
+          "target": "volyxai-company"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "role-python-automation-freelance",
+      "type": "employment",
+      "subject": "Joshua Nwachinemere",
+      "title": "Python Automation Developer (Freelance)",
+      "aliases": [
+        "freelance",
+        "Python Automation Developer",
+        "client work"
+      ],
+      "keywords": [
+        "freelance",
+        "Python",
+        "automation",
+        "Telegram",
+        "async",
+        "licensing",
+        "streaming utilities"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "PostgreSQL",
+          "Redis",
+          "Docker",
+          "Telegram Bot API",
+          "aiohttp"
+        ],
+        "capabilities": [
+          "streaming utilities",
+          "domain filtering",
+          "deduplication",
+          "async services",
+          "key management"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2023-01",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Since January 2023 Joshua has worked as a freelance Python Automation Developer on paid client work: streaming utilities for large text datasets (domain filtering, deduplication, splitting, list curation), Telegram integrations, asynchronous services on PostgreSQL/Redis/Docker, and licensing and key-management components for proprietary Python tools.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "role-independent-engineering",
+      "type": "employment",
+      "subject": "Joshua Nwachinemere",
+      "title": "Independent engineering work (portfolio framing)",
+      "aliases": [
+        "independent engineering",
+        "background",
+        "2021"
+      ],
+      "keywords": [
+        "independent work",
+        "backend",
+        "automation",
+        "API integrations",
+        "ML evaluation"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "async workflows",
+          "API integrations",
+          "data processing",
+          "Telegram services",
+          "ML evaluation"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2021-01",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's portfolio frames his independent engineering work as running from January 2021 to present across Python backend and automation projects — async workflows, API integrations, data processing, Telegram services and ML evaluation. This 2021 framing differs from the CV's 2023 freelance start.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "medium",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "education-btech-futo",
+      "type": "education",
+      "subject": "Joshua Nwachinemere",
+      "title": "BTech Mathematics, FUTO",
+      "aliases": [
+        "BTech",
+        "Mathematics",
+        "FUTO",
+        "Federal University of Technology Owerri",
+        "degree"
+      ],
+      "keywords": [
+        "education",
+        "BTech",
+        "Mathematics",
+        "FUTO",
+        "2016",
+        "2021"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [
+          "Federal University of Technology Owerri"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2016",
+        "end": "2021",
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Joshua holds a Bachelor of Technology (BTech) in Mathematics from the Federal University of Technology, Owerri (FUTO), 2016–2021.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Federal University of Technology, Owerri",
+          "FUTO",
+          "BTech"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "education-msc-northumbria",
+      "type": "education",
+      "subject": "Joshua Nwachinemere",
+      "title": "MSc Artificial Intelligence, Northumbria (incoming)",
+      "aliases": [
+        "MSc",
+        "Artificial Intelligence",
+        "Northumbria",
+        "Northumbria University",
+        "masters"
+      ],
+      "keywords": [
+        "education",
+        "MSc",
+        "AI",
+        "Northumbria",
+        "September 2026 intake",
+        "incoming"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [
+          "Northumbria University"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-09",
+        "end": null,
+        "status": "incoming",
+        "asOf": "2026-08-01"
+      },
+      "status": "incoming",
+      "asOf": "2026-08-01",
+      "text": "Joshua has a September 2026 intake for an MSc in Artificial Intelligence at Northumbria University; the programme is incoming and not yet completed.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "MSc Artificial Intelligence",
+          "Northumbria University"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "cert-freecodecamp-scientific-python",
+      "type": "certification",
+      "subject": "Joshua Nwachinemere",
+      "title": "freeCodeCamp Scientific Computing with Python",
+      "aliases": [
+        "freeCodeCamp",
+        "Scientific Computing with Python",
+        "certification"
+      ],
+      "keywords": [
+        "certification",
+        "freeCodeCamp",
+        "Python",
+        "scientific computing"
+      ],
+      "entities": {
+        "tech": [
+          "Python"
+        ],
+        "capabilities": [],
+        "org": [
+          "freeCodeCamp"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-05",
+        "end": null,
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Joshua earned the freeCodeCamp Scientific Computing with Python Developer Certification in May 2026.",
+      "source": {
+        "title": "freeCodeCamp certification",
+        "url": "https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7",
+        "kind": "certification-verification",
+        "publisher": "freeCodeCamp",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Scientific Computing with Python"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "cert-google-ai-professional",
+      "type": "certification",
+      "subject": "Joshua Nwachinemere",
+      "title": "Google AI Professional Certificate (Coursera)",
+      "aliases": [
+        "Google AI",
+        "Google AI Specialization",
+        "Google AI Professional Certificate",
+        "Coursera"
+      ],
+      "keywords": [
+        "certification",
+        "Google",
+        "Coursera",
+        "AI"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [],
+        "org": [
+          "Google",
+          "Coursera"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-02",
+        "end": null,
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Joshua earned the Google AI Professional Certificate (labelled Google AI Specialization on the portfolio) via Google/Coursera in February 2026.",
+      "source": {
+        "title": "Coursera accomplishment",
+        "url": "https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30",
+        "kind": "certification-verification",
+        "publisher": "Coursera",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Google AI Professional Certificate",
+          "Google AI Specialization"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "cert-anthropic-mcp",
+      "type": "certification",
+      "subject": "Joshua Nwachinemere",
+      "title": "Anthropic Model Context Protocol: Advanced Topics",
+      "aliases": [
+        "MCP",
+        "Model Context Protocol",
+        "Anthropic",
+        "Advanced Topics"
+      ],
+      "keywords": [
+        "certification",
+        "Anthropic",
+        "MCP",
+        "training"
+      ],
+      "entities": {
+        "tech": [
+          "Model Context Protocol"
+        ],
+        "capabilities": [],
+        "org": [
+          "Anthropic"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-03",
+        "end": null,
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Joshua completed Anthropic's Model Context Protocol: Advanced Topics training in March 2026.",
+      "source": {
+        "title": "Skilljar credential verification",
+        "url": "https://verify.skilljar.com/c/fwqra86yief7",
+        "kind": "certification-verification",
+        "publisher": "Anthropic",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Model Context Protocol: Advanced Topics"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "cert-threat-detection-capstone",
+      "type": "certification",
+      "subject": "Joshua Nwachinemere",
+      "title": "Threat Detection & Response Capstone",
+      "aliases": [
+        "Threat Detection",
+        "Response Capstone",
+        "Suricata",
+        "Snort",
+        "security training"
+      ],
+      "keywords": [
+        "certification",
+        "security",
+        "Suricata",
+        "Snort",
+        "DNS intelligence",
+        "alert enrichment"
+      ],
+      "entities": {
+        "tech": [
+          "Suricata",
+          "Snort",
+          "Python"
+        ],
+        "capabilities": [
+          "threat detection",
+          "alert enrichment",
+          "DNS intelligence CLI"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2025-07",
+        "end": "2025-08",
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Joshua completed a Threat Detection & Response Capstone (July–August 2025), building Suricata/Snort detection work, Python alert enrichment and a DNS intelligence CLI with async resolution, WHOIS lookup and JSON export. Provider is unnamed; appears in portfolio background only.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio",
+        "url": "https://joshua-nwachinemere.pages.dev",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "medium",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "contributions-overview",
+      "type": "collection-summary",
+      "subject": "Open-source contributions",
+      "title": "Merged open-source contributions overview",
+      "aliases": [
+        "open source",
+        "merged contributions",
+        "upstream pull requests",
+        "OSS"
+      ],
+      "keywords": [
+        "OpenAI Agents SDK",
+        "Pydantic AI Harness",
+        "Mellea",
+        "FastStream",
+        "Apache Arrow",
+        "Altair",
+        "Calkit",
+        "faststream_fastapi"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "open-source contribution"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua has nine independently verified merged pull requests across eight maintained open-source projects (FastStream, Apache Arrow Rust, Calkit, faststream_fastapi, Mellea x2, OpenAI Agents Python, Pydantic AI Harness, Vega-Altair). The production portfolio and CV state eight; the assistant-preview site adds Mellea #1469 as the ninth. Use the individual pull-request records for specific project, repository or PR-number questions.",
+      "source": {
+        "title": "Joshua Nwachinemere portfolio contributions",
+        "url": "https://joshua-nwachinemere.pages.dev/#contributions",
+        "kind": "portfolio",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "has-child",
+          "target": "contribution-faststream-2961"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-arrow-rs-10486"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-calkit-1028"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-faststream-fastapi-2"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-mellea-1469"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-mellea-1471"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-openai-agents-3991"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-pydantic-ai-503"
+        },
+        {
+          "rel": "has-child",
+          "target": "contribution-altair-4089"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.6,
+      "routable": false
+    },
+    {
+      "id": "contribution-faststream-2961",
+      "type": "merged-pull-request",
+      "subject": "FastStream",
+      "title": "FastStream PR #2961: FastAPI 0.140 slotted Dependant compatibility",
+      "aliases": [
+        "FastStream",
+        "FastStream 2961",
+        "PR 2961",
+        "FastAPI 0.140",
+        "ag2ai/faststream"
+      ],
+      "keywords": [
+        "compatibility",
+        "FastAPI",
+        "slotted Dependant",
+        "dataclass",
+        "schema metadata",
+        "regression tests"
+      ],
+      "entities": {
+        "tech": [
+          "FastStream",
+          "FastAPI",
+          "Python"
+        ],
+        "capabilities": [
+          "dependency injection compatibility"
+        ],
+        "org": [
+          "ag2ai"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-28",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged FastStream PR #2961 (+55/-11 across 6 files, merged 2026-07-28 by Lancetnik), Joshua made FastStream's FastAPI dependency adapter compatible with FastAPI 0.140's slotted Dependant dataclass by recreating it as an extensible subclass built from FastAPI's dataclass fields, restoring model/custom_fields/flat_params metadata; he added regression tests for native fields, nested Depends and FastStream-specific fields and bumped the FastAPI pin and lockfile to 0.140.0.",
+      "source": {
+        "title": "FastStream pull request #2961",
+        "url": "https://github.com/ag2ai/faststream/pull/2961",
+        "kind": "github-pull-request",
+        "publisher": "ag2ai",
+        "accessedAt": "2026-08-01",
+        "locator": "faststream/_internal/fastapi/get_dependant.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        },
+        {
+          "rel": "companion-of",
+          "target": "contribution-faststream-fastapi-2"
+        }
+      ],
+      "keys": {
+        "prNumber": 2961,
+        "repo": "ag2ai/faststream",
+        "exactPhrases": [
+          "FastAPI 0.140",
+          "slotted Dependant",
+          "PR #2961"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-arrow-rs-10486",
+      "type": "merged-pull-request",
+      "subject": "Apache Arrow Rust",
+      "title": "Apache Arrow Rust PR #10486: ListView child nullability validation",
+      "aliases": [
+        "Apache Arrow",
+        "Arrow Rust",
+        "arrow-rs",
+        "PR 10486",
+        "ListView",
+        "arrow-json"
+      ],
+      "keywords": [
+        "nullability",
+        "validation",
+        "ListView",
+        "LargeListView",
+        "Rust",
+        "arrow-json",
+        "try_new"
+      ],
+      "entities": {
+        "tech": [
+          "Apache Arrow",
+          "Rust",
+          "arrow-json"
+        ],
+        "capabilities": [
+          "nullability validation"
+        ],
+        "org": [
+          "Apache Arrow"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-30",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Apache Arrow Rust PR #10486 (+35/-10 across 2 files, merged 2026-07-30 by Jefffrey, closing issue #10476), Joshua fixed the JSON reader constructing ListView arrays without validating child nullability — which let JSON null be accepted for a non-nullable child — by replacing unchecked construction with GenericListViewArray::try_new (returning ArrowError on invalid nullability) and adding regression coverage for ListView and LargeListView.",
+      "source": {
+        "title": "Apache Arrow Rust pull request #10486",
+        "url": "https://github.com/apache/arrow-rs/pull/10486",
+        "kind": "github-pull-request",
+        "publisher": "Apache Arrow",
+        "accessedAt": "2026-08-01",
+        "locator": "arrow-json/src/reader/mod.rs"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": 10486,
+        "repo": "apache/arrow-rs",
+        "exactPhrases": [
+          "ListView",
+          "GenericListViewArray::try_new",
+          "PR #10486"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-calkit-1028",
+      "type": "merged-pull-request",
+      "subject": "Calkit",
+      "title": "Calkit PR #1028: scope single-item runs to skip unrelated subprojects",
+      "aliases": [
+        "Calkit",
+        "PR 1028",
+        "single-item runs",
+        "subproject scoping"
+      ],
+      "keywords": [
+        "workflow scoping",
+        "single-item",
+        "subprojects",
+        "DVC-style pipelines",
+        "regression tests"
+      ],
+      "entities": {
+        "tech": [
+          "Calkit",
+          "Python",
+          "DVC"
+        ],
+        "capabilities": [
+          "pipeline stage scoping"
+        ],
+        "org": [
+          "Calkit"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Calkit PR #1028 (+160/-1 across 3 files, merged 2026-07-27 by petebachant, fixing #963), Joshua made --single-item runs skip environment and notebook preparation for unrelated subprojects while preserving prep when the target belongs to an inline/isolated subproject, and limited selected-subproject env checks to the requested stage, with regression coverage for an unrelated parent stage and a selected subproject stage.",
+      "source": {
+        "title": "Calkit pull request #1028",
+        "url": "https://github.com/calkit/calkit/pull/1028",
+        "kind": "github-pull-request",
+        "publisher": "Calkit",
+        "accessedAt": "2026-08-01",
+        "locator": "calkit/cli/main/core.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": 1028,
+        "repo": "calkit/calkit",
+        "exactPhrases": [
+          "single-item",
+          "PR #1028"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-faststream-fastapi-2",
+      "type": "merged-pull-request",
+      "subject": "faststream_fastapi",
+      "title": "faststream_fastapi PR #2: preserve FastStream schema metadata in FastAPI dependants",
+      "aliases": [
+        "FastStream FastAPI",
+        "faststream_fastapi",
+        "PR 2",
+        "faststream-community"
+      ],
+      "keywords": [
+        "schema metadata",
+        "Dependant subclass",
+        "AssertionError",
+        "regression test",
+        "FastAPI"
+      ],
+      "entities": {
+        "tech": [
+          "FastStream",
+          "FastAPI",
+          "Python"
+        ],
+        "capabilities": [
+          "schema metadata preservation"
+        ],
+        "org": [
+          "faststream-community"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-30",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged faststream_fastapi PR #2 (+55/-3 across 2 files, merged 2026-07-30 by IvanKirpichnikov onto develop), Joshua fixed FastAPI's slotted Dependant rejecting the extra metadata FastStream expects — typed subscriber schema generation reached parse_handler_params() without a model and failed with AssertionError — by creating a small Dependant subclass that preserves every native dataclass field and restores model/custom_fields/flat_params, with a focused regression test. This is a companion fix to FastStream #2961 in a related community package.",
+      "source": {
+        "title": "faststream_fastapi pull request #2",
+        "url": "https://github.com/faststream-community/faststream_fastapi/pull/2",
+        "kind": "github-pull-request",
+        "publisher": "faststream-community",
+        "accessedAt": "2026-08-01",
+        "locator": "src/faststream_fastapi/_internal/get_dependant.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        },
+        {
+          "rel": "companion-of",
+          "target": "contribution-faststream-2961"
+        }
+      ],
+      "keys": {
+        "prNumber": 2,
+        "repo": "faststream-community/faststream_fastapi",
+        "exactPhrases": [
+          "schema metadata",
+          "PR #2"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-mellea-1469",
+      "type": "merged-pull-request",
+      "subject": "Mellea",
+      "title": "Mellea PR #1469: stop HF generation workers on stream timeout",
+      "aliases": [
+        "Mellea",
+        "Mellea 1469",
+        "PR 1469",
+        "generative-computing/mellea",
+        "worker cancellation"
+      ],
+      "keywords": [
+        "Hugging Face backend",
+        "stream timeout",
+        "worker cancellation",
+        "async",
+        "cooperative cancellation"
+      ],
+      "entities": {
+        "tech": [
+          "Mellea",
+          "Hugging Face",
+          "Python",
+          "asyncio"
+        ],
+        "capabilities": [
+          "worker cancellation",
+          "stream timeout handling"
+        ],
+        "org": [
+          "generative-computing"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-31",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Mellea PR #1469 (+174/-7 across 4 files, merged 2026-07-31 by ajbozarth, fixing #1242), Joshua fixed HF generation continuing in a background worker thread after Mellea's per-chunk stream guard timed out: he added an optional timeout callback to send_to_queue() wired to the HF cancellation hook in both standard and KV-cache streaming paths, running only when Mellea's own stream guard expires, leaving backend-raised TimeoutError unchanged and ensuring callback failures cannot replace the original timeout.",
+      "source": {
+        "title": "Mellea pull request #1469",
+        "url": "https://github.com/generative-computing/mellea/pull/1469",
+        "kind": "github-pull-request",
+        "publisher": "generative-computing",
+        "accessedAt": "2026-08-01",
+        "locator": "mellea/helpers/async_helpers.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        },
+        {
+          "rel": "same-project",
+          "target": "contribution-mellea-1471"
+        }
+      ],
+      "keys": {
+        "prNumber": 1469,
+        "repo": "generative-computing/mellea",
+        "exactPhrases": [
+          "stream timeout",
+          "worker cancellation",
+          "PR #1469"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-mellea-1471",
+      "type": "merged-pull-request",
+      "subject": "Mellea",
+      "title": "Mellea PR #1471: mocked backend tracing test coverage",
+      "aliases": [
+        "Mellea",
+        "Mellea 1471",
+        "PR 1471",
+        "generative-computing/mellea",
+        "tracing tests"
+      ],
+      "keywords": [
+        "deterministic tracing",
+        "OpenTelemetry",
+        "async spans",
+        "context propagation",
+        "token usage",
+        "mocked Ollama"
+      ],
+      "entities": {
+        "tech": [
+          "Mellea",
+          "OpenTelemetry",
+          "Ollama",
+          "Python",
+          "asyncio"
+        ],
+        "capabilities": [
+          "deterministic tracing tests"
+        ],
+        "org": [
+          "generative-computing"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-30",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Mellea PR #1471 (+180/-0 in one file, merged 2026-07-30 by ajbozarth, fixing #1318), Joshua added mocked Ollama transport tests for five backend tracing behaviors — span duration across async generation, parent/child context propagation, token-usage attributes after completion, span lifetime before awaiting, and separate spans for consecutive generations — giving a fast local path that does not require Ollama while leaving existing real-Ollama e2e tests unchanged.",
+      "source": {
+        "title": "Mellea pull request #1471",
+        "url": "https://github.com/generative-computing/mellea/pull/1471",
+        "kind": "github-pull-request",
+        "publisher": "generative-computing",
+        "accessedAt": "2026-08-01",
+        "locator": "test/telemetry/test_tracing_backend.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        },
+        {
+          "rel": "same-project",
+          "target": "contribution-mellea-1469"
+        }
+      ],
+      "keys": {
+        "prNumber": 1471,
+        "repo": "generative-computing/mellea",
+        "exactPhrases": [
+          "tracing",
+          "deterministic tracing tests",
+          "PR #1471"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-openai-agents-3991",
+      "type": "merged-pull-request",
+      "subject": "OpenAI Agents Python",
+      "title": "OpenAI Agents SDK PR #3991: retry pre-response WebSocket server errors",
+      "aliases": [
+        "OpenAI Agents SDK",
+        "openai-agents-python",
+        "PR 3991",
+        "WebSocket retry",
+        "Responses API"
+      ],
+      "keywords": [
+        "WebSocket",
+        "server_error",
+        "retry policy",
+        "replay-safety",
+        "Responses API",
+        "pytest"
+      ],
+      "entities": {
+        "tech": [
+          "OpenAI Agents SDK",
+          "Python",
+          "WebSockets"
+        ],
+        "capabilities": [
+          "retry policy",
+          "error classification"
+        ],
+        "org": [
+          "OpenAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged OpenAI Agents Python PR #3991 (+74/-5 across 2 files, merged 2026-07-27 by seratch), Joshua fixed Responses WebSocket server_error frames bypassing provider-suggested retry policies when arriving before response processing begins: he classifies error_type=\"server_error\" with code=None frames as retryable while preserving existing overload behavior and replay-safety boundaries, leaving coded non-transient errors unaffected. Tests: websocket_get_retry_advice (19 passed), full file 126 passed.",
+      "source": {
+        "title": "OpenAI Agents Python pull request #3991",
+        "url": "https://github.com/openai/openai-agents-python/pull/3991",
+        "kind": "github-pull-request",
+        "publisher": "OpenAI",
+        "accessedAt": "2026-08-01",
+        "locator": "src/agents/models/openai_responses.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": 3991,
+        "repo": "openai/openai-agents-python",
+        "exactPhrases": [
+          "server_error",
+          "WebSocket",
+          "PR #3991"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-pydantic-ai-503",
+      "type": "merged-pull-request",
+      "subject": "Pydantic AI Harness",
+      "title": "Pydantic AI Harness PR #503: report unexpected Code Mode session resets",
+      "aliases": [
+        "Pydantic AI",
+        "Pydantic AI Harness",
+        "PR 503",
+        "Code Mode",
+        "session reset"
+      ],
+      "keywords": [
+        "Code Mode",
+        "sandbox toolset",
+        "session reset",
+        "state loss",
+        "recovery",
+        "regression coverage"
+      ],
+      "entities": {
+        "tech": [
+          "Pydantic AI",
+          "Python"
+        ],
+        "capabilities": [
+          "failure recovery",
+          "session state management"
+        ],
+        "org": [
+          "Pydantic"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-30",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Pydantic AI Harness PR #503 (+44/-2 across 4 files, merged 2026-07-30 by adtyavrdhn, closing #481), Joshua made the harness report unexpected host-side execution failures to the model as retries after resetting the invalid Code Mode session — previously a silent state-loss path — while preserving existing sandbox-panic and interruption behavior, adding regression coverage and documenting the reset contract.",
+      "source": {
+        "title": "Pydantic AI Harness pull request #503",
+        "url": "https://github.com/pydantic/pydantic-ai-harness/pull/503",
+        "kind": "github-pull-request",
+        "publisher": "Pydantic",
+        "accessedAt": "2026-08-01",
+        "locator": "pydantic_ai_harness/code_mode/_toolset.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": 503,
+        "repo": "pydantic/pydantic-ai-harness",
+        "exactPhrases": [
+          "Code Mode",
+          "PR #503"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-altair-4089",
+      "type": "merged-pull-request",
+      "subject": "Vega-Altair",
+      "title": "Vega-Altair PR #4089: report missing anywidget for JupyterChart",
+      "aliases": [
+        "Altair",
+        "Vega-Altair",
+        "PR 4089",
+        "JupyterChart",
+        "anywidget"
+      ],
+      "keywords": [
+        "dependency diagnostics",
+        "JupyterChart",
+        "anywidget",
+        "enable_offline",
+        "find_spec",
+        "regression coverage"
+      ],
+      "entities": {
+        "tech": [
+          "Vega-Altair",
+          "JupyterChart",
+          "anywidget",
+          "Python"
+        ],
+        "capabilities": [
+          "dependency diagnostics"
+        ],
+        "org": [
+          "Vega"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-29",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "In merged Vega-Altair PR #4089 (+43/-23 across 3 files, merged 2026-07-29 by mattijn, fixing #3801), Joshua added the missing enable_offline() API to the JupyterChart fallback used when anywidget is unavailable, detected the optional dependency with find_spec(), exposed the real class during type checking, removed obsolete type ignores and added regression coverage for missing-dependency behavior.",
+      "source": {
+        "title": "Vega-Altair pull request #4089",
+        "url": "https://github.com/vega/altair/pull/4089",
+        "kind": "github-pull-request",
+        "publisher": "Vega",
+        "accessedAt": "2026-08-01",
+        "locator": "altair/jupyter/__init__.py"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "contributions-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": 4089,
+        "repo": "vega/altair",
+        "exactPhrases": [
+          "JupyterChart",
+          "anywidget",
+          "PR #4089"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "contribution-volyxai-site",
+      "type": "merged-pull-request",
+      "subject": "VolyxAI marketing site",
+      "title": "VolyxAI org site merged PRs #2–#5",
+      "aliases": [
+        "VolyxAI site",
+        "volyxai repo",
+        "marketing site",
+        "Next.js"
+      ],
+      "keywords": [
+        "Next.js",
+        "Cloudflare Wrangler",
+        "security patches",
+        "own-org"
+      ],
+      "entities": {
+        "tech": [
+          "Next.js",
+          "Cloudflare Wrangler"
+        ],
+        "capabilities": [
+          "frontend engineering",
+          "security patching"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-29",
+        "end": null,
+        "status": "merged",
+        "asOf": "2026-08-01"
+      },
+      "status": "merged",
+      "asOf": "2026-08-01",
+      "text": "Joshua merged four PRs into his own-org VolyxAI/volyxai marketing site (Next.js + Cloudflare Wrangler): #2 strengthen workflow review journey (2026-07-29, +282/-78), #3 fit illustrative workflow on mobile (2026-07-29, +75/-2), #4 refine operational section composition (2026-07-29, +110/-17) and #5 update Next.js and Wrangler security patches (2026-07-30, +641/-89). These are own-org PRs, not third-party OSS review.",
+      "source": {
+        "title": "VolyxAI site pull request #2",
+        "url": "https://github.com/VolyxAI/volyxai/pull/2",
+        "kind": "github-pull-request",
+        "publisher": "VolyxAI",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "works-at",
+          "target": "volyxai-company"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "VolyxAI/volyxai",
+        "exactPhrases": [
+          "VolyxAI"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "contributions-open-inflight",
+      "type": "collection-summary",
+      "subject": "Open pull requests",
+      "title": "In-flight open/unmerged upstream PRs",
+      "aliases": [
+        "open PRs",
+        "in-flight contributions",
+        "unmerged"
+      ],
+      "keywords": [
+        "open",
+        "unmerged",
+        "in-flight",
+        "polars",
+        "numpy",
+        "agent-framework",
+        "warp"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "open-source contribution"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "As of 2026-08-01 Joshua has several open (not merged) upstream PRs that must not be claimed as merged: microsoft/agent-framework #7391, pola-rs/polars #28594, traceloop/openllmetry #4386, warpdotdev/warp #14466, vega/altair #4090, ag2ai/faststream #2976, pydantic/pydantic-ai-harness #500 and #520, NousResearch/hermes-agent #74073; numpy/numpy #32141 was closed unmerged. Status may change.",
+      "source": {
+        "title": "GitHub PR search — author dk3yyyy",
+        "url": "https://github.com/search?q=type:pr+author:dk3yyyy",
+        "kind": "github-search",
+        "publisher": "GitHub",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.5,
+      "routable": false
+    },
+    {
+      "id": "project-volyx-lens",
+      "type": "project",
+      "subject": "Volyx Lens",
+      "title": "Volyx Lens — private macOS multimodal context assistant",
+      "aliases": [
+        "Volyx Lens",
+        "Lens",
+        "volyx-lens",
+        "multimodal context assistant",
+        "screen context assistant"
+      ],
+      "keywords": [
+        "macOS",
+        "Electron",
+        "multimodal",
+        "screen context",
+        "meeting audio",
+        "voice",
+        "provider routing",
+        "active product build",
+        "currently shipping"
+      ],
+      "entities": {
+        "tech": [
+          "Electron",
+          "Swift",
+          "Azure AI Foundry",
+          "OpenAI-compatible APIs",
+          "Deepgram"
+        ],
+        "capabilities": [
+          "screen context",
+          "microphone input",
+          "meeting audio",
+          "local OCR",
+          "relevance-ranked retrieval",
+          "transcription",
+          "multi-provider routing"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Volyx Lens"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Volyx Lens is a privacy-oriented, context-aware macOS assistant (Electron v43) that combines user-selected screen context, microphone input, system/meeting audio, local OCR, relevance-ranked retrieval, transcription and multiple AI providers without routing through a VolyxAI server (bring-your-own provider). Joshua built focused context selection, provider-aware routing, consent controls, secure Electron boundaries, automated tests and release checks. Live: https://volyxlens.pages.dev. Its capture-exclusion behavior is best-effort, not guaranteed invisibility.",
+      "source": {
+        "title": "Volyx Lens README",
+        "url": "https://github.com/dk3yyyy/volyx-lens#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        },
+        {
+          "rel": "comparable-to",
+          "target": "project-local-review-intelligence"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/volyx-lens",
+        "exactPhrases": [
+          "Volyx Lens",
+          "macOS",
+          "bring-your-own provider"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-volyx-lens-ocr",
+      "type": "project-capability",
+      "subject": "Volyx Lens",
+      "title": "Local OCR in Volyx Lens",
+      "aliases": [
+        "OCR",
+        "optical character recognition",
+        "screen text",
+        "text extraction",
+        "Volyx Lens OCR"
+      ],
+      "keywords": [
+        "macOS",
+        "screen context",
+        "local OCR",
+        "context selection",
+        "multimodal"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "local OCR",
+          "screen context",
+          "text extraction"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Volyx Lens"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Volyx Lens is the portfolio project that demonstrates OCR. It uses local OCR to extract text from user-selected screen context before relevant context is routed to the configured AI provider.",
+      "source": {
+        "title": "Volyx Lens README",
+        "url": "https://github.com/dk3yyyy/volyx-lens#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "capability-of",
+          "target": "project-volyx-lens"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/volyx-lens",
+        "exactPhrases": [
+          "OCR",
+          "local OCR"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-volyx-lens-context",
+      "type": "project-capability",
+      "subject": "Volyx Lens",
+      "title": "Selected screen and voice context in Volyx Lens",
+      "aliases": [
+        "Volyx Lens",
+        "screen context",
+        "voice context",
+        "meeting audio",
+        "microphone",
+        "Context Aperture"
+      ],
+      "keywords": [
+        "multimodal",
+        "screen",
+        "microphone",
+        "meeting audio",
+        "retrieval",
+        "provider routing"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "screen context",
+          "microphone input",
+          "meeting audio",
+          "relevance-ranked retrieval",
+          "provider routing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Volyx Lens"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Volyx Lens is a macOS AI interview and coding copilot with best-effort capture exclusion that combines user-selected screen context, microphone input, system or meeting audio, local OCR, relevance-ranked retrieval and provider routing.",
+      "source": {
+        "title": "Volyx Lens README",
+        "url": "https://github.com/dk3yyyy/volyx-lens#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "capability-of",
+          "target": "project-volyx-lens"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/volyx-lens",
+        "exactPhrases": [
+          "screen context",
+          "meeting audio"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-volyx-lens-releases",
+      "type": "project-capability",
+      "subject": "Volyx Lens",
+      "title": "Volyx Lens macOS release builds",
+      "aliases": [
+        "Volyx Lens releases",
+        "v0.3.0",
+        "v0.3.1",
+        "DMG",
+        "macOS build"
+      ],
+      "keywords": [
+        "release",
+        "DMG",
+        "arm64",
+        "x64",
+        "checksum",
+        "ad-hoc signed"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "release engineering"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Volyx Lens"
+        ]
+      },
+      "temporal": {
+        "start": "2026-07-26",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Volyx Lens shipped ad-hoc signed macOS test builds: release adhoc-v0.3.1 (2026-07-26) with arm64 and x64 DMGs plus .sha256 checksums, and adhoc-v0.3.0 (2026-07-26) with arm64/x64 DMG and ZIP plus checksums (package.json version 0.3.1). These are ad-hoc signed test builds, not notarized App Store distribution.",
+      "source": {
+        "title": "Volyx Lens releases",
+        "url": "https://github.com/dk3yyyy/volyx-lens/releases",
+        "kind": "github-releases",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "capability-of",
+          "target": "project-volyx-lens"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.8,
+      "routable": true
+    },
+    {
+      "id": "project-local-review-intelligence",
+      "type": "project",
+      "subject": "Local Review Intelligence",
+      "title": "Local Review Intelligence — local-first RAG over review data",
+      "aliases": [
+        "Local Review Intelligence",
+        "local_AI_agent",
+        "local AI agent",
+        "restaurant review intelligence",
+        "RAG app"
+      ],
+      "keywords": [
+        "RAG",
+        "Ollama",
+        "ChromaDB",
+        "Streamlit",
+        "LangChain",
+        "CSV",
+        "citations",
+        "local-first"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "Ollama",
+          "ChromaDB",
+          "LangChain",
+          "Streamlit",
+          "Typer"
+        ],
+        "capabilities": [
+          "semantic retrieval",
+          "grounded answers",
+          "citation validation",
+          "adaptive CSV mapping",
+          "bounded repair"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Local Review Intelligence"
+        ]
+      },
+      "temporal": {
+        "start": "2025-01",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Local Review Intelligence (repo local_AI_agent) is a local-first review-intelligence RAG app powered by Ollama and embedded ChromaDB. It lets a user explore a bundled restaurant dataset or map any review CSV, filter evidence and ask grounded questions with validated source citations. Joshua built adaptable field mapping, stable record identity, recoverable vector indexes, citation validation, bounded repair, privacy-safe diagnostics and an installable CLI.",
+      "source": {
+        "title": "Local Review Intelligence README",
+        "url": "https://github.com/dk3yyyy/local_AI_agent#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        },
+        {
+          "rel": "comparable-to",
+          "target": "project-volyx-lens"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/local_AI_agent",
+        "exactPhrases": [
+          "Local Review Intelligence",
+          "local_AI_agent"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-local-review-citation-validation",
+      "type": "project-capability",
+      "subject": "Local Review Intelligence",
+      "title": "Citation validation and bounded repair",
+      "aliases": [
+        "citation validation",
+        "citation repair",
+        "grounded answers",
+        "answer validation",
+        "Local Review Intelligence citations"
+      ],
+      "keywords": [
+        "RAG",
+        "citations",
+        "fail closed",
+        "bounded repair",
+        "retrieved source IDs",
+        "grounding",
+        "abstention"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "citation validation",
+          "bounded repair",
+          "safe abstention",
+          "grounding"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Local Review Intelligence"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Local Review Intelligence validates model citations against retrieved source identities and permits at most one bounded repair attempt for eligible citation failures. Rejected raw model output is not shown as a successful answer; content-derived source IDs survive reordering, and analytics still load when Ollama is unavailable (safe offline state).",
+      "source": {
+        "title": "Local Review Intelligence architecture",
+        "url": "https://github.com/dk3yyyy/local_AI_agent/blob/main/docs/architecture.md",
+        "kind": "architecture-document",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "capability-of",
+          "target": "project-local-review-intelligence"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/local_AI_agent",
+        "exactPhrases": [
+          "citation validation",
+          "bounded repair"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-local-review-evaluation",
+      "type": "project-evaluation",
+      "subject": "Local Review Intelligence",
+      "title": "Local Review Intelligence retrieval evaluation",
+      "aliases": [
+        "Local Review Intelligence",
+        "local AI agent",
+        "RAG evaluation",
+        "Semantic Recall",
+        "BM25 comparison"
+      ],
+      "keywords": [
+        "RAG",
+        "retrieval",
+        "evaluation",
+        "semantic",
+        "BM25",
+        "Recall@5",
+        "citations",
+        "benchmark"
+      ],
+      "entities": {
+        "tech": [
+          "ChromaDB",
+          "Ollama"
+        ],
+        "capabilities": [
+          "retrieval evaluation",
+          "benchmarking"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Local Review Intelligence"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Local Review Intelligence is Joshua's clearest RAG and evaluation project. Its clean 30-case benchmark (25 answerable + 5 abstention) measured Semantic Recall@5 of 0.913 against 0.770 for BM25, with answer success and citation validity of 0.880 (semantic hit_rate@5=1.0, MRR@5=0.96).",
+      "source": {
+        "title": "Local Review Intelligence evaluation report",
+        "url": "https://assistant-review.joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
+        "kind": "evaluation-artifact",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01",
+        "commit": "25b65ff"
+      },
+      "edges": [
+        {
+          "rel": "evaluation-of",
+          "target": "project-local-review-intelligence"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/local_AI_agent",
+        "exactPhrases": [
+          "Recall@5",
+          "0.913",
+          "BM25"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-local-review-metrics-detail",
+      "type": "project-evaluation",
+      "subject": "Local Review Intelligence",
+      "title": "Local Review Intelligence detailed eval metrics",
+      "aliases": [
+        "abstention recall",
+        "expected action accuracy",
+        "eval config",
+        "latency",
+        "repair attempts"
+      ],
+      "keywords": [
+        "abstention",
+        "expected_action_accuracy",
+        "reference term support",
+        "latency",
+        "llama3.2",
+        "mxbai-embed-large"
+      ],
+      "entities": {
+        "tech": [
+          "llama3.2",
+          "mxbai-embed-large",
+          "Ollama"
+        ],
+        "capabilities": [
+          "abstention",
+          "evaluation provenance"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Local Review Intelligence"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "The Local Review Intelligence evaluation (app v0.2.0, git 25b65ff) reported abstention recall of 1.0 (5/5 unanswerable correctly abstained), expected_action_accuracy 0.90 and reference_term_support_proxy 0.86. Config: chat model llama3.2:latest, embeddings mxbai-embed-large, dataset realistic_restaurant_reviews.csv (123 reviews), RAG mean latency ~27.4s, 21 repair attempts with 13 successes, on local Ollama v0.32.5, Linux, Python 3.11.15.",
+      "source": {
+        "title": "Local Review Intelligence evaluation report",
+        "url": "https://assistant-review.joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
+        "kind": "evaluation-artifact",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01",
+        "commit": "25b65ff"
+      },
+      "edges": [
+        {
+          "rel": "evaluation-of",
+          "target": "project-local-review-intelligence"
+        },
+        {
+          "rel": "detail-of",
+          "target": "project-local-review-evaluation"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/local_AI_agent",
+        "exactPhrases": [
+          "abstention recall",
+          "expected_action_accuracy"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-football-forecasting-lab",
+      "type": "project",
+      "subject": "Football Forecasting Lab",
+      "title": "Football Forecasting Lab — temporal ML evaluation pipeline",
+      "aliases": [
+        "Football Forecasting Lab",
+        "football_predictor",
+        "football predictor",
+        "temporal ML pipeline"
+      ],
+      "keywords": [
+        "XGBoost",
+        "Poisson",
+        "temporal",
+        "calibration",
+        "FastAPI",
+        "Streamlit",
+        "Premier League"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "XGBoost",
+          "scikit-learn",
+          "FastAPI",
+          "Streamlit",
+          "SQLAlchemy",
+          "APScheduler"
+        ],
+        "capabilities": [
+          "temporal evaluation",
+          "calibrated probabilities",
+          "leakage-aware pipeline"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Football Forecasting Lab"
+        ]
+      },
+      "temporal": {
+        "start": "2025-01",
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Football Forecasting Lab (repo football_predictor) is a leakage-aware temporal ML pipeline that produces calibrated Home/Draw/Away probabilities by combining an XGBoost classifier with independent-Poisson score estimates, keeping frozen backtests, live forecasts and synthetic interface data separate, served via FastAPI with a Streamlit dashboard and data scrapers plus temporal feature engineering.",
+      "source": {
+        "title": "Football Forecasting Lab README",
+        "url": "https://github.com/dk3yyyy/football_predictor#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/football_predictor",
+        "exactPhrases": [
+          "Football Forecasting Lab",
+          "football_predictor",
+          "XGBoost"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "project-football-temporal-evaluation",
+      "type": "project-evaluation",
+      "subject": "Football Forecasting Lab",
+      "title": "Football Forecasting Lab temporal evaluation",
+      "aliases": [
+        "Football Forecasting Lab",
+        "football predictor",
+        "chronological split",
+        "rolling-origin evaluation",
+        "frozen test window"
+      ],
+      "keywords": [
+        "temporal evaluation",
+        "data leakage",
+        "calibration",
+        "XGBoost",
+        "Poisson",
+        "bookmaker benchmark",
+        "honest negative"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "temporal evaluation",
+          "rolling-origin backtest"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Football Forecasting Lab"
+        ]
+      },
+      "temporal": {
+        "start": "2019",
+        "end": "2025",
+        "status": "completed",
+        "asOf": "2026-08-01"
+      },
+      "status": "completed",
+      "asOf": "2026-08-01",
+      "text": "Football Forecasting Lab uses chronological training, calibration and frozen test windows to avoid temporal leakage. Its auditable rolling-origin evaluation over six Premier League seasons (2019–2025, three expanding-window folds) covered 1,140 test matches at 53.77% weighted accuracy versus a 45.09% majority baseline and a 56.70% normalized Bet365 benchmark: it beat naive accuracy/log-loss/Brier baselines in all three folds but beat the bookmaker in none, an honestly reported negative result (weighted log-loss 0.976 vs 0.949; Brier 0.580 vs 0.562).",
+      "source": {
+        "title": "Football Forecasting Lab evaluation",
+        "url": "https://github.com/dk3yyyy/football_predictor/blob/main/docs/evaluation/epl-rolling-2019-2025.json",
+        "kind": "evaluation-artifact",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "evaluation-of",
+          "target": "project-football-forecasting-lab"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/football_predictor",
+        "exactPhrases": [
+          "1,140",
+          "53.77%",
+          "56.70%",
+          "rolling-origin"
+        ]
+      },
+      "confidence": "verified",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "repo-chainscope-wallet-analyzer",
+      "type": "project",
+      "subject": "ChainScope",
+      "title": "ChainScope — read-only Solana & Ethereum wallet analyzer",
+      "aliases": [
+        "ChainScope",
+        "sol-eth-wallet-analyzer",
+        "wallet analyzer",
+        "ChainScope Wallet Analyzer"
+      ],
+      "keywords": [
+        "Solana",
+        "Ethereum",
+        "wallet",
+        "SPL tokens",
+        "read-only",
+        "FastAPI",
+        "Telegram"
+      ],
+      "entities": {
+        "tech": [
+          "FastAPI",
+          "React",
+          "Vite",
+          "aiohttp",
+          "Playwright",
+          "Docker"
+        ],
+        "capabilities": [
+          "read-only wallet analysis",
+          "SPL token analytics",
+          "CSV/JSON export"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "ChainScope"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "ChainScope (repo sol-eth-wallet-analyzer) is a read-only web app plus async Telegram bot that inspects public Solana and Ethereum addresses, reporting native balances with USD and detailed SPL-token portfolio analytics for Solana, with no wallet connection or signature. Prices come from Coinbase with CoinGecko fallback and Solana market data from DexScreener; it supports SPL Token and Token-2022 holdings, dust filtering and in-browser CSV/JSON export. Live demo: chainscope-wallet-analyzer.onrender.com.",
+      "source": {
+        "title": "sol-eth-wallet-analyzer README",
+        "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/sol-eth-wallet-analyzer",
+        "exactPhrases": [
+          "ChainScope",
+          "Solana",
+          "Ethereum"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "repo-telegram-social-video-downloader",
+      "type": "project",
+      "subject": "Telegram Social Video Downloader",
+      "title": "Telegram Social Video Downloader — n8n + FastAPI workflow",
+      "aliases": [
+        "Telegram Social Video Downloader",
+        "telegram-social-video-downloader",
+        "video downloader"
+      ],
+      "keywords": [
+        "n8n",
+        "FastAPI",
+        "yt-dlp",
+        "Telegram",
+        "TikTok",
+        "Instagram",
+        "webhook",
+        "SQLite"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "FastAPI",
+          "n8n",
+          "yt-dlp",
+          "SQLite",
+          "Docker"
+        ],
+        "capabilities": [
+          "media download workflow",
+          "URL validation",
+          "queue management",
+          "host allowlisting"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Telegram Social Video Downloader is a self-hosted n8n + FastAPI + yt-dlp workflow that accepts TikTok/Instagram/X/Facebook links via a Telegram webhook in n8n, queues the download, normalizes media and returns it to chat, with host allowlisting, bounded workers, queue limits, restart recovery, idempotent update handling and non-root container execution.",
+      "source": {
+        "title": "telegram-social-video-downloader README",
+        "url": "https://github.com/dk3yyyy/telegram-social-video-downloader#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/telegram-social-video-downloader",
+        "exactPhrases": [
+          "n8n",
+          "yt-dlp"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "repo-noughtline",
+      "type": "project",
+      "subject": "Noughtline",
+      "title": "Noughtline — server-authoritative real-time Tic-Tac-Toe",
+      "aliases": [
+        "Noughtline",
+        "Tic-Tac-Toe",
+        "multiplayer game"
+      ],
+      "keywords": [
+        "Socket.IO",
+        "Express",
+        "React",
+        "SQLite",
+        "Paystack",
+        "JWT",
+        "server-authoritative"
+      ],
+      "entities": {
+        "tech": [
+          "React",
+          "Express",
+          "Socket.IO",
+          "SQLite",
+          "Paystack",
+          "JWT"
+        ],
+        "capabilities": [
+          "server-authoritative multiplayer",
+          "currency ledger",
+          "signed webhooks",
+          "rate limiting"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Noughtline is a real-time, server-authoritative Tic-Tac-Toe built on React + Express + Socket.IO + SQLite with authenticated guest sessions, multiplayer series, persistent progression and a two-currency cosmetic economy. It enforces server-validated moves/turns/bounds, best-of-1/3/5, a 30s reconnection grace before one-time forfeit settlement, an immutable currency ledger, Paystack packages with signed-webhook idempotent crediting, JWT auth, rate limits and automated tests. Live: noughtline.onrender.com.",
+      "source": {
+        "title": "Noughtline README",
+        "url": "https://github.com/dk3yyyy/Noughtline#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/Noughtline",
+        "exactPhrases": [
+          "Noughtline",
+          "server-authoritative"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.9,
+      "routable": true
+    },
+    {
+      "id": "repo-password-generator",
+      "type": "project",
+      "subject": "PassGen",
+      "title": "PassGen — secure password/passphrase generator",
+      "aliases": [
+        "PassGen",
+        "password-generator",
+        "password generator",
+        "passphrase generator"
+      ],
+      "keywords": [
+        "secrets",
+        "CSPRNG",
+        "entropy",
+        "EFF wordlist",
+        "FastAPI",
+        "Web Crypto"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "FastAPI",
+          "Web Crypto"
+        ],
+        "capabilities": [
+          "CSPRNG generation",
+          "entropy calculation",
+          "passphrase generation"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "PassGen (repo password-generator) is a CLI plus web password/passphrase generator with a FastAPI backend and a static Web-Crypto demo. It uses Python secrets for CSPRNG randomness, computes entropy as log2 of the exact valid-output space after ambiguity filtering, uses the EFF wordlist for passphrases, does not persist web values and makes CLI history opt-in only. Tested on Python 3.14. Live demo: dk3yyyy.github.io/password-generator.",
+      "source": {
+        "title": "password-generator README",
+        "url": "https://github.com/dk3yyyy/password-generator#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/password-generator",
+        "exactPhrases": [
+          "PassGen",
+          "EFF wordlist",
+          "secrets"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.9,
+      "routable": true
+    },
+    {
+      "id": "repo-combosorter",
+      "type": "project",
+      "subject": "ComboSorter",
+      "title": "ComboSorter — streaming large-text toolkit",
+      "aliases": [
+        "ComboSorter",
+        "combosorter"
+      ],
+      "keywords": [
+        "streaming",
+        "large text",
+        "gsort",
+        "email normalization",
+        "deduplication"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "GNU sort"
+        ],
+        "capabilities": [
+          "streaming text processing",
+          "email normalization",
+          "sanitization"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "ComboSorter is a high-performance streaming Python toolkit for large structured text files, processing line-by-line (multi-GB without RAM exhaustion) with module chaining, GNU gsort integration, case-preserving email normalization and conservative sanitization.",
+      "source": {
+        "title": "combosorter README",
+        "url": "https://github.com/dk3yyyy/combosorter#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/combosorter",
+        "exactPhrases": [
+          "ComboSorter"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.8,
+      "routable": true
+    },
+    {
+      "id": "repo-combo-splitter",
+      "type": "project",
+      "subject": "combo-splitter",
+      "title": "combo-splitter — large-text splitting utility",
+      "aliases": [
+        "combo-splitter",
+        "combo splitter",
+        "file splitter"
+      ],
+      "keywords": [
+        "streaming",
+        "split",
+        "memory efficient",
+        "CLI"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "pyfiglet"
+        ],
+        "capabilities": [
+          "file splitting",
+          "memory-efficient chunking"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "combo-splitter is a high-performance Python utility that splits large text files into chunks by parts or lines per file, memory-efficient, with colored terminal output and an optional pyfiglet banner. Python 3.6+.",
+      "source": {
+        "title": "combo-splitter README",
+        "url": "https://github.com/dk3yyyy/combo-splitter#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/combo-splitter",
+        "exactPhrases": [
+          "combo-splitter"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "repo-user-count",
+      "type": "project",
+      "subject": "user_count",
+      "title": "user_count — durable Telegram user-counter bot",
+      "aliases": [
+        "user_count",
+        "user count bot"
+      ],
+      "keywords": [
+        "Telegram",
+        "async",
+        "Redis",
+        "SQLite",
+        "PostgreSQL",
+        "milestones",
+        "CI"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "Redis",
+          "SQLite",
+          "PostgreSQL",
+          "Docker"
+        ],
+        "capabilities": [
+          "async bot",
+          "durable milestone notifications",
+          "rate limiting"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "user_count is an async Telegram bot that registers unique users, reports counts to an admin and sends durable milestone notifications (persisting pending notifications for retry), with optional Redis rate-limiting and a 60s stats cache, SQLite locally or PostgreSQL via Docker Compose, running the container as an unprivileged user on a read-only filesystem, with automated tests and CI. It is explicitly not load-tested.",
+      "source": {
+        "title": "user_count README",
+        "url": "https://github.com/dk3yyyy/user_count#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/user_count",
+        "exactPhrases": [
+          "user_count"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "repo-virustotal-telegram-bot",
+      "type": "project",
+      "subject": "VirusTotal Telegram Bot",
+      "title": "VirusTotal Telegram Bot — malware scanning via Pyrogram",
+      "aliases": [
+        "VirusTotal Telegram Bot",
+        "VirusTotal-Telegram-Bot"
+      ],
+      "keywords": [
+        "VirusTotal",
+        "Pyrogram",
+        "MTProto",
+        "malware",
+        "hash scanning"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "Pyrogram",
+          "VirusTotal API"
+        ],
+        "capabilities": [
+          "file scanning",
+          "hash scanning",
+          "URL scanning"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "VirusTotal-Telegram-Bot is a Telegram bot built on Pyrogram (MTProto) plus the VirusTotal v3 API supporting 2GB file uploads (bypassing the 20MB bot limit; VT native up to 650MB), interactive inline detection/signature reports, URL and MD5/SHA1/SHA256 hash scanning, an upload_url flow for files over 32MB and local hashing.",
+      "source": {
+        "title": "VirusTotal-Telegram-Bot README",
+        "url": "https://github.com/dk3yyyy/VirusTotal-Telegram-Bot#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/VirusTotal-Telegram-Bot",
+        "exactPhrases": [
+          "VirusTotal"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "repo-dnslookup",
+      "type": "project",
+      "subject": "dnslookup",
+      "title": "dnslookup — async DNS query CLI",
+      "aliases": [
+        "dnslookup",
+        "DNS lookup CLI",
+        "DNS intelligence CLI"
+      ],
+      "keywords": [
+        "DNS",
+        "async",
+        "WHOIS",
+        "Rich",
+        "trace tree"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "Rich"
+        ],
+        "capabilities": [
+          "async DNS resolution",
+          "DNS trace tree",
+          "WHOIS"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "dnslookup is a professional DNS query CLI with Rich terminal output, asynchronous concurrent resolution, a visual DNS trace tree from root servers, color-coded A/MX/NS/TXT tables and integrated WHOIS.",
+      "source": {
+        "title": "dnslookup README",
+        "url": "https://github.com/dk3yyyy/dnslookup#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        },
+        {
+          "rel": "related-to",
+          "target": "cert-threat-detection-capstone"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/dnslookup",
+        "exactPhrases": [
+          "dnslookup"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.7,
+      "routable": true
+    },
+    {
+      "id": "repo-portfolio-source",
+      "type": "project",
+      "subject": "Portfolio source",
+      "title": "joshua-nwachinemere — portfolio source repo",
+      "aliases": [
+        "joshua-nwachinemere repo",
+        "portfolio source",
+        "CV generation"
+      ],
+      "keywords": [
+        "Vite",
+        "portfolio",
+        "CV",
+        "DOCX",
+        "PDF",
+        "Playwright",
+        "reproducible build"
+      ],
+      "entities": {
+        "tech": [
+          "Vite",
+          "Python",
+          "Playwright"
+        ],
+        "capabilities": [
+          "static site",
+          "reproducible CV generation"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "The joshua-nwachinemere repo is the static Vite portfolio site source, featuring byte-reproducible DOCX/PDF CV generation via scripts/build_cv.py (fixed SOURCE_DATE_EPOCH), Playwright tests and a content principle that project claims derive only from original public repos.",
+      "source": {
+        "title": "joshua-nwachinemere README",
+        "url": "https://github.com/dk3yyyy/joshua-nwachinemere#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        },
+        {
+          "rel": "renders",
+          "target": "contact-portfolio-site"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/joshua-nwachinemere",
+        "exactPhrases": [
+          "joshua-nwachinemere"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.8,
+      "routable": true
+    },
+    {
+      "id": "repo-profile-readme",
+      "type": "project",
+      "subject": "GitHub profile README",
+      "title": "dk3yyyy/dk3yyyy — GitHub profile README repo",
+      "aliases": [
+        "dk3yyyy profile",
+        "profile README repo"
+      ],
+      "keywords": [
+        "GitHub profile",
+        "README"
+      ],
+      "entities": {
+        "tech": [
+          "Markdown"
+        ],
+        "capabilities": [
+          "profile presentation"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "dk3yyyy/dk3yyyy is Joshua's GitHub profile README repository that renders his profile landing content.",
+      "source": {
+        "title": "dk3yyyy README",
+        "url": "https://github.com/dk3yyyy/dk3yyyy#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/dk3yyyy",
+        "exactPhrases": [
+          "dk3yyyy"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.5,
+      "routable": true
+    },
+    {
+      "id": "repo-joshua-portfolio-redirect",
+      "type": "project",
+      "subject": "joshua-portfolio redirect",
+      "title": "joshua-portfolio — legacy redirect repo",
+      "aliases": [
+        "joshua-portfolio",
+        "portfolio redirect"
+      ],
+      "keywords": [
+        "redirect",
+        "legacy",
+        "HTML"
+      ],
+      "entities": {
+        "tech": [
+          "HTML"
+        ],
+        "capabilities": [
+          "URL redirect"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "joshua-portfolio is a small HTML redirect repo that forwards the previous portfolio URL to the current site.",
+      "source": {
+        "title": "joshua-portfolio README",
+        "url": "https://github.com/dk3yyyy/joshua-portfolio#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/joshua-portfolio",
+        "exactPhrases": [
+          "joshua-portfolio"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.4,
+      "routable": true
+    },
+    {
+      "id": "repo-volyxai-editorial-preview",
+      "type": "project",
+      "subject": "volyxai-editorial-preview",
+      "title": "volyxai-editorial-preview — VolyxAI design preview",
+      "aliases": [
+        "volyxai-editorial-preview",
+        "VolyxAI editorial preview"
+      ],
+      "keywords": [
+        "static preview",
+        "VolyxAI",
+        "design comparison"
+      ],
+      "entities": {
+        "tech": [
+          "HTML"
+        ],
+        "capabilities": [
+          "static design preview"
+        ],
+        "org": [
+          "VolyxAI"
+        ],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "volyxai-editorial-preview is a temporary static preview repo used for VolyxAI design comparison. Its README is binary/non-text so details are limited.",
+      "source": {
+        "title": "volyxai-editorial-preview README",
+        "url": "https://github.com/dk3yyyy/volyxai-editorial-preview#readme",
+        "kind": "github-readme",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "same-author",
+          "target": "identity-full-name"
+        },
+        {
+          "rel": "related-to",
+          "target": "volyxai-company"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/volyxai-editorial-preview",
+        "exactPhrases": [
+          "volyxai-editorial-preview"
+        ]
+      },
+      "confidence": "medium",
+      "sensitivity": "public",
+      "weight": 0.4,
+      "routable": true
+    },
+    {
+      "id": "engineering-local-ai-agent-history",
+      "type": "engineering-history",
+      "subject": "Local Review Intelligence",
+      "title": "local_AI_agent engineering history",
+      "aliases": [
+        "local_AI_agent PRs",
+        "RAG hardening",
+        "abstention fixes"
+      ],
+      "keywords": [
+        "RAG hardening",
+        "CI",
+        "CSV schema adaptation",
+        "evaluation",
+        "abstention token leak"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "RAG hardening",
+          "reproducible evaluation",
+          "abstention control"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": [
+          "Local Review Intelligence"
+        ]
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's own-repo engineering on local_AI_agent spans PRs #1–#12, notably #6 hardening RAG identity/citations/evaluation, #8 reproducible RAG evaluation, #9/#10 fixing abstention control-token leaks and #4 CSV schema adaptation. These are self-owned repo PRs documenting engineering activity, not third-party review.",
+      "source": {
+        "title": "GitHub PR search — author dk3yyyy",
+        "url": "https://github.com/search?q=type:pr+author:dk3yyyy",
+        "kind": "github-search",
+        "publisher": "GitHub",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "history-of",
+          "target": "project-local-review-intelligence"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": "dk3yyyy/local_AI_agent",
+        "exactPhrases": [
+          "RAG"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.6,
+      "routable": true
+    },
+    {
+      "id": "skill-languages",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "Languages",
+      "aliases": [
+        "Python",
+        "SQL",
+        "programming languages"
+      ],
+      "keywords": [
+        "skill",
+        "Python",
+        "SQL"
+      ],
+      "entities": {
+        "tech": [
+          "Python",
+          "SQL"
+        ],
+        "capabilities": [
+          "languages"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's CV lists Python and SQL as his core programming languages.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Python",
+          "SQL",
+          "programming languages"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "skill-ai-engineering",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "AI engineering",
+      "aliases": [
+        "RAG",
+        "retrieval",
+        "multimodal",
+        "voice AI",
+        "structured outputs",
+        "provider routing"
+      ],
+      "keywords": [
+        "skill",
+        "retrieval",
+        "multimodal inference",
+        "voice AI",
+        "structured outputs",
+        "provider routing",
+        "model evaluation"
+      ],
+      "entities": {
+        "tech": [
+          "retrieval",
+          "multimodal inference",
+          "voice AI",
+          "structured outputs",
+          "provider routing",
+          "model evaluation"
+        ],
+        "capabilities": [
+          "ai engineering"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's AI engineering skills include retrieval, multimodal inference, voice AI, structured outputs, provider routing and model evaluation.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "RAG",
+          "retrieval",
+          "multimodal"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "skill-model-providers",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "Models and providers",
+      "aliases": [
+        "Azure AI Foundry",
+        "OpenAI-compatible APIs",
+        "Deepgram"
+      ],
+      "keywords": [
+        "skill",
+        "Azure AI Foundry",
+        "OpenAI-compatible APIs",
+        "Deepgram"
+      ],
+      "entities": {
+        "tech": [
+          "Azure AI Foundry",
+          "OpenAI-compatible APIs",
+          "Deepgram"
+        ],
+        "capabilities": [
+          "models and providers"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's CV lists Azure AI Foundry, OpenAI-compatible APIs and Deepgram among the model and speech providers he has used.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Azure AI Foundry",
+          "OpenAI-compatible APIs",
+          "Deepgram"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "skill-ml-data",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "Machine learning and data",
+      "aliases": [
+        "scikit-learn",
+        "XGBoost",
+        "pandas",
+        "feature engineering",
+        "temporal evaluation"
+      ],
+      "keywords": [
+        "skill",
+        "scikit-learn",
+        "XGBoost",
+        "pandas",
+        "feature engineering",
+        "temporal evaluation"
+      ],
+      "entities": {
+        "tech": [
+          "scikit-learn",
+          "XGBoost",
+          "pandas",
+          "feature engineering",
+          "temporal evaluation"
+        ],
+        "capabilities": [
+          "machine learning and data"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's ML and data toolkit includes scikit-learn, XGBoost, pandas, feature engineering and temporal evaluation.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "scikit-learn",
+          "XGBoost",
+          "pandas"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "skill-backend-automation",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "Backend and automation",
+      "aliases": [
+        "FastAPI",
+        "asyncio",
+        "REST",
+        "n8n",
+        "webhooks",
+        "SQLAlchemy"
+      ],
+      "keywords": [
+        "skill",
+        "FastAPI",
+        "asyncio",
+        "REST APIs",
+        "n8n",
+        "webhooks",
+        "SQLAlchemy"
+      ],
+      "entities": {
+        "tech": [
+          "FastAPI",
+          "asyncio",
+          "REST APIs",
+          "n8n",
+          "webhooks",
+          "SQLAlchemy"
+        ],
+        "capabilities": [
+          "backend and automation"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's backend and automation skills include FastAPI, asyncio, REST APIs, n8n, webhooks and SQLAlchemy.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "FastAPI",
+          "asyncio",
+          "REST"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "skill-data-infrastructure",
+      "type": "skill",
+      "subject": "Joshua Nwachinemere",
+      "title": "Data and infrastructure",
+      "aliases": [
+        "PostgreSQL",
+        "SQLite",
+        "Redis",
+        "Docker",
+        "GitHub Actions",
+        "Linux"
+      ],
+      "keywords": [
+        "skill",
+        "PostgreSQL",
+        "SQLite",
+        "Redis",
+        "Docker",
+        "GitHub Actions",
+        "Linux"
+      ],
+      "entities": {
+        "tech": [
+          "PostgreSQL",
+          "SQLite",
+          "Redis",
+          "Docker",
+          "GitHub Actions",
+          "Linux"
+        ],
+        "capabilities": [
+          "data and infrastructure"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "current",
+        "asOf": "2026-08-01"
+      },
+      "status": "current",
+      "asOf": "2026-08-01",
+      "text": "Joshua's data and infrastructure toolkit includes PostgreSQL, SQLite, Redis, Docker, GitHub Actions and Linux.",
+      "source": {
+        "title": "Joshua Nwachinemere CV",
+        "url": "https://joshua-nwachinemere.pages.dev/Joshua_Nwachinemere_CV.pdf",
+        "kind": "cv",
+        "publisher": "Joshua Nwachinemere",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "PostgreSQL",
+          "SQLite",
+          "Redis"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "writing-overview",
+      "type": "collection-summary",
+      "subject": "Technical writing",
+      "title": "Technical writing overview",
+      "aliases": [
+        "articles",
+        "blog",
+        "technical writing",
+        "publications",
+        "writing"
+      ],
+      "keywords": [
+        "MCP",
+        "RAG",
+        "voice agents",
+        "transformers",
+        "computer vision",
+        "language design",
+        "AI workflows"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua publishes technical writing on Hashnode, DEV Community and Medium about MCP tool contracts, RAG, voice-agent state, multi-model handoffs, transformers, computer vision, programming-language tradeoffs and AI workflows. Use individual article records for topic-specific questions.",
+      "source": {
+        "title": "Joshua Nwachinemere Hashnode feed",
+        "url": "https://joshua-nwachinemere.hashnode.dev/rss.xml",
+        "kind": "rss-feed",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": []
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 0.65,
+      "routable": false
+    },
+    {
+      "id": "writing-profile-hashnode",
+      "type": "profile-contact",
+      "subject": "Technical writing",
+      "title": "Hashnode publication profile",
+      "aliases": [
+        "Hashnode",
+        "Joshua Hashnode",
+        "hashnode blog"
+      ],
+      "keywords": [
+        "Hashnode",
+        "articles",
+        "RSS"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's canonical Hashnode publication is https://joshua-nwachinemere.hashnode.dev; its RSS feed listed eight posts as of 2026-08-01.",
+      "source": {
+        "title": "Joshua Nwachinemere Hashnode feed",
+        "url": "https://joshua-nwachinemere.hashnode.dev/rss.xml",
+        "kind": "rss-feed",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Hashnode"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "writing-profile-dev",
+      "type": "profile-contact",
+      "subject": "Technical writing",
+      "title": "DEV Community profile",
+      "aliases": [
+        "DEV",
+        "DEV Community",
+        "dev.to/dk3yyyy"
+      ],
+      "keywords": [
+        "DEV",
+        "articles",
+        "profile"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's DEV Community profile is https://dev.to/dk3yyyy; its public API listed seven published articles as of 2026-08-01.",
+      "source": {
+        "title": "DEV Community profile",
+        "url": "https://dev.to/dk3yyyy",
+        "kind": "publication-profile",
+        "publisher": "DEV Community",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "DEV Community",
+          "dev.to/dk3yyyy"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "writing-profile-medium",
+      "type": "profile-contact",
+      "subject": "Technical writing",
+      "title": "Medium publication profile",
+      "aliases": [
+        "Medium",
+        "medium.com/@joshua-nwachinemere"
+      ],
+      "keywords": [
+        "Medium",
+        "articles",
+        "RSS"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": null,
+        "end": null,
+        "status": "active",
+        "asOf": "2026-08-01"
+      },
+      "status": "active",
+      "asOf": "2026-08-01",
+      "text": "Joshua's Medium publication feed is https://medium.com/feed/@joshua-nwachinemere; it listed nine posts as of 2026-08-01.",
+      "source": {
+        "title": "Joshua Nwachinemere Medium feed",
+        "url": "https://medium.com/feed/@joshua-nwachinemere",
+        "kind": "rss-feed",
+        "publisher": "Medium",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Medium",
+          "@joshua-nwachinemere"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "article-mcp-tool-contracts",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "MCP Made Tools Connectable. It Did Not Make Them Understandable.",
+      "aliases": [
+        "MCP article",
+        "MCP tool contracts",
+        "Model Context Protocol article",
+        "Practical Checklist for MCP Tool Contracts"
+      ],
+      "keywords": [
+        "MCP",
+        "tool contracts",
+        "agents",
+        "safety",
+        "tool descriptions",
+        "architecture"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-08-01",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua argues that MCP makes tools connectable but not automatically understandable: an agent still needs a legible contract describing what each tool does, when it is safe to call and how failures and side effects are represented.",
+      "source": {
+        "title": "MCP Made Tools Connectable. It Did Not Make Them Understandable.",
+        "url": "https://joshua-nwachinemere.hashnode.dev/mcp-made-tools-connectable-it-did-not-make-them-understandable",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "MCP Made Tools Connectable. It Did Not Make Them Understandable.",
+          "MCP article",
+          "MCP tool contracts"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "A Practical Checklist for MCP Tool Contracts",
+          "url": "https://dev.to/dk3yyyy/a-practical-checklist-for-mcp-tool-contracts-because-the-connection-is-the-easy-part-4j31",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-08-01",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "MCP Made Tools Connectable. It Did Not Make Them Understandable.",
+          "url": "https://medium.com/@joshua-nwachinemere/mcp-made-tools-connectable-it-did-not-make-them-understandable-3587db79522e",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-08-01",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-voice-agent-state-boundaries",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "The Two Boundaries Where Voice Agents Quietly Corrupt State",
+      "aliases": [
+        "voice agents article",
+        "voice state corruption",
+        "two boundaries"
+      ],
+      "keywords": [
+        "voice agents",
+        "state",
+        "transcription",
+        "tool execution",
+        "debugging"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-29",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua examines two boundaries where voice-agent systems can quietly corrupt state and uses a hypothetical debugging fixture to show why transcript and action state must be handled deliberately.",
+      "source": {
+        "title": "The Two Boundaries Where Voice Agents Quietly Corrupt State",
+        "url": "https://joshua-nwachinemere.hashnode.dev/the-two-boundaries-where-voice-agents-quietly-corrupt-state",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "The Two Boundaries Where Voice Agents Quietly Corrupt State",
+          "voice agents article",
+          "voice state corruption"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "article-language-design-tradeoffs",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "Reading the History of Programming Languages as a Ledger of Trades",
+      "aliases": [
+        "language design article",
+        "programming language history",
+        "ledger of trades",
+        "Who Pays for Every Abstraction"
+      ],
+      "keywords": [
+        "programming languages",
+        "abstractions",
+        "tradeoffs",
+        "language design",
+        "history"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-29",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua presents programming-language history as a ledger of tradeoffs: every abstraction solves a recurring problem while moving costs into performance, tooling, runtime complexity or programmer mental models.",
+      "source": {
+        "title": "Reading the History of Programming Languages as a Ledger of Trades",
+        "url": "https://joshua-nwachinemere.hashnode.dev/reading-the-history-of-programming-languages-as-a-ledger-of-trades",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Reading the History of Programming Languages as a Ledger of Trades",
+          "language design article",
+          "programming language history"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "A Field Guide to Language Design: Who Pays for Every Abstraction",
+          "url": "https://dev.to/dk3yyyy/a-field-guide-to-language-design-who-pays-for-every-abstraction-29l9",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-07-29",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "What Every Programming Language Was Actually Invented to Fix",
+          "url": "https://medium.com/@joshua-nwachinemere/what-every-programming-language-was-actually-invented-to-fix-fde8b93cb17e",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-30",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-transformers-beyond-chatgpt",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "Transformers Beyond ChatGPT",
+      "aliases": [
+        "Transformers article",
+        "transformers beyond chatbots",
+        "context modeling"
+      ],
+      "keywords": [
+        "transformers",
+        "context",
+        "computer vision",
+        "robotics",
+        "tokenization",
+        "attention"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-28",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua explains that the deeper contribution of transformers is a reusable way to model context across any tokenizable data, not only text chatbots, with applications in vision, robotics and other domains.",
+      "source": {
+        "title": "Transformers Beyond ChatGPT",
+        "url": "https://joshua-nwachinemere.hashnode.dev/transformers-beyond-chatgpt",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "Transformers Beyond ChatGPT",
+          "Transformers article",
+          "transformers beyond chatbots"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "Transformers Beyond ChatGPT",
+          "url": "https://dev.to/dk3yyyy/transformers-beyond-chatgpt-13gc",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-07-28",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "Transformers Beyond ChatGPT",
+          "url": "https://medium.com/@joshua-nwachinemere/transformers-beyond-chatgpt-2d4a33cbc9d5",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-29",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-vision-transformers-mechanics",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "How Vision Transformers Actually See an Image",
+      "aliases": [
+        "Vision Transformer article",
+        "ViT article",
+        "how ViTs see images"
+      ],
+      "keywords": [
+        "Vision Transformers",
+        "ViT",
+        "image patches",
+        "attention",
+        "computer vision"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua explains the mechanics of how Vision Transformers turn an image into patches and contextual token representations so attention can model relationships across the image.",
+      "source": {
+        "title": "How Vision Transformers Actually See an Image",
+        "url": "https://joshua-nwachinemere.hashnode.dev/how-vision-transformers-actually-see-an-image",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "How Vision Transformers Actually See an Image",
+          "Vision Transformer article",
+          "ViT article"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "How Vision Transformers Actually See an Image",
+          "url": "https://medium.com/@joshua-nwachinemere/how-vision-transformers-actually-see-an-image-22ae5b148500",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-28",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-computer-vision-knowledge-history",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "How Computer Vision Learned to See: A Technical History of Where Visual Knowledge Lives",
+      "aliases": [
+        "computer vision history article",
+        "where visual knowledge lives",
+        "Where Does a Vision Model Keep Its Knowledge"
+      ],
+      "keywords": [
+        "computer vision",
+        "Viola-Jones",
+        "CNNs",
+        "vision models",
+        "representation learning",
+        "history"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua traces how computer-vision systems have represented visual knowledge from engineered detectors such as Viola-Jones through learned convolutional and transformer representations.",
+      "source": {
+        "title": "How Computer Vision Learned to See: A Technical History of Where Visual Knowledge Lives",
+        "url": "https://joshua-nwachinemere.hashnode.dev/how-computer-vision-learned-to-see-a-technical-history-of-where-visual-knowledge-lives",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "How Computer Vision Learned to See: A Technical History of Where Visual Knowledge Lives",
+          "computer vision history article",
+          "where visual knowledge lives"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "Where Does a Vision Model Keep Its Knowledge?",
+          "url": "https://dev.to/dk3yyyy/where-does-a-vision-model-keep-its-knowledge-a-developers-history-of-computer-vision-235o",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-07-27",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "Where Does a Vision System Keep Its Intelligence?",
+          "url": "https://medium.com/@joshua-nwachinemere/where-does-a-vision-system-keep-its-intelligence-2286d3f1acc0",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-27",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-multi-model-handoff-problem",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "The Handoff Problem: Why Multi-Model AI Pipelines Quietly Corrupt Good Research",
+      "aliases": [
+        "handoff problem",
+        "multi-model article",
+        "research corruption in AI pipelines"
+      ],
+      "keywords": [
+        "multi-model",
+        "handoff",
+        "research",
+        "agents",
+        "information loss",
+        "architecture"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua argues that multi-model AI pipelines can degrade strong research at model-to-model handoffs when assumptions, provenance, caveats and task intent are compressed or silently rewritten.",
+      "source": {
+        "title": "The Handoff Problem: Why Multi-Model AI Pipelines Quietly Corrupt Good Research",
+        "url": "https://joshua-nwachinemere.hashnode.dev/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "The Handoff Problem: Why Multi-Model AI Pipelines Quietly Corrupt Good Research",
+          "handoff problem",
+          "multi-model article"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "The Handoff Problem",
+          "url": "https://dev.to/dk3yyyy/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research-27ad",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-07-27",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "The Handoff Problem",
+          "url": "https://medium.com/@joshua-nwachinemere/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research-0fd1dac2435f",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-26",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-hidden-complexity-rag",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "The Hidden Complexity of RAG",
+      "aliases": [
+        "RAG article",
+        "hidden complexity of retrieval augmented generation",
+        "production RAG"
+      ],
+      "keywords": [
+        "RAG",
+        "retrieval",
+        "chunking",
+        "evaluation",
+        "citations",
+        "production systems"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-27",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua explains that production RAG is not a single model call wrapped around vector search but a system of ingestion, identity, retrieval, ranking, grounding, citation, evaluation and failure-handling components.",
+      "source": {
+        "title": "The Hidden Complexity of RAG",
+        "url": "https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "The Hidden Complexity of RAG",
+          "RAG article",
+          "hidden complexity of retrieval augmented generation"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "The Hidden Complexity of RAG",
+          "url": "https://dev.to/dk3yyyy/the-hidden-complexity-of-rag-55fg",
+          "kind": "article",
+          "publisher": "DEV Community",
+          "publishedAt": "2026-07-25",
+          "accessedAt": "2026-08-01"
+        },
+        {
+          "title": "The Hidden Complexity of RAG",
+          "url": "https://medium.com/@joshua-nwachinemere/the-hidden-complexity-of-rag-11ca2631220f",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-25",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "article-ai-healthcare-workflows",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "AI in Healthcare Works Only When the Workflow Does",
+      "aliases": [
+        "AI healthcare article",
+        "healthcare workflow",
+        "AI in Healthcare"
+      ],
+      "keywords": [
+        "healthcare",
+        "AI workflow",
+        "human review",
+        "safety",
+        "deployment"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-29",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua argues that healthcare AI succeeds only when the surrounding workflow, escalation path, human review and operational controls work, rather than through model quality alone.",
+      "source": {
+        "title": "AI in Healthcare Works Only When the Workflow Does",
+        "url": "https://medium.com/@joshua-nwachinemere/ai-in-healthcare-works-only-when-the-workflow-does-9a688abec84b",
+        "kind": "article",
+        "publisher": "Medium",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "AI in Healthcare Works Only When the Workflow Does",
+          "AI healthcare article",
+          "healthcare workflow"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
+    },
+    {
+      "id": "article-twenty-ai-concepts",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "20 Most Important AI Concepts Explained in Just 20 Minutes",
+      "aliases": [
+        "20 AI concepts",
+        "AI concepts article",
+        "AI basics guide"
+      ],
+      "keywords": [
+        "AI concepts",
+        "machine learning",
+        "agents",
+        "recommendation systems",
+        "beginners"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-07-25",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-01"
+      },
+      "status": "published",
+      "asOf": "2026-08-01",
+      "text": "Joshua published a plain-English guide to twenty foundational AI concepts behind systems such as ChatGPT, recommendation engines and AI agents.",
+      "source": {
+        "title": "20 Most Important AI Concepts Explained in Just 20 Minutes",
+        "url": "https://dev.to/dk3yyyy/20-most-important-ai-concepts-explained-in-just-20-minutes-4kf4",
+        "kind": "article",
+        "publisher": "DEV Community",
+        "accessedAt": "2026-08-01"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "20 Most Important AI Concepts Explained in Just 20 Minutes",
+          "20 AI concepts",
+          "AI concepts article"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true,
+      "alternateSources": [
+        {
+          "title": "20 Most Important AI Concepts Explained in Just 20 Minutes",
+          "url": "https://medium.com/@joshua-nwachinemere/20-most-important-ai-concepts-explained-in-just-20-minutes-2d259a4d583b",
+          "kind": "article",
+          "publisher": "Medium",
+          "publishedAt": "2026-07-25",
+          "accessedAt": "2026-08-01"
+        }
+      ]
+    }
+  ]
+}

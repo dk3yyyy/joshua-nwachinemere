@@ -6,12 +6,14 @@ import { readFile, stat } from 'node:fs/promises';
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
-const socialCard = await readFile(new URL('../public/og-card-v5.png', import.meta.url));
+const previewHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
+const socialCard = await readFile(new URL('../public/og-card-v6.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v5.png`;
+const previewUrl = 'https://assistant-review.joshua-nwachinemere.pages.dev/';
+const socialCardUrl = `${previewUrl}og-card-v6.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -44,6 +46,7 @@ const pullRequestUrls = [
   'https://github.com/openai/openai-agents-python/pull/3991',
   'https://github.com/pydantic/pydantic-ai-harness/pull/503',
   'https://github.com/generative-computing/mellea/pull/1471',
+  'https://github.com/generative-computing/mellea/pull/1469',
   'https://github.com/ag2ai/faststream/pull/2961',
   'https://github.com/apache/arrow-rs/pull/10486',
   'https://github.com/vega/altair/pull/4089',
@@ -83,7 +86,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
   assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>Applied AI<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. Every featured project links to its source, tests, architecture or measured results.'));
-  assert.ok(textOnly.includes('5 inspectable projects · 8 independently verified merged contributions · Source, architecture and tests linked'));
+  assert.ok(textOnly.includes('5 inspectable projects · 9 independently verified merged contributions · Source, architecture and tests linked'));
   assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));
@@ -99,6 +102,34 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(css, /\.system-map-lines \{[^}]*stroke: #8b8f8b;/);
   assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
   assert.match(html, /Context retrieved · models routed · results evaluated/);
+});
+
+test('preview remains excluded from search indexing', () => {
+  assert.match(previewHeaders, /X-Robots-Tag: noindex, nofollow/);
+  assert.match(previewHeaders, /Cache-Control: no-cache/);
+});
+
+test('includes a grounded corner chatbot with an accessible popup and explicit scope controls', () => {
+  const assistant = html.match(/<aside[^>]+data-assistant[\s\S]*?<\/aside>/)?.[0] ?? '';
+  assert.match(assistant, /data-assistant/);
+  assert.match(assistant, /class="assistant-launcher"/);
+  assert.match(assistant, /aria-controls="assistant-panel"/);
+  assert.match(assistant, /aria-expanded="false"/);
+  assert.match(assistant, /id="assistant-panel"/);
+  assert.match(assistant, /role="dialog"/);
+  assert.match(assistant, /aria-modal="false"/);
+  assert.match(assistant, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
+  assert.match(assistant, /class="assistant-close"/);
+  assert.match(assistant, /role="log"/);
+  assert.match(assistant, /aria-live="polite"/);
+  assert.match(assistant, /maxlength="500"/);
+  assert.match(assistant, /Cloudflare Workers AI via a Cloudflare Pages Function/);
+  assert.match(assistant, /Don’t enter personal data/);
+  assert.match(assistant, /Public portfolio questions only/);
+  assert.equal((assistant.match(/data-question=/g) || []).length, 3);
+  assert.match(css, /\.assistant-widget \{[^}]*position: fixed;/);
+  assert.match(css, /\.assistant-panel \{[^}]*position: absolute;/);
+  assert.match(css, /\.assistant-conversation \{[^}]*overflow-y: auto;/);
 });
 
 test('renders exactly three featured and two additional projects in source order', () => {
@@ -171,13 +202,13 @@ test('adds honest, accessible visual product evidence without the rejected contr
   const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(
     localProject,
-    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-5b174ed3\.jpg" width="1440" height="1000"/,
+    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-5b174ed3\.jpg" width="1200" height="833"/,
   );
   assert.doesNotMatch(localProject, /local-review-intelligence-evidence\.jpg/);
   const footballProject = html.match(/<article[^>]+id="project-football"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(
     footballProject,
-    /<img src="%BASE_URL%images\/football-forecasting-dashboard-12cff076\.jpg" width="1440" height="1000"/,
+    /<img src="%BASE_URL%images\/football-forecasting-dashboard-12cff076\.jpg" width="1200" height="833"/,
   );
   assert.match(footballProject, /isolated synthetic interface-test dataset/);
   assert.doesNotMatch(footballProject, /redesigned/i);
@@ -186,11 +217,11 @@ test('adds honest, accessible visual product evidence without the rejected contr
   assert.ok(textOnly.includes('This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.'));
 });
 
-test('keeps all five repository URLs and all eight contribution rows visible', () => {
+test('keeps all five repository URLs and all nine contribution rows visible', () => {
   for (const url of [...repositoryUrls, ...pullRequestUrls]) assert.ok(html.includes(url), `Missing ${url}`);
-  assert.equal((html.match(/class="contribution-row"/g) || []).length, 8);
-  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 8);
-  assert.ok(textOnly.includes('Eight pull requests authored by Joshua, independently verified and merged into maintained open-source projects.'));
+  assert.equal((html.match(/class="contribution-row"/g) || []).length, 9);
+  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 9);
+  assert.ok(textOnly.includes('Nine pull requests authored by Joshua, independently verified and merged into maintained open-source projects.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
 });
@@ -250,7 +281,7 @@ test('shows a focused and verifiable certification set', () => {
   assert.match(certificationSection, /<h3>Certifications &amp; training<\/h3>/);
   assert.equal((certificationSection.match(/<a\b/g) ?? []).length, 3, 'Certification set must contain exactly three links');
   for (const [name, metadata, url] of expected) {
-    assert.ok(certificationSection.includes(name), `Missing credential: ${name}`);
+    assert.ok(certificationSection.includes(name), `Missing credential named ${name}`);
     assert.ok(certificationSection.includes(metadata), `Missing credential metadata: ${metadata}`);
     assert.ok(certificationSection.includes(`href="${url}"`), `Missing verification URL: ${url}`);
   }
@@ -286,7 +317,7 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes production-aligned social metadata and the approved landing-page card', () => {
+test('publishes preview-aligned social metadata and the approved v6 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
@@ -296,10 +327,10 @@ test('publishes production-aligned social metadata and the approved landing-page
   assert.match(html, /<meta property="og:image:type" content="image\/png"/);
   assert.match(html, /<meta property="og:image:width" content="1200"/);
   assert.match(html, /<meta property="og:image:height" content="630"/);
-  assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere's AI Engineer portfolio landing page"/);
+  assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI"/);
   assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
-  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere's AI Engineer portfolio landing page"/);
-  assert.doesNotMatch(html, /og-card-v4\.png/);
+  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI"/);
+  assert.doesNotMatch(html, /og-card-v[1-5]\.png/);
 });
 
 test('all external new-tab links are protected and fragments resolve uniquely', () => {
@@ -320,7 +351,7 @@ test('CV and identity artifacts remain intact', async () => {
 });
 
 test('uses the approved terminal-window favicon in the portfolio visual system', () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=3" type="image\/svg\+xml" \/>/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=4" type="image\/svg\+xml" \/>/);
   assert.match(favicon, /<title id="title">Terminal window<\/title>/);
   assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
   assert.match(favicon, /fill="#f3f3f0"/);

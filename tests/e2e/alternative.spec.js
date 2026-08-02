@@ -16,7 +16,7 @@ const viewports = [
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
-  { width: 1366, height: 768, maxPageHeight: 6700, maxHeroHeight: 720 },
+  { width: 1366, height: 768, maxPageHeight: 6800, maxHeroHeight: 720 },
 ];
 
 function monitorRuntime(page) {
@@ -134,8 +134,8 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
     };
   });
   expect(Math.abs(footballImageRatio.rendered - footballImageRatio.intrinsic)).toBeLessThan(0.01);
-  await expect(page.locator('.contribution-row')).toHaveCount(8);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.locator('.contribution-row')).toHaveCount(9);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
   await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
   await expect(page.locator('body')).not.toContainText('joshua0nwachinemere@gmail.com');
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
@@ -171,6 +171,44 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   expect(errors).toEqual([]);
 });
 
+test('portfolio assistant opens as a corner popup, answers with citations, and closes accessibly', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const assistant = page.locator('[data-assistant]');
+  const launcher = assistant.getByRole('button', { name: 'Ask Joshua', exact: true });
+  await expect(launcher).toBeVisible();
+  await expect(launcher).toHaveAttribute('aria-expanded', 'false');
+  await expect(assistant.getByRole('dialog')).toBeHidden();
+
+  await launcher.click();
+  await expect(launcher).toHaveAttribute('aria-expanded', 'true');
+  await expect(assistant.getByRole('dialog')).toBeVisible();
+  await expect(assistant.getByRole('heading', { name: 'Ask Joshua' })).toBeVisible();
+
+  const widgetGeometry = await assistant.evaluate((root) => {
+    const panel = root.querySelector('.assistant-panel').getBoundingClientRect();
+    return { panelLeft: panel.left, panelRight: panel.right, panelBottom: panel.bottom, viewportWidth: innerWidth, viewportHeight: innerHeight };
+  });
+  expect(widgetGeometry.panelLeft).toBeGreaterThanOrEqual(8);
+  expect(widgetGeometry.panelRight).toBeLessThanOrEqual(widgetGeometry.viewportWidth - 8);
+  expect(widgetGeometry.panelBottom).toBeLessThanOrEqual(widgetGeometry.viewportHeight - 64);
+
+  await assistant.getByRole('button', { name: 'RAG and evaluation' }).click();
+  await expect(assistant.getByText(/Semantic Recall@5 of 0\.913/)).toBeVisible();
+  await expect(assistant.getByRole('link', { name: /Local Review Intelligence/ })).toHaveAttribute('href', '#project-local-ai');
+
+  const input = assistant.getByLabel('Ask a question about Joshua');
+  await input.fill('What is Joshua’s home address?');
+  await page.keyboard.press('Control+Enter');
+  await expect(assistant.getByText(/can’t answer that from the verified evidence/)).toBeVisible();
+  await expect(input).toBeFocused();
+  await expect(input).toHaveValue('');
+
+  await page.keyboard.press('Escape');
+  await expect(assistant.getByRole('dialog')).toBeHidden();
+  await expect(launcher).toBeFocused();
+});
+
 test('responsive composition meets page, hero, grid, overflow, and target budgets', async ({ page }, testInfo) => {
   const errors = monitorRuntime(page);
   for (const viewport of viewports) {
@@ -197,6 +235,7 @@ test('responsive composition meets page, hero, grid, overflow, and target budget
     await expectNoOverflow(page, `${viewport.width}px`);
     await expectTouchTargets(page, `${viewport.width}px`);
     await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot(), contentType: 'image/png' });
+    await page.waitForLoadState('networkidle');
   }
   expect(errors).toEqual([]);
 });
@@ -366,7 +405,7 @@ test('all content and navigation remain available without JavaScript', async ({ 
   await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
   await expect(page.locator('.menu-button')).toBeHidden();
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
   await expect(page.getByText(/Evaluated across 1,140 rolling-origin test matches with 53\.77% accuracy/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
   await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
@@ -424,6 +463,6 @@ test('320px WCAG text spacing retains every content group without clipping', asy
   ` });
   await expectNoOverflow(page, '320px text spacing');
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(8);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
   await expect(page.getByRole('heading', { name: 'Interested in working together?' })).toBeVisible();
 });

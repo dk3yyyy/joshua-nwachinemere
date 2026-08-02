@@ -1,0 +1,2835 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T08:56:53.547Z",
+  "sources": [
+    {
+      "id": "volyxai-site",
+      "title": "VolyxAI",
+      "kind": "webpage",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "version": "de2ed3c3b34a9d0b5474ddc039805fad5118c778c48bd7b8055e9c40a72a869b",
+      "contentSha256": "f1fc49c44404bfd1b112870c5e28adeb7135aea1501a8c58dcb7df423a3e03fc"
+    },
+    {
+      "id": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/dk3yyyy",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "fae8f6afc4e9ec57229202f2e435c76b4b710fdc",
+      "contentSha256": "7ef71cd30da49f6c96652c2a2404993d207b5335c1852a8ad12dd77927a68ff9",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy"
+    },
+    {
+      "id": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/joshua-nwachinemere",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "16eb8e8cc74672afc3b0583a66e6a699a7e37232",
+      "contentSha256": "e927d4963d286dc675f6c8a91ae29bdff04afaff034247d450234d47a8fa6af9",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/joshua-nwachinemere"
+    },
+    {
+      "id": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/volyx-lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "bab0d100421652570392ec63b489b53b3ca0c9fd",
+      "contentSha256": "d38650c14fab5d88cb2c9a01a896856ec4cbe81d8f6a26bf6bbe0c9ef03c470e",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/volyx-lens"
+    },
+    {
+      "id": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/local_AI_agent",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "6f87366e4321ae7f9510367b28866c12de1588db",
+      "contentSha256": "901ff0eda4df0a2398404a537a8f0445b91029177121989db1a9570b3f57edb2",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/local_AI_agent"
+    },
+    {
+      "id": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/football_predictor",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "7aab6c33c916f8ef543623ea4f2782f1b9618905",
+      "contentSha256": "20b337389c162a709f08a1e22f0a9034f3dfd94badc90a73f9a26e59eeaa0a9e",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/football_predictor"
+    },
+    {
+      "id": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/telegram-social-video-downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "ffd4002b24fd43b49c5a822206601bddcbc75a0b",
+      "contentSha256": "88e9d51cf3b2993a92d7967d7e0751c2818d607b4a308dc9b79ef2291c14759c",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/telegram-social-video-downloader"
+    },
+    {
+      "id": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/sol-eth-wallet-analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "eafb425f2d9cdbc5b2f64adeb840e19b0b525944",
+      "contentSha256": "17374e3c1c46abb3306fadbdf5827aca1e6b4d3ae948124e810ccabd3edf0cde",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer"
+    },
+    {
+      "id": "project-noughtline",
+      "title": "Noughtline",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "58ef2bb75d8603ac06ddea6be4768135fd8629fb",
+      "contentSha256": "60c69dcc62fb3339e70523c5fdc780a066c11b62e97e8234d9148b7b163abb88",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/Noughtline"
+    },
+    {
+      "id": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "kind": "github_readme",
+      "repository": "dk3yyyy/user_count",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "version": "e863363ba1a1f91da4472df14cd90a260bc172d6",
+      "contentSha256": "462097bcd728a81de3e689c4a76b26433f295d2cf59cca20261124f2d5ca8c7f",
+      "sourceDocumentUrl": "https://github.com/dk3yyyy/user_count"
+    }
+  ],
+  "chunks": [
+    {
+      "id": "volyxai-site:0001",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "VolyxAI | Practical AI Workflows for Operations Request a workflow review AI operations, designed around your team Move routine work forward. Keep people in control. For operations teams handling repetitive calls, intake, scheduling and follow-ups, VolyxAI designs one controlled workflow that connects each conversation to the next approved action. Request a workflow review See how engagements work Enquiry qualification Scheduling Document collection Exception follow-up V Operations desk Example: enquiry intake Illustrative Input Conversation sample state Control Validation sample state Outcome Needs review sample state Current activity Every action keeps its context Example sequence Inbound enquiry received Sample request Step 1 Required details validated Example fields complete Step 2 Human approval requested Review Example exception Step 3 Handoff ready Conversation, fields and"
+    },
+    {
+      "id": "volyxai-site:0002",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "recommended next step attached Approval required No consequential action runs alone Illustrative workflow A practical operations layer This example shows the control pattern. It is not a live customer system. VolyxAI connects a conversation to defined business steps, with validation and human review wherever the workflow needs it. Example: inbound enquiry Sample states only · no customer or performance data Illustrative workflow Step 1 Conversation A routine enquiry arrives by voice or message. Step 2 Validation Required details and business rules are checked. Step 3 Approval Exceptions or consequential actions wait for a person. Step 4 Handoff Context and the approved next step move together. Built around the work The exact channels and systems are scoped before build work begins. Voice and message intake Deterministic validation Human approval gates Context-rich handoffs Scoped"
+    },
+    {
+      "id": "volyxai-site:0003",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "integrations Explicit failure policies Request a workflow review Ways to work together Start with the right engagement Scope, timeline and fee depend on the systems, risk and request volume involved. You receive a written proposal before build work starts. Engagement 1 Workflow discovery Best for Choosing the right first process View engagement details Hide engagement details You receive A written workflow assessment and implementation recommendation Your team provides A workflow owner, process examples and relevant documentation Then Decide whether the workflow is suitable for a design partnership Process and failure-mode map Integration feasibility review Data and approval requirements Request a workflow review Engagement 1 Workflow discovery Best for Choosing the right first process You receive A written workflow assessment and implementation recommendation Your team provides A"
+    },
+    {
+      "id": "volyxai-site:0004",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "workflow owner, process examples and relevant documentation Then Decide whether the workflow is suitable for a design partnership Process and failure-mode map Integration feasibility review Data and approval requirements Request a workflow review Engagement 2 Design partnership Best for Building and testing one controlled workflow View engagement details Hide engagement details You receive A tested pilot and the documentation needed to evaluate it Your team provides A workflow owner, safe test access and timely approval decisions Then Review pilot evidence before considering any operational rollout One end-to-end workflow Safeguards and human handoff Testing and operating documentation Request a workflow review Engagement 2 Design partnership Best for Building and testing one controlled workflow You receive A tested pilot and the documentation needed to evaluate it Your team provides A"
+    },
+    {
+      "id": "volyxai-site:0005",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "workflow owner, safe test access and timely approval decisions Then Review pilot evidence before considering any operational rollout One end-to-end workflow Safeguards and human handoff Testing and operating documentation Request a workflow review Engagement 3 Operational rollout Best for Expanding a validated pilot View engagement details Hide engagement details You receive A documented rollout, monitoring and handover plan Your team provides Confirmed owners, approved access and agreed support responsibilities Then Expand only after the workflow meets agreed reliability criteria Pilot hardening and scale review Additional scoped integrations Monitoring, access and team handover Request a workflow review Engagement 3 Operational rollout Best for Expanding a validated pilot You receive A documented rollout, monitoring and handover plan Your team provides Confirmed owners, approved access"
+    },
+    {
+      "id": "volyxai-site:0006",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "and agreed support responsibilities Then Expand only after the workflow meets agreed reliability criteria Pilot hardening and scale review Additional scoped integrations Monitoring, access and team handover Request a workflow review How delivery works Start with one operational bottleneck and earn the right to automate more. 01 Map the workflow Choose one repetitive process and document its inputs, decisions, systems, owners, and exception paths. 02 Set the controls Define required data, approval gates, escalation rules, and the actions automation is allowed to take. 03 Connect and test Integrate the required channels in a controlled environment and verify the happy path, failures, retries, and handoffs. 04 Launch and improve Release with monitoring, review real outcomes, and expand only after the workflow is reliable and measurable. How VolyxAI differs Controlled workflow design, not"
+    },
+    {
+      "id": "volyxai-site:0007",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "autonomous action. VolyxAI is not a generic chatbot or an autonomous agent deployment. It starts with one operational process, defines allowed actions and escalation paths, then connects the approved workflow to existing systems. Controls and boundaries Review Close The exact controls are written into the scope for each workflow. These are the starting principles. Access starts small Discovery begins with process examples and documentation. Production access is not required to understand the workflow. Test before release Approved integrations are exercised with test credentials or controlled environments wherever the connected systems allow it. People approve consequences Sensitive or consequential actions wait for an authorised person instead of running from model output alone. Failures escalate clearly The workflow preserves context, retries only where safe, and hands exceptions to an"
+    },
+    {
+      "id": "volyxai-site:0008",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "owner rather than improvising an action. Workflow ownership, documentation, access and support responsibilities are agreed in the written proposal before build work starts. Controls and boundaries The exact controls are written into the scope for each workflow. These are the starting principles. Access starts small Discovery begins with process examples and documentation. Production access is not required to understand the workflow. Test before release Approved integrations are exercised with test credentials or controlled environments wherever the connected systems allow it. People approve consequences Sensitive or consequential actions wait for an authorised person instead of running from model output alone. Failures escalate clearly The workflow preserves context, retries only where safe, and hands exceptions to an owner rather than improvising an action. Workflow ownership,"
+    },
+    {
+      "id": "volyxai-site:0009",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "documentation, access and support responsibilities are agreed in the written proposal before build work starts. Early-stage, evidence-first Building reliable workflows with design partners. VolyxAI was founded by AI engineer Joshua Nwachinemere. The process is transparent, with controlled testing and clear documentation. We publish customer claims and results only when they can be verified. Founder GitHub Company LinkedIn Frequently asked questions Practical details about working with VolyxAI. We choose one useful workflow, agree on its boundaries and success criteria, then build and test it with your team before any broader rollout. A workflow owner, examples of the current process, access to relevant documentation, and safe test credentials or sandboxes for approved systems. We do not need production access to begin discovery. We scope access deliberately, keep credentials out of"
+    },
+    {
+      "id": "volyxai-site:0010",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "prompts and code, validate inputs, and use human approval for consequential actions. Exact controls depend on the systems involved. The workflow follows an explicit failure policy: retry only where safe, preserve context, and route exceptions to a person instead of improvising a consequential action. Avoid processes with unclear ownership, unstable rules, unavailable system access, or high-consequence decisions that cannot be checked by a person. Discovery should expose those constraints before build work. Design partners wanted Start with one workflow worth fixing. Describe the bottleneck and the systems around it. We'll review the request and reply with fit, questions or a sensible next step. What happens after you submit Review Close 1 . Fit review. We check whether the workflow, available access and risk level suit this process. 2 . Clarifying questions. We may ask for process"
+    },
+    {
+      "id": "volyxai-site:0011",
+      "sourceId": "volyxai-site",
+      "title": "VolyxAI",
+      "url": "https://volyxai.com/",
+      "trust": "official_site",
+      "answerPolicy": "verified_public",
+      "text": "examples or constraints, but not confidential customer data. 3 . Written scope. If there is a fit, responsibilities, timing and fees are agreed before build work begins. What happens after you submit 1 . Fit review. We check whether the workflow, available access and risk level suit this process. 2 . Clarifying questions. We may ask for process examples or constraints, but not confidential customer data. 3 . Written scope. If there is a fit, responsibilities, timing and fees are agreed before build work begins. Practical AI-assisted workflows for voice, messaging, scheduling, intake, and operational handoffs. People stay in control. Founded by Joshua Nwachinemere. [email protected] Privacy notice © 2026 VolyxAI. All rights reserved."
+    },
+    {
+      "id": "github-profile:0001",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "AI Engineer building reliable RAG, multimodal, and voice systems in Python."
+    },
+    {
+      "id": "github-profile:0002",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Portfolio ·\n LinkedIn ·\n Email"
+    },
+    {
+      "id": "github-profile:0003",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "I build the retrieval, context, provider-integration, evaluation, and backend reliability layers that turn model capability into useful systems."
+    },
+    {
+      "id": "github-profile:0004",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Applied AI:** grounded retrieval, multimodal inputs, voice workflows, structured outputs, and measurable evaluations\n- **Reliable services:** async Python, FastAPI, retries, caching, webhooks, and idempotent workflows\n- **Product systems:** privacy-aware desktop apps, provider routing, explicit control boundaries, and automated verification"
+    },
+    {
+      "id": "github-profile:0005",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A macOS AI interview and coding copilot with screen and voice context, provider routing, secure native components, and best-effort capture exclusion."
+    },
+    {
+      "id": "github-profile:0006",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Local-first RAG with adaptable CSV mapping, recoverable indexes, validated citations, and a measured semantic-vs-BM25 evaluation."
+    },
+    {
+      "id": "github-profile:0007",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Source · Architecture · Results"
+    },
+    {
+      "id": "github-profile:0008",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Leakage-resistant temporal ML evaluation with calibrated models, frozen holdouts, and honest bookmaker comparison."
+    },
+    {
+      "id": "github-profile:0009",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Eight merged upstream contributions, selected for relevance to agent reliability, evaluation, tracing, and framework compatibility:"
+    },
+    {
+      "id": "github-profile:0010",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **OpenAI Agents SDK #3991:** bounded retry behavior for retryable pre-response WebSocket failures\n- **Pydantic AI Harness #503:** preserved model retry context after host-side Code Mode session resets\n- **Mellea #1471:** deterministic tracing coverage for async spans, context propagation, and token usage\n- **FastStream #2961:** FastAPI 0.140 compatibility with preserved AsyncAPI metadata"
+    },
+    {
+      "id": "github-profile:0011",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "View four additional merged contributions"
+    },
+    {
+      "id": "github-profile:0012",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Apache Arrow Rust #10486\n- Altair #4089\n- FastStream FastAPI #2\n- Calkit #1028"
+    },
+    {
+      "id": "github-profile:0013",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Primary:** Python, FastAPI, asyncio, Ollama, Chroma, scikit-learn, XGBoost \n**Product and delivery:** Electron, Swift, React, Docker, GitHub Actions, Playwright, n8n, Azure AI Foundry"
+    },
+    {
+      "id": "github-profile:0014",
+      "sourceId": "github-profile",
+      "title": "Joshua Nwachinemere — GitHub profile",
+      "url": "https://github.com/dk3yyyy",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Building VolyxAI and independently developing Volyx Lens. Open to AI Engineer and ML Engineer opportunities."
+    },
+    {
+      "id": "portfolio-readme:0001",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Joshua Nwachinemere | Portfolio"
+    },
+    {
+      "id": "portfolio-readme:0002",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A fast, responsive portfolio for Joshua Nwachinemere, an AI Engineer building Python systems for retrieval, context engineering, multimodal and voice applications, model integrations, backend services, and ML evaluation workflows."
+    },
+    {
+      "id": "portfolio-readme:0003",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The production files are generated in `dist/`."
+    },
+    {
+      "id": "portfolio-readme:0004",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "DOCX and PDF generation is byte-reproducible by default. Set `SOURCE_DATE_EPOCH` only when an intentional release timestamp is required; otherwise the generator uses the documented fixed source date encoded in `scripts/build_cv.py`."
+    },
+    {
+      "id": "portfolio-readme:0005",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Project claims are based on Joshua's original public repositories.\n- The site avoids unsupported customer, scale, and performance claims.\n- The visual identity is face-free and uses a terminal/workflow motif.\n- Contact: ``"
+    },
+    {
+      "id": "portfolio-readme:0006",
+      "sourceId": "portfolio-readme",
+      "title": "Joshua Nwachinemere portfolio",
+      "url": "https://github.com/dk3yyyy/joshua-nwachinemere",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The project is a static Vite site. It is ready for a root-domain deployment on Cloudflare Pages, Netlify, Vercel, or another static host. A GitHub Pages project-site deployment needs an explicit Vite `base` path first. Publishing, production metadata, and host-level security headers remain separate release steps that require approval."
+    },
+    {
+      "id": "project-volyx-lens:0001",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Private, context-aware assistance for your Mac.**"
+    },
+    {
+      "id": "project-volyx-lens:0002",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Use your screen, voice, meeting audio, and saved Task Context without routing requests through a VolyxAI server. Bring your own AI provider and choose what leaves your Mac."
+    },
+    {
+      "id": "project-volyx-lens:0003",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Explore the live site** · Download for macOS · Product tour · Architecture · Privacy"
+    },
+    {
+      "id": "project-volyx-lens:0004",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Live product site: volyxlens.pages.dev"
+    },
+    {
+      "id": "project-volyx-lens:0005",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "> [!IMPORTANT]\n> **Capture exclusion is best-effort, never guaranteed.** Modern macOS capture tools may still show Volyx Lens, and a physical camera always can. Do not use hidden assistance where it violates exam, interview, workplace, platform, recording-consent, or local-law requirements. Volyx Lens is intended for legitimate personal notes, accessibility, study, practice, and permitted work."
+    },
+    {
+      "id": "project-volyx-lens:0006",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Volyx Lens is a compact glass overlay that can use three intentionally separate inputs:"
+    },
+    {
+      "id": "project-volyx-lens:0007",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Screen** — screenshots are captured only for an explicit screen-based action.\n- **Microphone / “You”** — your voice is transcribed on its own channel.\n- **System audio / “Them”** — a native ScreenCaptureKit helper captures meeting audio on a separate channel."
+    },
+    {
+      "id": "project-volyx-lens:0008",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Nothing is routed through a VolyxAI server. Provider requests go directly from the app to the AI or transcription provider you configure."
+    },
+    {
+      "id": "project-volyx-lens:0009",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Screen-aware assistance** — ask about the visible screen, a conversation, or both.\n- **Separated meeting transcript** — stable timestamped **You** and **Them** turns.\n- **Task Context** — save multiple screens locally, pin important captures, deduplicate near-identical views, and attach a bounded relevant set only when you explicitly ask.\n- **Provider choice** — OpenAI, Anthropic, Gemini, Azure Foundry, and DeepSeek for responses; OpenAI, Azure, Deepgram, or optional local Whisper for transcription.\n- **Personal context** — import a resume/CV and job description with bounded extraction and relevance selection.\n- **Local controls** — clear sessions, export transcripts, inspect sanitized diagnostics, and stop capture immediately.\n- **Native macOS behavior** — compact draggable overlay, edge-aware expanded docking, Keychain-backed credential storage, and best-effort capture exclusion."
+    },
+    {
+      "id": "project-volyx-lens:0010",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "These captures come from the current Electron UI test harness. Provider values shown in Settings are sanitized examples."
+    },
+    {
+      "id": "project-volyx-lens:0011",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Guided onboarding — five focused steps for permissions, providers, sharing, and readiness."
+    },
+    {
+      "id": "project-volyx-lens:0012",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Provider control — choose the default and fallback without exposing stored secrets to the renderer."
+    },
+    {
+      "id": "project-volyx-lens:0013",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The current public binaries are **ad-hoc signed test builds**. They are not signed with an Apple Developer ID certificate and are not notarized by Apple, so GitHub publishes them as a **pre-release**, not as a trusted production release."
+    },
+    {
+      "id": "project-volyx-lens:0014",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Mac | Installer |\n|---|---|\n| **Apple Silicon** — M1, M2, M3, M4, or newer | `Volyx-Lens-0.3.1-macOS-arm64-adhoc.dmg` |\n| **Intel** | `Volyx-Lens-0.3.1-macOS-x64-adhoc.dmg` |"
+    },
+    {
+      "id": "project-volyx-lens:0015",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Open the v0.3.1 release and download the matching DMG →**"
+    },
+    {
+      "id": "project-volyx-lens:0016",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "SHA-256 checksum files and ZIP packages are included in the release."
+    },
+    {
+      "id": "project-volyx-lens:0017",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Download the DMG matching your Mac architecture.\n2. Open it and drag **Volyx Lens** into **Applications**.\n3. Because this test build is not notarized, macOS may block its first launch. In Finder, Control-click or right-click **Volyx Lens**, choose **Open**, then confirm **Open**.\n4. Grant Microphone and Screen & System Audio Recording access when prompted."
+    },
+    {
+      "id": "project-volyx-lens:0018",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Do **not** disable Gatekeeper globally. Ad-hoc builds cannot use the in-app updater; install later test releases manually. A normal one-click launch and trusted automatic update path requires an Apple Developer ID–signed and notarized release."
+    },
+    {
+      "id": "project-volyx-lens:0019",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Action | Trigger | Context used |\n|---|---|---|\n| **Assist** | `⌘` `↵` or Assist | screen, conversation, or both — you choose |\n| **Solve what’s on screen** | `⌘` `H` | current screen |\n| **Add Task Context screen** | `⌘` `⇧` `C` or Add screen | local capture only; no AI request |\n| **What should I say?** | action button | conversation transcript |\n| **Follow-up questions** | action button | conversation transcript |\n| **Recap** | action button | bounded meeting transcript |\n| **Ask anything** | type and press `↵` | selected screen/conversation context |\n| **New Session** | `/new` or New Session | clears in-memory session context |\n| **Emergency quit** | `⌘` `⇧` `X` or power button | stops capture and clears session media context |"
+    },
+    {
+      "id": "project-volyx-lens:0020",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The **Smart** toggle selects the configured higher-capability model. Settings reports whether each global shortcut registered successfully and keeps equivalent visible buttons available."
+    },
+    {
+      "id": "project-volyx-lens:0021",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Volyx Lens requests only the permissions its capture features need; it does not request camera access."
+    },
+    {
+      "id": "project-volyx-lens:0022",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Microphone:** System Settings → Privacy & Security → **Microphone**\n- **Screen and meeting audio:** System Settings → Privacy & Security → **Screen & System Audio Recording**"
+    },
+    {
+      "id": "project-volyx-lens:0023",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "If access was previously denied, enable Volyx Lens in System Settings, then fully quit and reopen it. macOS associates permission grants with the effective app identity, so replacing an ad-hoc build can require granting access again."
+    },
+    {
+      "id": "project-volyx-lens:0024",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Open Settings with `⌘` `,` or the `…` button. Choose a response provider, enter its key and model/deployment names, then select **Use as default**. An optional fallback provider is used only when it is capable of the request and the default fails before producing answer text."
+    },
+    {
+      "id": "project-volyx-lens:0025",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Provider | Role | Configuration notes |\n|---|---|---|\n| **OpenAI** | responses + transcription | API key; compatible response and audio models |\n| **Anthropic** | responses | API key; transcription requires another provider |\n| **Google Gemini** | responses + batch transcription | Gemini API key |\n| **Azure Foundry** | responses + realtime transcription | resource key, official resource endpoint, and exact deployment names |\n| **DeepSeek** | text responses | screen analysis requires a vision-capable default/fallback |\n| **Deepgram** | realtime transcription | dedicated key; Nova streaming models |\n| **Local Whisper** | optional offline batch transcription | externally installed `whisper-cli` and model; disabled by default |"
+    },
+    {
+      "id": "project-volyx-lens:0026",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Keys stay in the Electron main process and are protected with `safeStorage` / macOS Keychain where available. The renderer receives credential status, not stored secret values. Settings warns if secure storage is unavailable."
+    },
+    {
+      "id": "project-volyx-lens:0027",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "3. Configure Zoom capture filtering"
+    },
+    {
+      "id": "project-volyx-lens:0028",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Settings → Share Screen → Advanced → Screen capture mode → Advanced capture with window filtering**"
+    },
+    {
+      "id": "project-volyx-lens:0029",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "This asks Zoom to respect Volyx Lens’s protected-window flag. It is still best-effort and may not work with every macOS or capture-tool version."
+    },
+    {
+      "id": "project-volyx-lens:0030",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Task Context is for work revealed across multiple screens—for example a problem statement, source files, and test output."
+    },
+    {
+      "id": "project-volyx-lens:0031",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Add screen** saves a compressed capture in bounded process memory without contacting a provider.\n- Exact SHA-256 and a local visual fingerprint reduce duplicate captures.\n- Optional Apple Vision OCR runs locally and is used for overlap detection and relevance ranking; recognized text is not sent as a separate provider payload.\n- Pinning protects important screens from ordinary eviction and prioritizes them for later requests.\n- Remove, Undo last, Clear, and New Session provide explicit lifecycle control.\n- A screen request attaches at most **39 saved screens plus the current screen**. Before eight or more saved screens are uploaded, Volyx Lens shows the selected provider and image count and requires confirmation.\n- Screens that are not selected remain local and are not presented as processed."
+    },
+    {
+      "id": "project-volyx-lens:0032",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Task Context cannot read files or code that never appeared on screen. Use it only when external assistance is permitted."
+    },
+    {
+      "id": "project-volyx-lens:0033",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Volyx Lens is an Electron application with a sandboxed renderer and a privileged main process:"
+    },
+    {
+      "id": "project-volyx-lens:0034",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. **Capture stays separated.** Screens, microphone PCM, and system-audio PCM have distinct lifecycles.\n2. **Local controls run first.** Permission checks, memory budgets, deduplication, OCR ranking, cancellation, and secure credential access happen locally.\n3. **The user triggers a request.** Screen and transcript context is attached only for the selected action.\n4. **The main process routes directly.** Requests go to the configured response or transcription provider—never through a VolyxAI intermediary.\n5. **Results stream into the overlay.** Provider failures are reduced to sanitized, actionable states rather than exposing credentials or raw SDK errors."
+    },
+    {
+      "id": "project-volyx-lens:0035",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Realtime microphone audio is deterministically resampled to 24 kHz mono PCM. System audio comes from a bundled ScreenCaptureKit helper and remains a separate **Them** channel. Optional local Whisper is operator-configured, disabled by default, and does not silently fall back to cloud transcription unless cloud fallback is separately enabled."
+    },
+    {
+      "id": "project-volyx-lens:0036",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **No VolyxAI account, intermediary server, or product telemetry.** Selected third-party providers still receive the data required for explicit requests and apply their own terms and pricing. - **No persistent screenshots or audio.** Volyx Lens keeps active session media in memory; New Session or emergency quit clears it. - **Bounded personal context.** Imported documents store extracted text and status—not the original file path or raw document—and send only relevant bounded excerpts for answer-oriented actions. - **Sandboxed UI.** Chromium sandboxing, context isolation, no renderer Node integration, restrictive CSP, denied popup/navigation requests, and bounded IPC payloads are enabled. - **Protected secrets.** Credentials are accessed in the main process and use `safeStorage` / Keychain when available. - **Explicit expensive requests.** Large multi-image requests and multi-part"
+    },
+    {
+      "id": "project-volyx-lens:0037",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "long-meeting recaps require confirmation. - **Best-effort capture exclusion.** `setContentProtection(true)` / `NSWindowSharingNone` reduces accidental capture but is not a security guarantee."
+    },
+    {
+      "id": "project-volyx-lens:0038",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "While listening, confirmed provider chunks are grouped into timestamped **You** and **Them** turns. Partial text remains visually distinct and is replaced by confirmed text. The workspace can:"
+    },
+    {
+      "id": "project-volyx-lens:0039",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- copy one turn or the complete confirmed transcript;\n- export TXT, Markdown, or structured JSON through a native save dialog;\n- clear the session with confirmation;\n- show sanitized diagnostics without keys, endpoints, raw audio, images, personal-context text, or transcript content."
+    },
+    {
+      "id": "project-volyx-lens:0040",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Long answer requests use bounded recent context. Longer recaps use bounded part summaries and require confirmation before multiple paid provider requests are made."
+    },
+    {
+      "id": "project-volyx-lens:0041",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "macOS says the app is damaged or cannot be opened"
+    },
+    {
+      "id": "project-volyx-lens:0042",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Delete the copy and download the matching DMG from this repository’s release page again. Verify its SHA-256 checksum. For the current ad-hoc test build, use Finder’s Control-click/right-click → **Open** flow. Never disable Gatekeeper globally."
+    },
+    {
+      "id": "project-volyx-lens:0043",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Permission is enabled but capture still fails"
+    },
+    {
+      "id": "project-volyx-lens:0044",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "You may have granted permission to an older ad-hoc build. Toggle Volyx Lens off and on in the relevant Privacy & Security pane, then fully quit and reopen the current app. Rebuilt ad-hoc apps can receive a different effective identity."
+    },
+    {
+      "id": "project-volyx-lens:0045",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Listening connects but no transcript appears"
+    },
+    {
+      "id": "project-volyx-lens:0046",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Verify the selected realtime provider and exact deployment/model configuration. For Azure, use the official resource endpoint, resource key, and exact realtime transcription deployment name. Stop listening before changing settings, then use **Test Live Mic** to send a bounded five-second sample and require a real transcript. Provider billing may apply."
+    },
+    {
+      "id": "project-volyx-lens:0047",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Volyx Lens appears in a Zoom share"
+    },
+    {
+      "id": "project-volyx-lens:0048",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Select **Advanced capture with window filtering** in Zoom as shown above. Capture exclusion remains best-effort, especially on newer macOS capture paths."
+    },
+    {
+      "id": "project-volyx-lens:0049",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- macOS\n- Node.js 20+ installed\n- npm\n- Xcode Command Line Tools (`xcode-select --install`) for native OCR and system-audio helpers"
+    },
+    {
+      "id": "project-volyx-lens:0050",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Local builds are unsigned unless a valid signing identity is installed. Rebuilding can reset macOS permission grants."
+    },
+    {
+      "id": "project-volyx-lens:0051",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The ad-hoc test workflow builds Apple Silicon and Intel artifacts on native GitHub-hosted macOS runners. Before uploading artifacts, it runs tests, syntax and secret checks, release-readiness checks, native-helper self-tests, ad-hoc signature verification, executable architecture checks, renderer smoke tests, DMG verification/mounting, and SHA-256 generation."
+    },
+    {
+      "id": "project-volyx-lens:0052",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A trusted production release is a separate path. It fails closed unless Developer ID signing and Apple notarization credentials are available, and verifies signatures, notarization staples, Gatekeeper assessment, architecture-specific updater metadata, checksums, SBOMs, and build attestations before publication."
+    },
+    {
+      "id": "project-volyx-lens:0053",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Copyright © 2026 Joshua Nwachinemere."
+    },
+    {
+      "id": "project-volyx-lens:0054",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Volyx Lens is source-available under the PolyForm Noncommercial License 1.0.0. Personal and other noncommercial use is permitted under its terms. Commercial use, resale, paid redistribution, or use in a commercial product or service requires a separate licence from VolyxAI."
+    },
+    {
+      "id": "project-volyx-lens:0055",
+      "sourceId": "project-volyx-lens",
+      "title": "Volyx Lens",
+      "url": "https://github.com/dk3yyyy/volyx-lens",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Issues and pull requests are welcome. Keep changes focused, preserve the privacy boundaries above, and include tests for behavior changes."
+    },
+    {
+      "id": "project-local-review-intelligence:0001",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "🍕 Local Restaurant Review Intelligence"
+    },
+    {
+      "id": "project-local-review-intelligence:0002",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A local-first review-intelligence application powered by Ollama and embedded ChromaDB. Explore the bundled restaurant dataset or map almost any review CSV, then filter the evidence and ask grounded questions with validated source citations."
+    },
+    {
+      "id": "project-local-review-intelligence:0003",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "By default, runtime review data, embeddings, and prompts are processed by embedded Chroma and Ollama on the same machine. If `OLLAMA_HOST` points to another computer or hosted endpoint, prompts and retrieved review excerpts are sent there. Installing dependencies and downloading models also use the network."
+    },
+    {
+      "id": "project-local-review-intelligence:0004",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The bundled dataset in its populated dashboard state: adaptive metrics, rating distribution, review evidence, and the question surface in one view."
+    },
+    {
+      "id": "project-local-review-intelligence:0005",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Visual dashboard:** adaptive metrics, distribution charts, rating/date/category filters, a review browser, and a grounded-question surface. - **Validated citations:** short evidence citations map strictly to stable retrieved source IDs; an invalid or premature-abstention response gets one bounded correction attempt, then invented or missing citations fail safely. - **Safe offline state:** analytics still load when Ollama is unavailable, while the app shows exact setup commands instead of crashing. - **Adaptive CSV upload:** automatically detect common headers, manually map unfamiliar names, and isolate every dataset in content-addressed Chroma storage. - **Reconciled indexing:** content-derived IDs survive reordering; additions, changed records, and deletions are synchronized safely. - **Measured RAG:** a versioned 30-case evaluation across nine answerable domains plus abstention"
+    },
+    {
+      "id": "project-local-review-intelligence:0006",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "compares semantic retrieval with a deterministic BM25 keyword baseline, then measures citation validity, a transparent reference-term support proxy, expected-action accuracy, answer success, and abstention recall. - **Installable CLI:** the packaged `local-ai-agent` command exposes status, ask, chat, and evaluate workflows. - **Local execution by default:** Ollama handles embeddings and answer generation unless a remote host is explicitly configured."
+    },
+    {
+      "id": "project-local-review-intelligence:0007",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "See the architecture diagram and boundary notes."
+    },
+    {
+      "id": "project-local-review-intelligence:0008",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Watch the silent 48-second dashboard demo. It shows the real local question trigger, indexing state, generated answer, validated citations, and an expanded source record using the bundled dataset."
+    },
+    {
+      "id": "project-local-review-intelligence:0009",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Python 3.11 or newer\n- uv\n- Ollama for semantic indexing, questions, and evaluations; the analytics dashboard still works without it\n- Enough local memory and disk space for the selected models"
+    },
+    {
+      "id": "project-local-review-intelligence:0010",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "2. Start Ollama for semantic questions"
+    },
+    {
+      "id": "project-local-review-intelligence:0011",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The Ollama desktop application starts the service automatically on supported systems. For a manual or headless installation, run:"
+    },
+    {
+      "id": "project-local-review-intelligence:0012",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Keep that process running in another terminal."
+    },
+    {
+      "id": "project-local-review-intelligence:0013",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "You can skip this step for an analytics-only dashboard preview. Metrics, filters, charts, and review browsing remain available while the question input shows the model setup required."
+    },
+    {
+      "id": "project-local-review-intelligence:0014",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "3. Download the required models"
+    },
+    {
+      "id": "project-local-review-intelligence:0015",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Model | Purpose |\n| --- | --- |\n| `mxbai-embed-large` | Creates embeddings for semantic review retrieval |\n| `llama3.2` | Generates answers from retrieved review evidence |"
+    },
+    {
+      "id": "project-local-review-intelligence:0016",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Model downloads can be several gigabytes. The application never downloads them silently."
+    },
+    {
+      "id": "project-local-review-intelligence:0017",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Open the local URL printed by Streamlit, usually `http://localhost:8501`."
+    },
+    {
+      "id": "project-local-review-intelligence:0018",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The dashboard can immediately display dataset metrics and reviews. AI questions are enabled only after Ollama and both required models pass the health check."
+    },
+    {
+      "id": "project-local-review-intelligence:0019",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Use the bundled 123-review dataset or upload a CSV.\n2. Confirm the suggested column mapping. Only review text is required.\n3. Filter by any mapped ratings, dates, sentiments, restaurants, or countries.\n4. Review the adaptive metrics, distribution chart, and matching rows.\n5. Ask a question and expand the source records beneath the answer."
+    },
+    {
+      "id": "project-local-review-intelligence:0020",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Common headers are detected automatically, including:"
+    },
+    {
+      "id": "project-local-review-intelligence:0021",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Role | Examples |\n| --- | --- |\n| Review text | `Review`, `Review Text`, `Feedback`, `Comment`, `Body` |\n| Title | `Title`, `Review Title`, `Headline`, `Subject` |\n| Date | `Date`, `Review Date`, `Published On`, `Created At` |\n| Rating | `Rating`, `Stars`, `Score`, `Review Score` |\n| Sentiment | `Sentiment`, `Polarity`, `Label` |\n| Restaurant | `Restaurant Name`, `Restaurant`, `Venue`, `Business` |\n| Country | `Country`, `Nation`, `Market`, `Region` |"
+    },
+    {
+      "id": "project-local-review-intelligence:0022",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "For unfamiliar names, select the role manually in the mapping panel. Unmapped columns are preserved as source metadata and included in indexed context. A dataset such as this works without a rating column:"
+    },
+    {
+      "id": "project-local-review-intelligence:0023",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Review text cannot be empty. Mapped ratings must be integers from 1 through 5, and supplied mapped dates must be valid. Uploads are limited to 10 MB."
+    },
+    {
+      "id": "project-local-review-intelligence:0024",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Check the dataset, Ollama service, and required models without starting indexing:"
+    },
+    {
+      "id": "project-local-review-intelligence:0025",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Start an interactive terminal the measured RAG evaluation against the configured local models:"
+    },
+    {
+      "id": "project-local-review-intelligence:0026",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Write a reproducible machine-readable report and a Markdown summary:"
+    },
+    {
+      "id": "project-local-review-intelligence:0027",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The versioned case manifest is tied to the dataset SHA-256 and uses immutable content-derived source IDs for gold relevance. The report records model tags and immutable Ollama digests, dataset and case-set hashes, retrieval limit, runtime versions, per-case RAG and BM25 rankings, and aggregate metrics. Report schema v3 additively extends v2 with answer diagnostics; consumers should branch on `schema_version` before reading those fields. Each RAG observation records the initial and final structured validation reasons and whether a repair was attempted. Raw initial and repair model responses are omitted by default; pass `--include-raw-responses` only when those diagnostics are needed. The CLI and dashboard continue to expose only validated answers or safe fallback messages. Raw model responses may echo source review text, so treat opted-in evaluation artifacts as potentially sensitive and"
+    },
+    {
+      "id": "project-local-review-intelligence:0028",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "review or redact them before sharing or committing. Retrieval quality is reported as recall@k, hit rate@k, and MRR@k for both semantic search and the BM25 baseline. Relevance judgments are known-positive, not exhaustive. The generated report is evidence for this fixed benchmark configuration, not a claim about general RAG performance."
+    },
+    {
+      "id": "project-local-review-intelligence:0029",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The original source-tree command remains available for development:"
+    },
+    {
+      "id": "project-local-review-intelligence:0030",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Use `--help` on the main command or a subcommand to see model, host, dataset, rating, date, sentiment, restaurant, country, and evidence-limit options. The CLI auto-detects recognized aliases; use the dashboard mapping panel for unfamiliar column names."
+    },
+    {
+      "id": "project-local-review-intelligence:0031",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The defaults can be changed through command options, dashboard controls, or these environment variables:"
+    },
+    {
+      "id": "project-local-review-intelligence:0032",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Variable | Default |\n| --- | --- |\n| `OLLAMA_HOST` | `http://localhost:11434` |\n| `CHAT_MODEL` | `llama3.2` |\n| `EMBEDDING_MODEL` | `mxbai-embed-large` |\n| `LOCAL_AI_STORAGE_ROOT` | `~/.local/share/local-ai-agent` |"
+    },
+    {
+      "id": "project-local-review-intelligence:0033",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Every normalized review receives a content-derived source ID. The dataset fingerprint is calculated from the sorted record digests, so row reordering does not create a new dataset. The fingerprint automatically derives both the Chroma database directory and collection name under `LOCAL_AI_STORAGE_ROOT`."
+    },
+    {
+      "id": "project-local-review-intelligence:0034",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Validated uploads are retained under ` /uploads/`. Their embedded Chroma databases live under ` /chroma/ /`. Identical content and mapping reuse storage; changed datasets are isolated automatically."
+    },
+    {
+      "id": "project-local-review-intelligence:0035",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "On startup, reconciliation compares desired content IDs with Chroma. New IDs are embedded, changed records receive new IDs, and stale IDs from deleted or changed records are removed. Interrupted embedding runs retry the records that are still missing."
+    },
+    {
+      "id": "project-local-review-intelligence:0036",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "To remove local application data and indexes, stop the application and delete the configured `LOCAL_AI_STORAGE_ROOT`. This deletes local indexes and retained uploads; it does not remove Ollama models."
+    },
+    {
+      "id": "project-local-review-intelligence:0037",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- schema alias detection and manual column mapping;\n- optional rating, date, sentiment, restaurant, and country fields;\n- content-derived IDs and order-independent dataset fingerprints;\n- Chroma recovery plus addition, change, and deletion reconciliation;\n- automatic database and collection isolation;\n- adaptive rating, date, and categorical filtering;\n- Ollama health states;\n- evidence-alias-to-source citation validation and model abstention;\n- the 30-case evaluation set, BM25 baseline, retrieval metrics, and decomposed\n answer, citation, support-proxy, and abstention metrics;\n- evaluation-report serialization and credential-safe provenance;\n- deterministic upload storage;\n- Streamlit rendering without Ollama."
+    },
+    {
+      "id": "project-local-review-intelligence:0038",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Run the same quality gates used by CI:"
+    },
+    {
+      "id": "project-local-review-intelligence:0039",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "GitHub Actions tests Python 3.11 and Python 3.14 and reports coverage for all\nsix core Python modules, including `evaluation.py`. On Python 3.11 it also runs\nstatic typing, Ruff, formatting, the runtime-dependency audit, package build,\nand an installed-CLI smoke test. Coverage remains visible without an arbitrary\npass threshold."
+    },
+    {
+      "id": "project-local-review-intelligence:0040",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "ChromaDB is declared directly at the newest PyPI release verified during this update (`1.5.9`). `pip-audit` still reports `PYSEC-2026-311` / `CVE-2026-45829`, and the advisory currently lists no fixed release. It concerns an unauthenticated Chroma HTTP server endpoint that accepts `trust_remote_code`; this application uses embedded Chroma and does not start that server. CI ignores only this finding and fails on every other known vulnerability. The scope and removal conditions are documented in SECURITY.md."
+    },
+    {
+      "id": "project-local-review-intelligence:0041",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Semantic questions and measured evaluations require a reachable Ollama service and both configured models. - Browser uploads remain limited to 10 MB. Large datasets require a future chunked/local-path ingestion path rather than merely increasing Streamlit's limit. - Rating, date, sentiment, restaurant, and country filters are applied after semantic ranking. This is suitable for small local datasets but not optimized for very large collections. - Automatic mapping is conservative. Unfamiliar or ambiguous headers require confirmation in the dashboard. - Sentiment labels are displayed and filtered as supplied. The application does not infer sentiment when the dataset lacks a sentiment column. - The reference-term support proxy checks expected terms against answers and cited source text; it is not an LLM judge or proof that every claim is correct. - Topic modeling, hybrid keyword"
+    },
+    {
+      "id": "project-local-review-intelligence:0042",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "retrieval, and reranking are not implemented. - The application does not provide authentication or multi-user isolation and should not be exposed directly as a shared public service."
+    },
+    {
+      "id": "project-local-review-intelligence:0043",
+      "sourceId": "project-local-review-intelligence",
+      "title": "Local Review Intelligence",
+      "url": "https://github.com/dk3yyyy/local_AI_agent",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Licensed under the MIT License."
+    },
+    {
+      "id": "project-football-forecasting:0001",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Football Forecasting Lab | Temporal ML Evaluation Pipeline"
+    },
+    {
+      "id": "project-football-forecasting:0002",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A temporal machine-learning pipeline for football forecasting and evaluation. It produces calibrated Home/Draw/Away probabilities, combines an XGBoost classifier with independent-Poisson score estimates, and keeps frozen backtests, live forecasts and synthetic interface data separate."
+    },
+    {
+      "id": "project-football-forecasting:0003",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Status:** experimental research and engineering project. The forecasts are uncertain estimates, not betting advice or evidence of future profitability."
+    },
+    {
+      "id": "project-football-forecasting:0004",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Try the offline demo · Inspect the evaluation · Understand the method · Run the API · Contribute"
+    },
+    {
+      "id": "project-football-forecasting:0005",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The screenshot shows the credential-free synthetic demo. Its fictional teams and hand-authored probabilities exercise the interface; they are not model-performance evidence."
+    },
+    {
+      "id": "project-football-forecasting:0006",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The repository includes an auditable rolling-origin evaluation built from six Premier League seasons. Its source URLs, file hashes, temporal windows and fold outputs are checked in as a narrative report and machine-readable JSON."
+    },
+    {
+      "id": "project-football-forecasting:0007",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Measure | Result |\n| --- | ---: |\n| Untouched chronological test matches | 1,140 |\n| Model weighted accuracy | 53.77% |\n| Training-window majority baseline | 45.09% |\n| Normalized Bet365 closing-probability benchmark | 56.70% |\n| Folds beating bookmaker accuracy | 0 of 3 |"
+    },
+    {
+      "id": "project-football-forecasting:0008",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The model beat its naive accuracy, log-loss and Brier baselines in all three folds, but it did not beat the bookmaker benchmark. Model accuracy covered all 1,140 test rows; the bookmaker’s selective accuracy covered 1,125 rows (98.68%) because 15 closing-probability ties were treated as abstentions. The report is checked-in, auditable evidence; the repository does not yet provide one command that regenerates that exact football-data.co.uk benchmark end to end. The operational backfill path described below uses Football-data.org and optional FBref collection, so it is a separate data workflow."
+    },
+    {
+      "id": "project-football-forecasting:0009",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Temporal features use only results available before each kickoff.\n- Expanding-window out-of-fold goal estimates feed the outcome classifier without in-sample stacking leakage.\n- Training, calibration and untouched test windows are chronological and non-overlapping.\n- The outcome model is calibrated before a fixed 50/50 blend with independent-Poisson score probabilities.\n- Model artifacts bind evaluation identity, data coverage, fitted state and a frozen holdout contract.\n- `live`, `backtest`, `demo` and migration-only `legacy` rows remain separate in storage and reporting.\n- FastAPI exposes bounded reads and a disabled-by-default mutation route; Streamlit presents model context and evaluation evidence."
+    },
+    {
+      "id": "project-football-forecasting:0010",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "CI is configured for Python 3.11 through 3.14. The locked environment is managed with uv."
+    },
+    {
+      "id": "project-football-forecasting:0011",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Offline interface demo\n- Dashboard guide\n- Architecture and data boundaries\n- Real-data prerequisites\n- Real retrospective evaluation\n- Evaluation method\n- Live forecasting\n- API and dashboard\n- Scheduler\n- Tests and quality gates\n- Limitations and responsible use"
+    },
+    {
+      "id": "project-football-forecasting:0012",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "This path needs no credentials or network access. It creates four fictional fixtures with hand-authored probabilities in `db/football_predictor_demo.db`. It does not train a model or create performance evidence."
+    },
+    {
+      "id": "project-football-forecasting:0013",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Install Python `>=3.11,<3.15`, Git, Make and uv:"
+    },
+    {
+      "id": "project-football-forecasting:0014",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "`make install` runs `uv sync --locked --extra dev` and creates `.venv`. Open the loopback-only Streamlit URL printed in the terminal."
+    },
+    {
+      "id": "project-football-forecasting:0015",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "On systems without Make, including Windows, run the equivalent commands directly:"
+    },
+    {
+      "id": "project-football-forecasting:0016",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "When `DATABASE_URL` is unset and the primary database has no prediction rows, the dashboard can select the isolated demo database. **An explicit `DATABASE_URL` always takes precedence**, even when that database contains no rows. To select a different demo-only file:"
+    },
+    {
+      "id": "project-football-forecasting:0017",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Repeated demo loads are idempotent. They do not contact football providers or write to the default primary database. The dashboard displays a persistent synthetic-data notice and suppresses accuracy and calibration claims in demo context."
+    },
+    {
+      "id": "project-football-forecasting:0018",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The Streamlit workspace has five views:"
+    },
+    {
+      "id": "project-football-forecasting:0019",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Overview** shows the selected data context, model identity, operational counts and the next forecasts.\n- **Upcoming forecasts** compares all three outcome probabilities and filters the loaded rows by team or minimum top-outcome probability.\n- **Evaluation** reads the frozen model bundle and presents holdout coverage, selective accuracy, log loss, multiclass Brier score, baselines and calibration evidence.\n- **Live results** monitors completed pre-kickoff forecasts separately from the frozen holdout and splits correct, incorrect and all evaluated rows.\n- **Methodology** explains temporal splits, calibration, provenance boundaries and the limits of the available evidence."
+    },
+    {
+      "id": "project-football-forecasting:0020",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Dashboard reads are cached for five minutes. “Refresh local data” clears that cache without contacting an external provider. The interface loads at most **50 upcoming forecasts** and **100 completed results** for the selected context. Demo, live and backtest scopes are never combined."
+    },
+    {
+      "id": "project-football-forecasting:0021",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Architecture and data boundaries"
+    },
+    {
+      "id": "project-football-forecasting:0022",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "`run_kind` is the storage and reporting boundary. The schema retains `backtest` for separately generated retrospective records, but the trainer writes only versioned model artifacts; the training command itself does not create them. The frozen bundle and its holdout contract are the authoritative evaluation artifacts."
+    },
+    {
+      "id": "project-football-forecasting:0023",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Real-data prerequisites and constraints"
+    },
+    {
+      "id": "project-football-forecasting:0024",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The repository includes neither a third-party dataset nor a pretrained `models/model_bundle.joblib`. Real-data commands require network access, provider access and enough valid historical matches. They write to the configured database and create local model artifacts."
+    },
+    {
+      "id": "project-football-forecasting:0025",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Football-data.org requires an API key. Account tier and competition coverage determine which seasons are available.\n- `backfill.py` also attempts FBref collection. FBref can throttle or reject automated requests; failed league/season combinations are logged and skipped, so collection may be partial.\n- Provider coverage, terms, rate limits and response formats can change. Review provider terms before collecting data.\n- Without overrides, configuration selects the current season and the previous two seasons. `FOOTBALL_SEASONS` accepts at most ten distinct season start years.\n- The model uses results-derived, pre-kickoff temporal features. Stored xG, possession, defensive, odds, injury and lineup fields are not training features because they lack a complete as-of snapshot contract."
+    },
+    {
+      "id": "project-football-forecasting:0026",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Configure a local environment without committing secrets:"
+    },
+    {
+      "id": "project-football-forecasting:0027",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The default database is `db/football_predictor.db`. Set `DATABASE_URL` to an absolute SQLite URL when isolation is required. Do not commit `.env`, provider data, generated databases or model artifacts."
+    },
+    {
+      "id": "project-football-forecasting:0028",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Apply the schema, load history, train a frozen chronological holdout and print its report:"
+    },
+    {
+      "id": "project-football-forecasting:0029",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Inspect collection logs and database coverage before training. At least 80 finished matches are required; training otherwise exits unsuccessfully without creating a bundle. The chronological calibration window must contain all three outcome classes. Invalid data shapes or split boundaries also stop training rather than producing a misleading artifact."
+    },
+    {
+      "id": "project-football-forecasting:0030",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Successful training writes four files:"
+    },
+    {
+      "id": "project-football-forecasting:0031",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Runtime loading requires `model_bundle.joblib` and `model_bundle.sha256`; keep them together. Preserve all four files when sharing or archiving the evaluation so its separate holdout contract and readable manifest remain auditable. The current loader verifies the bundle checksum, then validates provenance, data coverage and fitted-state identity embedded in the bundle. It does not read the manifest or holdout JSON during normal loading. A missing bundle or checksum, checksum mismatch, or invalid embedded metadata fails closed; the dashboard reports that no evaluated model bundle is available rather than inventing coverage. Training binds source, competition and season coverage into bundle metadata. The helper label `Coverage metadata unavailable` is retained for compatibility with explicitly supplied report dictionaries, but it is not the normal loader path for a current bundle missing"
+    },
+    {
+      "id": "project-football-forecasting:0032",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "required provenance."
+    },
+    {
+      "id": "project-football-forecasting:0033",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The holdout contract stores row-key manifests, chronological boundaries and content hashes. Later rows after the test window do not silently move the evaluation set. Missing, changed or newly inserted historical rows fail closed. Creating another holdout requires a new evaluation version and `allow_new_evaluation=True` through the training API. That evaluation version becomes the persisted model version; the trainer software version is recorded separately."
+    },
+    {
+      "id": "project-football-forecasting:0034",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "`seed_accuracy.py` requires the complete verified bundle, prints its frozen holdout report and does not insert retrospective rows into live logs. The checked-in rolling report’s “v2” label names that report configuration; generated bundles currently default to evaluation/model version `3.1.0`. They are different identifiers."
+    },
+    {
+      "id": "project-football-forecasting:0035",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Backtesting is not live forecasting"
+    },
+    {
+      "id": "project-football-forecasting:0036",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Backtesting evaluates a model on historical matches after fitting and calibration on earlier windows. It does not prove how future live forecasts will perform. Separately generated `run_kind=backtest` rows remain isolated for provenance, and the frozen bundle report remains the authoritative holdout result."
+    },
+    {
+      "id": "project-football-forecasting:0037",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The dataset is ordered by kickoff time and split into disjoint training, calibration and test windows. Goal-model features for the classifier are generated out of fold with expanding chronological training windows. The fitted classifier is calibrated on the separate calibration window. Its probabilities are blended at a fixed 50/50 weight with Home/Draw/Away probabilities derived from fitted home and away goal rates under an independent-Poisson assumption. The untouched test window is evaluated once and stored in the versioned bundle."
+    },
+    {
+      "id": "project-football-forecasting:0038",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Selective accuracy:** correct predictions among rows with one unique highest-probability outcome. Probability ties are abstentions; the report shows the evaluated denominator, abstention count and coverage.\n- **Log loss:** penalizes confident wrong probabilities. Lower is better.\n- **Multiclass Brier:** mean squared error across Home/Draw/Away probabilities on the unscaled 0–2 range. Lower is better.\n- **Classwise and maximum ECE:** calibration summaries. They are unstable on small samples and depend on binning.\n- **Majority baseline:** selects the most common training-window outcome and uses the same non-tied holdout subset as selective accuracy.\n- **Prior-probability baseline:** assigns the training-window class frequencies to every holdout match."
+    },
+    {
+      "id": "project-football-forecasting:0039",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Read scores beside their baselines, sample size, class support and holdout dates. Live accuracy is operational monitoring, not the frozen evaluation."
+    },
+    {
+      "id": "project-football-forecasting:0040",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Live generation requires a verified model bundle, upcoming fixtures and earlier finished matches in the configured database. It writes or previews `run_kind=live`; it does not recreate the frozen backtest. Persisted rows require valid UTC creation and kickoff timestamps with creation strictly before kickoff."
+    },
+    {
+      "id": "project-football-forecasting:0041",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Set `ENABLE_MUTATION_ENDPOINTS=true` and a random `MUTATION_API_KEY` of **at least 32 characters** in the untracked `.env` file. Initialize the database and start the API:"
+    },
+    {
+      "id": "project-football-forecasting:0042",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "From another terminal, authenticated preview mode runs inference without writing prediction rows:"
+    },
+    {
+      "id": "project-football-forecasting:0043",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Preview can legitimately return `generated_count: 0` when the bundle or upcoming fixtures are absent. Persistent generation uses `preview=false` and should be enabled only after checking the database, model identity and destination. Generation is synchronous, guarded against overlap and capped at 100 matches."
+    },
+    {
+      "id": "project-football-forecasting:0044",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A fresh database must be migrated before API readiness checks, generation or scheduler leases can work:"
+    },
+    {
+      "id": "project-football-forecasting:0045",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "In another terminal, start the dashboard:"
+    },
+    {
+      "id": "project-football-forecasting:0046",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The API listens on `http://127.0.0.1:8000`; interactive documentation is at `http://127.0.0.1:8000/docs`."
+    },
+    {
+      "id": "project-football-forecasting:0047",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "CORS and mutation endpoints are disabled by default. CORS requires an explicit `CORS_ORIGINS` allowlist; wildcard origins are rejected. Mutation access requires the enable flag, a key of at least 32 characters and a matching Bearer token."
+    },
+    {
+      "id": "project-football-forecasting:0048",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Upcoming reads expose `live` or `demo`. `/metrics` also accepts `backtest`, requires an explicit `model_version`, and requires an explicit `artifact_id`. It returns evaluated count, correct count and accuracy for one immutable artifact and run kind. Probability ties are abstentions and are **excluded from live/API accuracy**, so the evaluated count can be smaller than the number of completed rows. Demo requests return provenance and a non-performance notice. Probabilistic scores come from the frozen bundle and the dashboard’s Evaluation page; `legacy` remains migration-only."
+    },
+    {
+      "id": "project-football-forecasting:0049",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Migrate the database before starting the scheduler:"
+    },
+    {
+      "id": "project-football-forecasting:0050",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The explicit enable flag starts scheduled jobs without an immediate fetch. Set `SCHEDULER_RUN_ON_STARTUP=true` only when an immediate live fixture fetch is intentional and credentials are configured."
+    },
+    {
+      "id": "project-football-forecasting:0051",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Job | UTC schedule |\n| --- | --- |\n| Fixtures | Daily at 02:00 |\n| Results | Daily at 04:00 |\n| Squad statistics | Mondays at 06:00 |\n| Injuries | Daily at 08:00 |\n| Odds | Daily at 10:00 |"
+    },
+    {
+      "id": "project-football-forecasting:0052",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "APScheduler holds the in-process schedule. Database-backed owner leases prevent overlapping work across enabled instances. Delayed runs coalesce, provider failures remain observable as failed jobs, and partial source failures are logged. This is not a high-availability scheduler."
+    },
+    {
+      "id": "project-football-forecasting:0053",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The pytest suite is offline and needs no provider all canonical checks with:"
+    },
+    {
+      "id": "project-football-forecasting:0054",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "`make check` verifies the lockfile, Ruff lint and formatting, mypy over every tracked Python file, and coverage across the API, dashboard, scheduler, migrations, model code and supporting packages with a 69% minimum. It also checks installed-package consistency, dependency advisories, and scans tracked plus unignored untracked files for secrets. Security checks may need network access for current advisory data."
+    },
+    {
+      "id": "project-football-forecasting:0055",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Focused documentation and dashboard contracts:"
+    },
+    {
+      "id": "project-football-forecasting:0056",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "GitHub Actions runs the quality suite on Python 3.11, 3.12, 3.13 and 3.14, plus a separate security job."
+    },
+    {
+      "id": "project-football-forecasting:0057",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Data access, migrations and provenance"
+    },
+    {
+      "id": "project-football-forecasting:0058",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Football-data.org is the main authenticated fixture/result source. Other adapters are experimental and may be affected by site changes, robots policies, throttling or incomplete coverage. The project does not bundle third-party datasets."
+    },
+    {
+      "id": "project-football-forecasting:0059",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Schema changes use Alembic migrations. Before SQLite advances to the current `0005_match_detail_source` revision, the online backup API writes `*.pre-0005_match_detail_source.bak` with owner-only permissions and verifies its integrity, including committed WAL state. Destructive downgrade is disabled; stop writers and restore the backup to roll back. Importing the API, database or scheduler does not create tables."
+    },
+    {
+      "id": "project-football-forecasting:0060",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Synthetic rows use fictional team names, `source=synthetic-demo`, `model_name=synthetic-demo-model`, `model_version=fixture-v1` and `run_kind=demo`. They are interface fixtures, not observations or model output."
+    },
+    {
+      "id": "project-football-forecasting:0061",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Known limitations and responsible use"
+    },
+    {
+      "id": "project-football-forecasting:0062",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Football outcomes depend on information absent from this feature set.\n- Provider availability, coverage and historical completeness vary.\n- Calibration estimates are unstable on small holdouts.\n- Historical results can become stale under distribution shift.\n- Live accuracy alone does not measure probability quality, and the API does not expose log loss, Brier score, calibration error or evaluation dates.\n- Expected goals are model estimates, not exact-score forecasts.\n- The scheduler is disabled unless `ENABLE_SCHEDULER=true`.\n- Live feature reconstruction fails closed above 5,000 finished matches until temporal state is persisted."
+    },
+    {
+      "id": "project-football-forecasting:0063",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Use this repository for learning, reproducible forecasting experiments and sports analytics. Do not treat its output as a guarantee, financial recommendation, safety-critical signal or substitute for independent judgment. Check data provenance, model identity, sample size and evaluation dates before communicating a result."
+    },
+    {
+      "id": "project-football-forecasting:0064",
+      "sourceId": "project-football-forecasting",
+      "title": "Football Forecasting Lab",
+      "url": "https://github.com/dk3yyyy/football_predictor",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "See CONTRIBUTING.md for development workflow and SECURITY.md for vulnerability reporting. The `predict_*`, `suggest_bets.py` and `scratch/` utilities are not the canonical documented entry points; use the workflows above when evaluating or operating the current system."
+    },
+    {
+      "id": "project-telegram-video:0001",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "📥 Telegram Social Video Downloader"
+    },
+    {
+      "id": "project-telegram-video:0002",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A self-hosted **n8n + FastAPI + yt-dlp** workflow that accepts supported social-video links through Telegram, queues the download, normalizes the media for Telegram, and sends it back to the same chat."
+    },
+    {
+      "id": "project-telegram-video:0003",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "> This is a sanitized, reusable implementation. It contains no production workflow IDs, webhook URLs, bot tokens, chat IDs, credentials, or execution data."
+    },
+    {
+      "id": "project-telegram-video:0004",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Receives Telegram webhook updates in n8n\n- Recognizes TikTok, Instagram, X/Twitter, and Facebook links\n- Handles `/start`, supported links, and unsupported input separately\n- Sends jobs to an authenticated FastAPI service over `POST`\n- Rejects non-allowlisted submitted hosts and URL credentials before invoking yt-dlp\n- Persists job state in SQLite and recovers interrupted jobs after restart\n- Deduplicates Telegram updates using `update_id`\n- Uses bounded worker and queue limits\n- Preserves portrait/landscape dimensions when Telegram receives video metadata\n- Transcodes incompatible or oversized video to H.264/AAC when needed\n- Keeps the Telegram bot token on the downloader server instead of passing it through workflow requests"
+    },
+    {
+      "id": "project-telegram-video:0005",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The upper canvas mirrors the sanitized n8n workflow in `workflow/workflow.json`. Coral connectors cross the authenticated `X-API-Key` boundary into the private runtime; the dashed green path shows media returning directly to Telegram without passing through n8n."
+    },
+    {
+      "id": "project-telegram-video:0006",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "See `docs/architecture.md` for trust boundaries and failure behavior."
+    },
+    {
+      "id": "project-telegram-video:0007",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Docker Engine with Compose v2\n- A self-hosted n8n instance that can reach the downloader service\n- A Telegram bot token created through @BotFather\n- A public HTTPS URL for the n8n webhook\n- n8n 2.31.7 or a compatible maintained release supporting Webhook v2, Code v2, IF v2.2, and HTTP Request v4.2 nodes"
+    },
+    {
+      "id": "project-telegram-video:0008",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Put the generated value in `DOWNLOADER_API_KEY`, add your Telegram bot token, and keep `.env` out of version control. Generate a second, different value for `TELEGRAM_WEBHOOK_SECRET` in the n8n runtime."
+    },
+    {
+      "id": "project-telegram-video:0009",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Create the private Docker network used between n8n and the downloader:"
+    },
+    {
+      "id": "project-telegram-video:0010",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Attach your n8n container to this network in its Compose configuration. For an existing container, `docker network connect automation ` is a temporary equivalent; declare the network in Compose for a durable setup."
+    },
+    {
+      "id": "project-telegram-video:0011",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The compose file binds the host port to localhost and also attaches the service to the external `automation` network. Containers on that network can resolve it as `downloader:8080`. If n8n runs on another host, use a private network or an authenticated TLS reverse proxy instead of exposing port 8080 publicly."
+    },
+    {
+      "id": "project-telegram-video:0012",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "3. Configure n8n environment variables"
+    },
+    {
+      "id": "project-telegram-video:0013",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Add these variables to the **n8n runtime** (see `examples/n8n.env.example`), then restart n8n:"
+    },
+    {
+      "id": "project-telegram-video:0014",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Verify connectivity from the n8n container with `curl http://downloader:8080/healthz`. This export targets self-hosted n8n because it relies on `$env`. On hosted plans that block `$env`, do not activate it unchanged: replace the downloader headers with an n8n Header Auth credential, configure a reachable non-secret base URL, and validate Telegram's secret header at an authenticated reverse proxy."
+    },
+    {
+      "id": "project-telegram-video:0015",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. In n8n, choose **Import from File**.\n2. Select `workflow/workflow.json`.\n3. Keep it inactive.\n4. Change the webhook path from `telegram-social-video-downloader` to a unique random path.\n5. Confirm the `TELEGRAM_WEBHOOK_SECRET` environment variable is available to the Code node.\n6. Test with n8n's test webhook and the synthetic payload in `examples/telegram-update.json`, including the `X-Telegram-Bot-Api-Secret-Token` header.\n7. Review every HTTP Request node and destination.\n8. Activate only after the test passes."
+    },
+    {
+      "id": "project-telegram-video:0016",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "5. Register the production webhook"
+    },
+    {
+      "id": "project-telegram-video:0017",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "After activation, register the workflow's production HTTPS URL with Telegram. Substitute your own values locally; never commit them:"
+    },
+    {
+      "id": "project-telegram-video:0018",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Verify with `getWebhookInfo` and remove it with `deleteWebhook` if you need to roll back."
+    },
+    {
+      "id": "project-telegram-video:0019",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The test suite never calls Telegram, n8n, or social-media sites."
+    },
+    {
+      "id": "project-telegram-video:0020",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- `X-API-Key` authentication uses constant-time comparison.\n- Only allowlisted social domains are accepted.\n- Userinfo, custom ports, fragments, and non-HTTP schemes are rejected.\n- Telegram webhook requests require the configured secret header.\n- Downloads default to 256 MiB and 30-minute source-duration limits.\n- Completed job metadata is retained for seven days by default.\n- yt-dlp and ffmpeg run without a shell.\n- Tokens are read from environment variables and never accepted in download-job payloads.\n- Public artifacts are scanned for token, JWT, production-hostname, and credential-reference patterns.\n- The container runs as a non-root user with Linux capabilities dropped."
+    },
+    {
+      "id": "project-telegram-video:0021",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Read `SECURITY.md` and `docs/security.md` before exposing the service outside a private network."
+    },
+    {
+      "id": "project-telegram-video:0022",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Designed for a **single downloader instance**. SQLite is durable, but it is not a distributed queue.\n- Delivery is at-least-once: a crash after Telegram accepts media but before SQLite records success can cause one duplicate delivery after restart.\n- yt-dlp follows extractor-selected redirects. Run the container on a network without access to cloud metadata or internal administration services.\n- Platform changes can break yt-dlp extraction; keep yt-dlp current and test upgrades.\n- Private, age-restricted, DRM-protected, or login-required media is not supported by default.\n- Telegram upload limits vary by Bot API deployment and account context. The default service target is intentionally conservative.\n- Download only media you are authorized to access and redistribute. You are responsible for platform terms and applicable law."
+    },
+    {
+      "id": "project-telegram-video:0023",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Deactivate the n8n workflow.\n2. Call Telegram's `deleteWebhook` endpoint or register the previous webhook.\n3. Run `docker compose down` to stop the downloader.\n4. Keep the named volume if you need job history; use `docker compose down -v` only when you intentionally want to delete it."
+    },
+    {
+      "id": "project-telegram-video:0024",
+      "sourceId": "project-telegram-video",
+      "title": "Telegram Social Video Downloader",
+      "url": "https://github.com/dk3yyyy/telegram-social-video-downloader",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "MIT. Third-party tools and downloaded media remain subject to their own licenses and terms."
+    },
+    {
+      "id": "project-wallet-analyzer:0001",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "🚀 ChainScope — Solana & Ethereum Wallet Analyzer"
+    },
+    {
+      "id": "project-wallet-analyzer:0002",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A read-only web application and async Telegram bot for inspecting public Solana and Ethereum addresses. It reports native balances and USD values, with detailed SPL-token portfolio analytics for Solana wallets—without connecting a wallet or requesting a signature."
+    },
+    {
+      "id": "project-wallet-analyzer:0003",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Responsive Web UI**: Paste an address and inspect a structured portfolio snapshot in any modern browser - **Two-chain Support**: Analyze Solana and Ethereum addresses - **Real-time Data**: Native-asset prices from Coinbase with CoinGecko fallback, plus Solana token market data from DexScreener - **Solana Portfolio Analytics**: legacy SPL Token and Token-2022 holdings, market metrics, allocation, and dust filtering - **Asset Composition**: Compare the native asset and leading valued token positions with accessible proportional bars; single-asset wallets avoid a redundant chart - **Holdings Workspace**: Search and sort token holdings, hide valued dust, and retain unpriced assets for honest coverage - **Token Identity**: Display available Solana token logos with deterministic symbol fallbacks - **Portable Snapshots**: Copy the analyzed address or export the current result as CSV or JSON"
+    },
+    {
+      "id": "project-wallet-analyzer:0004",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "entirely in the browser - **Privacy-aware Sharing**: Copy a fragment-only address link that pre-fills the form without triggering automatic analysis - **Resilient Refresh**: Request a fresh provider snapshot, preserve the previous result on failure, and retry provider errors in place - **Two Interfaces**: Browser portfolio view plus Telegram pagination, progress indicators, and explorer links - **Read-only by Design**: No wallet connection, signing request, transaction capability, or browser storage - **Truthful Failure States**: provider failures are reported as unavailable instead of being shown as zero balances"
+    },
+    {
+      "id": "project-wallet-analyzer:0005",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **User Tracking**: Auto-log new users with sequential numbering\n- **Flexible Logging**: Private channel/group or direct messages\n- **Statistics**: `/stats` command for user metrics and analytics\n- **Milestone Alerts**: Notifications every 10 new users"
+    },
+    {
+      "id": "project-wallet-analyzer:0006",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Python 3.11 or newer (`python --version`)\n- Node.js 22 or newer for building or developing the web interface\n- A Telegram bot token from @BotFather\nCoinbase, CoinGecko, DexScreener, and the default public Ethereum JSON-RPC endpoint do not require API keys for the requests made by this application."
+    },
+    {
+      "id": "project-wallet-analyzer:0007",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Copy the provided environment template:"
+    },
+    {
+      "id": "project-wallet-analyzer:0008",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "On Windows PowerShell, use `Copy-Item .env.example .env` instead. Open `.env` and replace the values needed by the interface you plan to run. `TELEGRAM_TOKEN` is required only for the Telegram bot; the RPC settings are optional overrides:"
+    },
+    {
+      "id": "project-wallet-analyzer:0009",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "4. **Run the web application**"
+    },
+    {
+      "id": "project-wallet-analyzer:0010",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Build the browser assets and start the same-origin FastAPI server:"
+    },
+    {
+      "id": "project-wallet-analyzer:0011",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Open `http://127.0.0.1:8000`. For frontend development with hot reload, run `npm run dev` in a second terminal; Vite proxies `/api` to FastAPI on port 8000."
+    },
+    {
+      "id": "project-wallet-analyzer:0012",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The production container builds the frontend and runs the API as a non-root user:"
+    },
+    {
+      "id": "project-wallet-analyzer:0013",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The bot uses long polling and keeps running until you stop it with `Ctrl+C`. Environment variables are loaded at startup, so restart the process after changing `.env`."
+    },
+    {
+      "id": "project-wallet-analyzer:0014",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Option 1: Channel Logging (Recommended)**"
+    },
+    {
+      "id": "project-wallet-analyzer:0015",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Create private Telegram channel\n2. Add bot as admin with \"Post Messages\" permission\n3. Forward message from channel to @userinfobot to get ID\n4. Add `LOG_CHANNEL_ID=-1001234567890` to `.env`"
+    },
+    {
+      "id": "project-wallet-analyzer:0016",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Message @userinfobot to get your chat ID\n2. Add `ADMIN_CHAT_ID=123456789` to `.env`"
+    },
+    {
+      "id": "project-wallet-analyzer:0017",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- `/start` — Welcome & features overview\n- `/status` — Bot health check \n- `/stats` — Admin user statistics"
+    },
+    {
+      "id": "project-wallet-analyzer:0018",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Solana**: `11111112D4FgiiiikjQKNNh4rJN4rENWDCK8`\n- **Ethereum**: `0x742d35Cc6634C0532925a3b8D4037C973B26Ed33`"
+    },
+    {
+      "id": "project-wallet-analyzer:0019",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The bot auto-detects the address type and provides:"
+    },
+    {
+      "id": "project-wallet-analyzer:0020",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Native SOL or ETH balance and estimated USD value\n- SPL-token holdings and market data for Solana addresses\n- Solana portfolio allocation percentages\n- Interactive navigation for large Solana portfolios"
+    },
+    {
+      "id": "project-wallet-analyzer:0021",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Variable | Description | Required |\n|----------|-------------|----------|\n| `TELEGRAM_TOKEN` | Bot token from BotFather | ✅ Telegram only |\n| `ETHEREUM_RPC_URL` | Ethereum JSON-RPC endpoint; defaults to PublicNode | ⚪ Optional |\n| `SOLANA_RPC_URL` | Solana JSON-RPC endpoint | ⚪ Optional |\n| `ANALYZE_RATE_LIMIT` | Web analyses permitted per client/window; defaults to 20 | ⚪ Optional |\n| `ANALYZE_RATE_WINDOW_SECONDS` | Web rate-limit window; defaults to 60 seconds | ⚪ Optional |\n| `ADMIN_CHAT_ID` | Your chat ID for admin access | ⚪ Optional |\n| `LOG_CHANNEL_ID` | Channel/group ID for user logs | ⚪ Optional |"
+    },
+    {
+      "id": "project-wallet-analyzer:0022",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Cache**: 5 minutes for faster responses\n- **Dust Filter**: $0.01 minimum token value \n- **Pagination**: 6 tokens per page\n- **Batch limit**: 10 submitted addresses per message\n- **Token concurrency**: At most 8 simultaneous DexScreener lookups per analysis\n- **APIs**: Solana JSON-RPC, Ethereum JSON-RPC, Coinbase, CoinGecko, and DexScreener"
+    },
+    {
+      "id": "project-wallet-analyzer:0023",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- ✅ Environment variables for secrets\n- ✅ Smart caching system\n- ✅ Bounded request concurrency, timeouts, retries, and bounded caches\n- ✅ Explicit provider-error and partial-token-metadata reporting\n- ✅ Atomic, synchronized user-data persistence\n- ✅ Async processing for speed"
+    },
+    {
+      "id": "project-wallet-analyzer:0024",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The web application does not use cookies, analytics, local storage, session storage, accounts, or a wallet-connection library. It does not persist submitted addresses. CSV and JSON exports are generated locally in the browser. Share links place the address after `#`, which prevents it from being included in the HTTP request; the address remains visible in the URL and browser history, and opening the link only pre-fills the form until the user submits it. Its in-memory rate limiter stores only bounded client identifiers and request timestamps for the configured window. Submitted public addresses are still sent to the configured Solana RPC, the configured Ethereum JSON-RPC provider (PublicNode by default), CoinGecko, or DexScreener as required for analysis. Token logos are fetched by the server from DexScreener's allowlisted image CDN and served through a same-origin endpoint, so the"
+    },
+    {
+      "id": "project-wallet-analyzer:0025",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "browser does not contact the image provider; only validated raster formats up to 512 KiB are accepted, and missing or failed images fall back to a symbol monogram. Logo payloads use a separate byte-budgeted cache capped at 8 MiB and 256 entries per worker, with at most eight active upstream fetches and 32 admitted jobs, same-mint request coalescing, and short-lived negative caching. Excess distinct jobs fail closed to the monogram fallback. Operators should configure trusted proxy handling deliberately before relying on forwarded client IPs."
+    },
+    {
+      "id": "project-wallet-analyzer:0026",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The Telegram bot stores Telegram user IDs, names, usernames, language codes, join/last-active timestamps, and interaction counters in `user_data.json`. The file is written atomically with owner-only permissions on supported systems, but it is still plaintext. Operators are responsible for access control, backups, retention, deletion requests, and an appropriate privacy notice."
+    },
+    {
+      "id": "project-wallet-analyzer:0027",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Ethereum RPC errors, malformed responses, and timeouts stop that wallet report; they never produce a synthetic `0 ETH` result.\n- Solana RPC errors, malformed responses, timeouts, and incomplete legacy/Token-2022 account queries stop that wallet report with a retryable warning.\n- Native-price requests use Coinbase first and CoinGecko as a fallback; reports stop only when both providers fail.\n- Individual DexScreener metadata failures are omitted from token valuation and disclosed as partial data.\n- HTTP 429 and server errors use bounded retries. Failed results are not cached as valid zero values.\n- Refresh actions bypass the relevant five-minute caches."
+    },
+    {
+      "id": "project-wallet-analyzer:0028",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "🧪 Development and verification"
+    },
+    {
+      "id": "project-wallet-analyzer:0029",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "GitHub Actions runs tests on Python 3.11 and 3.13, builds the React application, runs Chromium browser tests, builds the production container, and applies Python/Node lint, security, dependency-audit, and compilation gates. Tests mock external providers and do not send Telegram messages or require real API credentials."
+    },
+    {
+      "id": "project-wallet-analyzer:0030",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Stop Uvicorn or the container to disable the web interface. Stop the bot process to disable Telegram polling; no external scheduler is installed by this repository. Back up `user_data.json` before bot migrations. To roll back a release, restore the previous code revision and its matching Python/Node dependency sets, rebuild, and restart. Do not replace `user_data.json` while the bot is running."
+    },
+    {
+      "id": "project-wallet-analyzer:0031",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Symptom | What to check | |---------|---------------| | `TELEGRAM_TOKEN is not set` | Confirm `.env` exists in the repository root, `TELEGRAM_TOKEN` is not still a placeholder, and the bot was restarted after editing the file. | | Ethereum balance is unavailable | Check connectivity to `ETHEREUM_RPC_URL`, or configure a reliable Ethereum JSON-RPC provider and restart the process. | | Telegram reports another `getUpdates` request | Only one process can poll with a bot token. Stop the other local or deployed instance before starting this one. | | `/stats` reports that access is restricted | Set `ADMIN_CHAT_ID` to the numeric chat ID of the user who will run `/stats`; `LOG_CHANNEL_ID` does not grant access to this command. Restart the bot after changing `.env`. | | Admin logs are not delivered | Set `LOG_CHANNEL_ID` to the numeric destination ID and add the bot there with permission to"
+    },
+    {
+      "id": "project-wallet-analyzer:0032",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "post messages. This setting controls logging only and does not grant `/stats` access. | | Solana requests are rate-limited or unavailable | Retry later or set `SOLANA_RPC_URL` to a reliable custom endpoint in `.env`, then restart the bot. | | Responses are slow for a large Solana wallet | Large portfolios require multiple bounded market-data calls. Repeated requests use the five-minute caches. | | A provider is unavailable | Retry after the upstream service recovers. The bot intentionally does not replace missing financial data with zero. |"
+    },
+    {
+      "id": "project-wallet-analyzer:0033",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Tech Stack:** Python, FastAPI, React, Vite, python-telegram-bot, aiohttp, asyncio"
+    },
+    {
+      "id": "project-wallet-analyzer:0034",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "MIT License - Free to use and modify"
+    },
+    {
+      "id": "project-wallet-analyzer:0035",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- ⭐ Star the repository\n- 🍴 Fork and contribute"
+    },
+    {
+      "id": "project-wallet-analyzer:0036",
+      "sourceId": "project-wallet-analyzer",
+      "title": "Solana and Ethereum Wallet Analyzer",
+      "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "*Solana and Ethereum balance analysis with detailed SPL-token portfolio insights.*"
+    },
+    {
+      "id": "project-noughtline:0001",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "**Classic Tic-Tac-Toe, rebuilt as a secure real-time multiplayer experience.**"
+    },
+    {
+      "id": "project-noughtline:0002",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Noughtline combines React, Express, Socket.IO, and SQLite to deliver authenticated guest sessions, server-authoritative multiplayer series, persistent progression, and a two-currency cosmetic economy."
+    },
+    {
+      "id": "project-noughtline:0003",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "> **Free public preview:** the first load after inactivity can take up to a minute. Accounts, scores, balances, and match history are temporary and may reset when the service sleeps or redeploys."
+    },
+    {
+      "id": "project-noughtline:0004",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Single-player Tic-Tac-Toe against local AI on 3×3, 4×4 and 5×5 boards. - Authenticated real-time private rooms and matchmaking; private rooms are unranked and cannot mint progression or currency. - Server-validated moves, turns, board bounds, best-of-1/3/5 rounds and rematches. - Reconnection revokes the old socket and allows a 30-second grace period before one-time forfeit settlement. - Shareable room invitations, refresh recovery, explicit leave/forfeit confirmation, and one-active-room enforcement. - Stable multiplayer error codes and per-user lifecycle rate limits; leaving a room is never rate-limited. - Transactional match persistence and one-time server-issued XP, win/loss/draw, streak and Coin rewards for eligible matchmaking games. - Persistent Coins and Gems with an immutable currency ledger. - Coin- and Gem-priced avatar inventory with server-side ownership and balance"
+    },
+    {
+      "id": "project-noughtline:0005",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "checks. - Server-defined Paystack packages with server-side initialization, verification, signed webhook handling and idempotent crediting. - Authenticated profile export and account deletion. - Automated API, economy, room-state and two-client Socket.IO tests."
+    },
+    {
+      "id": "project-noughtline:0006",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The browser does not choose a UUID or submit its own reward/payment amount. `POST /api/auth/guest` creates an account on the server and returns a signed access token. Protected REST endpoints and Socket.IO connections derive the player from that token."
+    },
+    {
+      "id": "project-noughtline:0007",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Production requires a strong `JWT_SECRET`. Startup fails if it is missing. CORS is allowlisted, request sizes are limited, REST requests are rate-limited, and security headers are enabled."
+    },
+    {
+      "id": "project-noughtline:0008",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Paid Gems fail closed when `PAYSTACK_SECRET_KEY` is absent. A balance is credited only after the server verifies the Paystack reference, NGN amount, currency and success state. The same reference can be credited only once."
+    },
+    {
+      "id": "project-noughtline:0009",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Google OAuth is intentionally not mocked. Guest play works now; real Google account linking should be added only with provider credentials and server-side ID-token verification. Until then, guest accounts have no verified email and the paid-Gem UI will report that account linking is required."
+    },
+    {
+      "id": "project-noughtline:0010",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- **Coins** are earned from completed multiplayer series and buy standard cosmetics.\n- **Gems** are premium currency and buy premium cosmetics.\n- The prototype Token layer remains only as a legacy database column and is not exposed to the client."
+    },
+    {
+      "id": "project-noughtline:0011",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Result | XP | Coins |\n|---|---:|---:|\n| Win | 50 | 10 |\n| Draw | 25 | 5 |\n| Loss | 15 | 3 |"
+    },
+    {
+      "id": "project-noughtline:0012",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Change rewards in the server settlement policy, not in the React client."
+    },
+    {
+      "id": "project-noughtline:0013",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Requirements: Node.js 22+ and npm."
+    },
+    {
+      "id": "project-noughtline:0014",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "For local development, replace `JWT_SECRET` in `server/.env` with a random value. Paid currency remains disabled when the Paystack key is blank."
+    },
+    {
+      "id": "project-noughtline:0015",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Frontend: http://localhost:5173\n- API and Socket.IO: http://localhost:3000\n- Health check: http://localhost:3000/api/health"
+    },
+    {
+      "id": "project-noughtline:0016",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The tests cover unauthenticated route rejection, removal of the fake deposit path, ledger idempotency, payment verification, move bounds, multi-round settlement, invite/reconnect recovery, one-active-room enforcement, voluntary forfeits, lifecycle limits, and isolated-browser multiplayer flows."
+    },
+    {
+      "id": "project-noughtline:0017",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. Set a strong `JWT_SECRET`, exact `CORS_ORIGINS`, production `PUBLIC_APP_URL`, persistent `DATABASE_PATH` and Paystack secret.\n2. Configure the Paystack webhook to `POST /api/payments/paystack/webhook`.\n3. Add real account linking so buyers have verified email addresses.\n4. Put the service behind TLS and a trusted reverse proxy.\n5. Back up SQLite or migrate to PostgreSQL; use Redis or another shared state store before running multiple Socket.IO instances.\n6. Run CI and a Paystack test-mode transaction before enabling live payments."
+    },
+    {
+      "id": "project-noughtline:0018",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "See `docs/SECURE_FOUNDATION_PLAN.md`, `docs/PLAYER_LIFECYCLE_PLAN.md`, and `docs/SHARED_MULTIPLAYER_STATE_PLAN.md` for architecture decisions, acceptance criteria, and the horizontal-scaling migration path."
+    },
+    {
+      "id": "project-noughtline:0019",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Ranked ELO, tournaments, spectators, chat, social accounts, quests, daily rewards, seasonal progression, PostgreSQL and horizontally shared room state are intentionally deferred until this foundation is reviewed and deployed safely."
+    },
+    {
+      "id": "project-noughtline:0020",
+      "sourceId": "project-noughtline",
+      "title": "Noughtline",
+      "url": "https://github.com/dk3yyyy/Noughtline",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "ISC. A standalone `LICENSE` file should be added before publishing a formal release."
+    },
+    {
+      "id": "project-user-count:0001",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A small async Telegram bot that registers unique users, reports counts to an admin, and sends durable milestone notifications."
+    },
+    {
+      "id": "project-user-count:0002",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The project favors verifiable behavior over benchmark claims: it has automated tests and CI, but it has **not** been load-tested for a specific throughput or user count."
+    },
+    {
+      "id": "project-user-count:0003",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Registers each Telegram user once with `/start`\n- Returns the current unique-user count\n- Sends admin notifications for every reached milestone\n- Persists pending notifications so transient Telegram failures can be retried\n- Restricts `/stats` to the configured admin\n- Uses Redis for optional rate limiting and 60-second stats caching\n- Supports SQLite for local use and PostgreSQL through Docker Compose\n- Runs the application container as an unprivileged user on a read-only filesystem"
+    },
+    {
+      "id": "project-user-count:0004",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Command | Access | Behavior |\n|---|---|---|\n| `/start` | Everyone | Register once or show the current count |\n| `/stats` | Admin only | Show total users and the most recently delivered milestone |\n| `/help` | Everyone | Show available commands |"
+    },
+    {
+      "id": "project-user-count:0005",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Requirements: Python 3.11 or newer."
+    },
+    {
+      "id": "project-user-count:0006",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Set at least these values in `.env`:"
+    },
+    {
+      "id": "project-user-count:0007",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The default database is local SQLite. Redis is optional; leave `REDIS_URL` unset to run without distributed rate limiting and stats caching."
+    },
+    {
+      "id": "project-user-count:0008",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Startup validates all required and numeric settings. Invalid configuration exits before polling begins."
+    },
+    {
+      "id": "project-user-count:0009",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Compose runs one bot poller with PostgreSQL and authenticated Redis."
+    },
+    {
+      "id": "project-user-count:0010",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Replace the Telegram credentials and service passwords in `.env`. Set each\n`*_PASSWORD_URLENCODED` value to the percent-encoded form of its matching raw\npassword; this keeps characters such as `@`, `:`, `/`, and `#` valid inside\nconnection URLs. For example:"
+    },
+    {
+      "id": "project-user-count:0011",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Then validate and start the stack:"
+    },
+    {
+      "id": "project-user-count:0012",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "PostgreSQL and Redis have health checks. The bot starts only after both dependencies report healthy."
+    },
+    {
+      "id": "project-user-count:0013",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Stop the stack without deleting database data:"
+    },
+    {
+      "id": "project-user-count:0014",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "To also delete PostgreSQL and Redis volumes, explicitly run `docker compose down -v`. This is destructive."
+    },
+    {
+      "id": "project-user-count:0015",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "| Variable | Default | Required | Purpose | |---|---:|:---:|---| | `BOT_TOKEN` | — | Yes | Token issued by BotFather | | `ADMIN_ID` | — | Yes | Positive numeric Telegram user ID | | `DATABASE_URL` | `sqlite+aiosqlite:///users.db` | No | SQLAlchemy async database URL | | `REDIS_URL` | unset | No | Redis URL for rate limiting and stats caching | | `NOTIFICATION_INTERVAL` | `500` | No | Positive milestone interval | | `RATE_LIMIT_REQUESTS` | `100` | No | Positive requests allowed per window | | `RATE_LIMIT_SECONDS` | `60` | No | Positive rate-limit window in seconds | | `POSTGRES_USER` | `botuser` | Compose | PostgreSQL user | | `POSTGRES_PASSWORD` | — | Compose | PostgreSQL password; no insecure default | | `POSTGRES_PASSWORD_URLENCODED` | — | Compose | Percent-encoded form of the PostgreSQL password for the connection URL | | `REDIS_PASSWORD` | — | Compose | Redis password; no insecure"
+    },
+    {
+      "id": "project-user-count:0016",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "default | | `REDIS_PASSWORD_URLENCODED` | — | Compose | Percent-encoded form of the Redis password for the connection URL |"
+    },
+    {
+      "id": "project-user-count:0017",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Do not commit `.env` or real credentials."
+    },
+    {
+      "id": "project-user-count:0018",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- `users`: unique Telegram ID, display name, registration time\n- `admin_messages`: most recently delivered milestone message\n- `milestone_notifications`: durable pending/sent/superseded milestone records and attempt counts"
+    },
+    {
+      "id": "project-user-count:0019",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "1. A unique user and every newly reached milestone are committed in one database transaction.\n2. Startup reconciles the current user count into any missing milestone rows before delivery.\n3. Existing `admin_messages.last_count` state is used as the upgrade baseline, preventing historical milestones from being resent when the outbox table is introduced.\n4. Pending notifications are sent in milestone order, stopping at the first failed send.\n5. A successful notification is marked sent.\n6. Stale pending rows at or below the delivered admin milestone are marked superseded instead of replacing newer state.\n7. The previous admin message is deleted only after its replacement is delivered."
+    },
+    {
+      "id": "project-user-count:0020",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "A Telegram send failure increments the attempt count and leaves the row pending. Pending rows are retried on application startup and after subsequent `/start` requests."
+    },
+    {
+      "id": "project-user-count:0021",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Redis is optional. If it is unavailable, the bot logs a warning and continues without distributed rate limiting or stats caching. Database-backed registration and milestones continue to work."
+    },
+    {
+      "id": "project-user-count:0022",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "The bot does **not** silently fall back to another database. Startup database failures stop initialization; handler-time failures are logged and return a generic user-facing error."
+    },
+    {
+      "id": "project-user-count:0024",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Install the exact development toolchain:"
+    },
+    {
+      "id": "project-user-count:0025",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "Run the same gates used by CI:"
+    },
+    {
+      "id": "project-user-count:0026",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "CI runs these checks on Python 3.11, 3.12, and 3.13. Dependabot checks Python, Docker, and GitHub Actions dependencies weekly."
+    },
+    {
+      "id": "project-user-count:0027",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- `/stats` before any milestone exists\n- Required and numeric configuration validation\n- Gap-safe, idempotent milestone claims\n- Atomic registration and milestone claims\n- Startup reconciliation and legacy milestone baselines\n- Ordered delivery that stops after the first failed milestone\n- Failed notification retention and retry\n- Redis password escaping, config permissions, and argv secrecy\n- End-to-end registration and milestone delivery"
+    },
+    {
+      "id": "project-user-count:0028",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "- Run **one long-polling process per bot token**. Multiple `getUpdates` pollers for the same token are not a supported scaling strategy.\n- The in-process notification lock prevents duplicate sends inside one process. The durable primary key prevents duplicate milestone claims in the database.\n- Telegram delivery cannot be exactly-once: a process crash after Telegram accepts a message but before the database commit can cause a retry and duplicate message.\n- There is no bot HTTP health endpoint, Prometheus integration, or published performance benchmark.\n- For horizontal scaling, first move from long polling to a webhook architecture with centralized idempotency and distributed delivery locking, then benchmark the actual target workload."
+    },
+    {
+      "id": "project-user-count:0029",
+      "sourceId": "project-user-count",
+      "title": "User Count Telegram Bot",
+      "url": "https://github.com/dk3yyyy/user_count",
+      "trust": "owner_readme",
+      "answerPolicy": "descriptive_only",
+      "text": "MIT © 2026 Joshua Nwachinemere"
+    }
+  ]
+}

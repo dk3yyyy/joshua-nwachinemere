@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "owner": "dk3yyyy",
+  "verifiedAt": "2026-08-01",
+  "id": "backend-technologies",
+  "title": "Backend technologies across Joshua’s owned projects",
+  "href": "https://github.com/dk3yyyy?tab=repositories",
+  "body": "Python is Joshua’s primary backend language across his owned repositories. Verified direct use includes FastAPI services, asyncio/aiohttp and httpx for asynchronous and external API work; SQLAlchemy with PostgreSQL, Redis and SQLite/aiosqlite for persistence, caching and durable bot state; Docker and n8n for self-hosted workflow orchestration; and Telegram bot APIs. His local retrieval project uses ChromaDB, Ollama and LangChain integrations. Noughtline adds a Node.js/Express service, Socket.IO realtime transport, JWT authentication, rate limiting and SQLite. The portfolio assistant uses Cloudflare Pages Functions and Workers AI. React, Vite, Streamlit UI and Playwright are present in projects but are not classified as backend technologies.",
+  "keywords": [
+    "backend technologies",
+    "backend stack",
+    "server technologies",
+    "databases",
+    "api frameworks",
+    "what backend",
+    "python backend",
+    "node backend"
+  ],
+  "categories": [
+    {
+      "name": "Python API and asynchronous services",
+      "technologies": ["Python", "FastAPI", "Uvicorn", "asyncio", "aiohttp", "httpx"],
+      "relationship": "direct-owned-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/football_predictor",
+          "commit": "7551c515f29d94ddd958da483c1178f468b90b81",
+          "path": "pyproject.toml",
+          "url": "https://github.com/dk3yyyy/football_predictor/blob/7551c515f29d94ddd958da483c1178f468b90b81/pyproject.toml"
+        },
+        {
+          "repository": "dk3yyyy/sol-eth-wallet-analyzer",
+          "commit": "c4e73083b54e3f855ace2664058b7109bb71443b",
+          "path": "requirements.txt",
+          "url": "https://github.com/dk3yyyy/sol-eth-wallet-analyzer/blob/c4e73083b54e3f855ace2664058b7109bb71443b/requirements.txt"
+        },
+        {
+          "repository": "dk3yyyy/telegram-social-video-downloader",
+          "commit": "8365102fd2e41d94704658340340b17bfca5d43c",
+          "path": "downloader/requirements.txt",
+          "url": "https://github.com/dk3yyyy/telegram-social-video-downloader/blob/8365102fd2e41d94704658340340b17bfca5d43c/downloader/requirements.txt"
+        }
+      ]
+    },
+    {
+      "name": "Data and durable state",
+      "technologies": ["SQLAlchemy", "PostgreSQL", "asyncpg", "Redis", "SQLite", "aiosqlite", "Alembic"],
+      "relationship": "direct-owned-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/user_count",
+          "commit": "c521691b8b7e650f159c0df7a20b978b80bba855",
+          "path": "requirements.txt",
+          "url": "https://github.com/dk3yyyy/user_count/blob/c521691b8b7e650f159c0df7a20b978b80bba855/requirements.txt"
+        },
+        {
+          "repository": "dk3yyyy/football_predictor",
+          "commit": "7551c515f29d94ddd958da483c1178f468b90b81",
+          "path": "pyproject.toml",
+          "url": "https://github.com/dk3yyyy/football_predictor/blob/7551c515f29d94ddd958da483c1178f468b90b81/pyproject.toml"
+        }
+      ]
+    },
+    {
+      "name": "Automation, messaging and deployment",
+      "technologies": ["n8n", "Docker Compose", "Telegram Bot API", "REST APIs", "webhooks"],
+      "relationship": "direct-owned-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/telegram-social-video-downloader",
+          "commit": "8365102fd2e41d94704658340340b17bfca5d43c",
+          "path": "docker-compose.yml",
+          "url": "https://github.com/dk3yyyy/telegram-social-video-downloader/blob/8365102fd2e41d94704658340340b17bfca5d43c/docker-compose.yml"
+        },
+        {
+          "repository": "dk3yyyy/user_count",
+          "commit": "c521691b8b7e650f159c0df7a20b978b80bba855",
+          "path": "requirements.txt",
+          "url": "https://github.com/dk3yyyy/user_count/blob/c521691b8b7e650f159c0df7a20b978b80bba855/requirements.txt"
+        }
+      ]
+    },
+    {
+      "name": "Local AI and retrieval infrastructure",
+      "technologies": ["ChromaDB", "Ollama", "LangChain", "BM25"],
+      "relationship": "direct-owned-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/local_AI_agent",
+          "commit": "4d853d4b4fff38ef6fb25a5d36740db02df7a015",
+          "path": "pyproject.toml",
+          "url": "https://github.com/dk3yyyy/local_AI_agent/blob/4d853d4b4fff38ef6fb25a5d36740db02df7a015/pyproject.toml"
+        }
+      ]
+    },
+    {
+      "name": "JavaScript realtime service architecture",
+      "technologies": ["Node.js", "Express", "Socket.IO", "WebSockets", "JWT", "express-rate-limit", "Helmet", "SQLite"],
+      "relationship": "direct-owned-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/Noughtline",
+          "commit": "6911778fc6f0328885712a9d632bc9ee4f817de3",
+          "path": "server/package.json",
+          "url": "https://github.com/dk3yyyy/Noughtline/blob/6911778fc6f0328885712a9d632bc9ee4f817de3/server/package.json"
+        },
+        {
+          "repository": "dk3yyyy/Noughtline",
+          "commit": "6911778fc6f0328885712a9d632bc9ee4f817de3",
+          "path": "server/app.js",
+          "url": "https://github.com/dk3yyyy/Noughtline/blob/6911778fc6f0328885712a9d632bc9ee4f817de3/server/app.js"
+        }
+      ]
+    },
+    {
+      "name": "Portfolio assistant edge runtime",
+      "technologies": ["Cloudflare Pages Functions", "Cloudflare Workers AI"],
+      "relationship": "direct-current-project-use",
+      "sources": [
+        {
+          "repository": "dk3yyyy/joshua-nwachinemere",
+          "commit": "working-tree-preview",
+          "path": "functions/api/ask.js",
+          "url": "https://assistant-review.joshua-nwachinemere.pages.dev"
+        }
+      ]
+    }
+  ],
+  "notBackend": ["React", "Vite", "Streamlit UI", "Playwright"],
+  "exclusions": "Technologies found only in upstream contribution repositories, lockfiles without meaningful implementation, or documentation-only references are not counted as Joshua’s owned-project backend stack."
+}

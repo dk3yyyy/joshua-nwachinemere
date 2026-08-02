@@ -1,0 +1,22 @@
+{
+  "name": "Joshua Nwachinemere · AI Engineer",
+  "short_name": "Joshua N.",
+  "description": "AI Engineer building reliable Python systems for applied AI.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f3f0",
+  "theme_color": "#f3f3f0",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
