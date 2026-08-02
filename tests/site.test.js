@@ -119,8 +119,11 @@ test('production config avoids unsupported Pages bindings and keeps AI routing f
   assert.match(wranglerConfig, /"binding"\s*:\s*"AI"/);
 });
 
-test('Cloudflare builds pin a Wrangler version that supports import attributes', () => {
-  assert.equal(packageJson.devDependencies?.wrangler, '4.118.0');
+test('Cloudflare builds pin compatible tooling and prebundle Pages Functions', () => {
+  assert.equal(packageJson.devDependencies.wrangler, '4.118.0');
+  assert.match(packageJson.scripts.postbuild, /build:pages-functions/);
+  assert.match(packageJson.scripts['build:pages-functions'], /wrangler pages functions build/);
+  assert.match(packageJson.scripts['build:pages-functions'], /--outfile dist\/_worker\.js/);
 });
 
 test('assistant deployment documentation matches the production fail-closed configuration', () => {

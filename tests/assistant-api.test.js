@@ -149,6 +149,20 @@ test('production AI routing fails closed when the rate-limiter binding is absent
   assert.equal(calls, 0);
 });
 
+test('production deterministic evidence remains available without a rate-limiter binding', async () => {
+  let calls = 0;
+  const response = await onRequestPost({
+    request: request({ question: 'What did Joshua write about the hidden complexity of RAG?' }),
+    env: { ASSISTANT_ENV: 'production', AI: { run: async () => { calls += 1; } } },
+  });
+  assert.equal(response.status, 200);
+  const payload = await response.json();
+  assert.equal(payload.outcome, 'answered');
+  assert.equal(payload.mode, 'evidence-routed');
+  assert.deepEqual(payload.evidenceIds, ['article-hidden-complexity-rag']);
+  assert.equal(calls, 0);
+});
+
 test('public review hostname cannot bypass production rate limiting', async () => {
   let calls = 0;
   const response = await onRequestPost({
