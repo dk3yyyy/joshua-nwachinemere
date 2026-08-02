@@ -1,9 +1,9 @@
 {
-  "suitePart": "blind-holdout",
-  "version": "2026.08.01-blind-v1",
-  "suiteVersion": "2026.08.01-v1",
+  "suitePart": "opened-regression",
+  "version": "2026.08.02-opened-v2",
+  "suiteVersion": "2026.08.02-opened-v2",
   "kbVersion": "2026.08.01-v1",
-  "description": "Final blind holdout generalization suite: 80 entirely new, previously-unseen cases (split=holdout). Authored without tuning; no overlap with the 290-case suite.",
+  "description": "Former 80-case blind holdout, opened during retrieval debugging on 2026-08-02. Retained only as a regression set; results are not independent generalization evidence.",
   "cases": [
     {
       "id": "blind-h-001",

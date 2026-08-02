@@ -1,5 +1,9 @@
 import evidenceDocument from '../../knowledge/detailed-evidence.json' with { type: 'json' };
-import { retrieveEvidence as retrieveReviewedEvidence } from './detailed-retrieval.js';
+import {
+  analyzePrRangeQuery,
+  hasExplicitPrRange,
+  retrieveEvidence as retrieveReviewedEvidence,
+} from './detailed-retrieval.js';
 
 const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EXPECTED_KB_VERSION = '2026.08.01-v1';
@@ -144,6 +148,8 @@ export function detailedEvidenceMetadata() {
     count: detailedEvidenceRecords.length,
   };
 }
+
+export { analyzePrRangeQuery, hasExplicitPrRange };
 
 export function retrieveDetailedEvidence(question, options = {}) {
   return retrieveReviewedEvidence(question, detailedEvidenceRecords, options).map(({ record, score, signals }) => ({

@@ -1,3 +1,5 @@
+import { hasMixedLatinConfusableScripts, normalizeSecurityText } from './security-normalization.js';
+
 const STOP_WORDS = new Set([
   'a', 'about', 'an', 'and', 'are', 'as', 'at', 'be', 'best', 'by', 'did', 'do', 'does',
   'for', 'from', 'has', 'have', 'he', 'how', 'i', 'in', 'is', 'it', 'joshua', 'me', 'of',
@@ -29,6 +31,7 @@ const OUT_OF_SCOPE_PATTERNS = [
   /\b(?:best project|most important contribution|single greatest|programming languages? does .+ not know)\b/i,
   /\b(?:never worked on|has not contributed to|companies .+ not contributed)\b/i,
   /\b(?:phd|doctoral dissertation)\b/i,
+  /\b(?:shoe|clothing) size\b/i,
   /^\s*what did (?:he|she|they) build there\??\s*$/i,
 ];
 
@@ -118,7 +121,7 @@ function editDistance(left, right) {
 function fuzzyPhraseScore(question, record) {
   const questionTokens = normalizeText(question).split(/\s+/).filter(Boolean);
   let best = 0;
-  for (const phraseValue of [record.title, record.subject, ...(record.aliases ?? [])]) {
+  for (const phraseValue of [...(record.aliases ?? []), record.keys?.repo]) {
     const normalizedPhrase = normalizeText(phraseValue);
     if (GENERIC_ENTITY_PHRASES.has(normalizedPhrase)) continue;
     const phraseTokens = normalizedPhrase.split(/\s+/).filter((token) => token.length >= 3);
@@ -132,7 +135,7 @@ function fuzzyPhraseScore(question, record) {
       if (close) approximateMatches += 1;
       return close;
     }));
-    if (matched && approximateMatches > 0) best = Math.max(best, 38 + Math.min(phraseTokens.length, 5) * 5);
+    if (matched && approximateMatches === 1) best = Math.max(best, 38 + Math.min(phraseTokens.length, 5) * 5);
   }
   return best;
 }
@@ -193,10 +196,120 @@ function extractPrNumbers(question) {
   return [...String(question).matchAll(PR_PATTERN)].map((match) => Number(match[1]));
 }
 
+function parseLeadingPrRange(value) {
+  const between = String(value).match(/^\s*between\s+#?(\d{1,6})\s+and\s+#?(\d{1,6})(?![\p{L}\p{N}_#])/iu);
+  if (between) {
+    return { range: [Number(between[1]), Number(between[2])], length: between[0].length };
+  }
+
+  const linear = String(value).match(/^\s*(?:from\s+)?#?(\d{1,6})\s*(?:[–—-]|through|to)\s*#?(\d{1,6})(?![\p{L}\p{N}_#])/iu);
+  if (!linear) return null;
+  return { range: [Number(linear[1]), Number(linear[2])], length: linear[0].length };
+}
+
+function looksLikePrRangeStart(value) {
+  const text = String(value);
+  return /^\s*(?:from\b|between\b|#?\d{1,6}\s*(?:[–—-]|through\b|to\b))/i.test(text)
+    || /(?:#\s*)*\d{1,6}\s*(?:[–—-]|through\b|to\b)\s*(?:#\s*)*\d{1,6}/i.test(text)
+    || /(?:between|from)\s*(?:#\s*)*\d{1,6}/i.test(text);
+}
+
+export function analyzePrRangeQuery(value) {
+  const text = normalizeSecurityText(value);
+  const ranges = [];
+  const rangeContexts = [];
+  const exactPrContexts = [];
+  let hasRangeIntent = false;
+  let valid = true;
+
+  const contexts = [...text.matchAll(/\b(?:pull\s+requests?|prs?)\b/gi)];
+  for (const [index, context] of contexts.entries()) {
+    const contextStart = context.index ?? 0;
+    const contextEnd = contextStart + context[0].length;
+    const previousContextEnd = index > 0
+      ? (contexts[index - 1].index ?? 0) + contexts[index - 1][0].length
+      : 0;
+    const localContext = text.slice(previousContextEnd, contextEnd);
+    const nextContextStart = contexts[index + 1]?.index ?? text.length;
+    let remainder = text.slice(contextEnd, nextContextStart);
+    let parsed = parseLeadingPrRange(remainder);
+    if (!parsed && !looksLikePrRangeStart(remainder)) {
+      const exact = remainder.match(/^\s*#\s*(\d{1,6})(?!\d)/);
+      if (exact) {
+        exactPrContexts.push({
+          prNumber: Number(exact[1]),
+          context: localContext,
+          followingContext: remainder.slice(exact[0].length),
+        });
+      }
+      continue;
+    }
+
+    hasRangeIntent = true;
+    if (!parsed) {
+      valid = false;
+      continue;
+    }
+
+    ranges.push(parsed.range);
+    const contextRangeEntries = [{ range: parsed.range, context: localContext }];
+    rangeContexts.push(contextRangeEntries[0]);
+    remainder = remainder.slice(parsed.length);
+
+    while (true) {
+      const connector = remainder.match(/^\s*(?:,|and\b|or\b|\/|&|\+|plus\b)\s*/i);
+      if (!connector) break;
+      const candidate = remainder.slice(connector[0].length);
+      const next = parseLeadingPrRange(candidate);
+      if (!next) {
+        if (
+          !candidate.replace(/[\p{P}\p{S}\s]/gu, '')
+          || looksLikePrRangeStart(candidate)
+          || (candidate.match(/#\s*\d{1,6}/g) ?? []).length >= 2
+          || /^\s*(?:,|and\b|or\b|\/|&|\+|plus\b)/i.test(candidate)
+        ) valid = false;
+        break;
+      }
+      ranges.push(next.range);
+      const rangeContext = { range: next.range, context: localContext };
+      contextRangeEntries.push(rangeContext);
+      rangeContexts.push(rangeContext);
+      remainder = candidate.slice(next.length);
+    }
+
+    for (const rangeContext of contextRangeEntries) {
+      rangeContext.followingContext = remainder;
+    }
+
+    if (
+      /#?\d{1,6}\s*(?:[–—-]|through\b|to\b)\s*#?\d{1,6}/i.test(remainder)
+      || (remainder.match(/#\s*\d{1,6}/g) ?? []).length >= 2
+      || /\b(?:between|from)\b/i.test(remainder)
+    ) {
+      valid = false;
+    }
+  }
+
+  return {
+    hasRangeIntent,
+    ranges,
+    rangeContexts,
+    exactPrContexts,
+    valid,
+  };
+}
+
 function extractPrRanges(value) {
-  return [...String(value ?? '').matchAll(/#?(\d{1,6})\s*[–—-]\s*#?(\d{1,6})/g)]
-    .map((match) => [Number(match[1]), Number(match[2])])
-    .filter(([start, end]) => start <= end);
+  return analyzePrRangeQuery(value).ranges;
+}
+
+export function hasExplicitPrRange(value) {
+  return analyzePrRangeQuery(value).hasRangeIntent;
+}
+
+function extractStandalonePrNumbers(value, ranges = extractPrRanges(value)) {
+  const rangeEndpoints = new Set(ranges.flat());
+  return extractPrNumbers(value).filter((prNumber) => !rangeEndpoints.has(prNumber));
 }
 
 function prNumberScore(numbers, record) {
@@ -264,14 +377,57 @@ function exactEntityMatches(question, record) {
     .filter((phrase) => containsNormalizedPhrase(question, phrase));
 }
 
-function exactNamedEntityMatches(question, record) {
+function normalizeNamedEntityText(value) {
+  return normalizeText(value).replace(/\bpull requests?\b/g, 'prs');
+}
+
+function namedEntityPhrases(record) {
   return [record.subject, record.title, ...(record.aliases ?? []), ...(record.keys?.exactPhrases ?? []), record.keys?.repo]
     .filter(Boolean)
-    .map(normalizeText)
+    .map(normalizeNamedEntityText)
     .filter((phrase) => phrase.length >= 3
       && !GENERIC_ENTITY_PHRASES.has(phrase)
-      && (phrase.includes(' ') || (phrase.length >= 6 && !GENERIC_SINGLE_ENTITY_PHRASES.has(phrase))))
-    .filter((phrase) => containsNormalizedPhrase(question, phrase));
+      && (phrase.includes(' ') || (phrase.length >= 6 && !GENERIC_SINGLE_ENTITY_PHRASES.has(phrase))));
+}
+
+function exactNamedEntityMatches(question, record) {
+  const normalizedQuestion = normalizeNamedEntityText(question);
+  return namedEntityPhrases(record)
+    .filter((phrase) => containsNormalizedPhrase(normalizedQuestion, phrase));
+}
+
+function nearestNamedEntityOwnerKeys(contextBefore, contextAfter, records) {
+  const before = ` ${normalizeNamedEntityText(contextBefore)} `;
+  let nearestPosition = -1;
+  let owners = new Set();
+  for (const record of records) {
+    for (const phrase of namedEntityPhrases(record)) {
+      const position = before.lastIndexOf(` ${phrase} `);
+      if (position < 0) continue;
+      const owner = normalizeNamedEntityText(record.subject);
+      if (position > nearestPosition) {
+        nearestPosition = position;
+        owners = new Set([owner]);
+      } else if (position === nearestPosition) owners.add(owner);
+    }
+  }
+  if (owners.size) return owners;
+
+  const after = ` ${normalizeNamedEntityText(contextAfter)} `;
+  let earliestPosition = Number.POSITIVE_INFINITY;
+  owners = new Set();
+  for (const record of records) {
+    for (const phrase of namedEntityPhrases(record)) {
+      const position = after.indexOf(` ${phrase} `);
+      if (position < 0) continue;
+      const owner = normalizeNamedEntityText(record.subject);
+      if (position < earliestPosition) {
+        earliestPosition = position;
+        owners = new Set([owner]);
+      } else if (position === earliestPosition) owners.add(owner);
+    }
+  }
+  return owners;
 }
 
 function hasExactRecordAlias(question, records) {
@@ -309,17 +465,8 @@ function collectionBoost(question, record, broadCollectionQuestion, openStatusQu
 
 export function isEligiblePortfolioQuestion(question, records) {
   const cleanQuestion = String(question ?? '').trim();
-  const securityQuestion = cleanQuestion
-    .normalize('NFKC')
-    .replace(/[\u061C\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '')
-    .replace(/[Аа]/g, 'a')
-    .replace(/[Ее]/g, 'e')
-    .replace(/[Іі]/g, 'i')
-    .replace(/[Оо]/g, 'o')
-    .replace(/[Рр]/g, 'p')
-    .replace(/[Сс]/g, 'c')
-    .replace(/[Хх]/g, 'x')
-    .replace(/\s+/g, ' ');
+  if (hasMixedLatinConfusableScripts(cleanQuestion)) return false;
+  const securityQuestion = normalizeSecurityText(cleanQuestion);
   if (!securityQuestion || securityQuestion.length > 500 || OUT_OF_SCOPE_PATTERNS.some((pattern) => pattern.test(securityQuestion))) return false;
   return PORTFOLIO_SCOPE.test(securityQuestion)
     || hasExactRecordAlias(securityQuestion, records)
@@ -331,7 +478,9 @@ export function retrieveEvidence(question, records, {
   minimumScore = 4,
   semanticScores = null,
 } = {}) {
-  const cleanQuestion = String(question ?? '').trim();
+  const rawQuestion = String(question ?? '');
+  if (hasMixedLatinConfusableScripts(rawQuestion)) return [];
+  const cleanQuestion = normalizeSecurityText(rawQuestion);
   if (!isEligiblePortfolioQuestion(cleanQuestion, records)) return [];
 
   const questionTokens = tokenise(cleanQuestion);
@@ -339,22 +488,58 @@ export function retrieveEvidence(question, records, {
   const exactEntityIds = new Set(records
     .filter((record) => exactNamedEntityMatches(cleanQuestion, record).length > 0)
     .map((record) => record.id));
-  const questionPrRanges = extractPrRanges(cleanQuestion);
-  const aggregatePrRangeIds = new Set(records
-    .filter((record) => exactEntityIds.has(record.id) && record.keys?.prNumber == null)
-    .filter((record) => {
-      const knownRanges = extractPrRanges(`${record.title ?? ''} ${record.text ?? ''}`);
-      return questionPrRanges.some(([questionStart, questionEnd]) => knownRanges.some(([knownStart, knownEnd]) => (
+  const prRangeAnalysis = analyzePrRangeQuery(cleanQuestion);
+  if (prRangeAnalysis.hasRangeIntent && !prRangeAnalysis.valid) return [];
+  const questionPrRanges = prRangeAnalysis.ranges;
+  const questionPrRangeContexts = prRangeAnalysis.rangeContexts;
+  if (questionPrRanges.some(([start, end]) => start > end)) return [];
+  const aggregateRangeRecords = records
+    .filter((record) => record.keys?.prNumber == null)
+    .map((record) => ({
+      record,
+      knownRanges: extractPrRanges(`${record.title ?? ''} ${record.text ?? ''}`),
+    }));
+  const isCoveredPrRange = ({
+    range: [questionStart, questionEnd],
+    context,
+    followingContext,
+  }) => {
+    const ownerKeys = nearestNamedEntityOwnerKeys(context, followingContext, records);
+    return ownerKeys.size > 0 && aggregateRangeRecords.some(({ record, knownRanges }) => (
+      ownerKeys.has(normalizeNamedEntityText(record.subject))
+      && knownRanges.some(([knownStart, knownEnd]) => (
         questionStart >= knownStart && questionEnd <= knownEnd
-      )));
-    })
-    .map((record) => record.id));
-  const prNumbers = aggregatePrRangeIds.size ? [] : extractPrNumbers(cleanQuestion);
+      ))
+    ));
+  };
+  if (questionPrRangeContexts.some((rangeContext) => !isCoveredPrRange(rangeContext))) return [];
+  const aggregatePrRangeIds = new Set(aggregateRangeRecords
+    .filter(({ record, knownRanges }) => questionPrRangeContexts.some(({
+      range: [questionStart, questionEnd],
+      context,
+      followingContext,
+    }) => {
+      const ownerKeys = nearestNamedEntityOwnerKeys(context, followingContext, records);
+      return ownerKeys.has(normalizeNamedEntityText(record.subject))
+        && knownRanges.some(([knownStart, knownEnd]) => (
+          questionStart >= knownStart && questionEnd <= knownEnd
+        ));
+    }))
+    .map(({ record }) => record.id));
+  const prNumbers = extractStandalonePrNumbers(cleanQuestion);
   const openStatusQuestion = /\b(?:open|unmerged|still open|polars|warp|numpy|agent-framework|openllmetry)\b|#(?:28594|14466|32141|7391|4386)\b/i.test(cleanQuestion);
   const exactPrRecords = prNumbers.length
     ? records.filter((record) => prNumbers.includes(record.keys?.prNumber))
     : [];
   if (prNumbers.length && !exactPrRecords.length && !openStatusQuestion) return [];
+  for (const { prNumber, context, followingContext } of prRangeAnalysis.exactPrContexts) {
+    const matchingRecords = exactPrRecords.filter((record) => record.keys?.prNumber === prNumber);
+    const ownerKeys = nearestNamedEntityOwnerKeys(context, followingContext, records);
+    if (
+      ownerKeys.size > 0
+      && !matchingRecords.some((record) => ownerKeys.has(normalizeNamedEntityText(record.subject)))
+    ) return [];
+  }
 
   const employmentAllowed = employmentPremiseFilter(cleanQuestion, records);
   if (employmentAllowed?.size === 0) return [];
@@ -364,7 +549,13 @@ export function retrieveEvidence(question, records, {
   const permitIntentOnly = allowsIntentOnly(cleanQuestion, intents);
   const { documents, frequencies, averageLength } = buildBm25Corpus(records);
   const scored = records.map((record, index) => {
+    if (
+      questionPrRanges.length
+      && !aggregatePrRangeIds.has(record.id)
+      && !prNumbers.includes(record.keys?.prNumber)
+    ) return null;
     if (prNumbers.length && !prNumbers.includes(record.keys?.prNumber)
+      && !aggregatePrRangeIds.has(record.id)
       && !(openStatusQuestion && record.id === 'contributions-open-inflight')) return null;
     if (employmentAllowed && !employmentAllowed.has(record.id)) return null;
     if (record.routable === false && !broadCollectionQuestion) return null;

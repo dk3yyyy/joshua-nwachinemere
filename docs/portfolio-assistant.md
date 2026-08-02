@@ -53,9 +53,16 @@ change is intentional and reviewed, regenerate the manifest with
 `npm run assistant:write-detailed-corpus-manifest`, then inspect and commit the
 corpus and manifest together.
 
-`scripts/qa-detailed-rag.mjs --semantic <path>` accepts a version-matched JSON
-document whose `scoresByCase` object maps each evaluation case ID to positive
-evidence-ID scores. Without `--semantic`, retrieval remains lexical.
+`scripts/qa-detailed-rag.mjs --semantic <path>` accepts a JSON object containing
+`suiteVersion`, the SHA-256 `suiteDigest` of the exact suite file,
+`kbVersion`, the exact SHA-256 `corpusDigest` from the integrity manifest,
+and a complete `scoresByCase` map. Every suite case must have a non-empty
+map of known evidence IDs to finite scores from 0 through 1. Missing
+cases, unknown cases or evidence IDs, invalid scores, and version/digest
+mismatches fail the run instead of silently reverting those cases to lexical
+retrieval. Without `--semantic`, retrieval remains lexical.
+
+Every evaluator report records SHA-256 identities for the evaluator source, the complete retrieval/evaluation implementation source set, the exact suite bytes, and the reviewed corpus version and digest. When used, it also records the semantic artifact identity and covered-case count. Endpoint-mode runs are diagnostic unless the remote deployment cryptographically attests its build and corpus; unattested endpoint reports fail release gates instead of inheriting local provenance. `npm run build` verifies the corpus manifest before producing deployable assets, so a stale manifest blocks the build.
 
 ```bash
 npm ci
@@ -126,6 +133,6 @@ The current corpus is small enough for a deterministic in-bundle lexical index. 
 
 ### Provider evaluation
 
-Cloudflare Workers AI is the preferred structured evidence router because it scored 40/60 on the same hidden holdout where the Groq comparison scored 31/60. Both adapters use the same source hints, reviewed evidence IDs, validators and deterministic renderer; provider-generated prose never reaches the browser. The deterministic production assistant is deployable now, while production model routing remains fail-closed until edge throttling is configured and verified.
+An earlier provider diagnostic recorded 40/60 for Cloudflare Workers AI and 31/60 for Groq on a then-unopened 60-case set. That set has since been opened during retrieval debugging, so those figures are historical diagnostics—not independent release evidence or a basis for a current superiority claim. Both adapters use the same source hints, reviewed evidence IDs, validators and deterministic renderer; provider-generated prose never reaches the browser. Production model routing remains fail-closed until it is validated on a newly frozen independent set and edge throttling is configured and verified.
 
 Future production deployments remain separate approval steps.

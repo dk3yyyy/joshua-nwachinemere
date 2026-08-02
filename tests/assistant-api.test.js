@@ -100,6 +100,42 @@ test('reviewed detailed evidence bypasses provider routing entirely', async () =
   assert.equal(calls, 0);
 });
 
+test('API preserves strict PR-range abstention and supports either aggregate/exact context order', async () => {
+  for (const question of [
+    'Compare local_AI_agent PRs #1-#12 +.',
+    'Compare local_AI_agent PRs #1-#12 and。',
+    'Compare local_AI_agent PRs #1-#12 and #1−#12.',
+    'Compare local_AI_agent PRs #1-#12 and #1:#12.',
+    'Compare local_AI_agent PRs #1-#12 and #1 #12.',
+    'Compare local_AI_agent PRs #1-#12 with #1:#12.',
+    'Compare local review intelligence with local_AI_agent PRs #1-#13.',
+    'Compare local_AI_agent PR #4089 with Vega-Altair PRs #1-#12.',
+    'Compare local_AI_agent PRs #1-#12 with Vega-Altair PRs #1-#12.',
+    'Compare Vega-Altair PRs #1-#12 with local_AI_agent PRs #1-#12.',
+    'Compare local_AI_agent engineering history with Vega-Altair PRs #1-#12.',
+    'What did Noughtline PR #4089 do?',
+    'Compare local_AI_agent PRs #1-#12 with Noughtline PR #4089.',
+  ]) {
+    const response = await onRequestPost({ request: request({ question }), env: {} });
+    const payload = await response.json();
+    assert.equal(payload.outcome, 'insufficient_evidence', question);
+    assert.equal(payload.mode, 'abstained', question);
+    assert.deepEqual(payload.evidenceIds, [], question);
+  }
+
+  const response = await onRequestPost({
+    request: request({ question: 'Compare Vega-Altair PR #4089 with local_AI_agent PRs #1-#12.' }),
+    env: {},
+  });
+  const payload = await response.json();
+  assert.equal(payload.outcome, 'answered');
+  assert.equal(payload.mode, 'evidence-routed');
+  assert.deepEqual(new Set(payload.evidenceIds), new Set([
+    'engineering-local-ai-agent-history',
+    'contribution-altair-4089',
+  ]));
+});
+
 test('API does not transmit questions containing personal-data patterns', async () => {
   let calls = 0;
   const response = await onRequestPost({

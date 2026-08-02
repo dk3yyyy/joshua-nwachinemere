@@ -7,7 +7,10 @@ import {
   validateQuestion,
 } from '../../src/assistant/core.js';
 import { buildKnowledgeHints } from '../../src/assistant/knowledge.js';
-import { detailedEvidenceCatalog } from '../../src/assistant/detailed-evidence.js';
+import {
+  analyzePrRangeQuery,
+  detailedEvidenceCatalog,
+} from '../../src/assistant/detailed-evidence.js';
 
 const MAX_BODY_BYTES = 4_096;
 const MODEL = '@cf/meta/llama-3.2-3b-instruct';
@@ -230,6 +233,16 @@ export async function onRequestPost({ request, env = {} }) {
   const deterministic = answerQuestion(question);
 
   if (!isQuestionSafeForModel(question)) {
+    return json({ ...deterministic, mode: 'abstained' });
+  }
+
+  const prRangeAnalysis = analyzePrRangeQuery(question);
+  const hasStructuredPrContext = prRangeAnalysis.hasRangeIntent
+    || prRangeAnalysis.exactPrContexts.length > 0;
+  if (
+    hasStructuredPrContext
+    && (!prRangeAnalysis.valid || deterministic.outcome !== 'answered')
+  ) {
     return json({ ...deterministic, mode: 'abstained' });
   }
 

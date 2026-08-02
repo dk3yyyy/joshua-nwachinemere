@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "prebuild": "npm run assistant:verify-detailed-corpus",
     "build": "vite build",
     "postbuild": "node scripts/apply-pages-environment.mjs && npm run build:pages-functions",
     "build:pages-functions": "node scripts/build-pages-worker.mjs",

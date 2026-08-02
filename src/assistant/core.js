@@ -1,9 +1,11 @@
 import contributionData from './contributions.json' with { type: 'json' };
 import backendTechnologyData from './backend-technologies.json' with { type: 'json' };
 import {
+  analyzePrRangeQuery,
   detailedEvidenceCatalog,
   retrieveDetailedEvidence,
 } from './detailed-evidence.js';
+import { hasMixedLatinConfusableScripts, normalizeSecurityText } from './security-normalization.js';
 
 const PORTFOLIO_BASE = 'https://joshua-nwachinemere.pages.dev/';
 
@@ -158,8 +160,8 @@ const STOP_WORDS = new Set('a an and are as at be by did do does for from has ha
 const SENSITIVE_OR_UNSUPPORTED = /\b(address|age|api key|bank account|birthday|children|client names?|credit card|credential|date of birth|diagnos(?:is|ed)|disability|dob|earn|ethnic(?:ity)?|gay|health|home address|income|lesbian|live at|married|medical|national insurance|passport|password|phone number|politic(?:s|al)|race|racial|religion|residential|residence|salary|secret|sexual orientation|slack credential|social security|sort code|token|transgender|where i live)\b|\b(?:private|secondary|unlisted|other)\s+(?:personal\s+)?(?:email|email address|inbox)\b|\b(?:sk|xox[baprs])-[a-z0-9_-]{8,}\b/i;
 const UNSUPPORTED_CLAIM = /\b(?:full[- ]time salaried|client (?:list|identities|companies|nda)|freelance clients?|exam score|certification id|unconditional(?:ly)?|gpa|university dissertation|github stars?|revenue|paying client|fortune 500 clients?)\b|\bhow much\b.*\b(?:paid|pay|revenue|earn|money\b.*\bmake)\b|\bhow much money\b.*\bmake\b|\b(?:private|client)\b.*\b(?:contract|source code|invoices?)\b|\bexact test accuracy\b|\b(?:best|top) ai engineer in\b|\bhire him over\b|\b(?:guarantee|prove|verify)\b.*\b(?:every|all)\b.*\b(?:claims?|portfolio)\b/i;
 const INJECTION = /ignore (?:all|any|the|previous|your)|reveal (?:private|hidden)|system prompt|system override|developer message|retrieved context is wrong|disregard (?:the )?system|bypass|jailbreak|\bpretend\b.*\b(?:worked|employed|bio)\b|\binvent\b.*\b(?:employer|experience|claim)\b|\bforget previous\b|\bas an administrator\b|\bportfolio is wrong\b|\beven if (?:the )?evidence disagrees\b|\buse (?:your )?(?:general|world) knowledge\b|\bstate that he already\b|\bclaiming he\b/i;
-const UNSUPPORTED_PERSONAL = /\b(favou?rite|food|politic(?:s|al)|preference|prefers?|relationship)\b/i;
-const PERSONAL_DATA = /(?:\b\d{3}-\d{2}-\d{4}\b|\b(?:\d[ -]*?){13,19}\b|\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b|\b\d{5}(?:-\d{4})?\b|\b[A-Z]{2}\d{6}[A-D]\b|\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b|\b[\w.%+-]+@[\w.-]+\.[A-Z]{2,}\b|\+?\d[\d\s().-]{7,}\d)/i;
+const UNSUPPORTED_PERSONAL = /\b(favou?rite|food|politic(?:s|al)|preference|prefers?|dislikes?|least[- ]liked|relationship|(?:shoe|clothing) size|phd|doctoral dissertation)\b/i;
+const PERSONAL_DATA = /(?:\b\d{3}-\d{2}-\d{4}\b|\b(?:\d[ -]*?){13,19}\b|\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b|\b\d{5}(?:-\d{4})?\b|\b[A-Z]{2}\d{6}[A-D]\b|\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b|\b[\w.%+-]+@[\w.-]+\.[A-Z]{2,}\b|(?!(?:19|20)\d{2}[–—-](?:19|20)\d{2}\b)\+?\d[\d\s().-]{7,}\d)/i;
 const DETAILED_QUERY = /\b(?:articles?|blogs?|write|writes|wrote|written|writing|published|publications?|open pull requests?|open prs?|unmerged|still open|in[- ]flight)\b/i;
 
 function hasUnsupportedPremise(question) {
@@ -169,9 +171,9 @@ function hasUnsupportedPremise(question) {
   if (reverseEmployment && !/^VolyxAI\b/i.test(reverseEmployment[1])) return true;
   const titledAt = question.match(/\b(?:senior\s+)?(?:engineer|developer|employee|job)\s+at\s+([A-Z][A-Za-z0-9]*(?:\s+[A-Z][A-Za-z0-9]*){0,2})/);
   if (titledAt && !/^VolyxAI\b/i.test(titledAt[1])) return true;
-  if (/\b(?:he|joshua)\s+(?:created|founded|owns?|maintains? (?:all|the whole)(?: of)?)\s+(?:the\s+)?(?:apache arrow|openai agents sdk|pydantic ai|altair)\b/i.test(question)) return true;
-  if (/\b(?:shut(?:ting)? down|closed|discontinued|abandoned)\s+volyx lens\b|\bafter\s+shutting\s+down\s+volyx lens\b/i.test(question)) return true;
-  if (/\bportfolio says\s+(?:eight|8)\s+merged\s+(?:pull requests|prs)\b/i.test(question)) return true;
+  if (/\b(?:he|joshua)\s+(?:created|founded|originated?|owns?|maintains? (?:all|the whole)(?: of)?)\s+(?:the\s+)?(?:apache arrow|openai agents sdk|pydantic ai|altair)\b|\b(?:overall|sole)\s+maintainer\b.{0,40}\b(?:apache arrow|openai agents sdk|pydantic ai|altair)\b|\b(?:apache arrow|openai agents sdk|pydantic ai|altair)\b.{0,40}\b(?:overall|sole)\s+maintainer\b/i.test(question)) return true;
+  if (/\b(?:shut(?:ting)? down|closed|discontinued|abandoned)\s+volyx lens\b|\bafter\s+shutting\s+down\s+volyx lens\b|\bvolyx lens\b.{0,60}\b(?:shut down|closed|discontinued|abandoned)\b/i.test(question)) return true;
+  if (/\bportfolio says\s+(?:eight|8)\s+merged\s+(?:pull requests|prs)\b|\b(?:discrepancy|gap)\b.{0,80}\b(?:merged[- ]pr total|merged pull request total|verified records)\b/i.test(question)) return true;
   return /\b(?:which year|when) did (?:joshua|he) (?:finish|complete|graduate from) (?:his )?northumbria|\bfinish(?:ed)? (?:his )?northumbria msc\b/i.test(question);
 }
 
@@ -194,7 +196,7 @@ function hasEnoughKnownContext(question) {
 
 export function validateQuestion(question) {
   if (typeof question !== 'string') return { ok: false, error: 'Question must be text.' };
-  const value = question.normalize('NFKD').replace(/[\p{Cf}\p{M}]/gu, '').trim().replace(/\s+/g, ' ');
+  const value = normalizeSecurityText(question);
   if (!value) return { ok: false, error: 'Enter a question first.' };
   if (value.length > 500) return { ok: false, error: 'Keep the question under 500 characters.' };
   return { ok: true, value };
@@ -202,10 +204,11 @@ export function validateQuestion(question) {
 
 export function isQuestionSafeForModel(rawQuestion) {
   const validation = validateQuestion(rawQuestion);
-  if (!validation.ok) return false;
+  if (!validation.ok || hasMixedLatinConfusableScripts(rawQuestion)) return false;
   const question = validation.value;
   return !(
     SENSITIVE_OR_UNSUPPORTED.test(question)
+    || /\bwhere\s+(?:(?:does|is)\s+)?(?:joshua|he)\s+lives?\b/i.test(question)
     || UNSUPPORTED_CLAIM.test(question)
     || INJECTION.test(question)
     || UNSUPPORTED_PERSONAL.test(question)
@@ -382,15 +385,23 @@ export function answerQuestion(rawQuestion) {
   // enabled only for topics absent from the original corpus. Explicit article
   // and publication intent must run before the legacy contribution router so
   // words inside an article title cannot be mistaken for an upstream PR.
-  if (DETAILED_QUERY.test(question)) {
+  const prRangeAnalysis = analyzePrRangeQuery(question);
+  const hasExactPrContext = prRangeAnalysis.exactPrContexts.length > 0;
+  if (DETAILED_QUERY.test(question) || prRangeAnalysis.hasRangeIntent) {
     const detailedMatches = retrieveDetailedEvidence(question, { limit: 2 });
     if (detailedMatches.length) {
-      const [topMatch] = detailedMatches;
-      const selectedMatches = detailedMatches.filter(({ score }, index) => (
-        index === 0 || score >= topMatch.score * 0.6
+      const structuredPrMatches = detailedMatches.filter(({ signals }) => (
+        signals?.pr > 0 || signals?.aggregatePrRange > 0
       ));
+      const selectedMatches = structuredPrMatches.length > 0
+        ? structuredPrMatches
+        : detailedMatches.filter(({ score }, index) => index === 0 || score >= detailedMatches[0].score * 0.6);
       return answerFromEvidenceIds(selectedMatches.map(({ id }) => id), question);
     }
+    if (prRangeAnalysis.hasRangeIntent) return insufficient();
+  }
+  if (hasExactPrContext && !retrieveDetailedEvidence(question, { limit: 1 }).length) {
+    return insufficient();
   }
 
   const directIds = directEvidenceIds(question);
