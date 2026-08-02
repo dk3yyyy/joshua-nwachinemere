@@ -1,8 +1,10 @@
 import contributionData from './contributions.json' with { type: 'json' };
 import backendTechnologyData from './backend-technologies.json' with { type: 'json' };
+import frontendTechnologyData from './frontend-technologies.json' with { type: 'json' };
 import {
   analyzePrRangeQuery,
   detailedEvidenceCatalog,
+  detailedEvidenceRecords,
   retrieveDetailedEvidence,
 } from './detailed-evidence.js';
 import { hasMixedLatinConfusableScripts, normalizeSecurityText } from './security-normalization.js';
@@ -36,6 +38,17 @@ export const evidence = Object.freeze([
     predicate: 'verified_owned_project_technology_use',
     sourceIds: backendTechnologyData.categories.flatMap((category) => category.sources.map((source) => source.url)),
     text: backendTechnologyData.body,
+  },
+  {
+    id: frontendTechnologyData.id,
+    title: frontendTechnologyData.title,
+    href: frontendTechnologyData.href,
+    keywords: frontendTechnologyData.keywords.join(' '),
+    subject: 'Joshua frontend stack',
+    predicate: 'verified_owned_project_technology_use',
+    sourceIds: frontendTechnologyData.sourceIds,
+    routerOnly: frontendTechnologyData.routerOnly === true,
+    text: frontendTechnologyData.body,
   },
   {
     id: 'volyxai-company',
@@ -206,6 +219,7 @@ export function isQuestionSafeForModel(rawQuestion) {
   const validation = validateQuestion(rawQuestion);
   if (!validation.ok || hasMixedLatinConfusableScripts(rawQuestion)) return false;
   const question = validation.value;
+  if (namedDetailedOverviewMatch(question) === null) return false;
   return !(
     SENSITIVE_OR_UNSUPPORTED.test(question)
     || /\bwhere\s+(?:(?:does|is)\s+)?(?:joshua|he)\s+lives?\b/i.test(question)
@@ -291,7 +305,9 @@ export function directEvidenceIds(rawQuestion) {
   if (/\b(?:volyx lens|volix lens|macos assistant|multimodal product|screen context|microphone and meeting audio|ocr and transcription|provider routing|electron app)\b/i.test(question)) add('volyx-lens');
   if (/\b(?:local review intelligence|local reveiw intellegence|semantic recall|recall@5|bm25|rag benchmark|rag evaluation|rag and evaluation|demonstrates rag|retrieval evaluated|citation validation|csv review data|strongest retrieval project|chroma and ollama|review (?:and|project).*(?:football|metrics))\b/i.test(question)) add('local-review-intelligence');
   if (/\b(?:football forecasting|football model|football projects?|football prediction|footbal prediction|temporal leakage|rolling-origin|rolling origin|bookmaker benchmark|1,?140.*matches|xgboost|chronological train|temporal ml)\b/i.test(question)) add('football-forecasting');
-  if (/\b(?:what|which|list|describe|summari[sz]e)\b.*\b(?:backend|server-side)\b.*\b(?:technolog(?:y|ies)|stack|tools?|frameworks?|databases?)\b|\b(?:backend|server-side)\s+(?:technolog(?:y|ies)|stack)\b/i.test(question)) {
+  if (/\b(?:what|which|list|describe|summari[sz]e)\b.*\b(?:front[- ]?end|client-side|user interface)\b.*\b(?:technolog(?:y|ies)|stack|tools?|frameworks?)\b|\b(?:front[- ]?end|client-side)\s+(?:technolog(?:y|ies)|stack)\b/i.test(question)) {
+    add('frontend-technologies');
+  } else if (/\b(?:what|which|list|describe|summari[sz]e)\b.*\b(?:backend|server-side)\b.*\b(?:technolog(?:y|ies)|stack|tools?|frameworks?|databases?)\b|\b(?:backend|server-side)\s+(?:technolog(?:y|ies)|stack)\b/i.test(question)) {
     add('backend-technologies');
   } else if (/\b(?:backend projects?|telegram social-video|social video workflow|wallet analyzer|solana and ethereum|fastapi and n8n|durable queues?|bounded concurrency and caching|telegram services?|aiohttp and react|additional engineering projects?)\b/i.test(question)) {
     add('backend-projects');
@@ -314,6 +330,30 @@ export function directEvidenceIds(rawQuestion) {
     add('featured-projects');
   }
   return selected;
+}
+
+function namedDetailedOverviewMatch(question) {
+  const overview = String(question).trim().match(
+    /^(?:tell me about|what is|what's|describe|explain|give me (?:a|an) (?:quick )?overview of)\s+(.+?)[?.!]*$/i,
+  );
+  // `undefined` means this is not an overview request. `null` means it is an
+  // overview request, but no exact approved project identity matched.
+  if (!overview) return undefined;
+
+  const topic = normalise(overview[1])
+    .replace(/^the\s+/, '')
+    .replace(/\s+(?:project|repo|repository)$/, '')
+    .trim();
+  if (!topic) return null;
+
+  const exactMatches = detailedEvidenceRecords.filter((record) => {
+    const names = [record.subject, ...(record.aliases ?? [])]
+      .map(normalise)
+      .filter((name) => name.length >= 4);
+    return names.includes(topic);
+  });
+  if (!exactMatches.length) return undefined;
+  return exactMatches.find((record) => record.type === 'project') ?? null;
 }
 
 export function answerFromEvidenceIds(rawIds, rawQuestion = '') {
@@ -406,6 +446,10 @@ export function answerQuestion(rawQuestion) {
 
   const directIds = directEvidenceIds(question);
   if (directIds.length) return answerFromEvidenceIds(directIds, question);
+
+  const namedDetailedMatch = namedDetailedOverviewMatch(question);
+  if (namedDetailedMatch) return answerFromEvidenceIds([namedDetailedMatch.id], question);
+  if (namedDetailedMatch === null) return insufficient();
 
   if (/^(?:who is joshua|tell me about joshua|what does joshua do)[?.!]*$/i.test(question)) {
     const profile = EVIDENCE_BY_ID.get('profile');

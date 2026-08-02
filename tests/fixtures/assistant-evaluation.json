@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "evaluationSetId": "portfolio-assistant-authored-2026-08-01",
   "description": "Pre-labeled routing and abstention benchmark for Joshua Nwachinemere portfolio assistant.",
-  "caseCount": 171,
+  "caseCount": 173,
   "scoring": {
     "exactEvidenceSet": true,
     "orderInsensitive": true,
@@ -2085,6 +2085,35 @@
       "expectedEvidenceIds": [],
       "forbiddenEvidenceIds": [],
       "rationale": "The assistant must reject unsupported presuppositions rather than correcting them with unrelated facts."
+    },
+    {
+      "id": "case-172",
+      "category": "named-project",
+      "difficulty": "standard",
+      "question": "Tell me about ChainScope.",
+      "expectedOutcome": "answered",
+      "expectedEvidenceIds": [
+        "repo-chainscope-wallet-analyzer"
+      ],
+      "forbiddenEvidenceIds": [
+        "backend-projects"
+      ],
+      "rationale": "An exact reviewed project name must reach its detailed evidence rather than abstaining or returning the generic backend catalogue."
+    },
+    {
+      "id": "case-173",
+      "category": "frontend-technologies",
+      "difficulty": "standard",
+      "question": "What frontend technologies does Joshua use?",
+      "expectedOutcome": "answered",
+      "expectedEvidenceIds": [
+        "frontend-technologies"
+      ],
+      "forbiddenEvidenceIds": [
+        "backend-technologies",
+        "backend-projects"
+      ],
+      "rationale": "Explicit frontend intent must route to the reviewed frontend stack without backend substitution."
     }
   ]
 }

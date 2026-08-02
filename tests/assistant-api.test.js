@@ -80,6 +80,26 @@ test('API serves reviewed article and publishing-profile evidence without a prov
   }
 });
 
+test('API serves named reviewed projects and the frontend stack without provider routing', async () => {
+  for (const [question, expectedId, expectedText] of [
+    ['tell me about ChainScope', 'repo-chainscope-wallet-analyzer', /read-only web app plus async Telegram bot/i],
+    ['What frontend technologies does Joshua use?', 'frontend-technologies', /React.*Vite.*Next\.js.*Playwright/i],
+  ]) {
+    let calls = 0;
+    const response = await onRequestPost({
+      request: request({ question }),
+      env: { AI: { run: async () => { calls += 1; } } },
+    });
+    assert.equal(response.status, 200, question);
+    const payload = await response.json();
+    assert.equal(payload.outcome, 'answered', question);
+    assert.equal(payload.mode, 'evidence-routed', question);
+    assert.deepEqual(payload.evidenceIds, [expectedId], question);
+    assert.match(payload.answer, expectedText, question);
+    assert.equal(calls, 0, question);
+  }
+});
+
 test('reviewed detailed evidence bypasses provider routing entirely', async () => {
   const question = 'What did Joshua write about the hidden complexity of RAG?';
   let calls = 0;
@@ -166,13 +186,20 @@ test('API fails closed before model invocation for mixed supported intent and se
 });
 
 test('API abstains from unrelated questions without invoking the model', async () => {
-  let calls = 0;
-  const response = await onRequestPost({
-    request: request({ question: 'Can purple umbrellas negotiate with the moon?' }),
-    env: { AI: { run: async () => { calls += 1; } } },
-  });
-  assert.equal((await response.json()).outcome, 'insufficient_evidence');
-  assert.equal(calls, 0);
+  for (const question of [
+    'Can purple umbrellas negotiate with the moon?',
+    'Explain Next.js repository!',
+    'Describe marketing site.',
+    'Explain marketing site repository!',
+  ]) {
+    let calls = 0;
+    const response = await onRequestPost({
+      request: request({ question }),
+      env: { AI: { run: async () => { calls += 1; } } },
+    });
+    assert.equal((await response.json()).outcome, 'insufficient_evidence', question);
+    assert.equal(calls, 0, question);
+  }
 });
 
 test('production AI routing fails closed when the rate-limiter binding is absent', async () => {

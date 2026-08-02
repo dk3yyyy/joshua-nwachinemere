@@ -69,6 +69,23 @@ test('source-backed organization and project questions route to their own review
   assert.doesNotMatch(userCount.answer, /load-tested.*specific throughput/i);
 });
 
+test('frontend technology questions return the verified frontend stack without backend substitution', () => {
+  for (const question of [
+    'What frontend technologies does Joshua use?',
+    'What front-end stack does Joshua use?',
+    'Which client-side frameworks does Joshua use?',
+    'List Joshua’s user interface tools.',
+  ]) {
+    const result = answerQuestion(question);
+    assert.equal(result.outcome, 'answered', question);
+    assert.deepEqual(citationIds(result), ['frontend-technologies'], question);
+    for (const fact of ['React', 'Vite', 'Next.js', 'Playwright']) {
+      assert.match(result.answer, new RegExp(fact.replace('.', '\\.'), 'i'), `${question}: ${fact}`);
+    }
+    assert.doesNotMatch(result.answer, /Python is Joshua.s primary backend|PostgreSQL|Redis/i, question);
+  }
+});
+
 test('backend technology questions return the verified cross-repository stack', () => {
   const result = answerQuestion('What backend technologies does Joshua use?');
   assert.equal(result.outcome, 'answered');

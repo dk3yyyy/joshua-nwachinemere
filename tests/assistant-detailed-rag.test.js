@@ -8,6 +8,7 @@ import {
   isApprovedEvidenceUrl,
   retrieveDetailedEvidence,
 } from '../src/assistant/detailed-evidence.js';
+import frontendTechnologyData from '../src/assistant/frontend-technologies.json' with { type: 'json' };
 
 test('loads the reviewed detailed evidence document with stable metadata', () => {
   assert.deepEqual(detailedEvidenceMetadata(), {
@@ -58,6 +59,54 @@ test('detailed retrieval answers long-tail portfolio questions that the original
     const answer = answerQuestion(question);
     assert.equal(answer.outcome, 'answered', question);
     assert.ok(answer.evidenceIds.includes(expectedId), `${question}: ${answer.evidenceIds.join(', ')}`);
+  }
+});
+
+test('an explicitly named reviewed project reaches the deterministic answer layer', () => {
+  for (const question of [
+    'tell me about ChainScope',
+    'What is ChainScope?',
+    'Describe the ChainScope project.',
+    'Explain sol-eth-wallet-analyzer.',
+  ]) {
+    const retrieved = retrieveDetailedEvidence(question);
+    assert.equal(retrieved[0]?.id, 'repo-chainscope-wallet-analyzer', question);
+
+    const answer = answerQuestion(question);
+    assert.equal(answer.outcome, 'answered', question);
+    assert.deepEqual(answer.evidenceIds, ['repo-chainscope-wallet-analyzer'], question);
+    assert.match(answer.answer, /read-only web app plus async Telegram bot/i, question);
+    assert.equal(
+      answer.citations[0]?.href,
+      'https://github.com/dk3yyyy/sol-eth-wallet-analyzer#readme',
+      question,
+    );
+  }
+});
+
+test('named overview routing stays limited to project records and does not broaden generic aliases', () => {
+  for (const question of [
+    'Tell me about followers.',
+    'What is Next.js?',
+    'Tell me about marketing site.',
+    'Explain Next.js repository!',
+    'Describe marketing site.',
+    'Explain marketing site repository!',
+  ]) {
+    const answer = answerQuestion(question);
+    assert.equal(answer.outcome, 'insufficient_evidence', question);
+    assert.deepEqual(answer.evidenceIds, [], question);
+  }
+});
+
+test('the frontend aggregate is traceable to reviewed records for each claimed technology', () => {
+  const sources = frontendTechnologyData.sourceIds.map((id) => (
+    detailedEvidenceRecords.find((record) => record.id === id)
+  ));
+  assert.ok(sources.every(Boolean));
+  const technologies = new Set(sources.flatMap((record) => record.entities.tech));
+  for (const technology of ['React', 'Vite', 'Next.js', 'Playwright']) {
+    assert.ok(technologies.has(technology), technology);
   }
 });
 

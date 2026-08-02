@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "owner": "dk3yyyy",
+  "verifiedAt": "2026-08-01",
+  "id": "frontend-technologies",
+  "title": "Frontend technologies across Joshua’s owned projects",
+  "href": "https://github.com/dk3yyyy?tab=repositories",
+  "routerOnly": true,
+  "body": "Across reviewed owned-project evidence, Joshua uses React in ChainScope and Noughtline, Vite in ChainScope, and Next.js on the VolyxAI marketing site. Playwright is used for ChainScope browser and interface testing. These are verified project-specific uses; they are not being presented as backend technologies.",
+  "keywords": [
+    "frontend technologies",
+    "frontend stack",
+    "front-end technologies",
+    "user interface technologies",
+    "React",
+    "Vite",
+    "Next.js",
+    "Playwright"
+  ],
+  "sourceIds": [
+    "repo-chainscope-wallet-analyzer",
+    "repo-noughtline",
+    "contribution-volyxai-site"
+  ]
+}
