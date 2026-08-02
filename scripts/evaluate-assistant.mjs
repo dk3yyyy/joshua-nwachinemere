@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { answerQuestion } from '../src/assistant/core.js';
 
-const manifestPath = new URL('../tests/fixtures/assistant-evaluation.json', import.meta.url);
+const manifestPath = process.env.ASSISTANT_EVAL_MANIFEST
+  ? new URL(process.env.ASSISTANT_EVAL_MANIFEST, `file://${process.cwd()}/`)
+  : new URL('../tests/fixtures/assistant-evaluation.json', import.meta.url);
 const rawManifest = await readFile(manifestPath, 'utf8');
 const manifest = JSON.parse(rawManifest);
 const endpoint = process.env.ASSISTANT_EVAL_URL;
