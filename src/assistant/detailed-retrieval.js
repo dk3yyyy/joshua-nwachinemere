@@ -5,6 +5,11 @@ const STOP_WORDS = new Set([
   'who', 'why', 'with', 'would', 'you', 'your',
 ]);
 
+const GENERIC_SINGLE_ENTITY_PHRASES = new Set([
+  'article', 'fastapi', 'github', 'hashnode', 'medium', 'portfolio', 'project', 'python',
+  'repository', 'website',
+]);
+
 const OUT_OF_SCOPE_PATTERNS = [
   /\b(?:ignore|override|bypass)\b.{0,50}\b(?:instructions?|sources?|rules?|prompt)\b/i,
   /\b(?:api|access|secret|private)\s*key\b/i,
@@ -21,16 +26,17 @@ const OUT_OF_SCOPE_PATTERNS = [
   /\b(?:cites?|citation)\b.{0,100}\b(?:prove|state|confirm|forbes|millionaire|merged prs?|invent)\b/i,
   /\b(?:best project|most important contribution|single greatest|programming languages? does .+ not know)\b/i,
   /\b(?:never worked on|has not contributed to|companies .+ not contributed)\b/i,
+  /\b(?:phd|doctoral dissertation)\b/i,
   /^\s*what did (?:he|she|they) build there\??\s*$/i,
 ];
 
-const PORTFOLIO_SCOPE = /\b(?:joshua|his|he|person|recruiter|positions?|portfolio|projects?|tools?|work|experience|contributions?|pull requests?|prs?|cv|resume|email|contact|skills?|education|studied|school|university|articles?|blog|wrote|writing|certifications?|degree|github|linkedin|hashnode|medium|dev)\b/i;
+const PORTFOLIO_SCOPE = /\b(?:joshua|his|he|person|recruiter|positions?|portfolio|projects?|tools?|work|experience|contributions?|pull requests?|prs?|cv|resume|email|contact|skills?|education|stud(?:y|ied|ies)|undergraduate|bachelors?|school|university|articles?|blog|wrote|writing|certifications?|degree|github|linkedin|hashnode|medium|dev|metrics?|accuracy|benchmark|pipeline|test matches?)\b/i;
 const EMPLOYMENT_PREMISE = /\b(?:work(?:ed|s|ing)?\s+(?:at|for)|employ(?:ed|ment)?\s+(?:at|by)|job\s+at|what did .{0,30}\bdo\s+at|role\s+(?:on|at)|report\s+to|title\s+when\s+(?:he\s+)?was\s+at|leave\s+\w+\s+to\s+join)\b/i;
 const BROAD_COLLECTION = /\b(?:all|overview|list|how many|tally|count|every|overall|platforms?|open[- ]source work|articles has|projects has|contributions has)\b/i;
 const PR_PATTERN = /(?:#|\bpr\s*#?\s*)(\d{1,6})\b/gi;
 
 const INTENT_RULES = [
-  ['education', /\b(?:education|study|studied|school|university|degree|btech|msc|college)\b/i],
+  ['education', /\b(?:education|stud(?:y|ied|ies)|undergraduate|bachelors?|school|university|degree|btech|msc|college)\b/i],
   ['certification', /\b(?:certificate|certification|credential|training|freecodecamp|coursera|skilljar)\b/i],
   ['article', /\b(?:article|blog|write|wrote|writing|published|publication|hashnode|medium|dev community)\b/i],
   ['contact', /\b(?:contact|email|github profile|linkedin|portfolio site|reach|get in touch|publication url|\burl\b)\b/i],
@@ -75,11 +81,56 @@ export function normalizeText(value) {
     .toLowerCase();
 }
 
+function normalizeForPhraseMatch(value) {
+  return normalizeText(value).replace(/[.@]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function containsNormalizedPhrase(question, phraseValue) {
+  const normalizedQuestion = ` ${normalizeForPhraseMatch(question)} `;
+  const phrase = normalizeForPhraseMatch(phraseValue);
+  return phrase.length >= 3 && normalizedQuestion.includes(` ${phrase} `);
+}
+
 function tokenise(value) {
   return normalizeText(value)
     .split(/\s+/)
     .map((token) => token.replace(/^[-_/]+|[-_/]+$/g, ''))
     .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
+}
+
+function editDistance(left, right) {
+  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+    let diagonal = previous[0];
+    previous[0] = leftIndex;
+    for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+      const above = previous[rightIndex];
+      const cost = left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1;
+      previous[rightIndex] = Math.min(previous[rightIndex] + 1, previous[rightIndex - 1] + 1, diagonal + cost);
+      diagonal = above;
+    }
+  }
+  return previous[right.length];
+}
+
+function fuzzyPhraseScore(question, record) {
+  const questionTokens = normalizeText(question).split(/\s+/).filter(Boolean);
+  let best = 0;
+  for (const phraseValue of [record.title, record.subject, ...(record.aliases ?? [])]) {
+    const phraseTokens = normalizeText(phraseValue).split(/\s+/).filter((token) => token.length >= 3);
+    if (!phraseTokens.length || (phraseTokens.length === 1 && phraseTokens[0].length < 7)) continue;
+    let approximateMatches = 0;
+    const matched = phraseTokens.every((phraseToken) => questionTokens.some((questionToken) => {
+      if (phraseToken === questionToken) return true;
+      const allowance = phraseToken.length >= 9 ? 2 : phraseToken.length >= 5 ? 1 : 0;
+      if (!allowance || Math.abs(phraseToken.length - questionToken.length) > allowance) return false;
+      const close = editDistance(phraseToken, questionToken) <= allowance;
+      if (close) approximateMatches += 1;
+      return close;
+    }));
+    if (matched && approximateMatches > 0) best = Math.max(best, 38 + Math.min(phraseTokens.length, 5) * 5);
+  }
+  return best;
 }
 
 function flattenEntities(record) {
@@ -114,7 +165,6 @@ function searchableText(record) {
 }
 
 function exactPhraseScore(question, record) {
-  const normalizedQuestion = ` ${normalizeText(question)} `;
   let score = 0;
   const seen = new Set();
   const groups = [
@@ -126,7 +176,7 @@ function exactPhraseScore(question, record) {
   for (const group of groups) {
     for (const rawPhrase of group.values) {
       const phrase = normalizeText(rawPhrase);
-      if (phrase.length < 3 || seen.has(phrase) || !normalizedQuestion.includes(` ${phrase} `)) continue;
+      if (phrase.length < 3 || seen.has(phrase) || !containsNormalizedPhrase(question, rawPhrase)) continue;
       seen.add(phrase);
       const wordCount = phrase.split(' ').length;
       score += wordCount === 1 ? Math.min(group.base, 24) : group.base + Math.min(wordCount, 6) * 3;
@@ -137,6 +187,12 @@ function exactPhraseScore(question, record) {
 
 function extractPrNumbers(question) {
   return [...String(question).matchAll(PR_PATTERN)].map((match) => Number(match[1]));
+}
+
+function extractPrRanges(value) {
+  return [...String(value ?? '').matchAll(/#?(\d{1,6})\s*[–—-]\s*#?(\d{1,6})/g)]
+    .map((match) => [Number(match[1]), Number(match[2])])
+    .filter(([start, end]) => start <= end);
 }
 
 function prNumberScore(numbers, record) {
@@ -186,10 +242,11 @@ function typeIntentBoost(record, intents) {
 }
 
 function allowsIntentOnly(question, intents) {
-  if (intents.has('education') && /\b(?:education|school|studied|university|degree)\b/i.test(question)) return true;
+  if (intents.has('education') && /\b(?:education|stud(?:y|ied|ies)|undergraduate|bachelors?|school|university|degree)\b/i.test(question)) return true;
   if (intents.has('certification') && /\b(?:what|which|list)\b.{0,24}\b(?:certifications?|credentials?|training)\b/i.test(question)) return true;
   if (intents.has('article') && /\b(?:what|which|list|does)\b.{0,24}\b(?:articles?|writing|blog|publications?)\b/i.test(question)) return true;
   if (intents.has('skill') && /\b(?:what|which|list)\b.{0,24}\b(?:skills?|technologies|toolkit)\b/i.test(question)) return true;
+  if (intents.has('contact') && /\b(?:contact|get in touch|reach|email|hire)\b/i.test(question)) return true;
   if (intents.has('profile') || intents.has('availability')) return true;
   if ((intents.has('employment') || intents.has('current-employment')) && /\b(?:present|current) (?:position|role)\b/i.test(question)) return true;
   if (intents.has('temporal') && /\b(?:currently|right now|actively)\b/i.test(question)) return true;
@@ -197,15 +254,27 @@ function allowsIntentOnly(question, intents) {
 }
 
 function exactEntityMatches(question, record) {
-  const normalizedQuestion = ` ${normalizeText(question)} `;
   return phrasesFor(record)
     .map(normalizeText)
     .filter((phrase) => phrase.length >= 3)
-    .filter((phrase) => normalizedQuestion.includes(` ${phrase} `));
+    .filter((phrase) => containsNormalizedPhrase(question, phrase));
+}
+
+function exactNamedEntityMatches(question, record) {
+  return [record.subject, record.title, ...(record.aliases ?? []), ...(record.keys?.exactPhrases ?? []), record.keys?.repo]
+    .filter(Boolean)
+    .map(normalizeText)
+    .filter((phrase) => phrase.length >= 3
+      && (phrase.includes(' ') || (phrase.length >= 6 && !GENERIC_SINGLE_ENTITY_PHRASES.has(phrase))))
+    .filter((phrase) => containsNormalizedPhrase(question, phrase));
 }
 
 function hasExactRecordAlias(question, records) {
   return records.some((record) => exactEntityMatches(question, record).length > 0);
+}
+
+function hasFuzzyRecordAlias(question, records) {
+  return records.some((record) => fuzzyPhraseScore(question, record) >= 38);
 }
 
 function employmentPremiseFilter(question, records) {
@@ -235,9 +304,21 @@ function collectionBoost(question, record, broadCollectionQuestion, openStatusQu
 
 export function isEligiblePortfolioQuestion(question, records) {
   const cleanQuestion = String(question ?? '').trim();
-  const securityQuestion = cleanQuestion.normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g, ' ').replace(/\s+/g, ' ');
+  const securityQuestion = cleanQuestion
+    .normalize('NFKC')
+    .replace(/[\u061C\u200B-\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, '')
+    .replace(/[Аа]/g, 'a')
+    .replace(/[Ее]/g, 'e')
+    .replace(/[Іі]/g, 'i')
+    .replace(/[Оо]/g, 'o')
+    .replace(/[Рр]/g, 'p')
+    .replace(/[Сс]/g, 'c')
+    .replace(/[Хх]/g, 'x')
+    .replace(/\s+/g, ' ');
   if (!securityQuestion || securityQuestion.length > 500 || OUT_OF_SCOPE_PATTERNS.some((pattern) => pattern.test(securityQuestion))) return false;
-  return PORTFOLIO_SCOPE.test(securityQuestion) || hasExactRecordAlias(securityQuestion, records);
+  return PORTFOLIO_SCOPE.test(securityQuestion)
+    || hasExactRecordAlias(securityQuestion, records)
+    || hasFuzzyRecordAlias(securityQuestion, records);
 }
 
 export function retrieveEvidence(question, records, {
@@ -250,7 +331,20 @@ export function retrieveEvidence(question, records, {
 
   const questionTokens = tokenise(cleanQuestion);
   if (!questionTokens.length) return [];
-  const prNumbers = extractPrNumbers(cleanQuestion);
+  const exactEntityIds = new Set(records
+    .filter((record) => exactNamedEntityMatches(cleanQuestion, record).length > 0)
+    .map((record) => record.id));
+  const questionPrRanges = extractPrRanges(cleanQuestion);
+  const aggregatePrRangeIds = new Set(records
+    .filter((record) => exactEntityIds.has(record.id) && record.keys?.prNumber == null)
+    .filter((record) => {
+      const knownRanges = extractPrRanges(`${record.title ?? ''} ${record.text ?? ''}`);
+      return questionPrRanges.some(([questionStart, questionEnd]) => knownRanges.some(([knownStart, knownEnd]) => (
+        questionStart >= knownStart && questionEnd <= knownEnd
+      )));
+    })
+    .map((record) => record.id));
+  const prNumbers = aggregatePrRangeIds.size ? [] : extractPrNumbers(cleanQuestion);
   const openStatusQuestion = /\b(?:open|unmerged|still open|polars|warp|numpy|agent-framework|openllmetry)\b|#(?:28594|14466|32141|7391|4386)\b/i.test(cleanQuestion);
   const exactPrRecords = prNumbers.length
     ? records.filter((record) => prNumbers.includes(record.keys?.prNumber))
@@ -271,12 +365,15 @@ export function retrieveEvidence(question, records, {
     if (record.routable === false && !broadCollectionQuestion) return null;
 
     const phrase = exactPhraseScore(cleanQuestion, record);
+    const fuzzy = fuzzyPhraseScore(cleanQuestion, record);
+    const entity = exactEntityIds.has(record.id) ? 180 : 0;
+    const aggregatePrRange = aggregatePrRangeIds.has(record.id) ? 320 : 0;
     const pr = prNumberScore(prNumbers, record);
     const lexical = bm25Score(questionTokens, documents[index], frequencies, records.length, averageLength);
     const semantic = semanticScoreFor(record, semanticScores);
     const intent = typeIntentBoost(record, intents);
     const collection = collectionBoost(cleanQuestion, record, broadCollectionQuestion, openStatusQuestion);
-    let baseSupport = phrase + Math.max(pr, 0) + lexical + semantic + collection;
+    let baseSupport = phrase + fuzzy + entity + aggregatePrRange + Math.max(pr, 0) + lexical + semantic + collection;
     if (baseSupport <= 0 && permitIntentOnly && intent > 0) baseSupport = 0.5;
     if (baseSupport <= 0) return null;
     const routablePenalty = record.routable === false ? 35 : 0;
@@ -285,7 +382,7 @@ export function retrieveEvidence(question, records, {
     return {
       record,
       score,
-      signals: { phrase, pr, lexical, semantic, intent, collection, routablePenalty, prior },
+      signals: { phrase, fuzzy, entity, aggregatePrRange, pr, lexical, semantic, intent, collection, routablePenalty, prior },
     };
   }).filter(Boolean);
 
