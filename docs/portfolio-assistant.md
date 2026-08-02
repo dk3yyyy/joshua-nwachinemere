@@ -6,7 +6,7 @@ The assistant is a fixed-corner popup embedded in the portfolio. It answers ques
 
 ## Runtime design
 
-The deployed preview uses **AI-assisted evidence routing**:
+The deployed portfolio assistant uses **AI-assisted evidence routing** when a supported edge limiter is available:
 
 1. `src/assistant/core.js` validates and normalises the question.
 2. Sensitive, personal-data, prompt-injection-style and explicitly unsupported requests are rejected before any model call.
@@ -38,7 +38,7 @@ The API does not intentionally persist questions or log raw model payloads. Clou
 - raw visitor text and arbitrary tokens are not sent to the provider;
 - provider-returned IDs are intersected with the request-scoped allowlist;
 - production model routing fails closed unless a supported rate-limit control is bound;
-- the public preview is temporary and must not be promoted until edge throttling is verified;
+- Cloudflare preview-branch builds receive `noindex, nofollow` during the postbuild step;
 - citations reconstructed from the server-side allowlist;
 - no model-generated answer text reaches the browser;
 - no model call for detected sensitive, mixed personal-data or injection-style input;
@@ -53,15 +53,15 @@ npm run test:e2e
 npx wrangler@4 pages functions build --outdir /tmp/portfolio-assistant-functions-build
 ```
 
-Live preview verification should include:
+Deployment verification should include:
 
 - the natural paraphrase `what’s the best project he has done` returns the curated project comparison with `mode: evidence-routed`;
 - supported project, education and open-source questions return allowlisted citations;
 - unsupported questions return `insufficient_evidence`;
 - sensitive and mixed personal-data questions make zero model calls in unit tests;
 - malformed/oversized requests are rejected;
-- the preview remains `noindex, nofollow`;
-- production remains unchanged.
+- preview-branch builds remain `noindex, nofollow`;
+- the production build remains indexable.
 
 ## Structured backend-technology evidence
 
@@ -76,7 +76,7 @@ The deterministic router sends broad backend-stack questions to `backend-technol
 
 ## Cloudflare hosting and Workers AI binding
 
-Cloudflare Pages hosts the site and executes the server-side Function. Wrangler binds Cloudflare Workers AI as `AI`; no provider credential is sent to the browser. The checked-in Wrangler configuration is preview-only. The exact `assistant-review.joshua-nwachinemere.pages.dev` hostname may route without a production limiter for temporary review; no other hostname receives that exception. Production must set `ASSISTANT_ENV=production` and provide a supported `ASSISTANT_RATE_LIMITER` binding or equivalent Cloudflare edge rate-limit control; otherwise model routing fails closed with `503`. Deterministic answers do not consume the model route limit.
+Cloudflare Pages hosts the site and executes the server-side Function. Wrangler binds Cloudflare Workers AI as `AI`; no provider credential is sent to the browser. The checked-in configuration sets `ASSISTANT_ENV=production`. Production model routing fails closed with `503` until a supported edge limiter is configured; there are no hostname exceptions. Deterministic reviewed-evidence answers remain available and do not invoke Workers AI.
 
 ## Updating evidence
 
@@ -115,6 +115,6 @@ The current corpus is small enough for a deterministic in-bundle lexical index. 
 
 ### Provider evaluation
 
-Cloudflare Workers AI is the preferred structured evidence router because it scored 40/60 on the same hidden holdout where the Groq comparison scored 31/60. Both adapters use the same source hints, reviewed evidence IDs, validators and deterministic renderer; provider-generated prose never reaches the browser. Production remains blocked until untouched holdout/red-team evaluations pass and production edge throttling is configured and verified.
+Cloudflare Workers AI is the preferred structured evidence router because it scored 40/60 on the same hidden holdout where the Groq comparison scored 31/60. Both adapters use the same source hints, reviewed evidence IDs, validators and deterministic renderer; provider-generated prose never reaches the browser. The deterministic production assistant is deployable now, while production model routing remains fail-closed until edge throttling is configured and verified.
 
-Production deployment remains a separate approval step.
+Future production deployments remain separate approval steps.

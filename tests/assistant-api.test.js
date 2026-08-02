@@ -149,7 +149,7 @@ test('production AI routing fails closed when the rate-limiter binding is absent
   assert.equal(calls, 0);
 });
 
-test('exact review hostname can route while a stale production environment flag is present', async () => {
+test('public review hostname cannot bypass production rate limiting', async () => {
   let calls = 0;
   const response = await onRequestPost({
     request: request(
@@ -167,9 +167,9 @@ test('exact review hostname can route while a stale production environment flag 
       },
     },
   });
-  assert.equal(response.status, 200);
-  assert.equal((await response.json()).mode, 'groq-routed');
-  assert.equal(calls, 1);
+  assert.equal(response.status, 503);
+  assert.equal((await response.json()).error, 'Assistant model routing is temporarily unavailable.');
+  assert.equal(calls, 0);
 });
 
 test('rate-limited AI routing returns 429 without invoking the provider', async () => {

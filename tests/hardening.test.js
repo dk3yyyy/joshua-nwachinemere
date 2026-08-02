@@ -46,10 +46,9 @@ test('uses responsive project imagery and self-hosted licensed fonts', async () 
   ]) assert.equal(await exists(file), true, `Missing ${file}`);
 });
 
-test('adds a static 404 and hardened same-origin headers without weakening preview indexing', async () => {
+test('adds a static 404 and hardened same-origin headers without blocking production indexing', async () => {
   const [headers, notFound] = await Promise.all([read('public/_headers'), read('public/404.html')]);
   for (const directive of [
-    'X-Robots-Tag: noindex, nofollow',
     'Content-Security-Policy:',
     "connect-src 'self'",
     "frame-ancestors 'none'",
@@ -58,6 +57,7 @@ test('adds a static 404 and hardened same-origin headers without weakening previ
     'Cross-Origin-Opener-Policy:',
     'Cache-Control: public, max-age=31536000, immutable',
   ]) assert.ok(headers.includes(directive), `Missing header directive: ${directive}`);
+  assert.doesNotMatch(headers, /X-Robots-Tag:\s*(?:noindex|nofollow)/i);
   assert.doesNotMatch(headers, /unsafe-inline/);
   const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] ?? '';
   const hash = createHash('sha256').update(jsonLd).digest('base64');

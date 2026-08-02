@@ -6,14 +6,15 @@ import { readFile, stat } from 'node:fs/promises';
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
-const previewHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
+const productionHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
+const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
+const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const socialCard = await readFile(new URL('../public/og-card-v6.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const previewUrl = 'https://assistant-review.joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${previewUrl}og-card-v6.png`;
+const socialCardUrl = `${siteUrl}og-card-v6.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -104,9 +105,23 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /Context retrieved · models routed · results evaluated/);
 });
 
-test('preview remains excluded from search indexing', () => {
-  assert.match(previewHeaders, /X-Robots-Tag: noindex, nofollow/);
-  assert.match(previewHeaders, /Cache-Control: no-cache/);
+test('production remains indexable while HTML revalidation stays enabled', () => {
+  assert.doesNotMatch(productionHeaders, /X-Robots-Tag:\s*(?:noindex|nofollow)/i);
+  assert.match(productionHeaders, /Cache-Control: no-cache/);
+});
+
+test('production config avoids unsupported Pages bindings and keeps AI routing fail-closed', () => {
+  assert.match(wranglerConfig, /"ASSISTANT_ENV"\s*:\s*"production"/);
+  assert.doesNotMatch(wranglerConfig, /"ASSISTANT_ENV"\s*:\s*"preview"/);
+  assert.doesNotMatch(wranglerConfig, /"ratelimits"\s*:/);
+  assert.match(wranglerConfig, /"ai"\s*:/);
+  assert.match(wranglerConfig, /"binding"\s*:\s*"AI"/);
+});
+
+test('assistant deployment documentation matches the production fail-closed configuration', () => {
+  assert.doesNotMatch(assistantDocs, /checked-in Wrangler configuration is preview-only/i);
+  assert.doesNotMatch(assistantDocs, /hostname may route without a production limiter/i);
+  assert.match(assistantDocs, /production model routing fails closed with `503` until a supported edge limiter is configured/i);
 });
 
 test('includes a grounded corner chatbot with an accessible popup and explicit scope controls', () => {
@@ -317,7 +332,7 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes preview-aligned social metadata and the approved v6 landing-page card', () => {
+test('publishes production-aligned social metadata and the approved v6 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);

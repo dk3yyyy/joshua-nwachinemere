@@ -20,11 +20,9 @@ test('backend technology evidence is typed, source-linked, and separates non-bac
     for (const source of category.sources) {
       assert.ok(source.repository.startsWith('dk3yyyy/'));
       assert.ok(source.path.length > 2);
-      assert.match(source.url, /^https:\/\/(?:github\.com\/dk3yyyy\/|assistant-review\.joshua-nwachinemere\.pages\.dev)/);
-      if (source.commit !== 'working-tree-preview') {
-        assert.match(source.commit, /^[a-f0-9]{40}$/);
-        assert.ok(source.url.includes(source.commit));
-      }
+      assert.match(source.url, /^https:\/\/github\.com\/dk3yyyy\//);
+      assert.match(source.commit, /^[a-f0-9]{40}$/);
+      assert.ok(source.url.includes(source.commit));
       sourceUrls.add(source.url);
     }
   }

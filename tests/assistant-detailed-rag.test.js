@@ -20,6 +20,14 @@ test('loads the reviewed detailed evidence document with stable metadata', () =>
   assert.equal(new Set(detailedEvidenceRecords.map(({ id }) => id)).size, 75);
 });
 
+test('production evidence citations do not depend on the review deployment', () => {
+  const sourceUrls = detailedEvidenceRecords
+    .map(({ source }) => source?.url)
+    .filter(Boolean);
+  assert.ok(sourceUrls.includes('https://joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json'));
+  assert.ok(sourceUrls.every((url) => !url.includes('assistant-review.joshua-nwachinemere.pages.dev')), sourceUrls.join('\n'));
+});
+
 test('citation policy retains Joshua article profiles and rejects arbitrary HTTPS origins', () => {
   for (const url of [
     'https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag',

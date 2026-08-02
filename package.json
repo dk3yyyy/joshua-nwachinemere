@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
+    "postbuild": "node scripts/apply-pages-environment.mjs",
     "build:assets": "python scripts/build_assets.py && node scripts/build-social-card.js",
     "preview": "vite preview --host 0.0.0.0",
     "assistant:sync-corpus": "node scripts/sync-assistant-corpus.mjs",

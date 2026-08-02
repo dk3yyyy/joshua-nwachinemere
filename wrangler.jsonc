@@ -7,6 +7,6 @@
     "binding": "AI"
   },
   "vars": {
-    "ASSISTANT_ENV": "preview"
+    "ASSISTANT_ENV": "production"
   }
 }

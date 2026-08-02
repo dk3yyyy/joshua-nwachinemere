@@ -119,9 +119,9 @@
       "sources": [
         {
           "repository": "dk3yyyy/joshua-nwachinemere",
-          "commit": "working-tree-preview",
+          "commit": "b1eca9a6950c79e94cea9ab1480fcde523726192",
           "path": "functions/api/ask.js",
-          "url": "https://assistant-review.joshua-nwachinemere.pages.dev"
+          "url": "https://github.com/dk3yyyy/joshua-nwachinemere/blob/b1eca9a6950c79e94cea9ab1480fcde523726192/functions/api/ask.js"
         }
       ]
     }

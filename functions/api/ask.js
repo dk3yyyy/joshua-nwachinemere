@@ -13,7 +13,7 @@ const MAX_BODY_BYTES = 4_096;
 const MODEL = '@cf/meta/llama-3.2-3b-instruct';
 const GROQ_MODEL = 'llama-3.1-8b-instant';
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-const REVIEW_HOSTNAME = 'assistant-review.joshua-nwachinemere.pages.dev';
+
 const MODEL_TIMEOUT_MS = 4_500;
 const MAX_PROVIDER_RESPONSE_BYTES = 10_000;
 const JSON_HEADERS = {
@@ -121,9 +121,8 @@ function routingSignals(deterministic, knowledge, candidateIds) {
 
 async function enforceModelRateLimit(request, env) {
   const limiter = env.ASSISTANT_RATE_LIMITER;
-  const isReviewPreview = new URL(request.url).hostname === REVIEW_HOSTNAME;
   if (!limiter?.limit) {
-    return env.ASSISTANT_ENV === 'production' && !isReviewPreview
+    return env.ASSISTANT_ENV === 'production'
       ? { error: 'Assistant model routing is temporarily unavailable.', status: 503 }
       : null;
   }

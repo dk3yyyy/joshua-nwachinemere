@@ -1,5 +1,4 @@
 /*
-  X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache
   Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-1tOv4m7TSBburldjDYSnZv+XnmqkP/smx7640Y9pJlg='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   Cross-Origin-Opener-Policy: same-origin

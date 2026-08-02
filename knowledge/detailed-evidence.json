@@ -2574,7 +2574,7 @@
       "text": "Local Review Intelligence is Joshua's clearest RAG and evaluation project. Its clean 30-case benchmark (25 answerable + 5 abstention) measured Semantic Recall@5 of 0.913 against 0.770 for BM25, with answer success and citation validity of 0.880 (semantic hit_rate@5=1.0, MRR@5=0.96).",
       "source": {
         "title": "Local Review Intelligence evaluation report",
-        "url": "https://assistant-review.joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
+        "url": "https://joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
         "kind": "evaluation-artifact",
         "publisher": "Joshua Nwachinemere",
         "accessedAt": "2026-08-01",
@@ -2649,7 +2649,7 @@
       "text": "The Local Review Intelligence evaluation (app v0.2.0, git 25b65ff) reported abstention recall of 1.0 (5/5 unanswerable correctly abstained), expected_action_accuracy 0.90 and reference_term_support_proxy 0.86. Config: chat model llama3.2:latest, embeddings mxbai-embed-large, dataset realistic_restaurant_reviews.csv (123 reviews), RAG mean latency ~27.4s, 21 repair attempts with 13 successes, on local Ollama v0.32.5, Linux, Python 3.11.15.",
       "source": {
         "title": "Local Review Intelligence evaluation report",
-        "url": "https://assistant-review.joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
+        "url": "https://joshua-nwachinemere.pages.dev/evidence/local-review-intelligence-evaluation-report.json",
         "kind": "evaluation-artifact",
         "publisher": "Joshua Nwachinemere",
         "accessedAt": "2026-08-01",
