@@ -44,7 +44,18 @@ The API does not intentionally persist questions or log raw model payloads. Clou
 - no model call for detected sensitive, mixed personal-data or injection-style input;
 - deterministic fallback on model failure.
 
-## Safe verification
+## Verification
+
+The reviewed detailed-evidence corpus is bound to
+`knowledge/detailed-evidence.integrity.json`. Run
+`npm run assistant:verify-detailed-corpus` after changing the corpus. If the
+change is intentional and reviewed, regenerate the manifest with
+`npm run assistant:write-detailed-corpus-manifest`, then inspect and commit the
+corpus and manifest together.
+
+`scripts/qa-detailed-rag.mjs --semantic <path>` accepts a version-matched JSON
+document whose `scoresByCase` object maps each evaluation case ID to positive
+evidence-ID scores. Without `--semantic`, retrieval remains lexical.
 
 ```bash
 npm ci

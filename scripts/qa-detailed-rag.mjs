@@ -129,6 +129,11 @@ function buildReport(suite, mode, results, startedAt, elapsedMs) {
   return report;
 }
 
+function semanticScoresForCase(testCase, semanticDocument = null) {
+  const scores = semanticDocument?.scoresByCase?.[testCase.id];
+  return scores && typeof scores === 'object' && !Array.isArray(scores) ? scores : null;
+}
+
 async function runRetrievalCase(testCase, records, semanticDocument = null) {
   const started = performance.now();
   if (testCase.request?.expectReject) {
@@ -144,7 +149,10 @@ async function runRetrievalCase(testCase, records, semanticDocument = null) {
       latencyMs: 0,
     };
   }
-  const matches = retrieveEvidence(testCase.question, records, { limit: testCase.limit || 8 });
+  const matches = retrieveEvidence(testCase.question, records, {
+    limit: testCase.limit || 8,
+    semanticScores: semanticScoresForCase(testCase, semanticDocument),
+  });
   const evidenceIds = matches.map((match) => match.record?.id ?? match.id).filter(Boolean);
   const score = scoreEvidenceIds(evidenceIds, testCase.expect);
   return {
@@ -248,4 +256,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   });
 }
 
-export { answerChecks, buildReport, scoreEvidenceIds, validateSuite };
+export {
+  answerChecks,
+  buildReport,
+  runRetrievalCase,
+  scoreEvidenceIds,
+  semanticScoresForCase,
+  validateSuite,
+};

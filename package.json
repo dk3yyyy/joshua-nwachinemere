@@ -15,6 +15,8 @@
     "build:assets": "python scripts/build_assets.py && node scripts/build-social-card.js",
     "preview": "vite preview --host 0.0.0.0",
     "assistant:sync-corpus": "node scripts/sync-assistant-corpus.mjs",
+    "assistant:verify-detailed-corpus": "node scripts/detailed-corpus-integrity.mjs",
+    "assistant:write-detailed-corpus-manifest": "node scripts/detailed-corpus-integrity.mjs --write",
     "qa:assistant:detailed": "node scripts/qa-detailed-rag.mjs",
     "test": "node --test tests/*.test.js && python -m unittest discover -s tests -p 'test_cv_artifact.py' -v",
     "pretest:e2e": "npm run build",
