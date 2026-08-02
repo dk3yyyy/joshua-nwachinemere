@@ -11,7 +11,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "postbuild": "node scripts/apply-pages-environment.mjs && npm run build:pages-functions",
-    "build:pages-functions": "wrangler pages functions build --outfile dist/_worker.js --build-output-directory dist",
+    "build:pages-functions": "node scripts/build-pages-worker.mjs",
     "build:assets": "python scripts/build_assets.py && node scripts/build-social-card.js",
     "preview": "vite preview --host 0.0.0.0",
     "assistant:sync-corpus": "node scripts/sync-assistant-corpus.mjs",

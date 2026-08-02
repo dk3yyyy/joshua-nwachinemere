@@ -9,6 +9,7 @@ const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url)
 const productionHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
 const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
+const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 const socialCard = await readFile(new URL('../public/og-card-v6.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
@@ -122,8 +123,10 @@ test('production config avoids unsupported Pages bindings and keeps AI routing f
 test('Cloudflare builds pin compatible tooling and prebundle Pages Functions', () => {
   assert.equal(packageJson.devDependencies.wrangler, '4.118.0');
   assert.match(packageJson.scripts.postbuild, /build:pages-functions/);
-  assert.match(packageJson.scripts['build:pages-functions'], /wrangler pages functions build/);
-  assert.match(packageJson.scripts['build:pages-functions'], /--outfile dist\/_worker\.js/);
+  assert.equal(packageJson.scripts['build:pages-functions'], 'node scripts/build-pages-worker.mjs');
+  assert.match(pagesWorkerBuildScript, /'--outdir'/);
+  assert.match(pagesWorkerBuildScript, /outputDirectory, '_worker\.js'/);
+  assert.doesNotMatch(pagesWorkerBuildScript, /'--outfile'/);
 });
 
 test('assistant deployment documentation matches the production fail-closed configuration', () => {
