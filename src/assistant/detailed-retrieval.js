@@ -6,9 +6,11 @@ const STOP_WORDS = new Set([
 ]);
 
 const GENERIC_SINGLE_ENTITY_PHRASES = new Set([
-  'article', 'fastapi', 'github', 'hashnode', 'medium', 'portfolio', 'project', 'python',
-  'repository', 'website',
+  'article', 'author', 'company', 'contact', 'contribution', 'developer', 'employer', 'engineer',
+  'fastapi', 'github', 'hashnode', 'joshua', 'medium', 'person', 'portfolio', 'profile', 'project',
+  'pull request', 'python', 'repository', 'website',
 ]);
+const GENERIC_ENTITY_PHRASES = new Set(['joshua nwachinemere']);
 
 const OUT_OF_SCOPE_PATTERNS = [
   /\b(?:ignore|override|bypass)\b.{0,50}\b(?:instructions?|sources?|rules?|prompt)\b/i,
@@ -117,7 +119,9 @@ function fuzzyPhraseScore(question, record) {
   const questionTokens = normalizeText(question).split(/\s+/).filter(Boolean);
   let best = 0;
   for (const phraseValue of [record.title, record.subject, ...(record.aliases ?? [])]) {
-    const phraseTokens = normalizeText(phraseValue).split(/\s+/).filter((token) => token.length >= 3);
+    const normalizedPhrase = normalizeText(phraseValue);
+    if (GENERIC_ENTITY_PHRASES.has(normalizedPhrase)) continue;
+    const phraseTokens = normalizedPhrase.split(/\s+/).filter((token) => token.length >= 3);
     if (!phraseTokens.length || (phraseTokens.length === 1 && phraseTokens[0].length < 7)) continue;
     let approximateMatches = 0;
     const matched = phraseTokens.every((phraseToken) => questionTokens.some((questionToken) => {
@@ -265,6 +269,7 @@ function exactNamedEntityMatches(question, record) {
     .filter(Boolean)
     .map(normalizeText)
     .filter((phrase) => phrase.length >= 3
+      && !GENERIC_ENTITY_PHRASES.has(phrase)
       && (phrase.includes(' ') || (phrase.length >= 6 && !GENERIC_SINGLE_ENTITY_PHRASES.has(phrase))))
     .filter((phrase) => containsNormalizedPhrase(question, phrase));
 }
