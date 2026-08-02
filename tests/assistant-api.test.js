@@ -100,6 +100,38 @@ test('API serves named reviewed projects and the frontend stack without provider
   }
 });
 
+test('API serves the exact short Calkit query from reviewed contribution evidence', async () => {
+  for (const question of ['tell me about calkit', 'tell me about callkit']) {
+    let calls = 0;
+    const response = await onRequestPost({
+      request: request({ question }),
+      env: { AI: { run: async () => { calls += 1; } } },
+    });
+    assert.equal(response.status, 200, question);
+    const payload = await response.json();
+    assert.equal(payload.outcome, 'answered', question);
+    assert.equal(payload.mode, 'evidence-routed', question);
+    assert.deepEqual(payload.evidenceIds, ['contribution-calkit-1028'], question);
+    assert.equal(payload.citations[0]?.href, 'https://github.com/calkit/calkit/pull/1028', question);
+    assert.equal(calls, 0, question);
+  }
+});
+
+test('API serves Pydantic AI entity names from the configured reviewed record', async () => {
+  for (const question of ['tell me about Pydantic AI', 'tell me about Pydantic AI Harness']) {
+    let calls = 0;
+    const response = await onRequestPost({
+      request: request({ question }),
+      env: { AI: { run: async () => { calls += 1; } } },
+    });
+    assert.equal(response.status, 200, question);
+    const payload = await response.json();
+    assert.equal(payload.outcome, 'answered', question);
+    assert.ok(payload.evidenceIds.includes('contribution-pydantic-ai-503'), question);
+    assert.equal(calls, 0, question);
+  }
+});
+
 test('reviewed detailed evidence bypasses provider routing entirely', async () => {
   const question = 'What did Joshua write about the hidden complexity of RAG?';
   let calls = 0;

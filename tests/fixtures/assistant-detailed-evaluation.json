@@ -1,8 +1,8 @@
 {
-  "suiteVersion": "2026.08.02-full-v2",
+  "suiteVersion": "2026.08.02-full-v3",
   "kbVersion": "2026.08.01-v1",
   "corpusDigest": "b3a451c2e5610f2647390020f739942b0aae9dccbc40dd2ee75c2fe274d2f18a",
-  "description": "370-case regression suite. The former holdout was opened during retrieval debugging on 2026-08-02 and is no longer independent evidence.",
+  "description": "372-case regression suite. The former holdout was opened during retrieval debugging on 2026-08-02 and is no longer independent evidence.",
   "gates": {
     "minimumOverallPassRate": 0.9,
     "minimumHoldoutPassRate": 0.85,
@@ -4362,6 +4362,32 @@
       "question": "Which academic conference awards has he won?",
       "expect": {
         "abstain": true
+      }
+    },
+    {
+      "id": "reg-callkit-001",
+      "split": "development",
+      "strategy": "exact-entity",
+      "category": "contribution",
+      "regression": true,
+      "question": "tell me about calkit",
+      "expect": {
+        "all": [
+          "contribution-calkit-1028"
+        ]
+      }
+    },
+    {
+      "id": "reg-callkit-002",
+      "split": "development",
+      "strategy": "normalized-entity-spelling",
+      "category": "contribution",
+      "regression": true,
+      "question": "tell me about callkit",
+      "expect": {
+        "all": [
+          "contribution-calkit-1028"
+        ]
       }
     }
   ]

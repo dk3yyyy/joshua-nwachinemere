@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { answerQuestion } from '../src/assistant/core.js';
+import { answerQuestion, reviewedEntityRouteIds } from '../src/assistant/core.js';
 import {
   detailedEvidenceMetadata,
   detailedEvidenceRecords,
@@ -84,8 +84,59 @@ test('an explicitly named reviewed project reaches the deterministic answer laye
   }
 });
 
+test('an explicitly named reviewed contribution reaches the deterministic answer layer', () => {
+  for (const question of [
+    'tell me about calkit',
+    'tell me about callkit',
+    'What is Calkit?',
+  ]) {
+    const retrieved = retrieveDetailedEvidence(question);
+    assert.equal(retrieved[0]?.id, 'contribution-calkit-1028', question);
+
+    const answer = answerQuestion(question);
+    assert.equal(answer.outcome, 'answered', question);
+    assert.deepEqual(answer.evidenceIds, ['contribution-calkit-1028'], question);
+    assert.match(answer.answer, /PR #1028/i, question);
+    assert.equal(answer.citations[0]?.href, 'https://github.com/calkit/calkit/pull/1028', question);
+  }
+});
+
+test('named non-project routing uses reviewed entity names rather than generic aliases', () => {
+  for (const [question, expectedId] of [
+    ['tell me about Altair', 'contribution-altair-4089'],
+    ['tell me about Apache Arrow', 'contribution-arrow-rs-10486'],
+    ['tell me about Apache Arrow Rust', 'contribution-arrow-rs-10486'],
+  ]) {
+    const answer = answerQuestion(question);
+    assert.equal(answer.outcome, 'answered', question);
+    assert.ok(answer.evidenceIds.includes(expectedId), `${question}: ${answer.evidenceIds.join(', ')}`);
+  }
+
+  const mellea = answerQuestion('tell me about Mellea');
+  assert.equal(mellea.outcome, 'answered');
+  assert.deepEqual(new Set(mellea.evidenceIds), new Set([
+    'contribution-mellea-1469',
+    'contribution-mellea-1471',
+  ]));
+});
+
+test('every explicit reviewed entity route resolves to its configured corpus record', () => {
+  const corpusIds = new Set(detailedEvidenceRecords.map(({ id }) => id));
+  for (const [entity, expectedId] of Object.entries(reviewedEntityRouteIds)) {
+    assert.ok(corpusIds.has(expectedId), `${entity}: missing ${expectedId}`);
+    const answer = answerQuestion(`tell me about ${entity}`);
+    assert.equal(answer.outcome, 'answered', entity);
+    assert.ok(answer.evidenceIds.includes(expectedId), `${entity}: ${answer.evidenceIds.join(', ')}`);
+  }
+});
+
 test('named overview routing stays limited to project records and does not broaden generic aliases', () => {
   for (const question of [
+    'Tell me about email.',
+    'Tell me about GitHub.',
+    'Tell me about portfolio.',
+    'Tell me about Python.',
+    'Tell me about PostgreSQL.',
     'Tell me about followers.',
     'What is Next.js?',
     'Tell me about marketing site.',

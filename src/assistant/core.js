@@ -170,6 +170,21 @@ export const evidence = Object.freeze([
 ]);
 
 const STOP_WORDS = new Set('a an and are as at be by did do does for from has have he her his how i in is it me of on or that the this to was what when where which who why with you your about tell'.split(' '));
+export const reviewedEntityRouteIds = Object.freeze({
+  calkit: 'contribution-calkit-1028',
+  callkit: 'contribution-calkit-1028',
+  altair: 'contribution-altair-4089',
+  'vega altair': 'contribution-altair-4089',
+  'apache arrow': 'contribution-arrow-rs-10486',
+  'apache arrow rust': 'contribution-arrow-rs-10486',
+  'arrow rust': 'contribution-arrow-rs-10486',
+  'arrow rs': 'contribution-arrow-rs-10486',
+  mellea: 'contribution-mellea-1469',
+  'pydantic ai': 'contribution-pydantic-ai-503',
+  'pydantic ai harness': 'contribution-pydantic-ai-503',
+  'openai agents sdk': 'contribution-openai-agents-3991',
+  'openai agents python': 'contribution-openai-agents-3991',
+});
 const SENSITIVE_OR_UNSUPPORTED = /\b(address|age|api key|bank account|birthday|children|client names?|credit card|credential|date of birth|diagnos(?:is|ed)|disability|dob|earn|ethnic(?:ity)?|gay|health|home address|income|lesbian|live at|married|medical|national insurance|passport|password|phone number|politic(?:s|al)|race|racial|religion|residential|residence|salary|secret|sexual orientation|slack credential|social security|sort code|token|transgender|where i live)\b|\b(?:private|secondary|unlisted|other)\s+(?:personal\s+)?(?:email|email address|inbox)\b|\b(?:sk|xox[baprs])-[a-z0-9_-]{8,}\b/i;
 const UNSUPPORTED_CLAIM = /\b(?:full[- ]time salaried|client (?:list|identities|companies|nda)|freelance clients?|exam score|certification id|unconditional(?:ly)?|gpa|university dissertation|github stars?|revenue|paying client|fortune 500 clients?)\b|\bhow much\b.*\b(?:paid|pay|revenue|earn|money\b.*\bmake)\b|\bhow much money\b.*\bmake\b|\b(?:private|client)\b.*\b(?:contract|source code|invoices?)\b|\bexact test accuracy\b|\b(?:best|top) ai engineer in\b|\bhire him over\b|\b(?:guarantee|prove|verify)\b.*\b(?:every|all)\b.*\b(?:claims?|portfolio)\b/i;
 const INJECTION = /ignore (?:all|any|the|previous|your)|reveal (?:private|hidden)|system prompt|system override|developer message|retrieved context is wrong|disregard (?:the )?system|bypass|jailbreak|\bpretend\b.*\b(?:worked|employed|bio)\b|\binvent\b.*\b(?:employer|experience|claim)\b|\bforget previous\b|\bas an administrator\b|\bportfolio is wrong\b|\beven if (?:the )?evidence disagrees\b|\buse (?:your )?(?:general|world) knowledge\b|\bstate that he already\b|\bclaiming he\b/i;
@@ -337,7 +352,7 @@ function namedDetailedOverviewMatch(question) {
     /^(?:tell me about|what is|what's|describe|explain|give me (?:a|an) (?:quick )?overview of)\s+(.+?)[?.!]*$/i,
   );
   // `undefined` means this is not an overview request. `null` means it is an
-  // overview request, but no exact approved project identity matched.
+  // overview request, but no explicitly routable reviewed identity matched.
   if (!overview) return undefined;
 
   const topic = normalise(overview[1])
@@ -346,14 +361,26 @@ function namedDetailedOverviewMatch(question) {
     .trim();
   if (!topic) return null;
 
-  const exactMatches = detailedEvidenceRecords.filter((record) => {
+  const project = detailedEvidenceRecords.find((record) => {
+    if (record.type !== 'project') return false;
     const names = [record.subject, ...(record.aliases ?? [])]
       .map(normalise)
-      .filter((name) => name.length >= 4);
+      .filter(Boolean);
     return names.includes(topic);
   });
-  if (!exactMatches.length) return undefined;
-  return exactMatches.find((record) => record.type === 'project') ?? null;
+  if (project) return project;
+
+  // Non-project records require an explicit reviewed routing contract. Corpus
+  // alias position is not a trust boundary: many aliases are generic terms.
+  const entityId = reviewedEntityRouteIds[topic];
+  if (entityId) {
+    return detailedEvidenceRecords.find(({ id }) => id === entityId) ?? null;
+  }
+
+  const matchesGenericAlias = detailedEvidenceRecords.some((record) => (
+    [record.subject, ...(record.aliases ?? [])].map(normalise).includes(topic)
+  ));
+  return matchesGenericAlias ? null : undefined;
 }
 
 export function answerFromEvidenceIds(rawIds, rawQuestion = '') {
@@ -444,12 +471,23 @@ export function answerQuestion(rawQuestion) {
     return insufficient();
   }
 
+  const namedDetailedMatch = namedDetailedOverviewMatch(question);
+  if (namedDetailedMatch === null) return insufficient();
+  if (namedDetailedMatch && namedDetailedMatch.type !== 'project') {
+    const subject = normalise(namedDetailedMatch.subject);
+    const relatedMatches = retrieveDetailedEvidence(question, { limit: 6 })
+      .filter((record) => (
+        normalise(record.subject) === subject
+        && record.signals?.entity > 0
+      ));
+    const ids = [namedDetailedMatch.id, ...relatedMatches.map(({ id }) => id)];
+    return answerFromEvidenceIds(ids, question);
+  }
+
   const directIds = directEvidenceIds(question);
   if (directIds.length) return answerFromEvidenceIds(directIds, question);
 
-  const namedDetailedMatch = namedDetailedOverviewMatch(question);
   if (namedDetailedMatch) return answerFromEvidenceIds([namedDetailedMatch.id], question);
-  if (namedDetailedMatch === null) return insufficient();
 
   if (/^(?:who is joshua|tell me about joshua|what does joshua do)[?.!]*$/i.test(question)) {
     const profile = EVIDENCE_BY_ID.get('profile');

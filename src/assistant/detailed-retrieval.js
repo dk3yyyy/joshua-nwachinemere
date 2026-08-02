@@ -480,7 +480,11 @@ export function retrieveEvidence(question, records, {
 } = {}) {
   const rawQuestion = String(question ?? '');
   if (hasMixedLatinConfusableScripts(rawQuestion)) return [];
-  const cleanQuestion = normalizeSecurityText(rawQuestion);
+  let cleanQuestion = normalizeSecurityText(rawQuestion);
+  // Calkit is the reviewed project name; accept the common "Callkit"
+  // spelling from the reported portfolio query without enabling broad fuzzy
+  // matching for short or generic entities.
+  cleanQuestion = cleanQuestion.replace(/\bcallkit\b/gi, 'calkit');
   if (!isEligiblePortfolioQuestion(cleanQuestion, records)) return [];
 
   const questionTokens = tokenise(cleanQuestion);
