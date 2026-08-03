@@ -87,26 +87,29 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
 });
 
-test('offers an accessible system, light, and dark theme contract', () => {
+test('offers an accessible icon-only theme toggle that defaults to the system theme', () => {
   assert.match(html, /<script src="\/theme-init\.js"><\/script>/);
-  assert.match(html, /<button class="theme-toggle"[^>]+aria-haspopup="menu"[^>]+aria-controls="theme-menu"/);
-  assert.match(html, /<span class="theme-toggle-label">System<\/span>/);
-  assert.match(html, /<div class="theme-menu" id="theme-menu" role="menu" hidden>/);
-  assert.match(html, /role="menuitemradio" aria-checked="true" data-theme-option="auto">System<\/button>/);
-  assert.match(html, /role="menuitemradio" aria-checked="false" data-theme-option="light">Light<\/button>/);
-  assert.match(html, /role="menuitemradio" aria-checked="false" data-theme-option="dark">Dark<\/button>/);
+  assert.match(html, /<button class="theme-toggle"[^>]+data-theme-state="auto"[^>]+aria-label="Toggle colour theme"/);
+  assert.match(html, /<svg class="theme-toggle-icon"[^>]+aria-hidden="true"/);
+  assert.match(html, /class="theme-icon-moon"/);
+  assert.match(html, /class="theme-icon-sun"/);
+  assert.doesNotMatch(html, /aria-haspopup="menu"|aria-controls="theme-menu"|class="theme-menu"|data-theme-option|theme-toggle-label/);
   assert.match(css, /:root\[data-theme='dark'\]/);
   assert.match(css, /@media \(prefers-color-scheme: dark\)/);
   assert.match(css, /:root\[data-theme='auto'\]/);
+  assert.match(css, /\.theme-toggle \{[^}]*width:\s*44px;[^}]*height:\s*44px;/);
+  assert.match(css, /data-theme-effective='light'[\s\S]*?\.theme-icon-sun/);
+  assert.match(css, /data-theme-effective='dark'[\s\S]*?\.theme-icon-moon/);
+  assert.doesNotMatch(css, /\.theme-menu/);
   assert.match(css, /color-scheme:\s*dark/);
   assert.match(themeInitJs, /portfolio-theme/);
   assert.match(themeInitJs, /prefers-color-scheme: dark/);
   assert.match(themeInitJs, /meta\[name="theme-color"\]/);
   assert.match(mainJs, /\['auto', 'light', 'dark'\]/);
   assert.match(mainJs, /localStorage\.setItem\(THEME_STORAGE_KEY/);
-  assert.match(mainJs, /localStorage\.removeItem\(THEME_STORAGE_KEY\)/);
-  assert.match(mainJs, /themeToggle\.setAttribute\('aria-expanded'/);
-  assert.match(mainJs, /setThemeMenu\(false, \{ restoreFocus: true \}\)/);
+  assert.match(mainJs, /effectiveTheme\(root\.dataset\.theme\) === 'dark' \? 'light' : 'dark'/);
+  assert.match(mainJs, /Switch to \$\{targetTheme\} mode/);
+  assert.doesNotMatch(mainJs, /setThemeMenu|themeOptions|themeMenu/);
 });
 
 test('hero and availability copy are exact and direct', () => {

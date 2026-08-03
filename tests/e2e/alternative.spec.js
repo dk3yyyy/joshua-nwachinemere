@@ -171,63 +171,84 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   expect(errors).toEqual([]);
 });
 
-test('theme starts in auto, follows the OS, and persists manual overrides', async ({ page }) => {
+test('icon-only theme control follows the OS then toggles directly to the opposite theme', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
   const toggle = page.locator('.theme-toggle');
-  const themeMenu = page.getByRole('menu');
   await expect(toggle).toBeVisible();
-  await expect(toggle).toHaveAccessibleName(/Theme: System/i);
-  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toHaveAccessibleName('Switch to light mode');
   await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+  await expect(page.getByRole('menu')).toHaveCount(0);
+  await expect(toggle).not.toContainText(/System|Light|Dark/);
   await page.setViewportSize({ width: 1366, height: 900 });
   await expect(page.locator('.system-map-core span')).toHaveCSS('color', 'rgb(86, 91, 96)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
+  await page.emulateMedia({ colorScheme: 'light' });
+  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
+  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f3f3f0');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
+
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
+  await expect(toggle).toHaveAccessibleName('Switch to light mode');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#121416');
+
   await toggle.click();
-  await expect(themeMenu).toBeVisible();
-  await themeMenu.getByRole('menuitemradio', { name: 'Light' }).click();
   await expect(toggle).toHaveAttribute('data-theme-state', 'light');
-  await expect(toggle).toHaveAccessibleName(/Theme: Light/i);
-  await expect(themeMenu).toBeHidden();
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
+  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');
 
   await page.reload();
   await expect(toggle).toHaveAttribute('data-theme-state', 'light');
-  await expect(toggle).toHaveAccessibleName(/Theme: Light/i);
+  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
   await toggle.click();
-  await themeMenu.getByRole('menuitemradio', { name: 'Dark' }).click();
+  await expect(toggle).toHaveAttribute('data-theme-state', 'dark');
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
+  await expect(toggle).toHaveAccessibleName('Switch to light mode');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('dark');
 
-  await expect(toggle).toHaveAccessibleName(/Theme: Dark/i);
-  await toggle.click();
-  await themeMenu.getByRole('menuitemradio', { name: 'System' }).click();
+  await page.evaluate(() => localStorage.removeItem('portfolio-theme'));
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.reload();
   await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
-  await expect(toggle).toHaveAccessibleName(/Theme: System/i);
+  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
+  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
 
   await toggle.focus();
   await page.keyboard.press('Enter');
-  await expect(themeMenu).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(themeMenu).toBeHidden();
+  await expect(toggle).toHaveAttribute('data-theme-state', 'dark');
+  await expect(toggle).toHaveAccessibleName('Switch to light mode');
   await expect(toggle).toBeFocused();
 
-  await page.setViewportSize({ width: 359, height: 780 });
-  await toggle.click();
-  await expect(themeMenu).toBeVisible();
-  await expect(page.locator('.theme-toggle-label')).toBeHidden();
-  for (const option of await themeMenu.getByRole('menuitemradio').all()) {
-    expect((await option.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+  await page.keyboard.press('Space');
+  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
+  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
+  await expect(toggle).toBeFocused();
+
+  for (const width of [320, 359, 390, 744, 1024]) {
+    await page.setViewportSize({ width, height: 844 });
+    const box = await toggle.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+    expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(width);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
 });
 

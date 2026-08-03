@@ -7,12 +7,7 @@ const nav = document.querySelector('#primary-nav');
 const desktop = window.matchMedia('(min-width: 901px)');
 const THEME_STORAGE_KEY = 'portfolio-theme';
 const THEME_STATES = ['auto', 'light', 'dark'];
-const THEME_LABELS = { auto: 'System', light: 'Light', dark: 'Dark' };
-const themeControl = document.querySelector('.theme-control');
 const themeToggle = document.querySelector('.theme-toggle');
-const themeLabel = themeToggle?.querySelector('.theme-toggle-label');
-const themeMenu = document.querySelector('#theme-menu');
-const themeOptions = [...document.querySelectorAll('[data-theme-option]')];
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -22,18 +17,16 @@ function effectiveTheme(theme) {
 
 function setTheme(theme, { persist = true } = {}) {
   const nextTheme = THEME_STATES.includes(theme) ? theme : 'auto';
-  const label = THEME_LABELS[nextTheme];
+  const activeTheme = effectiveTheme(nextTheme);
+  const targetTheme = activeTheme === 'dark' ? 'light' : 'dark';
   root.dataset.theme = nextTheme;
   if (themeToggle) {
     themeToggle.dataset.themeState = nextTheme;
-    themeToggle.setAttribute('aria-label', `Theme: ${label}. Choose theme`);
-    themeToggle.title = `Theme: ${label}`;
-    if (themeLabel) themeLabel.textContent = label;
+    themeToggle.dataset.themeEffective = activeTheme;
+    themeToggle.setAttribute('aria-label', `Switch to ${targetTheme} mode`);
+    themeToggle.title = `Switch to ${targetTheme} mode`;
   }
-  themeOptions.forEach((option) => {
-    option.setAttribute('aria-checked', String(option.dataset.themeOption === nextTheme));
-  });
-  if (themeColor) themeColor.content = effectiveTheme(nextTheme) === 'dark' ? '#121416' : '#f3f3f0';
+  if (themeColor) themeColor.content = activeTheme === 'dark' ? '#121416' : '#f3f3f0';
   if (!persist) return;
   try {
     if (nextTheme === 'auto') localStorage.removeItem(THEME_STORAGE_KEY);
@@ -43,49 +36,10 @@ function setTheme(theme, { persist = true } = {}) {
   }
 }
 
-function setThemeMenu(open, { restoreFocus = false } = {}) {
-  if (!themeToggle || !themeMenu) return;
-  themeMenu.hidden = !open;
-  themeToggle.setAttribute('aria-expanded', String(open));
-  if (open) {
-    themeOptions.find((option) => option.getAttribute('aria-checked') === 'true')?.focus();
-  } else if (restoreFocus) {
-    themeToggle.focus();
-  }
-}
-
 setTheme(root.dataset.theme, { persist: false });
 themeToggle?.addEventListener('click', () => {
-  setThemeMenu(themeMenu?.hidden ?? true);
-});
-themeMenu?.addEventListener('click', (event) => {
-  const option = event.target.closest('[data-theme-option]');
-  if (!option) return;
-  setTheme(option.dataset.themeOption);
-  setThemeMenu(false, { restoreFocus: true });
-});
-themeMenu?.addEventListener('keydown', (event) => {
-  const current = themeOptions.indexOf(document.activeElement);
-  let next = current;
-  if (event.key === 'Escape') {
-    event.preventDefault();
-    setThemeMenu(false, { restoreFocus: true });
-    return;
-  }
-  if (event.key === 'Tab') {
-    setThemeMenu(false);
-    return;
-  }
-  if (event.key === 'ArrowDown') next = (current + 1) % themeOptions.length;
-  else if (event.key === 'ArrowUp') next = (current - 1 + themeOptions.length) % themeOptions.length;
-  else if (event.key === 'Home') next = 0;
-  else if (event.key === 'End') next = themeOptions.length - 1;
-  else return;
-  event.preventDefault();
-  themeOptions[next]?.focus();
-});
-document.addEventListener('click', (event) => {
-  if (themeMenu && !themeMenu.hidden && !themeControl?.contains(event.target)) setThemeMenu(false);
+  const nextTheme = effectiveTheme(root.dataset.theme) === 'dark' ? 'light' : 'dark';
+  setTheme(nextTheme);
 });
 systemDark.addEventListener('change', () => {
   if (root.dataset.theme === 'auto') setTheme('auto', { persist: false });
