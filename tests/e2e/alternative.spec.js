@@ -171,83 +171,41 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   expect(errors).toEqual([]);
 });
 
-test('icon-only theme control follows the OS then toggles directly to the opposite theme', async ({ page }) => {
+test('automatic theme always follows the OS and clears legacy manual overrides', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => localStorage.setItem('portfolio-theme', 'light'));
   await page.goto('/');
 
-  const toggle = page.locator('.theme-toggle');
-  await expect(toggle).toBeVisible();
-  await expect(toggle).toHaveAccessibleName('Switch to light mode');
-  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
+  await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
-  await expect(page.getByRole('menu')).toHaveCount(0);
-  await expect(toggle).not.toContainText(/System|Light|Dark/);
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#121416');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
   await expect(page.locator('.system-map-core span')).toHaveCSS('color', 'rgb(86, 91, 96)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
   await page.emulateMedia({ colorScheme: 'light' });
-  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
-  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f3f3f0');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   await page.emulateMedia({ colorScheme: 'dark' });
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
-  await expect(toggle).toHaveAccessibleName('Switch to light mode');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#121416');
 
-  await toggle.click();
-  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
-  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
-  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');
-
   await page.reload();
-  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
-  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
-  await toggle.click();
-  await expect(toggle).toHaveAttribute('data-theme-state', 'dark');
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'dark');
-  await expect(toggle).toHaveAccessibleName('Switch to light mode');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
-  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('dark');
-
-  await page.evaluate(() => localStorage.removeItem('portfolio-theme'));
-  await page.emulateMedia({ colorScheme: 'light' });
-  await page.reload();
-  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
-  await expect(toggle).toHaveAttribute('data-theme-effective', 'light');
-  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
-
-  await toggle.focus();
-  await page.keyboard.press('Enter');
-  await expect(toggle).toHaveAttribute('data-theme-state', 'dark');
-  await expect(toggle).toHaveAccessibleName('Switch to light mode');
-  await expect(toggle).toBeFocused();
-
-  await page.keyboard.press('Space');
-  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
-  await expect(toggle).toHaveAccessibleName('Switch to dark mode');
-  await expect(toggle).toBeFocused();
 
   for (const width of [320, 359, 390, 744, 1024]) {
     await page.setViewportSize({ width, height: 844 });
-    const box = await toggle.boundingBox();
-    expect(box?.width).toBeGreaterThanOrEqual(44);
-    expect(box?.height).toBeGreaterThanOrEqual(44);
-    expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(width);
+    await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
   }
 });

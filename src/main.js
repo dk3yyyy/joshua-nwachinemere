@@ -5,45 +5,17 @@ const root = document.documentElement;
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('#primary-nav');
 const desktop = window.matchMedia('(min-width: 901px)');
-const THEME_STORAGE_KEY = 'portfolio-theme';
-const THEME_STATES = ['auto', 'light', 'dark'];
-const themeToggle = document.querySelector('.theme-toggle');
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-function effectiveTheme(theme) {
-  return theme === 'auto' ? (systemDark.matches ? 'dark' : 'light') : theme;
+function syncSystemTheme() {
+  root.dataset.theme = 'auto';
+  if (themeColor) themeColor.content = systemDark.matches ? '#121416' : '#f3f3f0';
 }
 
-function setTheme(theme, { persist = true } = {}) {
-  const nextTheme = THEME_STATES.includes(theme) ? theme : 'auto';
-  const activeTheme = effectiveTheme(nextTheme);
-  const targetTheme = activeTheme === 'dark' ? 'light' : 'dark';
-  root.dataset.theme = nextTheme;
-  if (themeToggle) {
-    themeToggle.dataset.themeState = nextTheme;
-    themeToggle.dataset.themeEffective = activeTheme;
-    themeToggle.setAttribute('aria-label', `Switch to ${targetTheme} mode`);
-    themeToggle.title = `Switch to ${targetTheme} mode`;
-  }
-  if (themeColor) themeColor.content = activeTheme === 'dark' ? '#121416' : '#f3f3f0';
-  if (!persist) return;
-  try {
-    if (nextTheme === 'auto') localStorage.removeItem(THEME_STORAGE_KEY);
-    else localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-  } catch {
-    // Theme switching still works when storage is unavailable.
-  }
-}
-
-setTheme(root.dataset.theme, { persist: false });
-themeToggle?.addEventListener('click', () => {
-  const nextTheme = effectiveTheme(root.dataset.theme) === 'dark' ? 'light' : 'dark';
-  setTheme(nextTheme);
-});
-systemDark.addEventListener('change', () => {
-  if (root.dataset.theme === 'auto') setTheme('auto', { persist: false });
-});
+syncSystemTheme();
+if (typeof systemDark.addEventListener === 'function') systemDark.addEventListener('change', syncSystemTheme);
+else systemDark.addListener(syncSystemTheme);
 
 function setMenu(open, { restoreFocus = false } = {}) {
   if (!menuButton || !nav) return;

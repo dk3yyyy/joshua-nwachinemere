@@ -1,14 +1,11 @@
 (() => {
-  const key = 'portfolio-theme';
-  const allowed = new Set(['light', 'dark']);
+  const systemDark = matchMedia('(prefers-color-scheme: dark)');
 
+  document.documentElement.dataset.theme = 'auto';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', systemDark.matches ? '#121416' : '#f3f3f0');
   try {
-    const stored = localStorage.getItem(key);
-    const choice = allowed.has(stored) ? stored : 'auto';
-    const isDark = choice === 'dark' || (choice === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.dataset.theme = choice;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#121416' : '#f3f3f0');
+    localStorage.removeItem('portfolio-theme');
   } catch {
-    document.documentElement.dataset.theme = 'auto';
+    // Automatic theming does not depend on storage availability.
   }
 })();
