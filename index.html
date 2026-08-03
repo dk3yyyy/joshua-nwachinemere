@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="auto">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f3f3f0" />
+    <script src="/theme-init.js"></script>
     <meta name="description" content="Joshua Nwachinemere is an AI Engineer building reliable Python systems for retrieval, context engineering, multimodal and voice AI, model integrations, backend services and evaluation workflows." />
     <link rel="canonical" href="https://joshua-nwachinemere.pages.dev/" />
     <meta property="og:title" content="Joshua Nwachinemere · AI Engineer" />
@@ -62,6 +63,17 @@
         <span class="identity-seal" aria-hidden="true">JN</span>
         <span><strong>Joshua Nwachinemere</strong><small>AI Engineer · Python and applied AI</small></span>
       </a>
+      <div class="theme-control">
+        <button class="theme-toggle" type="button" data-theme-state="auto" aria-haspopup="menu" aria-controls="theme-menu" aria-expanded="false" aria-live="polite" aria-label="Theme: System. Choose theme" title="Theme: System">
+          <span class="theme-toggle-mark" aria-hidden="true"></span>
+          <span class="theme-toggle-label">System</span>
+        </button>
+        <div class="theme-menu" id="theme-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" aria-checked="true" data-theme-option="auto">System</button>
+          <button type="button" role="menuitemradio" aria-checked="false" data-theme-option="light">Light</button>
+          <button type="button" role="menuitemradio" aria-checked="false" data-theme-option="dark">Dark</button>
+        </div>
+      </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
         <span aria-hidden="true">Menu</span><span class="sr-only">Open navigation</span>
       </button>

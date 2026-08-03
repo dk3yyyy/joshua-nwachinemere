@@ -5,6 +5,8 @@ import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
+const mainJs = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
+const themeInitJs = await readFile(new URL('../public/theme-init.js', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const productionHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
 const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
@@ -85,6 +87,28 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
 });
 
+test('offers an accessible system, light, and dark theme contract', () => {
+  assert.match(html, /<script src="\/theme-init\.js"><\/script>/);
+  assert.match(html, /<button class="theme-toggle"[^>]+aria-haspopup="menu"[^>]+aria-controls="theme-menu"/);
+  assert.match(html, /<span class="theme-toggle-label">System<\/span>/);
+  assert.match(html, /<div class="theme-menu" id="theme-menu" role="menu" hidden>/);
+  assert.match(html, /role="menuitemradio" aria-checked="true" data-theme-option="auto">System<\/button>/);
+  assert.match(html, /role="menuitemradio" aria-checked="false" data-theme-option="light">Light<\/button>/);
+  assert.match(html, /role="menuitemradio" aria-checked="false" data-theme-option="dark">Dark<\/button>/);
+  assert.match(css, /:root\[data-theme='dark'\]/);
+  assert.match(css, /@media \(prefers-color-scheme: dark\)/);
+  assert.match(css, /:root\[data-theme='auto'\]/);
+  assert.match(css, /color-scheme:\s*dark/);
+  assert.match(themeInitJs, /portfolio-theme/);
+  assert.match(themeInitJs, /prefers-color-scheme: dark/);
+  assert.match(themeInitJs, /meta\[name="theme-color"\]/);
+  assert.match(mainJs, /\['auto', 'light', 'dark'\]/);
+  assert.match(mainJs, /localStorage\.setItem\(THEME_STORAGE_KEY/);
+  assert.match(mainJs, /localStorage\.removeItem\(THEME_STORAGE_KEY\)/);
+  assert.match(mainJs, /themeToggle\.setAttribute\('aria-expanded'/);
+  assert.match(mainJs, /setThemeMenu\(false, \{ restoreFocus: true \}\)/);
+});
+
 test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
   assert.match(html, /<h1[^>]*>AI Engineer building reliable Python systems for <em>Applied AI<\/em>\.<\/h1>/);
@@ -102,7 +126,8 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(css, /\.hero-system-map \{ display: none; \}/);
   assert.match(css, /\.system-map-canvas \{[^}]*border-radius: 28px;/);
   assert.equal((html.match(/marker-end="url\(#system-arrow\)"/g) || []).length, 3);
-  assert.match(css, /\.system-map-lines \{[^}]*stroke: #8b8f8b;/);
+  assert.match(css, /--map-line: #8b8f8b;/);
+  assert.match(css, /\.system-map-lines \{[^}]*stroke: var\(--map-line\);/);
   assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
   assert.match(html, /Context retrieved · models routed · results evaluated/);
 });

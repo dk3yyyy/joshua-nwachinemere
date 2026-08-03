@@ -171,6 +171,66 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   expect(errors).toEqual([]);
 });
 
+test('theme starts in auto, follows the OS, and persists manual overrides', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const toggle = page.locator('.theme-toggle');
+  const themeMenu = page.getByRole('menu');
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAccessibleName(/Theme: System/i);
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await expect(page.locator('.system-map-core span')).toHaveCSS('color', 'rgb(86, 91, 96)');
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await toggle.click();
+  await expect(themeMenu).toBeVisible();
+  await themeMenu.getByRole('menuitemradio', { name: 'Light' }).click();
+  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
+  await expect(toggle).toHaveAccessibleName(/Theme: Light/i);
+  await expect(themeMenu).toBeHidden();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(243, 243, 240)');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');
+
+  await page.reload();
+  await expect(toggle).toHaveAttribute('data-theme-state', 'light');
+  await expect(toggle).toHaveAccessibleName(/Theme: Light/i);
+  await toggle.click();
+  await themeMenu.getByRole('menuitemradio', { name: 'Dark' }).click();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('dark');
+
+  await expect(toggle).toHaveAccessibleName(/Theme: Dark/i);
+  await toggle.click();
+  await themeMenu.getByRole('menuitemradio', { name: 'System' }).click();
+  await expect(toggle).toHaveAttribute('data-theme-state', 'auto');
+  await expect(toggle).toHaveAccessibleName(/Theme: System/i);
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 22)');
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(themeMenu).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(themeMenu).toBeHidden();
+  await expect(toggle).toBeFocused();
+
+  await page.setViewportSize({ width: 359, height: 780 });
+  await toggle.click();
+  await expect(themeMenu).toBeVisible();
+  await expect(page.locator('.theme-toggle-label')).toBeHidden();
+  for (const option of await themeMenu.getByRole('menuitemradio').all()) {
+    expect((await option.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test('portfolio assistant opens as a corner popup, answers with citations, and closes accessibly', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
