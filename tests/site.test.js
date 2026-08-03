@@ -90,8 +90,8 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
 test('always follows the system theme without a manual theme control or override', () => {
   assert.match(html, /<script src="\/theme-init\.js"><\/script>/);
   assert.doesNotMatch(html, /theme-control|theme-toggle|theme-icon-|theme-menu|data-theme-option/);
-  assert.match(css, /:root\[data-theme='dark'\]/);
-  assert.match(css, /@media \(prefers-color-scheme: dark\)/);
+  assert.doesNotMatch(css, /:root\[data-theme='(?:light|dark)'\]/);
+  assert.match(css, /@media\s*\(prefers-color-scheme:\s*dark\)/);
   assert.match(css, /:root\[data-theme='auto'\]/);
   assert.doesNotMatch(css, /\.theme-control|\.theme-toggle|\.theme-icon-/);
   assert.match(css, /color-scheme:\s*dark/);

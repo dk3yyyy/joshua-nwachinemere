@@ -39,37 +39,6 @@
   --header-height: 72px;
 }
 
-:root[data-theme='dark'] {
-  --paper: #121416;
-  --surface: #191c1f;
-  --paper-deep: #24282c;
-  --ink: #f1f2ee;
-  --muted: #b4b9bd;
-  --signal: #d4d7d2;
-  --line: #3a3f43;
-  --control-line: #626a70;
-  --body-copy: #d7dad6;
-  --masthead: rgba(18, 20, 22, .96);
-  --map-surface: rgba(25, 28, 31, .82);
-  --map-node: rgba(25, 28, 31, .96);
-  --map-dot: rgba(212, 215, 210, .18);
-  --map-line: #858b86;
-  --soft-surface: #24282c;
-  --soft-line: #596066;
-  --soft-line-hover: #747c82;
-  --placeholder: #92989d;
-  --positive: #77b586;
-  --positive-ring: rgba(119, 181, 134, .16);
-  --closing-bg: #202429;
-  --closing-ink: #f4f4ef;
-  --closing-muted: #c7cbc7;
-  --core-muted: #565b60;
-  --closing-line: #727974;
-  --control-hover: #d9dcd7;
-  --panel-shadow: rgba(0, 0, 0, .5);
-  color-scheme: dark;
-}
-
 @media (prefers-color-scheme: dark) {
   :root[data-theme='auto'] {
     --paper: #121416;
