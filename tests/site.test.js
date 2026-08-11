@@ -74,14 +74,14 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(html, /<a class="skip-link" href="#main">Skip to main content<\/a>/);
   assert.match(html, /<main id="main">/);
-  for (const id of ['top', 'work', ...projectIds, 'contributions', 'approach', 'background', 'contact']) {
+  for (const id of ['top', 'work', ...projectIds, 'contributions', 'approach', 'background', 'writing', 'contact']) {
     assert.equal(occurrences(html, `id="${id}"`), 1, `Expected one #${id}`);
   }
   const nav = html.match(/<nav class="primary-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
-  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'CV', 'Contact']) {
+  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'Writing', 'CV', 'Contact']) {
     assert.ok(nav.includes(`>${label}</a>`), `Missing navigation label: ${label}`);
   }
-  const positions = ['#work', '#contributions', '#approach', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
+  const positions = ['#work', '#contributions', '#approach', '#writing', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
     .map((target) => nav.indexOf(target));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
@@ -308,6 +308,46 @@ test('includes the approved approach, background, contact, and footer copy', () 
   assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));
   assert.ok(textOnly.includes('AI Engineer · Python and applied AI'));
   assert.ok(textOnly.includes('Back to top ↑'));
+});
+
+test('features exactly five aligned essays with canonical Hashnode links and no duplicate cross-posted platforms', () => {
+  const writingEssays = [
+    {
+      title: 'The Hidden Complexity of RAG',
+      href: 'https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag',
+    },
+    {
+      title: 'A Million-Token Context Is Not Memory',
+      href: 'https://joshua-nwachinemere.hashnode.dev/a-million-token-context-is-not-memory',
+    },
+    {
+      title: 'MCP Made Tools Connectable. It Did Not Make Them Understandable.',
+      href: 'https://joshua-nwachinemere.hashnode.dev/mcp-made-tools-connectable-it-did-not-make-them-understandable',
+    },
+    {
+      title: 'The Handoff Problem: Why Multi-Model AI Pipelines Quietly Corrupt Good Research',
+      href: 'https://joshua-nwachinemere.hashnode.dev/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research',
+    },
+    {
+      title: 'The Two Boundaries Where Voice Agents Quietly Corrupt State',
+      href: 'https://joshua-nwachinemere.hashnode.dev/the-two-boundaries-where-voice-agents-quietly-corrupt-state',
+    },
+  ];
+  const writingSection = html.match(/<section[^>]+id="writing"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.ok(writingSection, 'Missing #writing section');
+  assert.equal((writingSection.match(/class="writing-row"/g) || []).length, writingEssays.length);
+  const positions = writingEssays.map(({ href }) => writingSection.indexOf(href));
+  assert.ok(positions.every((position) => position >= 0), 'Missing an expected essay link');
+  assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
+  for (const { title, href } of writingEssays) {
+    assert.ok(writingSection.includes(title), `Missing essay title: ${title}`);
+    assert.ok(writingSection.includes(`href="${href}" target="_blank" rel="noreferrer"`), `Missing protected canonical href: ${href}`);
+  }
+  assert.doesNotMatch(writingSection, /medium\.com|hackernoon\.com|dev\.to/i);
+  const backgroundPosition = html.indexOf('id="background"');
+  const writingPosition = html.indexOf('id="writing"');
+  const contactPosition = html.indexOf('id="contact"');
+  assert.ok(writingPosition >= 0 && writingPosition < backgroundPosition && backgroundPosition < contactPosition);
 });
 
 test('visible portfolio copy stays capability-led rather than limitation-led', () => {

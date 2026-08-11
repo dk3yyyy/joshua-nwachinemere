@@ -12,12 +12,12 @@ import {
 test('loads the reviewed detailed evidence document with stable metadata', () => {
   assert.deepEqual(detailedEvidenceMetadata(), {
     schemaVersion: 1,
-    kbVersion: '2026.08.01-v1',
-    researchCutoff: '2026-08-01',
-    count: 75,
+    kbVersion: '2026.08.03-v1',
+    researchCutoff: '2026-08-03',
+    count: 76,
   });
-  assert.equal(detailedEvidenceRecords.length, 75);
-  assert.equal(new Set(detailedEvidenceRecords.map(({ id }) => id)).size, 75);
+  assert.equal(detailedEvidenceRecords.length, 76);
+  assert.equal(new Set(detailedEvidenceRecords.map(({ id }) => id)).size, 76);
 });
 
 test('production evidence citations do not depend on the review deployment', () => {
@@ -48,6 +48,7 @@ test('detailed retrieval answers long-tail portfolio questions that the original
   const cases = [
     ['What articles has Joshua published about AI agents?', 'writing-overview'],
     ['What did Joshua write about the hidden complexity of RAG?', 'article-hidden-complexity-rag'],
+    ['What did Joshua write about a million-token context and agent memory?', 'article-million-token-context-not-memory'],
     ['Which open pull requests are still in flight?', 'contributions-open-inflight'],
   ];
 

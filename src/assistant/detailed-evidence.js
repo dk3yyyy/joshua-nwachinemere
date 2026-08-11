@@ -2,9 +2,9 @@ import evidenceDocument from '../../knowledge/detailed-evidence.json' with { typ
 import { retrieveEvidence as retrieveReviewedEvidence } from './detailed-retrieval.js';
 
 const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const EXPECTED_KB_VERSION = '2026.08.01-v1';
-const EXPECTED_RESEARCH_CUTOFF = '2026-08-01';
-const EXPECTED_RECORD_COUNT = 75;
+const EXPECTED_KB_VERSION = '2026.08.03-v1';
+const EXPECTED_RESEARCH_CUTOFF = '2026-08-03';
+const EXPECTED_RECORD_COUNT = 76;
 const CONFIDENCE = new Set(['verified', 'owner-confirmed', 'qualified', 'historical', 'high', 'medium', 'low']);
 const UNSAFE_EVIDENCE = /(?:ignore\s+(?:all\s+)?(?:previous|prior)\s+instructions|system\s*prompt|developer\s*message|reveal\s+(?:the\s+)?(?:secret|api[_ -]?key)|<\/?(?:script|iframe|object|embed|style|form)\b|javascript:)/i;
 const APPROVED_EXTERNAL_PULL_REQUESTS = new Set([

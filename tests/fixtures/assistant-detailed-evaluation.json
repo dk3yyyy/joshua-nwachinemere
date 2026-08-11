@@ -1,7 +1,7 @@
 {
-  "suiteVersion": "2026.08.01-full-v1",
-  "kbVersion": "2026.08.01-v1",
-  "description": "370-case full suite including the untouched 80-case blind holdout.",
+  "suiteVersion": "2026.08.03-full-v1",
+  "kbVersion": "2026.08.03-v1",
+  "description": "371-case full suite including the untouched 80-case blind holdout.",
   "gates": {
     "minimumOverallPassRate": 0.9,
     "minimumHoldoutPassRate": 0.85,
@@ -4358,6 +4358,18 @@
       "question": "Which academic conference awards has he won?",
       "expect": {
         "abstain": true
+      }
+    },
+    {
+      "id": "fac-dev-121",
+      "split": "development",
+      "strategy": "paraphrase",
+      "category": "article",
+      "question": "Which article argues that a million-token context window is not memory?",
+      "expect": {
+        "all": [
+          "article-million-token-context-not-memory"
+        ]
       }
     }
   ]
