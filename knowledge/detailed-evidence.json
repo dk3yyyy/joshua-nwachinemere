@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "kbVersion": "2026.08.01-v1",
-  "researchCutoff": "2026-08-01",
+  "kbVersion": "2026.08.03-v1",
+  "researchCutoff": "2026-08-03",
   "excludedSensitiveFields": [
     "phone number from the downloadable CV",
     "inferred geographic location or timezone",
@@ -4293,7 +4293,7 @@
       },
       "status": "active",
       "asOf": "2026-08-01",
-      "text": "Joshua's canonical Hashnode publication is https://joshua-nwachinemere.hashnode.dev; its RSS feed listed eight posts as of 2026-08-01.",
+      "text": "Joshua's canonical Hashnode publication is https://joshua-nwachinemere.hashnode.dev; its RSS feed listed nine posts as of 2026-08-03.",
       "source": {
         "title": "Joshua Nwachinemere Hashnode feed",
         "url": "https://joshua-nwachinemere.hashnode.dev/rss.xml",
@@ -5076,6 +5076,70 @@
           "accessedAt": "2026-08-01"
         }
       ]
+    },
+    {
+      "id": "article-million-token-context-not-memory",
+      "type": "article",
+      "subject": "Technical writing",
+      "title": "A Million-Token Context Is Not Memory",
+      "aliases": [
+        "million token context article",
+        "agent memory article",
+        "context window is not memory"
+      ],
+      "keywords": [
+        "context window",
+        "agent memory",
+        "retrieval",
+        "consolidation",
+        "auditability"
+      ],
+      "entities": {
+        "tech": [],
+        "capabilities": [
+          "technical writing"
+        ],
+        "org": [],
+        "person": [
+          "Joshua Nwachinemere"
+        ],
+        "product": []
+      },
+      "temporal": {
+        "start": "2026-08-03",
+        "end": null,
+        "status": "published",
+        "asOf": "2026-08-03"
+      },
+      "status": "published",
+      "asOf": "2026-08-03",
+      "text": "Joshua argues that a larger context window is not memory, and describes the five decisions, admit, retrieve, consolidate, revise, forget, that keep agent memory reliable and auditable.",
+      "source": {
+        "title": "A Million-Token Context Is Not Memory",
+        "url": "https://joshua-nwachinemere.hashnode.dev/a-million-token-context-is-not-memory",
+        "kind": "article",
+        "publisher": "Hashnode",
+        "accessedAt": "2026-08-03"
+      },
+      "edges": [
+        {
+          "rel": "part-of",
+          "target": "writing-overview"
+        }
+      ],
+      "keys": {
+        "prNumber": null,
+        "repo": null,
+        "exactPhrases": [
+          "A Million-Token Context Is Not Memory",
+          "million token context article",
+          "context window is not memory"
+        ]
+      },
+      "confidence": "high",
+      "sensitivity": "public",
+      "weight": 1.0,
+      "routable": true
     },
     {
       "id": "article-ai-healthcare-workflows",
