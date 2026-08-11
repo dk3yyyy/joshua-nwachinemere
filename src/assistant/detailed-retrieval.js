@@ -5,12 +5,21 @@ const STOP_WORDS = new Set([
   'who', 'why', 'with', 'would', 'you', 'your',
 ]);
 
+const TOKEN_SYNONYMS = new Map([
+  ['xgboost', ['boosting', 'gbm']],
+  ['boosting', ['xgboost']],
+]);
+
 const OUT_OF_SCOPE_PATTERNS = [
   /\b(?:ignore|override|bypass)\b.{0,50}\b(?:instructions?|sources?|rules?|prompt)\b/i,
   /\b(?:api|access|secret|private)\s*key\b/i,
   /\b(?:system|developer)\s*prompt\b/i,
   /\breveal\b.{0,40}\b(?:secret|credential|token|environment|hidden evidence)\b/i,
-  /\b(?:salary|compensation|rates?|home address|phone number|mobile number|where (?:does|is) (?:joshua|he) live|manager|personal outlook|private inbox)\b/i,
+  /\b(?:salary|compensation|rates?|home address|street address|mailing address|phone number|mobile number|where (?:does|is) (?:joshua|he) live|manager|personal outlook|private inbox)\b/i,
+  /\b(?:secondary|personal|private|backup|alternate|another|hidden)\s+email\b/i,
+  /\b(?:isn'?t\s+on|not\s+on)\s+(?:the\s+)?portfolio\b/i,
+  /\b(?:created?|founded|founder of)\b.{0,40}\bproject\b.{0,40}\b(?:whole|entire|maintains?|everything|all)\b/i,
+  /\b(?:shut(?:ting)?\s+down|shutdown|shuttered|wound\s+down)\b/i,
   /\b(?:exact rules govern|first line of your system|system message|\.env file|dump the \.env|hidden instructions?)\b/i,
   /\b(?:visa|immigration status|private chat memory|neighbou?rhood|date of birth|national id|repeat everything before|reveal all secrets?)\b/i,
   /\b(?:time|tenure|role|employee|worked|leave|report)\b.{0,50}\b(?:google|microsoft|apple|amazon|tesla|openai|faang)\b/i,
@@ -19,18 +28,18 @@ const OUT_OF_SCOPE_PATTERNS = [
   /<\/?(?:script|iframe|svg|img)\b|onerror\s*=|onload\s*=/i,
   /\[(?:S\d+|admin-secrets?)\].{0,80}\b(?:confirm|prove|lives?|salary|millionaire)\b/i,
   /\b(?:cites?|citation)\b.{0,100}\b(?:prove|state|confirm|forbes|millionaire|merged prs?|invent)\b/i,
-  /\b(?:best project|most important contribution|single greatest|programming languages? does .+ not know)\b/i,
+  /\b(?:best project|most important contribution|single greatest|programming languages? does .+ (?:not know|dislikes?|hates?))\b/i,
   /\b(?:never worked on|has not contributed to|companies .+ not contributed)\b/i,
   /^\s*what did (?:he|she|they) build there\??\s*$/i,
 ];
 
-const PORTFOLIO_SCOPE = /\b(?:joshua|his|he|person|recruiter|positions?|portfolio|projects?|tools?|work|experience|contributions?|pull requests?|prs?|cv|resume|email|contact|skills?|education|studied|school|university|articles?|blog|wrote|writing|certifications?|degree|github|linkedin|hashnode|medium|dev)\b/i;
+const PORTFOLIO_SCOPE = /\b(?:joshua|his|he|person|recruiter|positions?|portfolio|projects?|tools?|work|experience|contributions?|pull requests?|prs?|cv|resume|email|contact|skills?|education|studied|school|university|articles?|blog|wrote|writing|certifications?|degree|github|linkedin|hashnode|medium|dev|football|pipeline|accuracy)\b/i;
 const EMPLOYMENT_PREMISE = /\b(?:work(?:ed|s|ing)?\s+(?:at|for)|employ(?:ed|ment)?\s+(?:at|by)|job\s+at|what did .{0,30}\bdo\s+at|role\s+(?:on|at)|report\s+to|title\s+when\s+(?:he\s+)?was\s+at|leave\s+\w+\s+to\s+join)\b/i;
 const BROAD_COLLECTION = /\b(?:all|overview|list|how many|tally|count|every|overall|platforms?|open[- ]source work|articles has|projects has|contributions has)\b/i;
 const PR_PATTERN = /(?:#|\bpr\s*#?\s*)(\d{1,6})\b/gi;
 
 const INTENT_RULES = [
-  ['education', /\b(?:education|study|studied|school|university|degree|btech|msc|college)\b/i],
+  ['education', /\b(?:education|study|studied|studies|undergraduate|school|university|degree|btech|msc|college)\b/i],
   ['certification', /\b(?:certificate|certification|credential|training|freecodecamp|coursera|skilljar)\b/i],
   ['article', /\b(?:article|blog|write|wrote|writing|published|publication|hashnode|medium|dev community)\b/i],
   ['contact', /\b(?:contact|email|github profile|linkedin|portfolio site|reach|get in touch|publication url|\burl\b)\b/i],
@@ -45,6 +54,7 @@ const INTENT_RULES = [
   ['current-employment', /\b(?:present position|current position|current role|how long has .+ held)\b/i],
   ['github-activity', /\b(?:github account.{0,30}created|public repositories|repositories.{0,20}github)\b/i],
   ['employment', EMPLOYMENT_PREMISE],
+  ['employment', /\b(?:employ(?:s|er)?\b\s+him\b|who\s+employs\b|his\s+employer\b|employer\b|workplace\b)\b/i],
 ];
 
 const TYPE_INTENT = {
@@ -76,10 +86,16 @@ export function normalizeText(value) {
 }
 
 function tokenise(value) {
-  return normalizeText(value)
+  const tokens = normalizeText(value)
     .split(/\s+/)
     .map((token) => token.replace(/^[-_/]+|[-_/]+$/g, ''))
     .filter((token) => token.length > 1 && !STOP_WORDS.has(token));
+  const expanded = [];
+  for (const token of tokens) {
+    expanded.push(token);
+    for (const synonym of TOKEN_SYNONYMS.get(token) ?? []) expanded.push(synonym);
+  }
+  return expanded;
 }
 
 function flattenEntities(record) {
@@ -121,6 +137,7 @@ function exactPhraseScore(question, record) {
     { values: record.keys?.exactPhrases ?? [], base: 64 },
     { values: record.aliases ?? [], base: 48 },
     { values: [record.subject, record.title], base: 42 },
+    { values: record.keys?.repo ? [record.keys.repo] : [], base: 42 },
     { values: flattenEntities(record), base: 32 },
   ];
   for (const group of groups) {
@@ -186,12 +203,14 @@ function typeIntentBoost(record, intents) {
 }
 
 function allowsIntentOnly(question, intents) {
-  if (intents.has('education') && /\b(?:education|school|studied|university|degree)\b/i.test(question)) return true;
+  if (intents.has('education') && /\b(?:education|school|studied|studies|undergraduate|university|degree)\b/i.test(question)) return true;
   if (intents.has('certification') && /\b(?:what|which|list)\b.{0,24}\b(?:certifications?|credentials?|training)\b/i.test(question)) return true;
   if (intents.has('article') && /\b(?:what|which|list|does)\b.{0,24}\b(?:articles?|writing|blog|publications?)\b/i.test(question)) return true;
   if (intents.has('skill') && /\b(?:what|which|list)\b.{0,24}\b(?:skills?|technologies|toolkit)\b/i.test(question)) return true;
+  if (intents.has('contact') && /\b(?:get in touch|reach|contact)\b/i.test(question)) return true;
   if (intents.has('profile') || intents.has('availability')) return true;
   if ((intents.has('employment') || intents.has('current-employment')) && /\b(?:present|current) (?:position|role)\b/i.test(question)) return true;
+  if (intents.has('employment') && /\b(?:which|who)\b.{0,30}\bemploy(?:s|er)?\b/i.test(question)) return true;
   if (intents.has('temporal') && /\b(?:currently|right now|actively)\b/i.test(question)) return true;
   return false;
 }
@@ -268,14 +287,14 @@ export function retrieveEvidence(question, records, {
     if (prNumbers.length && !prNumbers.includes(record.keys?.prNumber)
       && !(openStatusQuestion && record.id === 'contributions-open-inflight')) return null;
     if (employmentAllowed && !employmentAllowed.has(record.id)) return null;
-    if (record.routable === false && !broadCollectionQuestion) return null;
+    const collection = record.type === 'collection-summary' ? collectionBoost(cleanQuestion, record, broadCollectionQuestion, openStatusQuestion) : 0;
+    if (record.routable === false && !broadCollectionQuestion && collection <= 0) return null;
 
     const phrase = exactPhraseScore(cleanQuestion, record);
     const pr = prNumberScore(prNumbers, record);
     const lexical = bm25Score(questionTokens, documents[index], frequencies, records.length, averageLength);
     const semantic = semanticScoreFor(record, semanticScores);
     const intent = typeIntentBoost(record, intents);
-    const collection = collectionBoost(cleanQuestion, record, broadCollectionQuestion, openStatusQuestion);
     let baseSupport = phrase + Math.max(pr, 0) + lexical + semantic + collection;
     if (baseSupport <= 0 && permitIntentOnly && intent > 0) baseSupport = 0.5;
     if (baseSupport <= 0) return null;
