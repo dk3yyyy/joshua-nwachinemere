@@ -109,7 +109,10 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
   assert.match(html, /<h1[^>]*>AI Engineer building Python systems that <em>show their work<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('I build retrieval, context and evaluation systems for applied AI, mostly in Python: the parts that decide whether an answer is grounded, a run is reproducible and a failure is visible.'));
-  assert.ok(textOnly.includes('5 projects · 9 merged upstream contributions · each one linked to source, tests or results'));
+  assert.match(html, /<ul class="hero-stats" aria-label="Portfolio at a glance">/);
+  for (const [count, label] of [['05', 'Projects'], ['09', 'Merged PRs'], ['05', 'Essays']]) {
+    assert.match(html, new RegExp(`<li><span>${count}</span><small>${label}</small></li>`), `Missing stat ${count} ${label}`);
+  }
   assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));

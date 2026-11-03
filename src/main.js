@@ -39,6 +39,28 @@ nav?.addEventListener('click', (event) => {
 desktop.addEventListener('change', () => setMenu(false));
 root.dataset.enhanced = 'true';
 
+// Mark the section currently in view so the navigation reports where you are.
+const navLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
+const navSections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if (navSections.length && typeof IntersectionObserver === 'function') {
+  const setCurrentSection = (id) => {
+    for (const link of navLinks) {
+      if (link.getAttribute('href') === `#${id}`) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting);
+    if (!visible.length) return;
+    visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    setCurrentSection(visible[0].target.id);
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5] });
+  for (const section of navSections) observer.observe(section);
+}
+
 const assistant = document.querySelector('[data-assistant]');
 const assistantLauncher = assistant?.querySelector('.assistant-launcher');
 const assistantPanel = assistant?.querySelector('.assistant-panel');
