@@ -36,12 +36,6 @@ nav?.addEventListener('click', (event) => {
   if (event.target.closest('a')) setMenu(false);
 });
 
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape' || menuButton?.getAttribute('aria-expanded') !== 'true') return;
-  event.preventDefault();
-  setMenu(false, { restoreFocus: true });
-});
-
 desktop.addEventListener('change', () => setMenu(false));
 root.dataset.enhanced = 'true';
 
@@ -141,27 +135,46 @@ async function requestAnswer(question) {
   return answerQuestion(question);
 }
 
+function setAssistantBusy(busy) {
+  if (assistantForm) assistantForm.dataset.busy = String(busy);
+  if (assistantSubmit) {
+    assistantSubmit.disabled = busy;
+    assistantSubmit.textContent = busy ? 'Checking…' : 'Send';
+  }
+}
+
+function appendMessage(message) {
+  if (!assistantConversation) return;
+  assistantConversation.append(message);
+  assistantConversation.scrollTop = assistantConversation.scrollHeight;
+}
+
 async function askAssistant(question) {
   const value = question.trim();
   if (!value || assistantForm?.dataset.busy === 'true') return;
-  const userMessage = createMessage('assistant-message--question', 'You', value);
-  assistantConversation.append(userMessage);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
-  assistantForm.dataset.busy = 'true';
-  assistantSubmit.disabled = true;
-  assistantSubmit.textContent = 'Checking…';
+  appendMessage(createMessage('assistant-message--question', 'You', value));
+  setAssistantBusy(true);
 
-  const response = await requestAnswer(value);
-  const answerMessage = createMessage('assistant-message--answer', 'Portfolio assistant', response.answer);
-  addCitations(answerMessage, response.citations);
-  addSuggestions(answerMessage, response.suggestedQuestions?.slice(0, 2));
-  assistantConversation.append(answerMessage);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
-  assistantForm.dataset.busy = 'false';
-  assistantSubmit.disabled = false;
-  assistantSubmit.textContent = 'Send';
-  assistantInput.value = '';
-  assistantInput.focus();
+  try {
+    const response = await requestAnswer(value);
+    if (!response?.answer) throw new Error('Empty assistant response');
+    const answerMessage = createMessage('assistant-message--answer', 'Portfolio assistant', response.answer);
+    addCitations(answerMessage, response.citations);
+    addSuggestions(answerMessage, response.suggestedQuestions?.slice(0, 2));
+    appendMessage(answerMessage);
+    if (assistantInput) assistantInput.value = '';
+  } catch {
+    const failure = createMessage(
+      'assistant-message--error',
+      'Portfolio assistant',
+      'That answer did not come back. Try again, or email Joshua directly.',
+    );
+    addSuggestions(failure, ['Who is Joshua?', 'Which project best demonstrates RAG and evaluation?']);
+    appendMessage(failure);
+  } finally {
+    setAssistantBusy(false);
+    assistantInput?.focus();
+  }
 }
 
 assistantForm?.addEventListener('submit', (event) => {
@@ -177,9 +190,13 @@ assistantInput?.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape' || assistantLauncher?.getAttribute('aria-expanded') !== 'true') return;
+  if (event.key !== 'Escape') return;
+  const menuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
+  const assistantOpen = assistantLauncher?.getAttribute('aria-expanded') === 'true';
+  if (!menuOpen && !assistantOpen) return;
   event.preventDefault();
-  setAssistantOpen(false, { restoreFocus: true });
+  if (menuOpen) setMenu(false, { restoreFocus: true });
+  if (assistantOpen) setAssistantOpen(false, { restoreFocus: true });
 });
 
 assistant?.addEventListener('click', (event) => {
