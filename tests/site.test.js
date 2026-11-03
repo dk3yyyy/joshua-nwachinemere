@@ -106,13 +106,24 @@ test('always follows the system theme without a manual theme control or override
 });
 
 test('hero and availability copy are exact and direct', () => {
-  assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
+  assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>No\. 01 · Applied AI<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
   assert.match(html, /<h1[^>]*>AI Engineer building Python systems that <em>show their work<\/em>\.<\/h1>/);
-  assert.ok(textOnly.includes('I build retrieval, context and evaluation systems for applied AI, mostly in Python: the parts that decide whether an answer is grounded, a run is reproducible and a failure is visible.'));
-  assert.match(html, /<ul class="hero-stats" aria-label="Portfolio at a glance">/);
-  for (const [count, label] of [['05', 'Projects'], ['09', 'Merged PRs'], ['05', 'Essays']]) {
-    assert.match(html, new RegExp(`<li><span>${count}</span><small>${label}</small></li>`), `Missing stat ${count} ${label}`);
+  assert.ok(textOnly.includes('Python is my language for applied AI: retrieval, context and evaluation systems, and the parts that decide whether an answer is grounded, a run is reproducible and a failure is visible.'));
+  assert.match(html, /<nav class="inside" aria-label="Inside this portfolio">/);
+  for (const [href, label, count] of [
+    ['#work', 'Selected work', '03'],
+    ['#contributions', 'Open source', '09'],
+    ['#approach', 'What I check', '04'],
+    ['#writing', 'Writing', '05'],
+    ['#background', 'Background', '2021'],
+  ]) {
+    assert.match(
+      html,
+      new RegExp(`<a href="${href}"><span class="inside-n">\\d\\d</span><span class="inside-t">${label}</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">${count}</span></a>`),
+      `Missing inside-index row for ${label}`,
+    );
   }
+  assert.match(html, /<p class="hero-readout"><span><b>05<\/b> projects<\/span><span><b>09<\/b> merged PRs<\/span><span><b>05<\/b> essays<\/span><\/p>/);
   assert.ok(textOnly.includes('Open to AI Engineer and Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));
@@ -129,6 +140,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px dashed/);
   assert.match(html, /Three seams, three places to check\./);
   assert.match(html, /Applied AI \/ system map/);
+  assert.equal((html.match(/class="project-bar"/g) || []).length, 3, 'Each featured case needs an ink case bar');
 });
 
 test('production remains indexable while HTML revalidation stays enabled', () => {
