@@ -24,28 +24,28 @@ const projectNames = [
   'Local Review Intelligence',
   'Football Forecasting Lab',
   'Telegram Social Video Downloader',
-  'ChainScope Wallet Analyzer',
+  'Bug Hunter',
 ];
 const projectIds = [
   'project-lens',
   'project-local-ai',
   'project-football',
   'project-downloader',
-  'project-wallet',
+  'project-bug-hunter',
 ];
 const maturityLabels = [
   'Active product build',
   'Versioned evaluation',
   'Rolling-origin evaluation',
   'Reference implementation',
-  'Public prototype',
+  'Live demo',
 ];
 const repositoryUrls = [
   'https://github.com/dk3yyyy/volyx-lens',
   'https://github.com/dk3yyyy/local_AI_agent',
   'https://github.com/dk3yyyy/football_predictor',
   'https://github.com/dk3yyyy/telegram-social-video-downloader',
-  'https://github.com/dk3yyyy/sol-eth-wallet-analyzer',
+  'https://github.com/dk3yyyy/bug-hunter',
 ];
 const pullRequestUrls = [
   'https://github.com/openai/openai-agents-python/pull/3991',
@@ -368,8 +368,8 @@ test('features exactly five aligned essays with canonical Hashnode links and no 
 test('visible portfolio copy stays capability-led rather than limitation-led', () => {
   assert.doesNotMatch(textOnly, /measured limitations|not presented as conventional employment|not employment with the upstream projects|Degrade without hiding failure|reports its loss|The model did not beat the benchmark|ad-hoc signed test builds|notarized releases|Active pre-release|Experimental evaluation/i);
   assert.doesNotMatch(html, /<dt>Limitations<\/dt>|<dt>Scope<\/dt>/i);
-  assert.ok(textOnly.includes('Backend work that has to survive restarts, partial failures and a provider going quiet.'));
-  assert.ok(textOnly.includes('Bounded concurrency, caching and useful partial results across RPC and market-data providers.'));
+  assert.ok(textOnly.includes('A live AI product and a workflow that survives restarts and partial failures.'));
+  assert.ok(textOnly.includes('Diff text is checked for injected instructions; webhooks are signature-verified; hunts are queued and budgeted.'));
 });
 
 test('shows a focused and verifiable certification set', () => {

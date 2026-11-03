@@ -283,8 +283,8 @@
 
       <section class="additional-work section" id="additional-work" data-index="03" aria-labelledby="additional-work-title">
         <header class="section-header section-header--compact">
-          <div class="section-heading"><h2 id="additional-work-title">Two smaller builds</h2><p class="section-count">Cases 04—05</p></div>
-          <p>Backend work that has to survive restarts, partial failures and a provider going quiet.</p>
+          <div class="section-heading"><h2 id="additional-work-title">Two shipped builds</h2><p class="section-count">Cases 04—05</p></div>
+          <p>A live AI product and a workflow that survives restarts and partial failures.</p>
         </header>
         <div class="additional-project-grid">
           <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title">
@@ -299,15 +299,16 @@
             </div>
           </article>
 
-          <article class="project-card project-card--compact" id="project-wallet" aria-labelledby="project-wallet-title">
-            <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
-            <p class="project-meta"><span>Public prototype</span><span>Independent project</span><span>Case 05</span></p>
-            <p>A FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers.</p>
-            <p class="reliability-work"><strong>Reliability work</strong> Bounded concurrency, caching and useful partial results across RPC and market-data providers.</p>
-            <p class="project-stack"><span>Stack</span> Python · FastAPI · aiohttp · React · Telegram</p>
+          <article class="project-card project-card--compact" id="project-bug-hunter" aria-labelledby="project-bug-hunter-title">
+            <h3 id="project-bug-hunter-title" data-project-name>Bug Hunter</h3>
+            <p class="project-meta"><span>Live demo</span><span>Independent project</span><span>Case 05</span></p>
+            <p>An AI reviewer for GitHub pull requests, built at a GDG hack day: a model pass, then a skeptical verifier that discards weak findings. Free-tier demo, so a first request can take a minute.</p>
+            <p class="reliability-work"><strong>Reliability work</strong> Diff text is checked for injected instructions; webhooks are signature-verified; hunts are queued and budgeted.</p>
+            <p class="project-stack"><span>Stack</span> TypeScript · Node · Gemini · GitHub App</p>
             <div class="project-links">
-              <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Open live demo</a>
-              <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source</a>
+              <a href="https://bug-hunter-ty2y.onrender.com/" target="_blank" rel="noreferrer">Open live demo</a>
+              <a href="https://github.com/dk3yyyy/bug-hunter/pull/34" target="_blank" rel="noreferrer">Sample report</a>
+              <a href="https://github.com/dk3yyyy/bug-hunter" target="_blank" rel="noreferrer">View source</a>
             </div>
           </article>
         </div>
@@ -321,7 +322,7 @@
         <div class="approach-grid">
           <article><h3>What did the user actually choose?</h3><p>Lens treats screen, microphone and system audio as deliberate inputs, then routes only the chosen context to the configured provider.</p></article>
           <article><h3>What happens when the index breaks?</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
-          <article><h3>Does it survive a restart?</h3><p>The downloader persists queue state and resumes after restarts; the wallet analyzer returns useful partial results when a provider fails.</p></article>
+          <article><h3>Does it survive a restart?</h3><p>The downloader persists queue state in SQLite and resumes cleanly after a restart; the code reviewer queues hunts instead of spawning one per webhook.</p></article>
           <article><h3>What is it measured against?</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
         </div>
       </section>

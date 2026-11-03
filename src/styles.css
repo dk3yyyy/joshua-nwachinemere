@@ -282,7 +282,7 @@ html:not([data-enhanced]) .assistant-widget { display: none; }
 .footer a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; text-decoration: none; }
 .footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-#top, #work, #project-lens, #project-local-ai, #project-football, #project-downloader, #project-wallet, #contributions, #additional-work, #approach, #background, #writing, #contact { scroll-margin-top: calc(var(--header-height) + 8px); }
+#top, #work, #project-lens, #project-local-ai, #project-football, #project-downloader, #project-bug-hunter, #contributions, #additional-work, #approach, #background, #writing, #contact { scroll-margin-top: calc(var(--header-height) + 8px); }
 
 @media (hover: hover) {
   .project-card { transition: border-color .18s ease, box-shadow .18s ease; }
