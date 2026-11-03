@@ -8,7 +8,7 @@ try {
     viewport: { width: 1200, height: 630 },
     deviceScaleFactor: 1,
   });
-  const source = pathToFileURL(resolve('design/social-card-v6.html')).href;
+  const source = pathToFileURL(resolve('design/social-card-v7.html')).href;
   await page.goto(source, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   const overflow = await page.evaluate(() => [
@@ -18,7 +18,7 @@ try {
   if (overflow.some((value) => value !== 0)) {
     throw new Error(`Social card overflowed its canvas: ${overflow.join(', ')}`);
   }
-  await page.screenshot({ path: 'public/og-card-v6.png' });
+  await page.screenshot({ path: 'public/og-card-v7.png' });
 } finally {
   await browser.close();
 }

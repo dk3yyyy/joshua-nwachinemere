@@ -13,12 +13,12 @@ const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.u
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const socialCard = await readFile(new URL('../public/og-card-v6.png', import.meta.url));
+const socialCard = await readFile(new URL('../public/og-card-v7.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v6.png`;
+const socialCardUrl = `${siteUrl}og-card-v7.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -419,7 +419,7 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes production-aligned social metadata and the approved v6 landing-page card', () => {
+test('publishes production-aligned social metadata and the approved v7 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
@@ -429,10 +429,10 @@ test('publishes production-aligned social metadata and the approved v6 landing-p
   assert.match(html, /<meta property="og:image:type" content="image\/png"/);
   assert.match(html, /<meta property="og:image:width" content="1200"/);
   assert.match(html, /<meta property="og:image:height" content="630"/);
-  assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI"/);
+  assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
   assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
-  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI"/);
-  assert.doesNotMatch(html, /og-card-v[1-5]\.png/);
+  assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
+  assert.doesNotMatch(html, /og-card-v[1-6]\.png/);
 });
 
 test('all external new-tab links are protected and fragments resolve uniquely', () => {
