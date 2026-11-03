@@ -316,15 +316,65 @@
 
       <section class="approach section" id="approach" data-index="04" aria-labelledby="approach-title">
         <header class="section-header">
-          <div class="section-heading"><h2 id="approach-title">What I check before I ship</h2><p class="section-count">Q1—Q4</p></div>
-          <p>Four questions, answered by the projects above.</p>
+          <div class="section-heading"><h2 id="approach-title">What I check before I ship</h2><p class="section-count">Bench 04</p></div>
+          <p>This page runs the check instead of describing it: BM25 retrieval over its own claims, with the labelled evaluation underneath.</p>
         </header>
-        <div class="approach-grid">
-          <article><h3>What did the user actually choose?</h3><p>Lens treats screen, microphone and system audio as deliberate inputs, then routes only the chosen context to the configured provider.</p></article>
-          <article><h3>What happens when the index breaks?</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
-          <article><h3>Does it survive a restart?</h3><p>The downloader persists queue state in SQLite and resumes cleanly after a restart; the code reviewer queues hunts instead of spawning one per webhook.</p></article>
-          <article><h3>What is it measured against?</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
+
+        <ul class="bench-legend">
+          <li><a href="#project-lens">Did the user choose this context?</a></li>
+          <li><a href="#project-local-ai">Does the index recover?</a></li>
+          <li><a href="#project-downloader">Does it survive a restart?</a></li>
+          <li><a href="#project-football">What is it measured against?</a></li>
+        </ul>
+
+        <div class="bench" data-bench>
+          <div class="bench-controls">
+            <form class="bench-form" data-bench-form>
+              <label for="bench-query">Query this portfolio</label>
+              <div class="bench-input-row">
+                <input id="bench-query" name="query" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. citation validation" aria-describedby="bench-hint" />
+                <button type="submit">Search</button>
+              </div>
+            </form>
+            <p class="bench-hint" id="bench-hint">BM25 over <span data-bench-count>32</span> passages · <span data-bench-timing>not measured yet</span> per query · runs in this browser, no network</p>
+            <div class="bench-chips" data-bench-chips aria-label="Example queries"></div>
+            <p class="bench-note"><span data-bench-queryset>23</span> hand-written queries over the passages above — a demo of the method, not a benchmark. The misses are paraphrases that share almost no words with the answer, which is why the review project measures semantic retrieval against a BM25 baseline instead of trusting it.</p>
+          </div>
+
+          <div class="bench-output">
+            <ol class="bench-results" data-bench-results></ol>
+
+            <div class="bench-panel">
+              <div class="bench-actions">
+                <label class="bench-toggle"><input type="checkbox" data-bench-stale /> <span>Simulate a stale index</span></label>
+                <button type="button" class="bench-eval" data-bench-eval>Run the labelled evaluation</button>
+              </div>
+
+              <dl class="bench-metrics" data-bench-metrics>
+                <div><dt>Recall@5</dt><dd data-metric="recall">—</dd></div>
+                <div><dt>MRR</dt><dd data-metric="mrr">—</dd></div>
+                <div><dt>Queries found</dt><dd data-metric="found">—</dd></div>
+                <div><dt>Passages</dt><dd data-metric="corpus">—</dd></div>
+              </dl>
+
+              <div class="bench-missed" data-bench-missed hidden>
+                <p class="bench-missed-label">Missed queries</p>
+                <ul data-bench-misses></ul>
+              </div>
+
+              <p class="bench-status" data-bench-status role="status"></p>
+            </div>
+          </div>
         </div>
+
+        <noscript>
+          <div class="approach-grid">
+            <article><h3>What did the user actually choose?</h3><p>Lens treats screen, microphone and system audio as deliberate inputs, then routes only the chosen context to the configured provider.</p></article>
+            <article><h3>What happens when the index breaks?</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
+            <article><h3>Does it survive a restart?</h3><p>The downloader persists queue state in SQLite and resumes cleanly after a restart; the code reviewer queues hunts instead of spawning one per webhook.</p></article>
+            <article><h3>What is it measured against?</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
+          </div>
+        </noscript>
       </section>
 
       <section class="writing section" id="writing" data-index="05" aria-labelledby="writing-title">

@@ -9,17 +9,17 @@ const projects = [
   'Bug Hunter',
 ];
 
-// Page-height ceilings are regression guards, not design targets. They were last
-// re-baselined after the five-essay Writing section shipped (the previous ceilings
-// predated it, so the suite had been red on every width since that release).
+// Page-height ceilings are regression guards, not design targets. They were
+// re-baselined when the five-essay Writing section shipped and again when Bench 04
+// (the interactive retrieval bench) replaced the four static approach cards.
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 9950, maxHeroHeight: 900 },
-  { width: 390, height: 844, maxPageHeight: 8920, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 8060, maxHeroHeight: 760 },
+  { width: 320, height: 800, maxPageHeight: 10350, maxHeroHeight: 900 },
+  { width: 390, height: 844, maxPageHeight: 9500, maxHeroHeight: 820 },
+  { width: 768, height: 1024, maxPageHeight: 8400, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
-  { width: 1366, height: 768, maxPageHeight: 6800, maxHeroHeight: 720 },
+  { width: 1366, height: 768, maxPageHeight: 6900, maxHeroHeight: 720 },
 ];
 
 function monitorRuntime(page) {
@@ -75,9 +75,11 @@ async function expectKeyboardFocusVisibility(page, label) {
   }
 
   await page.locator('body').focus();
-  const focusableCount = await page.locator('a:visible, button:visible').count();
+  const linkCount = await page.locator('a:visible, button:visible').count();
+  // Inputs sit in the tab order too, so they consume presses without being asserted below.
+  const tabBudget = await page.locator('a:visible, button:visible, input:visible, textarea:visible').count();
   const focused = [];
-  for (let index = 0; index < focusableCount + 2; index += 1) {
+  for (let index = 0; index < tabBudget + 4; index += 1) {
     await page.keyboard.press('Tab');
     const item = await page.evaluate(() => {
       const node = document.activeElement;
@@ -99,7 +101,7 @@ async function expectKeyboardFocusVisibility(page, label) {
     expect(item.outlineStyle, `${label}: focused ${item.label} outline`).not.toBe('none');
     expect(item.outlineWidth, `${label}: focused ${item.label} outline width`).toBeGreaterThanOrEqual(2);
   }
-  expect(focused.length, `${label}: keyboard-reached visible targets`).toBeGreaterThanOrEqual(focusableCount);
+  expect(focused.length, `${label}: keyboard-reached visible targets`).toBeGreaterThanOrEqual(linkCount);
 }
 
 test('professional portfolio is complete, accessible, private, and runtime-clean', async ({ page }) => {
