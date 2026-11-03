@@ -36,14 +36,33 @@ nav?.addEventListener('click', (event) => {
   if (event.target.closest('a')) setMenu(false);
 });
 
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape' || menuButton?.getAttribute('aria-expanded') !== 'true') return;
-  event.preventDefault();
-  setMenu(false, { restoreFocus: true });
-});
-
 desktop.addEventListener('change', () => setMenu(false));
 root.dataset.enhanced = 'true';
+
+// Mark the section currently in view so the navigation reports where you are.
+const navLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
+const navSections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if (navSections.length && typeof IntersectionObserver === 'function') {
+  const setCurrentSection = (id) => {
+    for (const link of navLinks) {
+      if (link.getAttribute('href') === `#${id}`) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting);
+    if (!visible.length) {
+      for (const link of navLinks) link.removeAttribute('aria-current');
+      return;
+    }
+    visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    setCurrentSection(visible[0].target.id);
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5] });
+  for (const section of navSections) observer.observe(section);
+}
 
 const assistant = document.querySelector('[data-assistant]');
 const assistantLauncher = assistant?.querySelector('.assistant-launcher');
@@ -141,27 +160,46 @@ async function requestAnswer(question) {
   return answerQuestion(question);
 }
 
+function setAssistantBusy(busy) {
+  if (assistantForm) assistantForm.dataset.busy = String(busy);
+  if (assistantSubmit) {
+    assistantSubmit.disabled = busy;
+    assistantSubmit.textContent = busy ? 'Checking…' : 'Send';
+  }
+}
+
+function appendMessage(message) {
+  if (!assistantConversation) return;
+  assistantConversation.append(message);
+  assistantConversation.scrollTop = assistantConversation.scrollHeight;
+}
+
 async function askAssistant(question) {
   const value = question.trim();
   if (!value || assistantForm?.dataset.busy === 'true') return;
-  const userMessage = createMessage('assistant-message--question', 'You', value);
-  assistantConversation.append(userMessage);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
-  assistantForm.dataset.busy = 'true';
-  assistantSubmit.disabled = true;
-  assistantSubmit.textContent = 'Checking…';
+  appendMessage(createMessage('assistant-message--question', 'You', value));
+  setAssistantBusy(true);
 
-  const response = await requestAnswer(value);
-  const answerMessage = createMessage('assistant-message--answer', 'Portfolio assistant', response.answer);
-  addCitations(answerMessage, response.citations);
-  addSuggestions(answerMessage, response.suggestedQuestions?.slice(0, 2));
-  assistantConversation.append(answerMessage);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
-  assistantForm.dataset.busy = 'false';
-  assistantSubmit.disabled = false;
-  assistantSubmit.textContent = 'Send';
-  assistantInput.value = '';
-  assistantInput.focus();
+  try {
+    const response = await requestAnswer(value);
+    if (!response?.answer) throw new Error('Empty assistant response');
+    const answerMessage = createMessage('assistant-message--answer', 'Portfolio assistant', response.answer);
+    addCitations(answerMessage, response.citations);
+    addSuggestions(answerMessage, response.suggestedQuestions?.slice(0, 2));
+    appendMessage(answerMessage);
+    if (assistantInput) assistantInput.value = '';
+  } catch {
+    const failure = createMessage(
+      'assistant-message--error',
+      'Portfolio assistant',
+      'That answer did not come back. Try again, or email Joshua directly.',
+    );
+    addSuggestions(failure, ['Who is Joshua?', 'Which project best demonstrates RAG and evaluation?']);
+    appendMessage(failure);
+  } finally {
+    setAssistantBusy(false);
+    assistantInput?.focus();
+  }
 }
 
 assistantForm?.addEventListener('submit', (event) => {
@@ -177,9 +215,13 @@ assistantInput?.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape' || assistantLauncher?.getAttribute('aria-expanded') !== 'true') return;
+  if (event.key !== 'Escape') return;
+  const menuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
+  const assistantOpen = assistantLauncher?.getAttribute('aria-expanded') === 'true';
+  if (!menuOpen && !assistantOpen) return;
   event.preventDefault();
-  setAssistantOpen(false, { restoreFocus: true });
+  if (menuOpen) setMenu(false, { restoreFocus: true });
+  if (assistantOpen) setAssistantOpen(false, { restoreFocus: true });
 });
 
 assistant?.addEventListener('click', (event) => {

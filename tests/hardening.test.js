@@ -70,5 +70,5 @@ test('preserves the current nine-contribution chatbot surface', () => {
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
   assert.match(html, /Cloudflare Workers AI via a Cloudflare Pages Function/);
   assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 9);
-  assert.match(html, /9 independently verified merged contributions/);
+  assert.match(html, /<b>09<\/b> merged PRs/);
 });

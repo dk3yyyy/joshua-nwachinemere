@@ -29,6 +29,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/dm-mono-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" as="image" href="/images/volyx-lens-context-aperture-800.webp" type="image/webp" imagesrcset="/images/volyx-lens-context-aperture-480.webp 480w, /images/volyx-lens-context-aperture-800.webp 800w, /images/volyx-lens-context-aperture-1200.webp 1200w" imagesizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
     <script type="application/ld+json">
       {
@@ -79,62 +80,64 @@
 
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">Joshua Nwachinemere · AI Engineer</p>
-          <h1 id="hero-title">AI Engineer building reliable Python systems for <em>Applied AI</em>.</h1>
-          <p class="hero-intro">I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. Every featured project links to its source, tests, architecture or measured results.</p>
-          <p class="hero-proof">5 inspectable projects · 9 independently verified merged contributions · Source, architecture and tests linked</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">View selected work</a>
-            <a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
-          </div>
-          <p class="availability">Open to AI Engineer and Applied AI Engineer roles.</p>
+        <div class="hero-runninghead" aria-hidden="true">
+          <span>Joshua Nwachinemere</span>
+          <span>No. 01 · Applied AI</span>
+          <span>Portfolio · 2026</span>
         </div>
-        <div class="hero-system-map" role="img" aria-label="Applied AI workflow: 1 Input, multimodal; 2 Context, retrieval; 3 Model, orchestration; 4 Evaluation, reliability.">
-          <div class="system-map-header" aria-hidden="true">
-            <span>Applied AI / system map</span>
-            <span>JN · 01</span>
+        <div class="hero-grid">
+          <div class="hero-lead">
+            <h1 id="hero-title">AI Engineer building Python systems that <em>show their work</em>.</h1>
+            <p class="hero-intro">Python is my language for applied AI: retrieval, context and evaluation systems, and the parts that decide whether an answer is grounded, a run is reproducible and a failure is visible.</p>
+            <p class="hero-readout"><span><b>05</b> projects</span><span><b>09</b> merged PRs</span><span><b>05</b> essays</span></p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#work">View selected work</a>
+              <a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+            </div>
+            <p class="availability">Open to AI Engineer and Applied AI Engineer roles.</p>
           </div>
+          <nav class="inside" aria-label="Inside this portfolio">
+            <p class="inside-label">Inside</p>
+            <a href="#work"><span class="inside-n">01</span><span class="inside-t">Selected work</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">03</span></a>
+            <a href="#contributions"><span class="inside-n">02</span><span class="inside-t">Open source</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">09</span></a>
+            <a href="#approach"><span class="inside-n">03</span><span class="inside-t">What I check</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">04</span></a>
+            <a href="#writing"><span class="inside-n">04</span><span class="inside-t">Writing</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">05</span></a>
+            <a href="#background"><span class="inside-n">05</span><span class="inside-t">Background</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">2021</span></a>
+          </nav>
+        </div>
+        <div class="hero-system-map" role="img" aria-label="Applied AI workflow: 1 Input, multimodal; 2 Context, retrieval; 3 Model, orchestration; 4 Evaluation, reliability; each arrow is a seam to check.">
           <div class="system-map-canvas" aria-hidden="true">
-            <svg class="system-map-lines" viewBox="0 0 340 340" focusable="false">
-              <defs>
-                <marker id="system-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-                  <path class="system-map-arrow" d="M0 0 L8 4 L0 8 Z" />
-                </marker>
-              </defs>
-              <path d="M138 78 H196" marker-end="url(#system-arrow)" />
-              <path d="M252 108 V226" marker-end="url(#system-arrow)" />
-              <path d="M202 262 H144" marker-end="url(#system-arrow)" />
-            </svg>
-            <div class="system-map-core"><strong>JN</strong><span>Engineer</span></div>
             <div class="system-node system-node--input"><span>01</span><strong>Input</strong><small>multimodal</small></div>
             <div class="system-node system-node--context"><span>02</span><strong>Context</strong><small>retrieval</small></div>
             <div class="system-node system-node--model"><span>03</span><strong>Model</strong><small>orchestration</small></div>
             <div class="system-node system-node--evaluation"><span>04</span><strong>Evaluation</strong><small>reliability</small></div>
           </div>
-          <p class="system-map-caption" aria-hidden="true">Context retrieved · models routed · results evaluated</p>
+          <div class="system-map-caption" aria-hidden="true">
+            <span>Applied AI / system map</span>
+            <span>Three seams, three places to check.</span>
+          </div>
         </div>
       </section>
 
-      <section class="work section" id="work" aria-labelledby="work-title">
+      <section class="work section" id="work" data-index="01" aria-labelledby="work-title">
         <header class="section-header">
-          <h2 id="work-title">Selected AI engineering work</h2>
-          <p>Three featured projects showing multimodal product engineering, local retrieval and temporal ML evaluation, with implementation detail and inspectable evidence.</p>
+          <div class="section-heading"><h2 id="work-title">Selected work</h2><p class="section-count">Cases 01—03</p></div>
+          <p>Three builds where the hard part is keeping the output honest.</p>
         </header>
 
         <div class="primary-projects">
           <article class="project-card project-card--primary" id="project-lens" aria-labelledby="project-lens-title">
             <header class="project-header">
-              <p class="project-category">Multimodal context assistant</p>
+              <p class="project-bar"><span>Case 01</span><span>Multimodal context assistant</span><span>Active product build</span></p>
               <h3 id="project-lens-title" data-project-name>Volyx Lens</h3>
-              <p class="project-meta"><span>Active product build</span> · <span>Independent project</span></p>
+              <p class="project-meta"><span>Independent project</span></p>
             </header>
             <figure class="project-visual project-visual--lens">
               <picture>
                 <source type="image/webp" srcset="%BASE_URL%images/volyx-lens-context-aperture-480.webp 480w, %BASE_URL%images/volyx-lens-context-aperture-800.webp 800w, %BASE_URL%images/volyx-lens-context-aperture-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
                 <img src="%BASE_URL%images/volyx-lens-context-aperture.jpg" width="1200" height="879" alt="High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs" decoding="async" fetchpriority="high" />
               </picture>
-              <figcaption><strong>Context Aperture</strong> — This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.</figcaption>
+              <figcaption><strong>Fig. 01 · Context Aperture</strong> — screen, microphone and system audio are deliberate inputs; only what you choose reaches the provider.</figcaption>
             </figure>
             <div class="project-content">
               <div class="project-overview">
@@ -157,20 +160,20 @@
 
           <article class="project-card project-card--primary" id="project-local-ai" aria-labelledby="project-local-ai-title">
             <header class="project-header">
-              <p class="project-category">Local RAG and evaluation</p>
+              <p class="project-bar"><span>Case 02</span><span>Local RAG and evaluation</span><span>Versioned evaluation</span></p>
               <h3 id="project-local-ai-title" data-project-name>Local Review Intelligence</h3>
-              <p class="project-meta"><span>Versioned evaluation</span> · <span>Independent project</span></p>
+              <p class="project-meta"><span>Independent project</span></p>
             </header>
             <figure class="project-visual project-visual--dashboard">
               <picture>
                 <source type="image/webp" srcset="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-480.webp 480w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-800.webp 800w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
                 <img src="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg" width="1200" height="833" alt="Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table" loading="lazy" decoding="async" />
               </picture>
-              <figcaption><strong>Review intelligence workspace</strong> — The dashboard turns local review data into clear metrics, a rating distribution and an inspectable review table, with grounded Q&amp;A directly below.</figcaption>
+              <figcaption><strong>Fig. 02 · Review intelligence</strong> — metrics, rating distribution and an inspectable review table, with grounded Q&amp;A below.</figcaption>
             </figure>
             <div class="project-content">
               <div class="project-overview">
-                <p>A local-first review-intelligence system for adaptable CSV datasets, semantic retrieval and grounded answers with inspectable citations. Citation validation and a single bounded repair pass keep responses grounded and evidence-linked.</p>
+                <p>A local-first review-intelligence system for adaptable CSV datasets, semantic retrieval and grounded answers with inspectable citations. Citation validation and a single bounded repair pass keep responses evidence-linked.</p>
                 <dl class="project-details">
                   <div><dt>My work</dt><dd>Built adaptable field mapping, stable record identity, recoverable vector indexes, citation validation, bounded repair, privacy-safe diagnostics and an installable CLI.</dd></div>
                   <div><dt>Evaluation result</dt><dd>Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.</dd></div>
@@ -189,16 +192,16 @@
 
           <article class="project-card project-card--primary" id="project-football" aria-labelledby="project-football-title">
             <header class="project-header">
-              <p class="project-category">Temporal ML evaluation</p>
+              <p class="project-bar"><span>Case 03</span><span>Temporal ML evaluation</span><span>Rolling-origin evaluation</span></p>
               <h3 id="project-football-title" data-project-name>Football Forecasting Lab</h3>
-              <p class="project-meta"><span>Rolling-origin evaluation</span> · <span>Independent project</span></p>
+              <p class="project-meta"><span>Independent project</span></p>
             </header>
             <figure class="project-visual project-visual--dashboard project-visual--football">
               <picture>
                 <source type="image/webp" srcset="%BASE_URL%images/football-forecasting-dashboard-12cff076-480.webp 480w, %BASE_URL%images/football-forecasting-dashboard-12cff076-800.webp 800w, %BASE_URL%images/football-forecasting-dashboard-12cff076-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
                 <img src="%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg" width="1200" height="833" alt="Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities" loading="lazy" decoding="async" />
               </picture>
-              <figcaption><strong>Match-intelligence workspace</strong> — A five-view command center for upcoming forecasts, evaluation, live results and methodology; this captured state uses its isolated synthetic interface-test dataset.</figcaption>
+              <figcaption><strong>Fig. 03 · Match intelligence</strong> — five views for forecasts, evaluation, live results and method; this capture uses the isolated synthetic test dataset.</figcaption>
             </figure>
             <div class="project-content">
               <div class="project-overview">
@@ -260,10 +263,10 @@
         </div>
       </aside>
 
-      <section class="contributions section" id="contributions" aria-labelledby="contributions-title">
-        <header class="section-header">
-          <h2 id="contributions-title">Merged open-source contributions</h2>
-          <p>Nine pull requests authored by Joshua, independently verified and merged into maintained open-source projects. The changes strengthen retry policy, recovery workflows, deterministic tests, worker cancellation, compatibility, validation, dependency diagnostics, schema preservation and workflow scoping.</p>
+      <section class="contributions section" id="contributions" data-index="02" aria-labelledby="contributions-title">
+        <header class="section-header section-header--compact">
+          <div class="section-heading"><h2 id="contributions-title">Merged upstream work</h2><p class="section-count">01—09</p></div>
+          <p>Nine pull requests, merged into projects I use, each linked to the discussion.</p>
         </header>
         <div class="contribution-list" aria-label="Merged open-source pull requests">
           <a class="contribution-row" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer"><span>01</span><strong>OpenAI Agents SDK</strong><span>WebSocket retry policy · PR #3991</span></a>
@@ -278,15 +281,15 @@
         </div>
       </section>
 
-      <section class="additional-work section" id="additional-work" aria-labelledby="additional-work-title">
+      <section class="additional-work section" id="additional-work" data-index="03" aria-labelledby="additional-work-title">
         <header class="section-header section-header--compact">
-          <h2 id="additional-work-title">Additional engineering projects</h2>
-          <p>Two focused systems showing durable workflows, API aggregation and resilient execution.</p>
+          <div class="section-heading"><h2 id="additional-work-title">Two shipped builds</h2><p class="section-count">Cases 04—05</p></div>
+          <p>A live AI product and a workflow that survives restarts and partial failures.</p>
         </header>
         <div class="additional-project-grid">
           <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title">
             <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
-            <p class="project-meta"><span>Reference implementation</span> · <span>Independent project</span></p>
+            <p class="project-meta"><span>Reference implementation</span><span>Independent project</span><span>Case 04</span></p>
             <p>An n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates and persists queue state in SQLite.</p>
             <p class="reliability-work"><strong>Reliability work</strong> Bounded workers, queue limits, host allowlisting, restart recovery, idempotent update handling and non-root container execution.</p>
             <p class="project-stack"><span>Stack</span> Python · FastAPI · n8n · SQLite · Docker</p>
@@ -296,37 +299,38 @@
             </div>
           </article>
 
-          <article class="project-card project-card--compact" id="project-wallet" aria-labelledby="project-wallet-title">
-            <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
-            <p class="project-meta"><span>Public prototype</span> · <span>Independent project</span></p>
-            <p>A FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers.</p>
-            <p class="reliability-work"><strong>Reliability work</strong> Bounded concurrency, caching and useful partial results across RPC and market-data providers.</p>
-            <p class="project-stack"><span>Stack</span> Python · FastAPI · aiohttp · React · Telegram</p>
+          <article class="project-card project-card--compact" id="project-bug-hunter" aria-labelledby="project-bug-hunter-title">
+            <h3 id="project-bug-hunter-title" data-project-name>Bug Hunter</h3>
+            <p class="project-meta"><span>Live demo</span><span>Independent project</span><span>Case 05</span></p>
+            <p>An AI reviewer for GitHub pull requests, built at a GDG hack day: a model pass, then a skeptical verifier that discards weak findings. Free-tier demo, so a first request can take a minute.</p>
+            <p class="reliability-work"><strong>Reliability work</strong> Diff text is checked for injected instructions; webhooks are signature-verified; hunts are queued and budgeted.</p>
+            <p class="project-stack"><span>Stack</span> TypeScript · Node · Gemini · GitHub App</p>
             <div class="project-links">
-              <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Open live demo</a>
-              <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source</a>
+              <a href="https://bug-hunter-ty2y.onrender.com/" target="_blank" rel="noreferrer">Open live demo</a>
+              <a href="https://github.com/dk3yyyy/bug-hunter/pull/34" target="_blank" rel="noreferrer">Sample report</a>
+              <a href="https://github.com/dk3yyyy/bug-hunter" target="_blank" rel="noreferrer">View source</a>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="approach section" id="approach" aria-labelledby="approach-title">
+      <section class="approach section" id="approach" data-index="04" aria-labelledby="approach-title">
         <header class="section-header">
-          <h2 id="approach-title">Engineering approach, demonstrated</h2>
-          <p>The principles below are tied to concrete implementation and evaluation work in the projects above.</p>
+          <div class="section-heading"><h2 id="approach-title">What I check before I ship</h2><p class="section-count">Q1—Q4</p></div>
+          <p>Four questions, answered by the projects above.</p>
         </header>
         <div class="approach-grid">
-          <article><h3>Route selected context</h3><p>Lens makes screen, microphone and system audio intentional inputs, then routes the chosen context to the configured provider.</p></article>
-          <article><h3>Keep retrieval ready</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
-          <article><h3>Build resilient workflows</h3><p>The wallet analyzer combines caching with useful partial results across providers, while the downloader persists queue state and resumes cleanly after restarts.</p></article>
-          <article><h3>Evaluate with clear baselines</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
+          <article><h3>What did the user actually choose?</h3><p>Lens treats screen, microphone and system audio as deliberate inputs, then routes only the chosen context to the configured provider.</p></article>
+          <article><h3>What happens when the index breaks?</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
+          <article><h3>Does it survive a restart?</h3><p>The downloader persists queue state in SQLite and resumes cleanly after a restart; the code reviewer queues hunts instead of spawning one per webhook.</p></article>
+          <article><h3>What is it measured against?</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
         </div>
       </section>
 
-      <section class="writing section" id="writing" aria-labelledby="writing-title">
-        <header class="section-header">
-          <h2 id="writing-title">Writing</h2>
-          <p>Essays on the same systems built above: retrieval, context and agent memory, model integrations, multi-model evaluation and voice-agent reliability.</p>
+      <section class="writing section" id="writing" data-index="05" aria-labelledby="writing-title">
+        <header class="section-header section-header--compact">
+          <div class="section-heading"><h2 id="writing-title">Writing</h2><p class="section-count">2026</p></div>
+          <p>Essays on where AI systems quietly break.</p>
         </header>
         <div class="writing-list">
           <article class="writing-row">
@@ -358,10 +362,9 @@
         <p class="writing-more"><a href="https://joshua-nwachinemere.hashnode.dev/" target="_blank" rel="noreferrer">Read more on Hashnode</a></p>
       </section>
 
-      <section class="background section" id="background" aria-labelledby="background-title">
-        <header class="section-header">
-          <h2 id="background-title">Background</h2>
-          <p>My path combines independent product work, engineering projects, technical training and merged open-source contributions.</p>
+      <section class="background section" id="background" data-index="06" aria-labelledby="background-title">
+        <header class="section-header section-header--compact">
+          <div class="section-heading"><h2 id="background-title">Background</h2><p class="section-count">2021—2026</p></div>
         </header>
         <div class="background-list">
           <article>
@@ -381,7 +384,8 @@
           </article>
           <article>
             <h3>Education</h3>
-            <p>Bachelor of Technology in Mathematics · Federal University of Technology, Owerri · 2016–2021</p>
+            <p class="background-meta">Federal University of Technology, Owerri · 2016–2021</p>
+            <p>Bachelor of Technology in Mathematics.</p>
             <p>MSc Artificial Intelligence · Northumbria University · September 2026 intake</p>
           </article>
           <article class="certifications">
@@ -396,7 +400,7 @@
       </section>
 
       <section class="closing" id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title">Interested in working together?</h2>
+        <h2 id="contact-title">Tell me what you’re building.</h2>
         <p>I’m interested in AI Engineer and Applied AI Engineer roles involving Python services, retrieval and context systems, multimodal or voice workflows, evaluation and reliability.</p>
         <div class="closing-actions">
           <a class="button button-dark" href="mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity">Email me</a>
@@ -408,9 +412,16 @@
     </main>
 
     <footer class="footer">
-      <p>© 2026 Joshua Nwachinemere</p>
-      <p>AI Engineer · Python and applied AI</p>
-      <a href="#top">Back to top ↑</a>
+      <div class="footer-meta">
+        <p class="footer-name">© 2026 Joshua Nwachinemere</p>
+        <p>AI Engineer · Python and applied AI</p>
+        <a class="footer-top" href="#top">Back to top ↑</a>
+      </div>
+      <div class="footer-colophon">
+        <p class="footer-label">Colophon</p>
+        <p>Manrope, DM Mono, Newsreader. Paper and ink only.</p>
+        <p class="footer-note">No cookies, no analytics, no trackers.</p>
+      </div>
     </footer>
 
     <script type="module" src="/src/main.js"></script>

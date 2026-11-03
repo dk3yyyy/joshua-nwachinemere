@@ -6,13 +6,16 @@ const projects = [
   'Local Review Intelligence',
   'Football Forecasting Lab',
   'Telegram Social Video Downloader',
-  'ChainScope Wallet Analyzer',
+  'Bug Hunter',
 ];
 
+// Page-height ceilings are regression guards, not design targets. They were last
+// re-baselined after the five-essay Writing section shipped (the previous ceilings
+// predated it, so the suite had been red on every width since that release).
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 8300, maxHeroHeight: 900 },
-  { width: 390, height: 844, maxPageHeight: 7400, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 7150, maxHeroHeight: 760 },
+  { width: 320, height: 800, maxPageHeight: 9950, maxHeroHeight: 900 },
+  { width: 390, height: 844, maxPageHeight: 8920, maxHeroHeight: 820 },
+  { width: 768, height: 1024, maxPageHeight: 8060, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
@@ -26,9 +29,12 @@ function monitorRuntime(page) {
   });
   page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
   page.on('requestfailed', (request) => {
-    if (new URL(request.url()).origin === new URL(page.url()).origin) {
-      errors.push(`request: ${request.method()} ${request.url()} ${request.failure()?.errorText}`);
-    }
+    if (new URL(request.url()).origin !== new URL(page.url()).origin) return;
+    const failure = request.failure()?.errorText ?? '';
+    // Switching viewport or navigating away cancels in-flight responsive images.
+    // That is the browser aborting work, not the page failing to load.
+    if (failure.includes('ERR_ABORTED')) return;
+    errors.push(`request: ${request.method()} ${request.url()} ${failure}`);
   });
   return errors;
 }
@@ -102,7 +108,7 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building reliable Python systems for Applied AI.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building Python systems that show their work.');
   await expect(page.locator('.hero-system-map')).toBeVisible();
   await expect(page.locator('[data-project-name]')).toHaveCount(5);
   for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
@@ -183,7 +189,7 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#121416');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-map-core span')).toHaveCSS('color', 'rgb(86, 91, 96)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(180, 185, 189)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
@@ -404,7 +410,7 @@ test('short desktop first fold contains the hiring essentials and selected-work 
     page.locator('.availability'),
     page.getByRole('link', { name: 'View selected work' }),
     page.getByRole('link', { name: 'Download CV' }).first(),
-    page.getByRole('heading', { name: 'Selected AI engineering work' }),
+    page.getByRole('heading', { name: 'Selected work', exact: true }),
   ];
   for (const locator of essentials) {
     await expect(locator).toBeVisible();
@@ -484,7 +490,10 @@ test('reduced motion, reduced transparency, no-backdrop-filter, and forced colou
     await menu.focus();
     await page.keyboard.press('Enter');
     await expect(menu).toHaveAttribute('aria-expanded', 'true');
-    for (let index = 0; index < 6; index += 1) await page.keyboard.press('Tab');
+    for (let index = 0; index < 12; index += 1) {
+      await page.keyboard.press('Tab');
+      if (await contact.evaluate((node) => node === document.activeElement)) break;
+    }
     await expect(contact).toBeFocused();
   } else {
     await contact.focus();
@@ -503,5 +512,5 @@ test('320px WCAG text spacing retains every content group without clipping', asy
   await expectNoOverflow(page, '320px text spacing');
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
-  await expect(page.getByRole('heading', { name: 'Interested in working together?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Tell me what you’re building.' })).toBeVisible();
 });
