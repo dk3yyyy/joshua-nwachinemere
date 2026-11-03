@@ -311,7 +311,10 @@ test('includes the approved approach, background, contact, and footer copy', () 
   for (const heading of ['What I check before I ship', 'Background', 'Tell me what you’re building.']) {
     assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
-  assert.ok(textOnly.includes('Four questions, answered by the projects above.'));
+  assert.ok(textOnly.includes('This page runs the check instead of describing it: BM25 retrieval over its own claims, with the labelled evaluation underneath.'));
+  assert.match(html, /<div class="bench" data-bench>/);
+  assert.match(html, /id="bench-query"/);
+  assert.match(html, /<noscript>\s*<div class="approach-grid">/);
   for (const heading of ['What did the user actually choose?', 'What happens when the index breaks?', 'Does it survive a restart?', 'What is it measured against?']) {
     assert.match(textOnly, new RegExp(heading));
   }

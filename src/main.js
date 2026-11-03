@@ -1,4 +1,5 @@
 import './styles.css';
+import './bench/ui.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
 const root = document.documentElement;
