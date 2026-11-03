@@ -106,7 +106,7 @@ test('always follows the system theme without a manual theme control or override
 });
 
 test('hero and availability copy are exact and direct', () => {
-  assert.match(html, /<p class="eyebrow">Joshua Nwachinemere · AI Engineer<\/p>/);
+  assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
   assert.match(html, /<h1[^>]*>AI Engineer building Python systems that <em>show their work<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('I build retrieval, context and evaluation systems for applied AI, mostly in Python: the parts that decide whether an answer is grounded, a run is reproducible and a failure is visible.'));
   assert.ok(textOnly.includes('5 projects · 9 merged upstream contributions · each one linked to source, tests or results'));
@@ -121,12 +121,11 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(css, /@media \(min-width: 1051px\)[\s\S]*?\.hero-system-map \{ display: block;/);
   assert.match(css, /\.hero-system-map \{ display: none; \}/);
   assert.match(css, /\.system-map-canvas \{[^}]*border-radius: 28px;/);
-  assert.equal((html.match(/marker-end="url\(#system-arrow\)"/g) || []).length, 3);
-  assert.match(css, /--map-line: #8b8f8b;/);
-  assert.match(css, /\.system-map-lines \{[^}]*stroke: var\(--map-line\);/);
+  assert.equal((html.match(/class="system-node system-node--/g) || []).length, 4);
   assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
+  assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px dashed/);
   assert.match(html, /Three seams, three places to check\./);
-  assert.match(html, /class="system-seam"|class="system-map-line"/);
+  assert.match(html, /Applied AI \/ system map/);
 });
 
 test('production remains indexable while HTML revalidation stays enabled', () => {

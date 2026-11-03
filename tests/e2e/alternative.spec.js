@@ -186,7 +186,7 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#121416');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-map-core span')).toHaveCSS('color', 'rgb(86, 91, 96)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(180, 185, 189)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
