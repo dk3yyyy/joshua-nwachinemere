@@ -6,7 +6,7 @@ const projects = [
   'Local Review Intelligence',
   'Football Forecasting Lab',
   'Telegram Social Video Downloader',
-  'ChainScope Wallet Analyzer',
+  'Bug Hunter',
 ];
 
 // Page-height ceilings are regression guards, not design targets. They were last
@@ -29,9 +29,12 @@ function monitorRuntime(page) {
   });
   page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
   page.on('requestfailed', (request) => {
-    if (new URL(request.url()).origin === new URL(page.url()).origin) {
-      errors.push(`request: ${request.method()} ${request.url()} ${request.failure()?.errorText}`);
-    }
+    if (new URL(request.url()).origin !== new URL(page.url()).origin) return;
+    const failure = request.failure()?.errorText ?? '';
+    // Switching viewport or navigating away cancels in-flight responsive images.
+    // That is the browser aborting work, not the page failing to load.
+    if (failure.includes('ERR_ABORTED')) return;
+    errors.push(`request: ${request.method()} ${request.url()} ${failure}`);
   });
   return errors;
 }
