@@ -54,7 +54,10 @@ if (navSections.length && typeof IntersectionObserver === 'function') {
   };
   const observer = new IntersectionObserver((entries) => {
     const visible = entries.filter((entry) => entry.isIntersecting);
-    if (!visible.length) return;
+    if (!visible.length) {
+      for (const link of navLinks) link.removeAttribute('aria-current');
+      return;
+    }
     visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
     setCurrentSection(visible[0].target.id);
   }, { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5] });

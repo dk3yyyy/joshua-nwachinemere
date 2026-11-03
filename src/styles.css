@@ -21,7 +21,7 @@
   --soft-surface: #e9e9e5;
   --soft-line: #aeb1ac;
   --soft-line-hover: #9fa29d;
-  --placeholder: #74797d;
+  --placeholder: #6b7075;
   --positive: #42734e;
   --positive-ring: rgba(66, 115, 78, .11);
   --figure-dark: #101114;
@@ -271,7 +271,7 @@ html:not([data-enhanced]) .assistant-widget { display: none; }
 .closing-actions { margin-top: 24px; }
 .closing .button { color: var(--closing-ink); border-color: var(--closing-line); background: transparent; }
 .closing .button-dark { color: var(--closing-bg); background: var(--closing-ink); }
-.footer { display: flex; align-items: start; justify-content: space-between; gap: 32px; padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.footer { display: flex; align-items: start; justify-content: space-between; gap: 32px; margin-top: 34px; padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .footer-meta { display: grid; gap: 3px; }
 .footer-name { color: var(--ink); font-weight: 600; }
 .footer-colophon { display: grid; gap: 3px; max-width: 46ch; }
@@ -311,10 +311,9 @@ html:not([data-enhanced]) .assistant-widget { display: none; }
 
 /* Without scripting there is no hamburger, so the navigation becomes a static,
    stacked menu instead of a cramped wrap beside the identity. */
-html:not([data-enhanced]) .masthead { flex-wrap: wrap; }
-html:not([data-enhanced]) .primary-nav { flex: 1 1 100%; flex-wrap: wrap; justify-content: flex-start; }
-
 @media (max-width: 900px) {
+  html:not([data-enhanced]) .masthead { flex-wrap: wrap; }
+  html:not([data-enhanced]) .primary-nav { flex: 1 1 100%; flex-wrap: wrap; justify-content: flex-start; }
   html:not([data-enhanced]) .identity { flex: 1 1 100%; }
   html:not([data-enhanced]) .primary-nav { border-top: 1px solid var(--line); padding: 2px 12px 6px; }
   html:not([data-enhanced]) .primary-nav a { padding-inline: 8px; }
