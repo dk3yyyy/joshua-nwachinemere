@@ -141,3 +141,8 @@ h1 em {
   .code { font-size: 92px; }
   .runninghead, .foot { flex-direction: column; gap: 4px; }
 }
+
+@media (prefers-color-scheme: dark) {
+  .button { background-image: none; background-color: #2f6b52; }
+  .button:hover { background-color: #3a7a5f; }
+}

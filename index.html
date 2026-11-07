@@ -67,12 +67,12 @@
     <div class="plot-progress" aria-hidden="true"><span data-progress></span></div>
 
     <header class="masthead" data-header>
-      <a class="identity" href="#top" aria-label="Joshua Nwachinemere, home">
+      <a class="identity" href="#top" >
         <span class="identity-seal" aria-hidden="true">JN</span>
-        <span class="identity-copy"><strong>Joshua Nwachinemere</strong><small>AI Engineer · Python and applied AI</small></span>
+        <span class="identity-copy"><strong>Joshua Nwachinemere</strong><small>AI Engineer · Python and applied AI</small></span><span class="sr-only">, home</span>
       </a>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
-        <span aria-hidden="true">Menu</span><span class="sr-only">Open navigation</span>
+        <span aria-hidden="true">Menu</span><span class="sr-only">Menu, open navigation</span>
       </button>
       <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
         <a href="#work">Work</a>
@@ -96,7 +96,7 @@
           <div class="hero-lead">
             <h1 id="hero-title">I build Python systems that <em>show their work</em>.</h1>
             <p class="hero-intro">Most of my work is Python. I build retrieval and context systems, then the evaluation that decides whether an answer is grounded and whether a failure is visible.</p>
-            <p class="hero-readout"><span><b>5</b> projects</span><span><b>13</b> upstream PRs</span><span><b>5</b> essays</span></p>
+            <p class="hero-readout"><span><b>5</b> projects</span><span><b>13</b> upstream PRs</span><span><b>5</b> featured essays</span></p>
             <div class="hero-actions">
               <a class="button button-primary" href="#work">View selected work</a>
               <a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
@@ -155,7 +155,7 @@
             </figure>
             <div class="project-content">
               <div class="project-overview">
-                <p>A macOS assistant that reads the screen you choose, listens to a microphone or meeting audio, runs OCR locally, retrieves relevant context, transcribes, and routes to several AI providers.</p>
+                <p>A desktop assistant for macOS, Windows and Linux that reads the screen you choose, listens to a microphone or meeting audio, runs OCR locally, retrieves relevant context, transcribes, and routes to several AI providers.</p>
                 <dl class="project-details">
                   <div><dt>My work</dt><dd>I built the context picker, the routing layer, the consent flow, the Electron process boundaries, and the test and release checks.</dd></div>
                   <div><dt>Implemented controls</dt><dd>Nothing is captured until you switch it on. The renderer is sandboxed with context isolation, and each provider only gets the context you selected.</dd></div>
@@ -166,7 +166,7 @@
                 <div class="project-links">
                   <a href="https://volyxlens.pages.dev/" target="_blank" rel="noreferrer">Visit live site</a>
                   <a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">View source</a>
-                  <a href="https://github.com/dk3yyyy/volyx-lens#how-it-works-under-the-hood" target="_blank" rel="noreferrer">Read architecture</a>
+                  <a href="https://github.com/dk3yyyy/volyx-lens#how-it-works" target="_blank" rel="noreferrer">Read architecture</a>
                 </div>
               </div>
             </div>
@@ -188,14 +188,14 @@
             </figure>
             <div class="project-content">
               <div class="project-overview">
-                <p>A local review tool that loads whatever CSV you give it, maps the fields, and answers questions with citations you can open. Every citation is validated, and an answer gets one bounded repair attempt when a sentence isn’t supported.</p>
+                <p>A local review tool that loads almost any review CSV, maps the fields, and answers questions with citations you can open. Every citation is validated, and an answer gets one bounded repair attempt when citations are missing or invalid.</p>
                 <dl class="project-details">
                   <div><dt>My work</dt><dd>Built adaptable field mapping, stable record identity, recoverable vector indexes, citation validation, bounded repair, privacy-safe diagnostics and an installable CLI.</dd></div>
-                  <div><dt>Evaluation result</dt><dd>Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.</dd></div>
+                  <div><dt>Evaluation result</dt><dd>30-case retrieval benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25.</dd></div>
                 </dl>
               </div>
               <div class="project-evidence">
-                <p class="project-stack"><span>Stack</span> Python · Ollama · Chroma · Streamlit · Typer</p>
+                <p class="project-stack"><span>Stack</span> Python · Ollama · Chroma · Streamlit · argparse</p>
                 <div class="project-links">
                   <a href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">View source</a>
                   <a href="https://github.com/dk3yyyy/local_AI_agent/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
@@ -224,7 +224,7 @@
                 <p>A football forecasting pipeline that splits data chronologically into train, calibration and test windows, then freezes the test set. It uses calibrated XGBoost and Poisson models.</p>
                 <dl class="project-details">
                   <div><dt>My work</dt><dd>Built the data pipeline, temporal features, model evaluation, FastAPI service and Streamlit interface, with dedicated workflows for live, retrospective and synthetic datasets.</dd></div>
-                  <div><dt>Evaluation result</dt><dd>Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark for the same matches is 56.70%.</dd></div>
+                  <div><dt>Evaluation result</dt><dd>Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark is 56.70% on the 1,125 matches with non-tied closing odds (98.7% coverage).</dd></div>
                 </dl>
               </div>
               <div class="project-evidence">
@@ -259,7 +259,7 @@
               <div class="assistant-copy">
                 <p>Ask about Joshua’s work or how he builds.</p>
               </div>
-              <div class="assistant-suggestions" aria-label="Suggested questions">
+              <div class="assistant-suggestions" role="group" aria-label="Suggested questions">
                 <button type="button" data-question="Who is Joshua?">Who is Joshua?</button>
                 <button type="button" data-question="Which project best demonstrates RAG and evaluation?">RAG and evaluation</button>
                 <button type="button" data-question="What open-source work has Joshua contributed?">Open-source work</button>
@@ -273,7 +273,7 @@
               <textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="Ask about Joshua’s work…" required></textarea>
               <button class="assistant-submit" type="submit" aria-label="Send question">Send</button>
             </div>
-            <p class="assistant-note">Answers run on Cloudflare Workers AI. Questions are public, so don’t include personal details.</p>
+            <p class="assistant-note">Answers are assembled from reviewed portfolio evidence. Model routing uses Cloudflare Workers AI, with a Groq fallback. Questions aren’t published, so don’t include personal details.</p>
           </form>
           <noscript><p class="assistant-noscript">JavaScript is required to use the portfolio guide.</p></noscript>
         </div>
@@ -284,21 +284,21 @@
           <div class="section-heading"><h2 id="contributions-title">Merged into other projects</h2><p class="section-count">01—13</p></div>
           <p>Thirteen pull requests merged into other maintainers’ projects. Each one links to the discussion.</p>
         </header>
-        <div class="contribution-list" aria-label="Merged open-source pull requests">
-          <a class="contribution-row" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer"><span>01</span><strong>OpenAI Agents SDK</strong><span>WebSocket retry policy · PR #3991</span></a>
-          <a class="contribution-row" href="https://github.com/microsoft/agent-framework/pull/7391" target="_blank" rel="noreferrer"><span>02</span><strong>Microsoft Agent Framework</strong><span>Compaction tool-result exclusion · PR #7391</span></a>
-          <a class="contribution-row" href="https://github.com/apache/arrow-rs/pull/10486" target="_blank" rel="noreferrer"><span>03</span><strong>Apache Arrow Rust</strong><span>ListView nullability validation · PR #10486</span></a>
-          <a class="contribution-row" href="https://github.com/pydantic/pydantic-ai-harness/pull/503" target="_blank" rel="noreferrer"><span>04</span><strong>Pydantic AI Harness</strong><span>Code Mode session resets · PR #503</span></a>
-          <a class="contribution-row" href="https://github.com/pydantic/pydantic-ai-harness/pull/520" target="_blank" rel="noreferrer"><span>05</span><strong>Pydantic AI Harness</strong><span>URL-safe media payloads · PR #520</span></a>
-          <a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1469" target="_blank" rel="noreferrer"><span>06</span><strong>Mellea</strong><span>Stream timeout worker shutdown · PR #1469</span></a>
-          <a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1471" target="_blank" rel="noreferrer"><span>07</span><strong>Mellea</strong><span>Mocked backend tracing · PR #1471</span></a>
-          <a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2984" target="_blank" rel="noreferrer"><span>08</span><strong>FastStream</strong><span>AnyIO exception containment · PR #2984</span></a>
-          <a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2976" target="_blank" rel="noreferrer"><span>09</span><strong>FastStream</strong><span>Redis group consumption · PR #2976</span></a>
-          <a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer"><span>10</span><strong>FastStream</strong><span>FastAPI 0.140 compatibility · PR #2961</span></a>
-          <a class="contribution-row" href="https://github.com/vega/altair/pull/4089" target="_blank" rel="noreferrer"><span>11</span><strong>Altair</strong><span>JupyterChart dependency errors · PR #4089</span></a>
-          <a class="contribution-row" href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer"><span>12</span><strong>Calkit</strong><span>Scoped single-item runs · PR #1028</span></a>
-          <a class="contribution-row" href="https://github.com/faststream-community/faststream_fastapi/pull/2" target="_blank" rel="noreferrer"><span>13</span><strong>FastStream FastAPI</strong><span>Schema metadata preservation · PR #2</span></a>
-        </div>
+        <ul class="contribution-list" aria-label="Merged open-source pull requests">
+          <li><a class="contribution-row" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer"><span>01</span><strong>OpenAI Agents SDK</strong><span>WebSocket retry policy · PR #3991</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/microsoft/agent-framework/pull/7391" target="_blank" rel="noreferrer"><span>02</span><strong>Microsoft Agent Framework</strong><span>Compaction tool-result exclusion · PR #7391</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/apache/arrow-rs/pull/10486" target="_blank" rel="noreferrer"><span>03</span><strong>Apache Arrow Rust</strong><span>ListView nullability validation · PR #10486</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/pydantic/pydantic-ai-harness/pull/503" target="_blank" rel="noreferrer"><span>04</span><strong>Pydantic AI Harness</strong><span>Code Mode session resets · PR #503</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/pydantic/pydantic-ai-harness/pull/520" target="_blank" rel="noreferrer"><span>05</span><strong>Pydantic AI Harness</strong><span>URL-safe media payloads · PR #520</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1469" target="_blank" rel="noreferrer"><span>06</span><strong>Mellea</strong><span>Stream timeout worker shutdown · PR #1469</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1471" target="_blank" rel="noreferrer"><span>07</span><strong>Mellea</strong><span>Mocked backend tracing · PR #1471</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2984" target="_blank" rel="noreferrer"><span>08</span><strong>FastStream</strong><span>AnyIO exception containment · PR #2984</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2976" target="_blank" rel="noreferrer"><span>09</span><strong>FastStream</strong><span>Redis group consumption · PR #2976</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer"><span>10</span><strong>FastStream</strong><span>FastAPI 0.140 compatibility · PR #2961</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/vega/altair/pull/4089" target="_blank" rel="noreferrer"><span>11</span><strong>Altair</strong><span>JupyterChart dependency errors · PR #4089</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer"><span>12</span><strong>Calkit</strong><span>Scoped single-item runs · PR #1028</span></a></li>
+          <li><a class="contribution-row" href="https://github.com/faststream-community/faststream_fastapi/pull/2" target="_blank" rel="noreferrer"><span>13</span><strong>FastStream FastAPI</strong><span>Schema metadata preservation · PR #2</span></a></li>
+        </ul>
       </section>
 
       <section class="additional-work section" id="additional-work" data-index="03" aria-labelledby="additional-work-title">
@@ -310,7 +310,7 @@
           <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title" data-reveal>
             <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
             <p class="project-meta"><span>Reference implementation</span><span>Independent project</span><span>Case 04</span></p>
-            <p>An n8n and FastAPI workflow. It checks that a URL is supported, authenticates the job request, drops duplicate Telegram updates, and keeps the queue in SQLite so a restart doesn’t lose work.</p>
+            <p>An n8n and FastAPI workflow. It checks that a URL is supported, authenticates the job request, drops duplicate Telegram updates, and persists job state in SQLite and requeues interrupted jobs after a restart.</p>
             <p class="reliability-work"><strong>Reliability work</strong> Bounded workers, queue limits, host allowlisting, restart recovery, idempotent update handling and non-root container execution.</p>
             <p class="project-stack"><span>Stack</span> Python · FastAPI · n8n · SQLite · Docker</p>
             <div class="project-links">
@@ -357,7 +357,7 @@
               </div>
             </form>
             <p class="bench-hint" id="bench-hint">BM25 over <span data-bench-count>31</span> passages · <span data-bench-timing>per-query time not measured yet</span> · runs in your browser with no network calls</p>
-            <div class="bench-chips" data-bench-chips aria-label="Example queries"></div>
+            <div class="bench-chips" data-bench-chips role="group" aria-label="Example queries"></div>
             <p class="bench-note"><span data-bench-queryset>24</span> hand-written queries over the passages above — a demo of the method, not a benchmark. The misses are paraphrases that share almost no words with the answer, which is why the review project measures semantic retrieval against a BM25 baseline instead of trusting it.</p>
           </div>
 
@@ -444,7 +444,7 @@
           </article>
           <article data-reveal>
             <h3>Independent engineering work</h3>
-            <p class="background-meta">January 2021–present</p>
+            <p class="background-meta">January 2023–present</p>
             <p>Python, backend and automation projects: async workflows, API integrations, data processing, Telegram services and ML evaluation.</p>
           </article>
           <article data-reveal>

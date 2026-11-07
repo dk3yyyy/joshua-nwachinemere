@@ -13,7 +13,7 @@ const projects = [
 // re-baselined when the five-essay Writing section shipped and again when Bench 04
 // (the interactive retrieval bench) replaced the four static approach cards.
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 10800, maxHeroHeight: 900 },
+  { width: 320, height: 800, maxPageHeight: 10950, maxHeroHeight: 900 },
   { width: 390, height: 844, maxPageHeight: 9800, maxHeroHeight: 820 },
   { width: 768, height: 1024, maxPageHeight: 8800, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
@@ -191,7 +191,7 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(228, 233, 226)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(198, 206, 199)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
@@ -427,7 +427,7 @@ test('mobile navigation is keyboard-operable, dismisses on Escape, and restores 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const menu = page.locator('.menu-button');
-  await expect(menu).toHaveAccessibleName('Open navigation');
+  await expect(menu).toHaveAccessibleName('Menu, open navigation');
   await menu.focus();
   await page.keyboard.press('Enter');
   await expect(menu).toHaveAttribute('aria-expanded', 'true');

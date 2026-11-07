@@ -65,7 +65,7 @@ test('adds a static 404 and hardened same-origin headers without blocking produc
 test('preserves the current thirteen-contribution chatbot surface', () => {
   assert.match(html, /data-assistant/);
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
-  assert.match(html, /Answers run on Cloudflare Workers AI/);
+  assert.match(html, /Answers are assembled from reviewed portfolio evidence/);
   assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 13);
   assert.match(html, /<b>13<\/b> upstream PRs/);
 });

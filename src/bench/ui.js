@@ -161,6 +161,12 @@ export function mountBench(root, { docs = passages, queries = evalQueries } = {}
       lastEval = null;
       if (evalButton) evalButton.textContent = 'Run the labelled evaluation';
       if (status) status.textContent = 'Evaluation cleared.';
+      if (metrics) for (const node of metrics.querySelectorAll('[data-metric]')) node.textContent = '—';
+      if (misses) {
+        misses.replaceChildren();
+        const label = misses.closest('[data-bench-missed]');
+        if (label) label.hidden = true;
+      }
       return;
     }
     runEval();

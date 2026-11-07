@@ -19,7 +19,12 @@ const MAX_PROVIDER_RESPONSE_BYTES = 10_000;
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
   'cache-control': 'no-store',
+  'content-security-policy': "default-src 'none'; frame-ancestors 'none'",
+  'cross-origin-opener-policy': 'same-origin',
+  'cross-origin-resource-policy': 'same-origin',
+  'referrer-policy': 'no-referrer',
   'x-content-type-options': 'nosniff',
+  'x-frame-options': 'DENY',
 };
 
 // Detailed records extend routing candidates without replacing the established

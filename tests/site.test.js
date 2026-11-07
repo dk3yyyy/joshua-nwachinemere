@@ -127,7 +127,7 @@ test('hero and availability copy are exact and direct', () => {
       `Missing inside-index row for ${label}`,
     );
   }
-  assert.match(html, /<p class="hero-readout"><span><b>5<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>5<\/b> essays<\/span><\/p>/);
+  assert.match(html, /<p class="hero-readout"><span><b>5<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>5<\/b> featured essays<\/span><\/p>/);
   assert.ok(textOnly.includes('Looking for AI Engineer or Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));
@@ -189,9 +189,9 @@ test('includes a grounded corner chatbot with an accessible popup and explicit s
   assert.match(assistant, /role="log"/);
   assert.match(assistant, /aria-live="polite"/);
   assert.match(assistant, /maxlength="500"/);
-  assert.match(assistant, /Answers run on Cloudflare Workers AI/);
-  assert.match(assistant, /Questions are public, so don’t include personal details/);
-  assert.match(assistant, /Answers run on Cloudflare Workers AI/);
+  assert.match(assistant, /Answers are assembled from reviewed portfolio evidence/);
+  assert.match(assistant, /Questions aren’t published/);
+  assert.match(assistant, /Answers are assembled from reviewed portfolio evidence/);
   assert.equal((assistant.match(/data-question=/g) || []).length, 3);
   assert.match(css, /\.assistant-widget \{[^}]*position: fixed;/);
   assert.match(css, /\.assistant-panel \{[^}]*position: absolute;/);
@@ -214,14 +214,14 @@ test('project maturity, ownership, and evaluation evidence remain exact', () => 
     assert.equal(occurrences(textOnly, label), 1, `Expected exact maturity label once: ${label}`);
   }
   assert.equal(occurrences(textOnly, 'Independent project'), 5);
-  assert.ok(textOnly.includes('Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark for the same matches is 56.70%.'));
+  assert.ok(textOnly.includes('Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark is 56.70% on the 1,125 matches with non-tied closing odds (98.7% coverage).'));
   assert.doesNotMatch(textOnly, /The model did not beat the benchmark/i);
   assert.ok(textOnly.includes('Three projects, each built around a check that the output is right.'));
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.doesNotMatch(lens, /<dt>Scope<\/dt>|ad-hoc signed test builds|notarized releases/i);
   assert.ok(textOnly.includes('Nothing is captured until you switch it on. The renderer is sandboxed with context isolation, and each provider only gets the context you selected.'));
-  assert.ok(textOnly.includes('Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.'));
-  assert.ok(textOnly.includes('Every citation is validated, and an answer gets one bounded repair attempt when a sentence isn’t supported.'));
+  assert.ok(textOnly.includes('30-case retrieval benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25.'));
+  assert.ok(textOnly.includes('Every citation is validated, and an answer gets one bounded repair attempt when citations are missing or invalid.'));
   const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.doesNotMatch(localProject, /<dt>Limitations<\/dt>|Three of 25|median latency|dirty worktree|both 0\.560|general reliability/i);
   assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View results<\/a>/);

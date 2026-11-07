@@ -26,7 +26,7 @@ function setMenu(open, { restoreFocus = false } = {}) {
   const visibleLabel = menuButton.querySelector('[aria-hidden="true"]');
   const accessibleLabel = menuButton.querySelector('.sr-only');
   if (visibleLabel) visibleLabel.textContent = open ? 'Close' : 'Menu';
-  if (accessibleLabel) accessibleLabel.textContent = open ? 'Close navigation' : 'Open navigation';
+  if (accessibleLabel) accessibleLabel.textContent = open ? 'Menu, close navigation' : 'Menu, open navigation';
   if (restoreFocus) menuButton.focus();
 }
 
@@ -110,6 +110,7 @@ function addSuggestions(message, questions) {
   if (!questions?.length) return;
   const suggestions = document.createElement('div');
   suggestions.className = 'assistant-suggestions';
+  suggestions.setAttribute('role', 'group');
   suggestions.setAttribute('aria-label', 'Follow-up questions');
   for (const question of questions) {
     const button = document.createElement('button');
