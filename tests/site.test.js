@@ -78,14 +78,14 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   assert.match(html, /<a class="skip-link" href="#main">Skip to main content<\/a>/);
   assert.match(html, /<main id="main">/);
-  for (const id of ['top', 'work', ...projectIds, 'contributions', 'approach', 'background', 'writing', 'contact']) {
+  for (const id of ['top', 'work', ...projectIds, 'contributions', 'background', 'writing', 'contact']) {
     assert.equal(occurrences(html, `id="${id}"`), 1, `Expected one #${id}`);
   }
   const nav = html.match(/<nav class="primary-nav"[\s\S]*?<\/nav>/)?.[0] ?? '';
-  for (const label of ['Work', 'Open source', 'Approach', 'Background', 'Writing', 'CV', 'Contact']) {
+  for (const label of ['Work', 'Open source', 'Background', 'Writing', 'CV', 'Contact']) {
     assert.ok(nav.includes(`>${label}</a>`), `Missing navigation label: ${label}`);
   }
-  const positions = ['#work', '#contributions', '#approach', '#writing', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
+  const positions = ['#work', '#contributions', '#writing', '#background', 'Joshua_Nwachinemere_CV.pdf', '#contact']
     .map((target) => nav.indexOf(target));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
@@ -117,7 +117,6 @@ test('hero and availability copy are exact and direct', () => {
   for (const [href, label, count] of [
     ['#work', 'Selected work', '03'],
     ['#contributions', 'Open source', '13'],
-    ['#approach', 'What I check', '04'],
     ['#writing', 'Writing', '05'],
     ['#background', 'Background', '2021'],
   ]) {
@@ -311,16 +310,9 @@ test('keeps project actions focused on demos, source, and explanatory evidence',
   assert.match(lens, /<a href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">Visit live site<\/a>/);
 });
 
-test('includes the approved approach, background, contact, and footer copy', () => {
-  for (const heading of ['What I check before I ship', 'Background', 'Tell me what you’re building.']) {
+test('includes the approved background, contact, and footer copy', () => {
+  for (const heading of ['Background', 'Tell me what you’re building.']) {
     assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  }
-  assert.ok(textOnly.includes("The search below runs BM25 over a fixed set of claims about this work. The labelled evaluation underneath shows where it misses."));
-  assert.match(html, /<div class="bench" data-bench>/);
-  assert.match(html, /id="bench-query"/);
-  assert.match(html, /<noscript>\s*<div class="approach-grid">/);
-  for (const heading of ['What did the user actually choose?', 'What happens when the index breaks?', 'Does it survive a restart?', 'What is it measured against?']) {
-    assert.match(textOnly, new RegExp(heading));
   }
   assert.ok(textOnly.includes('VolyxAI product work'));
   assert.ok(textOnly.includes('Independent product effort'));

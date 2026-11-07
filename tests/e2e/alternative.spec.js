@@ -11,7 +11,7 @@ const projects = [
 
 // Page-height ceilings are regression guards, not design targets. They were
 // re-baselined when the five-essay Writing section shipped and again when Bench 04
-// (the interactive retrieval bench) replaced the four static approach cards.
+// Project cards replaced the old static approach cards.
 const viewports = [
   { width: 320, height: 800, maxPageHeight: 10950, maxHeroHeight: 900 },
   { width: 390, height: 844, maxPageHeight: 9800, maxHeroHeight: 820 },
@@ -504,38 +504,6 @@ test('reduced motion, reduced transparency, no-backdrop-filter, and forced colou
   }
   expect(await contact.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
   expect(await page.locator('.project-card').first().evaluate((node) => getComputedStyle(node).borderStyle)).not.toBe('none');
-});
-
-test('dynamic bench results and the assistant keep contrast and 44px targets', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('./');
-
-  await page.locator('#bench-query').fill('citation validation');
-  await page.locator('.bench-input-row button').click();
-  await expect(page.locator('.bench-hit').first()).toBeVisible();
-
-  const resultTargets = await page.locator('.bench-hit a').evaluateAll((links) => links.map((link) => {
-    const box = link.getBoundingClientRect();
-    return { height: box.height, width: box.width };
-  }));
-  expect(resultTargets.length).toBeGreaterThan(0);
-  for (const target of resultTargets) {
-    expect(target.height).toBeGreaterThanOrEqual(43.98);
-    expect(target.width).toBeGreaterThanOrEqual(44);
-  }
-
-  const benchAudit = await new AxeBuilder({ page }).analyze();
-  expect(benchAudit.violations).toEqual([]);
-
-  await page.locator('.assistant-launcher').click();
-  const assistantTargets = await page.locator('.assistant-suggestions button, .assistant-input-row textarea, .assistant-submit').evaluateAll((nodes) => nodes.map((node) => {
-    const box = node.getBoundingClientRect();
-    return { label: node.textContent.trim() || node.getAttribute('aria-label'), height: box.height, width: box.width };
-  }));
-  for (const target of assistantTargets) {
-    expect(target.height, target.label).toBeGreaterThanOrEqual(43.98);
-    expect(target.width, target.label).toBeGreaterThanOrEqual(44);
-  }
 });
 
 test('320px WCAG text spacing retains every content group without clipping', async ({ page }) => {
