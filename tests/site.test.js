@@ -189,9 +189,9 @@ test('includes a grounded corner chatbot with an accessible popup and explicit s
   assert.match(assistant, /role="log"/);
   assert.match(assistant, /aria-live="polite"/);
   assert.match(assistant, /maxlength="500"/);
-  assert.match(assistant, /Cloudflare Workers AI via a Cloudflare Pages Function/);
-  assert.match(assistant, /Don’t enter personal data/);
-  assert.match(assistant, /Public portfolio questions only/);
+  assert.match(assistant, /Answers run on Cloudflare Workers AI/);
+  assert.match(assistant, /Questions are public, so don’t include personal details/);
+  assert.match(assistant, /Answers run on Cloudflare Workers AI/);
   assert.equal((assistant.match(/data-question=/g) || []).length, 3);
   assert.match(css, /\.assistant-widget \{[^}]*position: fixed;/);
   assert.match(css, /\.assistant-panel \{[^}]*position: absolute;/);

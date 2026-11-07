@@ -195,7 +195,7 @@ function hasEnoughKnownContext(question) {
 export function validateQuestion(question) {
   if (typeof question !== 'string') return { ok: false, error: 'Question must be text.' };
   const value = question.normalize('NFKD').replace(/[\p{Cf}\p{M}]/gu, '').trim().replace(/\s+/g, ' ');
-  if (!value) return { ok: false, error: 'Enter a question first.' };
+  if (!value) return { ok: false, error: 'Type a question, then send.' };
   if (value.length > 500) return { ok: false, error: 'Keep the question under 500 characters.' };
   return { ok: true, value };
 }

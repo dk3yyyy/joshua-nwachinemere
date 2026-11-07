@@ -58,7 +58,7 @@ export function mountBench(root, { docs = passages, queries = evalQueries } = {}
 
     results.replaceChildren();
     if (!hits.length) {
-      renderEmpty(`No passage matches “${trimmed}”. The corpus only covers what this page claims.`);
+      renderEmpty(`No passage matches “${trimmed}”. Try a broader phrase or one of the examples above.`);
     } else {
       const best = hits[0].score || 1;
       for (const hit of hits) {

@@ -257,7 +257,7 @@
           <div class="assistant-conversation" id="assistant-conversation" role="log" aria-live="polite" aria-relevant="additions text">
             <article class="assistant-message assistant-message--answer">
               <div class="assistant-copy">
-                <p>Ask about my work or how I build.</p>
+                <p>Ask about Joshua’s work or how he builds.</p>
               </div>
               <div class="assistant-suggestions" aria-label="Suggested questions">
                 <button type="button" data-question="Who is Joshua?">Who is Joshua?</button>
@@ -273,7 +273,7 @@
               <textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="Ask about Joshua’s work…" required></textarea>
               <button class="assistant-submit" type="submit" aria-label="Send question">Send</button>
             </div>
-            <p class="assistant-note">Public portfolio questions only · Cloudflare Workers AI via a Cloudflare Pages Function · Don’t enter personal data</p>
+            <p class="assistant-note">Answers run on Cloudflare Workers AI. Questions are public, so don’t include personal details.</p>
           </form>
           <noscript><p class="assistant-noscript">JavaScript is required to use the portfolio guide.</p></noscript>
         </div>
@@ -281,7 +281,7 @@
 
       <section class="contributions section" id="contributions" data-index="02" aria-labelledby="contributions-title">
         <header class="section-header section-header--compact" data-reveal>
-          <div class="section-heading"><h2 id="contributions-title">Merged upstream work</h2><p class="section-count">01—13</p></div>
+          <div class="section-heading"><h2 id="contributions-title">Merged into other projects</h2><p class="section-count">01—13</p></div>
           <p>Thirteen pull requests merged into other maintainers’ projects. Each one links to the discussion.</p>
         </header>
         <div class="contribution-list" aria-label="Merged open-source pull requests">
@@ -353,7 +353,7 @@
               <label for="bench-query">Query this portfolio</label>
               <div class="bench-input-row">
                 <input id="bench-query" name="query" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. citation validation" aria-describedby="bench-hint" />
-                <button type="submit">Search</button>
+                <button type="submit">Search claims</button>
               </div>
             </form>
             <p class="bench-hint" id="bench-hint">BM25 over <span data-bench-count>31</span> passages · <span data-bench-timing>per-query time not measured yet</span> · runs in your browser with no network calls</p>

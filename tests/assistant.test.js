@@ -165,7 +165,7 @@ test('education wording does not strengthen intake evidence into enrolment', () 
 });
 
 test('question validation rejects empty, oversized, and malformed input', () => {
-  assert.deepEqual(validateQuestion(''), { ok: false, error: 'Enter a question first.' });
+  assert.deepEqual(validateQuestion(''), { ok: false, error: 'Type a question, then send.' });
   assert.equal(validateQuestion('a'.repeat(501)).ok, false);
   assert.equal(validateQuestion({ text: 'hello' }).ok, false);
   assert.deepEqual(validateQuestion('  What has Joshua built?  '), { ok: true, value: 'What has Joshua built?' });
