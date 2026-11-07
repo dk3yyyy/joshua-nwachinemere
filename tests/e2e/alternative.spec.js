@@ -13,13 +13,13 @@ const projects = [
 // re-baselined when the five-essay Writing section shipped and again when Bench 04
 // (the interactive retrieval bench) replaced the four static approach cards.
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 10600, maxHeroHeight: 900 },
-  { width: 390, height: 844, maxPageHeight: 9500, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 8500, maxHeroHeight: 760 },
+  { width: 320, height: 800, maxPageHeight: 10800, maxHeroHeight: 900 },
+  { width: 390, height: 844, maxPageHeight: 9800, maxHeroHeight: 820 },
+  { width: 768, height: 1024, maxPageHeight: 8800, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
-  { width: 1366, height: 768, maxPageHeight: 6900, maxHeroHeight: 720 },
+  { width: 1366, height: 768, maxPageHeight: 7150, maxHeroHeight: 720 },
 ];
 
 function monitorRuntime(page) {
@@ -142,8 +142,8 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
     };
   });
   expect(Math.abs(footballImageRatio.rendered - footballImageRatio.intrinsic)).toBeLessThan(0.01);
-  await expect(page.locator('.contribution-row')).toHaveCount(9);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
+  await expect(page.locator('.contribution-row')).toHaveCount(13);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
   await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
   await expect(page.locator('body')).not.toContainText('joshua0nwachinemere@gmail.com');
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
@@ -454,7 +454,7 @@ test('all content and navigation remain available without JavaScript', async ({ 
   await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
   await expect(page.locator('.menu-button')).toBeHidden();
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
   await expect(page.getByText(/Across 1,140 rolling-origin test matches it gets 53\.77% accuracy/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
   await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
@@ -547,6 +547,6 @@ test('320px WCAG text spacing retains every content group without clipping', asy
   ` });
   await expectNoOverflow(page, '320px text spacing');
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
+  await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
   await expect(page.getByRole('heading', { name: 'Tell me what you’re building.' })).toBeVisible();
 });

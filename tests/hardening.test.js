@@ -62,10 +62,10 @@ test('adds a static 404 and hardened same-origin headers without blocking produc
   assert.match(notFound, /<title>Page not found · Joshua Nwachinemere<\/title>/);
 });
 
-test('preserves the current nine-contribution chatbot surface', () => {
+test('preserves the current thirteen-contribution chatbot surface', () => {
   assert.match(html, /data-assistant/);
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
   assert.match(html, /Cloudflare Workers AI via a Cloudflare Pages Function/);
-  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 9);
-  assert.match(html, /<b>09<\/b> merged PRs/);
+  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 13);
+  assert.match(html, /<b>13<\/b> upstream PRs/);
 });

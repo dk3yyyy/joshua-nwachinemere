@@ -48,6 +48,10 @@ const repositoryUrls = [
   'https://github.com/dk3yyyy/bug-hunter',
 ];
 const pullRequestUrls = [
+  'https://github.com/ag2ai/faststream/pull/2976',
+  'https://github.com/pydantic/pydantic-ai-harness/pull/520',
+  'https://github.com/ag2ai/faststream/pull/2984',
+  'https://github.com/microsoft/agent-framework/pull/7391',
   'https://github.com/openai/openai-agents-python/pull/3991',
   'https://github.com/pydantic/pydantic-ai-harness/pull/503',
   'https://github.com/generative-computing/mellea/pull/1471',
@@ -112,7 +116,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<nav class="inside" aria-label="Inside this portfolio">/);
   for (const [href, label, count] of [
     ['#work', 'Selected work', '03'],
-    ['#contributions', 'Open source', '09'],
+    ['#contributions', 'Open source', '13'],
     ['#approach', 'What I check', '04'],
     ['#writing', 'Writing', '05'],
     ['#background', 'Background', '2021'],
@@ -123,7 +127,7 @@ test('hero and availability copy are exact and direct', () => {
       `Missing inside-index row for ${label}`,
     );
   }
-  assert.match(html, /<p class="hero-readout"><span><b>05<\/b> projects<\/span><span><b>09<\/b> merged PRs<\/span><span><b>05<\/b> essays<\/span><\/p>/);
+  assert.match(html, /<p class="hero-readout"><span><b>05<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>05<\/b> essays<\/span><\/p>/);
   assert.ok(textOnly.includes('Looking for AI Engineer or Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));
@@ -279,11 +283,11 @@ test('adds honest, accessible visual product evidence without the rejected contr
   assert.ok(textOnly.includes('Context Aperture. Screen, microphone and system audio are inputs you switch on yourself; only what you choose reaches the provider.'));
 });
 
-test('keeps all five repository URLs and all nine contribution rows visible', () => {
+test('keeps all five repository URLs and all thirteen contribution rows visible', () => {
   for (const url of [...repositoryUrls, ...pullRequestUrls]) assert.ok(html.includes(url), `Missing ${url}`);
-  assert.equal((html.match(/class="contribution-row"/g) || []).length, 9);
-  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 9);
-  assert.ok(textOnly.includes('Nine pull requests I merged into projects I use. Each one links to the discussion.'));
+  assert.equal((html.match(/class="contribution-row"/g) || []).length, 13);
+  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 13);
+  assert.ok(textOnly.includes('Thirteen pull requests merged into other maintainers’ projects. Each one links to the discussion.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
 });
