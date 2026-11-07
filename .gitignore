@@ -10,15 +10,3 @@ __pycache__/
 .env
 .env.*
 !.env.example
-
-# Agent/tool state, not part of the site
-.agent/
-.agents/
-.claude/
-.cursor/
-.codex/
-.dsh/
-.gemini/
-.grok/
-.hermes/
-.opencode/
