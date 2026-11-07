@@ -2,10 +2,10 @@
 @font-face { font-family: 'Azeret Mono'; src: url('/fonts/azeret-mono-400.woff2') format('woff2'); font-style: normal; font-weight: 400 500; font-display: swap; }
 
 :root {
-  --ink: #0b1620;
-  --muted: #465462;
-  --accent: #0a64e8;
-  --accent-2: #6f4cff;
+  --ink: #14181a;
+  --muted: #4f5a54;
+  --accent: #1f5c46;
+  --accent-2: #7a4a2a;
   --glass: rgba(255, 255, 255, .52);
   --glass-raised: rgba(255, 255, 255, .68);
   --glass-border: rgba(255, 255, 255, .72);
@@ -16,10 +16,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #f1f6fd;
-    --muted: #e0e8f2;
-    --accent: #66b0ff;
-    --accent-2: #a795ff;
+    --ink: #f2f3ee;
+    --muted: #e4e9e2;
+    --accent: #8fd0b2;
+    --accent-2: #d8a878;
     --glass: rgba(14, 20, 32, .74);
     --glass-raised: rgba(22, 30, 46, .86);
     --glass-border: rgba(255, 255, 255, .16);
@@ -38,14 +38,14 @@ body {
   padding: 24px;
   color: var(--ink);
   background:
-    radial-gradient(60vw 60vw at 12% 0%, rgba(150, 197, 255, .8), transparent 70%),
-    radial-gradient(55vw 55vw at 88% 12%, rgba(255, 179, 214, .75), transparent 70%),
-    radial-gradient(60vw 60vw at 50% 100%, rgba(147, 239, 224, .75), transparent 70%),
-    linear-gradient(160deg, #f8fbff, #e7eff8 50%, #f5eef7);
+    radial-gradient(60vw 60vw at 12% 0%, rgba(230, 197, 160, .8), transparent 70%),
+    radial-gradient(55vw 55vw at 88% 12%, rgba(195, 212, 189, .75), transparent 70%),
+    radial-gradient(60vw 60vw at 50% 100%, rgba(220, 198, 178, .75), transparent 70%),
+    linear-gradient(160deg, #f7f4ee, #ece8df 50%, #f3efe6);
   font: 400 17px/1.55 'Archivo', Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  body { background: radial-gradient(60vw 60vw at 12% 0%, #123a6b, transparent 70%), radial-gradient(55vw 55vw at 88% 12%, #4a1c55, transparent 70%), linear-gradient(160deg, #0a101b, #070b12); }
+  body { background: radial-gradient(60vw 60vw at 12% 0%, #3a3a24, transparent 70%), radial-gradient(55vw 55vw at 88% 12%, #2a3a2c, transparent 70%), linear-gradient(160deg, #11150f, #0c0f0e); }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 

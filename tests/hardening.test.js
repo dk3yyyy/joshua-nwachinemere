@@ -38,7 +38,6 @@ test('uses responsive project imagery and self-hosted licensed fonts', async () 
   for (const file of [
     'public/fonts/archivo-var.woff2',
     'public/fonts/azeret-mono-400.woff2',
-    'public/fonts/azeret-mono-500.woff2',
     'public/fonts/licenses/OFL-Archivo.txt',
     'public/fonts/licenses/OFL-Azeret-Mono.txt',
   ]) assert.equal(await exists(file), true, `Missing ${file}`);

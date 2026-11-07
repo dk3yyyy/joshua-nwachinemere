@@ -5,29 +5,30 @@ is `src/styles.css`; this file records the decisions behind them.
 
 ## World
 
-A lit room behind glass. Three slow colour fields (blue, rose, mint) drift on a
-pale daylight ground; every surface is a translucent sheet with a blurred
-backdrop, a saturated lift, and a bright inner edge. Ink stays dark so the page
-reads as an engineer's portfolio, not a concept demo.
+A lit room behind glass. Three slow fields of sand, sage and clay drift on a warm
+bone ground; every surface is a translucent sheet with a blurred backdrop and a
+bright inner edge. Ink stays near-black and the accent is forest green, so the
+material reads as glass rather than a gradient theme.
 
 ## Color
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--sheet` / html ground | `#eaf1f7` | `#070b12` | page ground |
-| `--glass` | `rgba(255,255,255,.34)` | `rgba(14,20,32,.52)` | panels |
-| `--glass-raised` | `rgba(255,255,255,.52)` | `rgba(20,28,44,.68)` | bars, figures, assistant |
+| `--sheet` / html ground | `#f1efe9` | `#0c0f0e` | page ground |
+| `--glass` | `rgba(255,255,255,.4)` | `rgba(16,22,19,.6)` | panels |
+| `--glass-raised` | `rgba(255,255,255,.58)` | `rgba(22,29,25,.76)` | bars, figures, assistant |
 | `--glass-soft` | `rgba(255,255,255,.22)` | `rgba(14,20,32,.34)` | rows, chips |
-| `--ink` | `#0b1620` | `#f1f6fd` | primary text |
-| `--ink-soft` | `#24313d` | `#d5dfea` | body copy |
-| `--muted` | `#465462` | `#e0e8f2` | labels, captions |
-| `--accent` | `#0a64e8` | `#66b0ff` | fills, gradients, state |
-| `--accent-ink` | `#084a9e` | `#a9d2ff` | small accent text |
-| `--accent-2` | `#6f4cff` | `#a795ff` | second gradient stop |
-| `--accent-3` | `#0f9f90` | `#4fe0cd` | success, bench marks |
+| `--ink` | `#14181a` | `#f2f3ee` | primary text |
+| `--ink-soft` | `#2b332f` | `#d9ded7` | body copy |
+| `--muted` | `#4f5a54` | `#e4e9e2` | labels, captions |
+| `--accent` | `#1f5c46` | `#8fd0b2` | lines, state |
+| `--accent-ink` | `#16402f` | `#b9e6d1` | small accent text |
+| `--accent-fill` | `#1f5c46` | `#2f6b52` | filled controls |
+| `--accent-3` | `#2f7d5f` | `#6fc3a1` | success, bench marks |
 
-Small accent text uses `--accent-ink`, not the fill accent: `#0a64e8` is 3.1:1 on
-the blue light field, `#084a9e` is 5:1. Ink on every glass field is above 10:1.
+Small accent text uses `--accent-ink`; filled controls use `--accent-fill` so
+white labels stay above 4.5:1 in both themes. Ink on every glass field is above
+10:1.
 
 ## Type
 

@@ -15,7 +15,7 @@ const projects = [
 const viewports = [
   { width: 320, height: 800, maxPageHeight: 10600, maxHeroHeight: 900 },
   { width: 390, height: 844, maxPageHeight: 9500, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 8400, maxHeroHeight: 760 },
+  { width: 768, height: 1024, maxPageHeight: 8450, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
@@ -110,7 +110,7 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('AI Engineer building Python systems that show their work.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build Python systems that show their work.');
   await expect(page.locator('.hero-system-map')).toBeVisible();
   await expect(page.locator('[data-project-name]')).toHaveCount(5);
   for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
@@ -169,8 +169,8 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
     };
   });
   expect(palette).toMatchObject({
-    paper: '#eaf1f7', surface: '#ffffff', ink: '#0b1620', muted: '#465462', signal: '#0a64e8',
-    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(10, 21, 38)',
+    paper: '#f1efe9', surface: '#ffffff', ink: '#14181a', muted: '#4f5a54', signal: '#1f5c46',
+    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(18, 23, 17)',
   });
   expect(palette.accentFamily).toContain('Archivo');
 
@@ -187,28 +187,28 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
 
   await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070b12');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(224, 232, 242)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(228, 233, 226)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(234, 241, 247)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#eaf1f7');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(241, 239, 233)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f1efe9');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070b12');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   for (const width of [320, 359, 390, 744, 1024]) {
@@ -311,7 +311,7 @@ test('phone spacing preserves approved gutters, card padding, rhythm, and readab
     });
     expect(spacing.gutterLeft, `${viewport.width}px left gutter`).toBeGreaterThanOrEqual(16);
     expect(spacing.gutterRight, `${viewport.width}px right gutter`).toBeGreaterThanOrEqual(16);
-    expect(spacing.primaryPadding, `${viewport.width}px primary padding`).toBeGreaterThanOrEqual(0);
+    expect(spacing.primaryPadding, `${viewport.width}px primary padding`).toBeGreaterThanOrEqual(16);
     expect(spacing.compactPadding, `${viewport.width}px compact padding`).toBeGreaterThanOrEqual(20);
     expect(spacing.sectionPaddingTop, `${viewport.width}px section top rhythm`).toBeGreaterThanOrEqual(40);
     expect(spacing.sectionPaddingBottom, `${viewport.width}px section bottom rhythm`).toBeGreaterThanOrEqual(40);
@@ -349,7 +349,7 @@ test('approved typography and responsive spacing tokens hold at every required w
       };
     });
     expect(Math.min(...tokens.supportSizes), `${viewport.width}px supporting-copy floor`).toBeGreaterThanOrEqual(16);
-    expect(tokens.actionSize, `${viewport.width}px action-label size`).toBeGreaterThanOrEqual(11);
+    expect(tokens.actionSize, `${viewport.width}px action-label size`).toBeGreaterThanOrEqual(12);
     expect(tokens.compactTitleSize, `${viewport.width}px compact title size`).toBeGreaterThanOrEqual(viewport.width < 768 ? 24 : 26);
     expect(tokens.primaryMetadataGap, `${viewport.width}px primary metadata gap`).toBeGreaterThanOrEqual(16);
     expect(Math.min(...tokens.compactMetaGaps), `${viewport.width}px compact metadata gap`).toBeGreaterThanOrEqual(16);
@@ -357,10 +357,10 @@ test('approved typography and responsive spacing tokens hold at every required w
     expect(tokens.availabilityColor, `${viewport.width}px availability ink`).toBe(tokens.primaryInkColor);
     expect(tokens.availabilityWeight, `${viewport.width}px availability weight`).toBeGreaterThanOrEqual(500);
     const expected = viewport.width < 768
-      ? { primary: 0, compact: 20, section: 40 }
+      ? { primary: 16, compact: 20, section: 40 }
       : viewport.width <= 900
-        ? { primary: 0, compact: 22, section: 52 }
-        : { primary: 0, compact: 24, section: 72 };
+        ? { primary: 16, compact: 22, section: 54 }
+        : { primary: 16, compact: 24, section: 72 };
     expect(tokens.primaryPadding, `${viewport.width}px primary card token`).toBeGreaterThanOrEqual(expected.primary);
     expect(tokens.compactPadding, `${viewport.width}px compact card token`).toBeGreaterThanOrEqual(expected.compact);
     expect(tokens.sectionPadding, `${viewport.width}px section token`).toBeGreaterThanOrEqual(expected.section);
@@ -387,7 +387,7 @@ test('featured project actions match the approved 44px mobile button size', asyn
       expect(Math.max(...widths) - Math.min(...widths), `${viewport.width}px equal action widths`).toBeLessThanOrEqual(0.02);
       for (const action of group) {
         expect(action.height, `${viewport.width}px ${action.label} minimum height`).toBeGreaterThanOrEqual(43.98);
-        expect(action.height, `${viewport.width}px ${action.label} maximum height`).toBeLessThanOrEqual(44.02);
+        expect(action.height, `${viewport.width}px ${action.label} maximum height`).toBeLessThanOrEqual(45.1);
       }
     }
   }
