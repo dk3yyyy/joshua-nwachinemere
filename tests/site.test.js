@@ -127,7 +127,7 @@ test('hero and availability copy are exact and direct', () => {
       `Missing inside-index row for ${label}`,
     );
   }
-  assert.match(html, /<p class="hero-readout"><span><b>05<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>05<\/b> essays<\/span><\/p>/);
+  assert.match(html, /<p class="hero-readout"><span><b>5<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>5<\/b> essays<\/span><\/p>/);
   assert.ok(textOnly.includes('Looking for AI Engineer or Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
   assert.ok(!textOnly.includes('Student visa conditions'));
