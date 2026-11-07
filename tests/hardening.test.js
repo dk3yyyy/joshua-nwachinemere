@@ -30,11 +30,20 @@ test('ships the purpose-built v6 social card and complete icon metadata', async 
   assert.match(html, /rel="manifest"[^>]+site\.webmanifest/);
 });
 
-test('uses responsive project imagery and self-hosted licensed fonts', async () => {
+test('uses responsive project imagery and self-hosted Instrument fonts', async () => {
   assert.ok((html.match(/<picture>/g) ?? []).length >= 3);
   assert.ok((html.match(/type="image\/webp"/g) ?? []).length >= 3);
   assert.ok((html.match(/srcset=/g) ?? []).length >= 3);
-  assert.doesNotMatch(css, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
+  assert.doesNotMatch(html + css, /fonts\.googleapis\.com|fonts\.gstatic\.com|use\.typekit\.net|cdn\.jsdelivr\.net|cdnjs\.cloudflare\.com/i);
+  for (const file of [
+    'public/fonts/instrument-sans-latin.woff2',
+    'public/fonts/instrument-sans-latin-ext.woff2',
+    'public/fonts/instrument-sans-italic-latin.woff2',
+    'public/fonts/instrument-serif-latin.woff2',
+    'public/fonts/instrument-serif-italic-latin.woff2',
+  ]) assert.equal(await exists(file), true, `Missing ${file}`);
+  // The legacy self-hosted families are still shipped with their licences even
+  // though the editorial design only uses the Instrument pair at runtime.
   for (const file of [
     'public/fonts/manrope-variable.woff2',
     'public/fonts/dm-mono-400.woff2',
@@ -44,6 +53,12 @@ test('uses responsive project imagery and self-hosted licensed fonts', async () 
     'public/fonts/licenses/OFL-DM-Mono.txt',
     'public/fonts/licenses/OFL-Newsreader.txt',
   ]) assert.equal(await exists(file), true, `Missing ${file}`);
+  assert.match(css, /font-family:\s*'Instrument Sans'/);
+  assert.match(css, /font-family:\s*'Instrument Serif'/);
+  for (const face of css.matchAll(/@font-face\s*\{([\s\S]*?)\}/g)) {
+    assert.match(face[1], /font-display:\s*swap/, 'Every self-hosted face must swap');
+    assert.match(face[1], /src:\s*url\('\/fonts\//, 'Every self-hosted face must resolve locally');
+  }
 });
 
 test('adds a static 404 and hardened same-origin headers without blocking production indexing', async () => {
@@ -70,5 +85,6 @@ test('preserves the current nine-contribution chatbot surface', () => {
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
   assert.match(html, /Cloudflare Workers AI via a Cloudflare Pages Function/);
   assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 9);
-  assert.match(html, /9 independently verified merged contributions/);
+  assert.match(html, /Nine pull requests authored by Joshua, independently verified and merged into maintained open-source projects\./);
+  assert.match(html, /<h2 id="up-h">Upstream<\/h2>/);
 });

@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f3f3f0" />
+    <meta name="theme-color" content="#ffffff" />
     <script src="/theme-init.js"></script>
-    <meta name="description" content="Joshua Nwachinemere is an AI Engineer building reliable Python systems for retrieval, context engineering, multimodal and voice AI, model integrations, backend services and evaluation workflows." />
+    <meta name="description" content="I build the part of an AI system that checks the model's work: retrieval, evaluation, citation validation and the Python services around them, with the evidence linked." />
     <link rel="canonical" href="https://joshua-nwachinemere.pages.dev/" />
     <meta property="og:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta property="og:description" content="AI engineering with Python across retrieval, context engineering, multimodal and voice systems, model integration, backend services and ML evaluation." />
+    <meta property="og:description" content="Retrieval, evaluation and citation validation for applied AI, with every number linked to how it was measured." />
     <meta property="og:site_name" content="Joshua Nwachinemere · AI Engineer" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:type" content="website" />
@@ -21,14 +21,15 @@
     <meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Joshua Nwachinemere · AI Engineer" />
-    <meta name="twitter:description" content="AI engineering with Python across retrieval, context engineering, multimodal and voice systems, model integration, backend services and ML evaluation." />
+    <meta name="twitter:description" content="Retrieval, evaluation and citation validation for applied AI, with every number linked to how it was measured." />
     <meta name="twitter:image" content="https://joshua-nwachinemere.pages.dev/og-card-v6.png" />
     <meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building reliable Python systems for applied AI" />
-    <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg?v=5" type="image/svg+xml" />
     <link rel="alternate icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="preload" href="/fonts/manrope-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" as="image" href="/images/volyx-lens-context-aperture-800.webp" type="image/webp" imagesrcset="/images/volyx-lens-context-aperture-480.webp 480w, /images/volyx-lens-context-aperture-800.webp 800w, /images/volyx-lens-context-aperture-1200.webp 1200w" imagesizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
     <script type="application/ld+json">
       {
@@ -55,327 +56,392 @@
     </script>
     <title>Joshua Nwachinemere · AI Engineer</title>
   </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
+<body>
+    <a class="skip" href="#main">Skip to content</a>
 
-    <header class="masthead" data-header>
-      <a class="identity" href="#top" aria-label="Joshua Nwachinemere, home">
-        <span class="identity-seal" aria-hidden="true">JN</span>
-        <span><strong>Joshua Nwachinemere</strong><small>AI Engineer · Python and applied AI</small></span>
-      </a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
-        <span aria-hidden="true">Menu</span><span class="sr-only">Open navigation</span>
-      </button>
-      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#contributions">Open source</a>
-        <a href="#approach">Approach</a>
-        <a href="#background">Background</a>
-        <a href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">CV</a>
-        <a class="nav-contact" href="#contact">Contact</a>
-      </nav>
+    <header class="top" data-header>
+      <div class="wrap">
+        <a class="name" href="#top">Joshua Nwachinemere</a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+          <a href="#work">Work</a>
+          <a href="#receipts">Receipts</a>
+          <a href="#contributions">Upstream</a>
+          <a href="#writing">Writing</a>
+          <a href="#background">Background</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="toggle" id="rcptToggle" type="button" aria-pressed="false" aria-label="Show receipts">
+          <span class="sw" aria-hidden="true"></span><span class="lbl">Show receipts</span>
+        </button>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span aria-hidden="true">Menu</span><span class="sr-only">Open navigation</span>
+        </button>
+      </div>
     </header>
+    <p class="sr" id="live" aria-live="polite"></p>
 
     <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">Joshua Nwachinemere · AI Engineer</p>
-          <h1 id="hero-title">AI Engineer building reliable Python systems for <em>Applied AI</em>.</h1>
-          <p class="hero-intro">I build retrieval and context pipelines, multimodal and voice workflows, FastAPI services, model integrations and evaluation tools. Every featured project links to its source, tests, architecture or measured results.</p>
-          <p class="hero-proof">5 inspectable projects · 9 independently verified merged contributions · Source, architecture and tests linked</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">View selected work</a>
-            <a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
-          </div>
-          <p class="availability">Open to AI Engineer and Applied AI Engineer roles.</p>
-        </div>
-        <div class="hero-system-map" role="img" aria-label="Applied AI workflow: 1 Input, multimodal; 2 Context, retrieval; 3 Model, orchestration; 4 Evaluation, reliability.">
-          <div class="system-map-header" aria-hidden="true">
-            <span>Applied AI / system map</span>
-            <span>JN · 01</span>
-          </div>
-          <div class="system-map-canvas" aria-hidden="true">
-            <svg class="system-map-lines" viewBox="0 0 340 340" focusable="false">
-              <defs>
-                <marker id="system-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-                  <path class="system-map-arrow" d="M0 0 L8 4 L0 8 Z" />
-                </marker>
-              </defs>
-              <path d="M138 78 H196" marker-end="url(#system-arrow)" />
-              <path d="M252 108 V226" marker-end="url(#system-arrow)" />
-              <path d="M202 262 H144" marker-end="url(#system-arrow)" />
-            </svg>
-            <div class="system-map-core"><strong>JN</strong><span>Engineer</span></div>
-            <div class="system-node system-node--input"><span>01</span><strong>Input</strong><small>multimodal</small></div>
-            <div class="system-node system-node--context"><span>02</span><strong>Context</strong><small>retrieval</small></div>
-            <div class="system-node system-node--model"><span>03</span><strong>Model</strong><small>orchestration</small></div>
-            <div class="system-node system-node--evaluation"><span>04</span><strong>Evaluation</strong><small>reliability</small></div>
-          </div>
-          <p class="system-map-caption" aria-hidden="true">Context retrieved · models routed · results evaluated</p>
-        </div>
-      </section>
+      <div class="wrap hero" id="top">
+        <p class="intro rise">
+          <span class="avail"><i aria-hidden="true"></i>Open to AI engineer roles</span>
+          <span>MSc Artificial Intelligence, Northumbria University · September 2026 intake</span>
+        </p>
+        <h1>I build the part of an AI system that checks the model’s work.</h1>
 
-      <section class="work section" id="work" aria-labelledby="work-title">
-        <header class="section-header">
-          <h2 id="work-title">Selected AI engineering work</h2>
-          <p>Three featured projects showing multimodal product engineering, local retrieval and temporal ML evaluation, with implementation detail and inspectable evidence.</p>
-        </header>
-
-        <div class="primary-projects">
-          <article class="project-card project-card--primary" id="project-lens" aria-labelledby="project-lens-title">
-            <header class="project-header">
-              <p class="project-category">Multimodal context assistant</p>
-              <h3 id="project-lens-title" data-project-name>Volyx Lens</h3>
-              <p class="project-meta"><span>Active product build</span> · <span>Independent project</span></p>
-            </header>
-            <figure class="project-visual project-visual--lens">
-              <picture>
-                <source type="image/webp" srcset="%BASE_URL%images/volyx-lens-context-aperture-480.webp 480w, %BASE_URL%images/volyx-lens-context-aperture-800.webp 800w, %BASE_URL%images/volyx-lens-context-aperture-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
-                <img src="%BASE_URL%images/volyx-lens-context-aperture.jpg" width="1200" height="879" alt="High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs" decoding="async" fetchpriority="high" />
-              </picture>
-              <figcaption><strong>Context Aperture</strong> — This high-resolution capture from the live product site shows screen, microphone and system audio as intentional inputs, then routes selected context to the configured provider.</figcaption>
-            </figure>
-            <div class="project-content">
-              <div class="project-overview">
-                <p>A macOS assistant that combines selected screen context, microphone input, meeting audio, local OCR, relevance-ranked retrieval, transcription and multiple AI providers.</p>
-                <dl class="project-details">
-                  <div><dt>My work</dt><dd>Built focused context selection, provider-aware routing, consent controls, secure Electron boundaries, automated tests and release checks.</dd></div>
-                  <div><dt>Implemented controls</dt><dd>User-selected inputs, consent-led capture, sandboxed execution, context isolation and provider-aware routing.</dd></div>
-                </dl>
-              </div>
-              <div class="project-evidence">
-                <p class="project-stack"><span>Stack</span> Electron · Swift · Azure AI Foundry · OpenAI-compatible APIs</p>
-                <div class="project-links">
-                  <a href="https://volyxlens.pages.dev/" target="_blank" rel="noreferrer">Visit live site</a>
-                  <a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">View source</a>
-                  <a href="https://github.com/dk3yyyy/volyx-lens#how-it-works-under-the-hood" target="_blank" rel="noreferrer">Read architecture</a>
-                </div>
-              </div>
+        <div class="hero-grid">
+          <div class="rise rise-1">
+            <p class="lede">Models are good at producing answers. I build what decides whether an answer is <strong>grounded</strong>, whether a finding is <strong>real</strong>, and whether a benchmark is <strong>honest</strong>.</p>
+            <div class="ctas">
+              <a class="btn primary" href="#work">See the work</a>
+              <a class="btn line" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
             </div>
-          </article>
+            <ul class="facts">
+              <li><span>Merged upstream</span>OpenAI Agents SDK, Pydantic AI, Apache Arrow</li>
+              <li><span>Shipping</span>Volyx Lens, Local Review Intelligence</li>
+              <li><span>Writing</span>Five essays on where AI systems quietly break</li>
+            </ul>
+          </div>
 
-          <article class="project-card project-card--primary" id="project-local-ai" aria-labelledby="project-local-ai-title">
-            <header class="project-header">
-              <p class="project-category">Local RAG and evaluation</p>
-              <h3 id="project-local-ai-title" data-project-name>Local Review Intelligence</h3>
-              <p class="project-meta"><span>Versioned evaluation</span> · <span>Independent project</span></p>
-            </header>
-            <figure class="project-visual project-visual--dashboard">
-              <picture>
-                <source type="image/webp" srcset="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-480.webp 480w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-800.webp 800w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
-                <img src="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg" width="1200" height="833" alt="Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table" loading="lazy" decoding="async" />
-              </picture>
-              <figcaption><strong>Review intelligence workspace</strong> — The dashboard turns local review data into clear metrics, a rating distribution and an inspectable review table, with grounded Q&amp;A directly below.</figcaption>
-            </figure>
-            <div class="project-content">
-              <div class="project-overview">
-                <p>A local-first review-intelligence system for adaptable CSV datasets, semantic retrieval and grounded answers with inspectable citations. Citation validation and a single bounded repair pass keep responses grounded and evidence-linked.</p>
-                <dl class="project-details">
-                  <div><dt>My work</dt><dd>Built adaptable field mapping, stable record identity, recoverable vector indexes, citation validation, bounded repair, privacy-safe diagnostics and an installable CLI.</dd></div>
-                  <div><dt>Evaluation result</dt><dd>Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.</dd></div>
-                </dl>
-              </div>
-              <div class="project-evidence">
-                <p class="project-stack"><span>Stack</span> Python · Ollama · Chroma · Streamlit · Typer</p>
-                <div class="project-links">
-                  <a href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">View source</a>
-                  <a href="https://github.com/dk3yyyy/local_AI_agent/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
-                  <a href="%BASE_URL%evidence/local-review-intelligence-evaluation-report.json" target="_blank" rel="noreferrer">View results</a>
-                </div>
-              </div>
+          <figure class="machine rise rise-2" aria-labelledby="mcap">
+            <div class="mhead">
+              <p id="mcap">What every answer has to pass before you see it</p>
+              <span class="mnote">From published evaluations</span>
             </div>
-          </article>
-
-          <article class="project-card project-card--primary" id="project-football" aria-labelledby="project-football-title">
-            <header class="project-header">
-              <p class="project-category">Temporal ML evaluation</p>
-              <h3 id="project-football-title" data-project-name>Football Forecasting Lab</h3>
-              <p class="project-meta"><span>Rolling-origin evaluation</span> · <span>Independent project</span></p>
-            </header>
-            <figure class="project-visual project-visual--dashboard project-visual--football">
-              <picture>
-                <source type="image/webp" srcset="%BASE_URL%images/football-forecasting-dashboard-12cff076-480.webp 480w, %BASE_URL%images/football-forecasting-dashboard-12cff076-800.webp 800w, %BASE_URL%images/football-forecasting-dashboard-12cff076-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 54px), (max-width: 1248px) calc(100vw - 112px), 1136px" />
-                <img src="%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg" width="1200" height="833" alt="Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities" loading="lazy" decoding="async" />
-              </picture>
-              <figcaption><strong>Match-intelligence workspace</strong> — A five-view command center for upcoming forecasts, evaluation, live results and methodology; this captured state uses its isolated synthetic interface-test dataset.</figcaption>
-            </figure>
-            <div class="project-content">
-              <div class="project-overview">
-                <p>A leakage-aware football forecasting pipeline with chronological train, calibration and frozen test windows, using calibrated XGBoost and Poisson probabilities.</p>
-                <dl class="project-details">
-                  <div><dt>My work</dt><dd>Built the data pipeline, temporal features, model evaluation, FastAPI service and Streamlit interface, with dedicated workflows for live, retrospective and synthetic datasets.</dd></div>
-                  <div><dt>Evaluation result</dt><dd>Evaluated across 1,140 rolling-origin test matches with 53.77% accuracy, using a 56.70% bookmaker benchmark for comparison.</dd></div>
-                </dl>
-              </div>
-              <div class="project-evidence">
-                <p class="project-stack"><span>Stack</span> Python · XGBoost · scikit-learn · FastAPI · Streamlit</p>
-                <div class="project-links">
-                  <a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">View repository</a>
-                  <a href="https://github.com/dk3yyyy/football_predictor/tree/main/docs/evaluation" target="_blank" rel="noreferrer">Read evaluation</a>
-                </div>
-              </div>
-            </div>
-          </article>
+            <ul class="checks">
+              <li class="check">
+                <span class="check-name">Retrieval</span>
+                <span class="check-body">
+                  <span class="what">Semantic search finds the right reviews, not just the matching words.</span>
+                  <span class="why">Recall@5 0.913 against 0.770 for BM25, 30 cases</span>
+                </span>
+                <span class="st">Measured</span>
+              </li>
+              <li class="check">
+                <span class="check-name">Citations</span>
+                <span class="check-body">
+                  <span class="what">Every answer carries the record that supports it.</span>
+                  <span class="why">0.880 answer success and citation validity, 30 cases</span>
+                </span>
+                <span class="st">Verified</span>
+              </li>
+              <li class="check">
+                <span class="check-name">Time</span>
+                <span class="check-body">
+                  <span class="what">The evaluation stays honest about the order things happened in.</span>
+                  <span class="why">1,140 rolling-origin matches, chronological windows</span>
+                </span>
+                <span class="st">Verified</span>
+              </li>
+              <li class="check">
+                <span class="check-name">Upstream</span>
+                <span class="check-body">
+                  <span class="what">The same standard applied to the frameworks this work builds on.</span>
+                  <span class="why">9 merged pull requests across 6 maintained projects</span>
+                </span>
+                <span class="st">Merged</span>
+              </li>
+            </ul>
+            <figcaption class="mfoot"><b>4 of 4 hold.</b> Each number links to how it was measured, in Receipts.</figcaption>
+          </figure>
         </div>
-      </section>
+      </div>
 
-      <aside class="assistant-widget" data-assistant>
-        <button class="assistant-launcher" type="button" aria-controls="assistant-panel" aria-expanded="false">
-          <span class="assistant-launcher-mark" aria-hidden="true">JN</span>
-          <span>Ask Joshua</span>
-        </button>
+      <section class="s" id="work" aria-labelledby="work-h">
+        <div class="wrap">
+          <div class="shead">
+            <h2 id="work-h">Selected work</h2>
+            <p>Each project starts with the obvious approach, names the hard part, and ends with a measured result. Every number links to how it was measured.</p>
+          </div>
 
-        <div class="assistant-panel" id="assistant-panel" role="dialog" aria-modal="false" aria-labelledby="assistant-title" hidden>
-          <header class="assistant-panel-header">
+          <article class="project" id="project-lens" aria-labelledby="project-lens-title">
             <div>
-              <p class="assistant-kicker"><span aria-hidden="true"></span> Portfolio guide</p>
-              <h2 id="assistant-title">Ask Joshua</h2>
-            </div>
-            <button class="assistant-close" type="button" aria-label="Close Ask Joshua">×</button>
-          </header>
-
-          <div class="assistant-conversation" id="assistant-conversation" role="log" aria-live="polite" aria-relevant="additions text">
-            <article class="assistant-message assistant-message--answer">
-              <div class="assistant-copy">
-                <p>Ask about Joshua’s work, technical background or engineering approach.</p>
+              <h3 id="project-lens-title" data-project-name>Volyx Lens</h3>
+              <p class="bet">The product isn’t the model. It’s deciding what the model gets to see.</p>
+              <ul class="tags"><li>Electron</li><li>Swift</li><li>Azure AI Foundry</li><li>OpenAI-compatible APIs</li></ul>
+              <div class="plinks">
+                <a href="https://volyxlens.pages.dev/" target="_blank" rel="noreferrer">Product site</a>
+                <a href="https://github.com/dk3yyyy/volyx-lens" target="_blank" rel="noreferrer">Source</a>
+                <a href="https://github.com/dk3yyyy/volyx-lens#how-it-works-under-the-hood" target="_blank" rel="noreferrer">Architecture</a>
               </div>
-              <div class="assistant-suggestions" aria-label="Suggested questions">
-                <button type="button" data-question="Who is Joshua?">Who is Joshua?</button>
-                <button type="button" data-question="Which project best demonstrates RAG and evaluation?">RAG and evaluation</button>
-                <button type="button" data-question="What open-source work has Joshua contributed?">Open-source work</button>
+              <figure class="shot">
+                <picture>
+                  <source type="image/webp" srcset="%BASE_URL%images/volyx-lens-context-aperture-480.webp 480w, %BASE_URL%images/volyx-lens-context-aperture-800.webp 800w, %BASE_URL%images/volyx-lens-context-aperture-1200.webp 1200w" sizes="(max-width: 960px) calc(100vw - 40px), 420px" />
+                  <img src="%BASE_URL%images/volyx-lens-context-aperture.jpg" width="1200" height="879" alt="High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs" decoding="async" fetchpriority="high" />
+                </picture>
+                <figcaption>Context Aperture: screen, microphone and system audio as intentional inputs, routed to the configured provider.</figcaption>
+              </figure>
+            </div>
+            <div>
+              <ol class="steps">
+                <li><span class="shape sh-obvious" aria-hidden="true"></span><b>Approach</b>Capture screen and audio continuously, send it all.</li>
+                <li><span class="shape sh-hard" aria-hidden="true"></span><b>Hard part</b>Privacy, consent and cost all pull against more context. Selection has to be the product.</li>
+                <li class="key"><span class="shape sh-insight" aria-hidden="true"></span><b>Insight</b>Context selection is the feature. Consent is part of the design.</li>
+                <li><span class="shape sh-did" aria-hidden="true"></span><b>Shipped</b>Capture on explicit action only, local OCR ranking, provider-aware routing, sandboxed Electron boundaries.</li>
+              </ol>
+              <div class="result">
+                <div class="res"><strong>3</strong><span>context inputs: screen, microphone, system audio</span></div>
+                <div class="res"><strong>Local</strong><span>OCR and relevance ranking before anything is sent</span></div>
+              </div>
+            </div>
+            </article>
+
+          <article class="project" id="project-local-ai" aria-labelledby="project-local-ai-title">
+            <div>
+              <h3 id="project-local-ai-title" data-project-name>Local Review Intelligence</h3>
+              <p class="bet">A citation the model invented is worse than no citation at all.</p>
+              <ul class="tags"><li>Python</li><li>Ollama</li><li>Chroma</li><li>Streamlit</li><li>Typer</li></ul>
+              <div class="plinks">
+                <a href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">Source</a>
+                <a href="https://github.com/dk3yyyy/local_AI_agent/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Architecture</a>
+                <a href="%BASE_URL%evidence/local-review-intelligence-evaluation-report.json" target="_blank" rel="noreferrer">View results</a>
+              </div>
+              <figure class="shot">
+                <picture>
+                  <source type="image/webp" srcset="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-480.webp 480w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-800.webp 800w, %BASE_URL%images/local-review-intelligence-dashboard-5b174ed3-1200.webp 1200w" sizes="(max-width: 960px) calc(100vw - 40px), 420px" />
+                  <img src="%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg" width="1200" height="833" alt="Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table" loading="lazy" decoding="async" />
+                </picture>
+                <figcaption>123 reviews, a rating distribution and an inspectable table, with grounded answers and citations directly below.</figcaption>
+              </figure>
+            </div>
+            <div>
+              <ol class="steps">
+                <li><span class="shape sh-obvious" aria-hidden="true"></span><b>Approach</b>Embed reviews, retrieve top-k, let a local model answer.</li>
+                <li><span class="shape sh-hard" aria-hidden="true"></span><b>Hard part</b>Retrieval quality and citation validity are different measurements, and keywords miss paraphrases.</li>
+                <li class="key"><span class="shape sh-insight" aria-hidden="true"></span><b>Insight</b>Retrieval quality and citation validity are two different measurements.</li>
+                <li><span class="shape sh-did" aria-hidden="true"></span><b>Shipped</b>Citation validation with one bounded repair pass, recoverable indexes, privacy-safe diagnostics.</li>
+              </ol>
+              <div class="result">
+                <div class="res"><strong>0.913</strong><span>Recall@5, against 0.770 for BM25, 30 cases</span><br><a class="rcpt" href="%BASE_URL%evidence/local-review-intelligence-evaluation-report.json" target="_blank" rel="noreferrer">report.json</a></div>
+                <div class="res"><strong>0.880</strong><span>answer success and citation validity, 30 cases</span><br><a class="rcpt" href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">method</a></div>
+              </div>
+            </div>
+            </article>
+
+          <article class="project" id="project-football" aria-labelledby="project-football-title">
+            <div>
+              <h3 id="project-football-title" data-project-name>Football Forecasting Lab</h3>
+              <p class="bet">The market is the baseline, and the evaluation is built to respect it.</p>
+              <ul class="tags"><li>Python</li><li>XGBoost</li><li>scikit-learn</li><li>FastAPI</li><li>Streamlit</li></ul>
+              <div class="plinks">
+                <a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">Source and evaluation</a>
+              </div>
+              <figure class="shot">
+                <picture>
+                  <source type="image/webp" srcset="%BASE_URL%images/football-forecasting-dashboard-12cff076-480.webp 480w, %BASE_URL%images/football-forecasting-dashboard-12cff076-800.webp 800w, %BASE_URL%images/football-forecasting-dashboard-12cff076-1200.webp 1200w" sizes="(max-width: 960px) calc(100vw - 40px), 420px" />
+                  <img src="%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg" width="1200" height="833" alt="Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities" loading="lazy" decoding="async" />
+                </picture>
+                <figcaption>A five-view workspace for forecasts, evaluation and live results; this captured state uses the isolated synthetic interface-test dataset.</figcaption>
+              </figure>
+            </div>
+            <div>
+              <ol class="steps">
+                <li><span class="shape sh-obvious" aria-hidden="true"></span><b>Approach</b>Random split, headline accuracy, compare to a coin flip.</li>
+                <li><span class="shape sh-hard" aria-hidden="true"></span><b>Hard part</b>Time order and a weak baseline are what make a headline accuracy number meaningless.</li>
+                <li class="key"><span class="shape sh-insight" aria-hidden="true"></span><b>Insight</b>The honest baseline is the market.</li>
+                <li><span class="shape sh-did" aria-hidden="true"></span><b>Shipped</b>Chronological windows, rolling-origin evaluation, calibrated models.</li>
+              </ol>
+              <div class="result">
+                <div class="res"><strong>53.77%</strong><span>accuracy across 1,140 rolling-origin matches</span><br><a class="rcpt" href="https://github.com/dk3yyyy/football_predictor/tree/main/docs/evaluation" target="_blank" rel="noreferrer">evaluation</a></div>
+                <div class="res"><strong>1,140</strong><span>matches evaluated in chronological windows</span><br><a class="rcpt" href="https://github.com/dk3yyyy/football_predictor/tree/main/docs/evaluation" target="_blank" rel="noreferrer">evaluation</a></div>
+              </div>
+            </div>
+            </article>
+
+          <div class="also">
+            <article id="project-downloader" aria-labelledby="project-downloader-title">
+              <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
+              <p>An n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates and persists queue state in SQLite. Bounded workers, host allowlisting, restart recovery and non-root containers.</p>
+              <ul class="tags"><li>Python</li><li>FastAPI</li><li>n8n</li><li>SQLite</li><li>Docker</li></ul>
+              <div class="plinks">
+                <a href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer">Source</a>
+                <a href="https://github.com/dk3yyyy/telegram-social-video-downloader/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Architecture</a>
+              </div>
+            </article>
+            <article id="project-wallet" aria-labelledby="project-wallet-title">
+              <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
+              <p>A FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers, with bounded concurrency, caching and useful partial results.</p>
+              <ul class="tags"><li>Python</li><li>FastAPI</li><li>aiohttp</li><li>React</li><li>Telegram</li></ul>
+              <div class="plinks">
+                <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Live demo</a>
+                <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">Source</a>
               </div>
             </article>
           </div>
-
-          <form class="assistant-form" id="assistant-form">
-            <label class="sr-only" for="assistant-question">Ask a question about Joshua</label>
-            <div class="assistant-input-row">
-              <textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="Ask about Joshua’s work…" required></textarea>
-              <button class="assistant-submit" type="submit" aria-label="Send question">Send</button>
-            </div>
-            <p class="assistant-note">Public portfolio questions only · Cloudflare Workers AI via a Cloudflare Pages Function · Don’t enter personal data</p>
-          </form>
-          <noscript><p class="assistant-noscript">JavaScript is required to use the portfolio guide.</p></noscript>
-        </div>
-      </aside>
-
-      <section class="contributions section" id="contributions" aria-labelledby="contributions-title">
-        <header class="section-header">
-          <h2 id="contributions-title">Merged open-source contributions</h2>
-          <p>Nine pull requests authored by Joshua, independently verified and merged into maintained open-source projects. The changes strengthen retry policy, recovery workflows, deterministic tests, worker cancellation, compatibility, validation, dependency diagnostics, schema preservation and workflow scoping.</p>
-        </header>
-        <div class="contribution-list" aria-label="Merged open-source pull requests">
-          <a class="contribution-row" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer"><span>01</span><strong>OpenAI Agents SDK</strong><span>WebSocket retry policy · PR #3991</span></a>
-          <a class="contribution-row" href="https://github.com/pydantic/pydantic-ai-harness/pull/503" target="_blank" rel="noreferrer"><span>02</span><strong>Pydantic AI Harness</strong><span>Code Mode failure recovery · PR #503</span></a>
-          <a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1471" target="_blank" rel="noreferrer"><span>03</span><strong>Mellea</strong><span>Deterministic tracing tests · PR #1471</span></a>
-          <a class="contribution-row" href="https://github.com/generative-computing/mellea/pull/1469" target="_blank" rel="noreferrer"><span>04</span><strong>Mellea</strong><span>Timed-out worker cancellation · PR #1469</span></a>
-          <a class="contribution-row" href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer"><span>05</span><strong>FastStream</strong><span>FastAPI 0.140 compatibility · PR #2961</span></a>
-          <a class="contribution-row" href="https://github.com/apache/arrow-rs/pull/10486" target="_blank" rel="noreferrer"><span>06</span><strong>Apache Arrow Rust</strong><span>ListView nullability validation · PR #10486</span></a>
-          <a class="contribution-row" href="https://github.com/vega/altair/pull/4089" target="_blank" rel="noreferrer"><span>07</span><strong>Altair</strong><span>Clear JupyterChart dependency errors · PR #4089</span></a>
-          <a class="contribution-row" href="https://github.com/faststream-community/faststream_fastapi/pull/2" target="_blank" rel="noreferrer"><span>08</span><strong>FastStream FastAPI</strong><span>Schema metadata preservation · PR #2</span></a>
-          <a class="contribution-row" href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer"><span>09</span><strong>Calkit</strong><span>Scoped single-item runs · PR #1028</span></a>
         </div>
       </section>
 
-      <section class="additional-work section" id="additional-work" aria-labelledby="additional-work-title">
-        <header class="section-header section-header--compact">
-          <h2 id="additional-work-title">Additional engineering projects</h2>
-          <p>Two focused systems showing durable workflows, API aggregation and resilient execution.</p>
-        </header>
-        <div class="additional-project-grid">
-          <article class="project-card project-card--compact" id="project-downloader" aria-labelledby="project-downloader-title">
-            <h3 id="project-downloader-title" data-project-name>Telegram Social Video Downloader</h3>
-            <p class="project-meta"><span>Reference implementation</span> · <span>Independent project</span></p>
-            <p>An n8n and FastAPI workflow that validates supported URLs, authenticates job submission, deduplicates Telegram updates and persists queue state in SQLite.</p>
-            <p class="reliability-work"><strong>Reliability work</strong> Bounded workers, queue limits, host allowlisting, restart recovery, idempotent update handling and non-root container execution.</p>
-            <p class="project-stack"><span>Stack</span> Python · FastAPI · n8n · SQLite · Docker</p>
-            <div class="project-links">
-              <a href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer">View source</a>
-              <a href="https://github.com/dk3yyyy/telegram-social-video-downloader/blob/main/docs/architecture.md" target="_blank" rel="noreferrer">Read architecture</a>
-            </div>
-          </article>
-
-          <article class="project-card project-card--compact" id="project-wallet" aria-labelledby="project-wallet-title">
-            <h3 id="project-wallet-title" data-project-name>ChainScope Wallet Analyzer</h3>
-            <p class="project-meta"><span>Public prototype</span> · <span>Independent project</span></p>
-            <p>A FastAPI, web and Telegram application that validates Solana and Ethereum addresses and combines RPC and market-data providers.</p>
-            <p class="reliability-work"><strong>Reliability work</strong> Bounded concurrency, caching and useful partial results across RPC and market-data providers.</p>
-            <p class="project-stack"><span>Stack</span> Python · FastAPI · aiohttp · React · Telegram</p>
-            <div class="project-links">
-              <a href="https://chainscope-wallet-analyzer.onrender.com" target="_blank" rel="noreferrer">Open live demo</a>
-              <a href="https://github.com/dk3yyyy/sol-eth-wallet-analyzer" target="_blank" rel="noreferrer">View source</a>
-            </div>
-          </article>
+      <section class="s" id="receipts" aria-labelledby="rc-h">
+        <div class="wrap">
+          <div class="shead">
+            <h2 id="rc-h">Receipts</h2>
+            <p>Every number on this page in one place, with its baseline, sample size and a link to how it was measured.</p>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <caption class="sr">Measured results and their evidence</caption>
+              <thead><tr><th scope="col">Metric</th><th scope="col">Result</th><th scope="col">Baseline</th><th scope="col">Sample</th><th scope="col">Evidence</th></tr></thead>
+              <tbody>
+                <tr><td>Retrieval Recall@5, semantic</td><td class="n">0.913</td><td class="n">0.770, BM25</td><td class="n">30</td><td><a href="%BASE_URL%evidence/local-review-intelligence-evaluation-report.json" target="_blank" rel="noreferrer">Report</a></td></tr>
+                <tr><td>Answer success and citation validity</td><td class="n">0.880</td><td class="n">None</td><td class="n">30</td><td><a href="https://github.com/dk3yyyy/local_AI_agent" target="_blank" rel="noreferrer">Repository</a></td></tr>
+                <tr><td>Match outcome accuracy, rolling origin</td><td class="n">53.77%</td><td class="n">None</td><td class="n">1,140</td><td><a href="https://github.com/dk3yyyy/football_predictor/tree/main/docs/evaluation" target="_blank" rel="noreferrer">Evaluation</a></td></tr>
+                <tr><td>Upstream pull requests merged</td><td class="n">9</td><td class="n">None</td><td class="n">9 repositories</td><td><a href="#contributions">Listed below</a></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
-      <section class="approach section" id="approach" aria-labelledby="approach-title">
-        <header class="section-header">
-          <h2 id="approach-title">Engineering approach, demonstrated</h2>
-          <p>The principles below are tied to concrete implementation and evaluation work in the projects above.</p>
-        </header>
-        <div class="approach-grid">
-          <article><h3>Route selected context</h3><p>Lens makes screen, microphone and system audio intentional inputs, then routes the chosen context to the configured provider.</p></article>
-          <article><h3>Keep retrieval ready</h3><p>The review-intelligence pipeline isolates indexes by dataset and resumes interrupted builds cleanly.</p></article>
-          <article><h3>Build resilient workflows</h3><p>The wallet analyzer combines caching with useful partial results across providers, while the downloader persists queue state and resumes cleanly after restarts.</p></article>
-          <article><h3>Evaluate with clear baselines</h3><p>The forecasting lab uses 1,140 rolling-origin matches and a bookmaker benchmark; review retrieval uses deterministic BM25 for comparison.</p></article>
+      <section class="s" id="contributions" aria-labelledby="up-h">
+        <div class="wrap">
+          <div class="shead">
+            <h2 id="up-h">Upstream</h2>
+            <p>Nine pull requests authored by Joshua, independently verified and merged into maintained open-source projects. Each one came out of his own work on the frameworks.</p>
+          </div>
+          <ul class="prs">
+            <li class="contribution-row"><a class="ref" href="https://github.com/openai/openai-agents-python/pull/3991" target="_blank" rel="noreferrer">#3991</a><b>OpenAI Agents SDK</b><span>Bounded retries for WebSocket failures before a response starts</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/pydantic/pydantic-ai-harness/pull/503" target="_blank" rel="noreferrer">#503</a><b>Pydantic AI Harness</b><span>Keep model retry context after a Code Mode session reset</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/generative-computing/mellea/pull/1471" target="_blank" rel="noreferrer">#1471</a><b>Mellea</b><span>Deterministic tracing tests</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/generative-computing/mellea/pull/1469" target="_blank" rel="noreferrer">#1469</a><b>Mellea</b><span>Cancel workers that time out</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/ag2ai/faststream/pull/2961" target="_blank" rel="noreferrer">#2961</a><b>FastStream</b><span>FastAPI 0.140 compatibility, AsyncAPI metadata preserved</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/apache/arrow-rs/pull/10486" target="_blank" rel="noreferrer">#10486</a><b>Apache Arrow, Rust</b><span>ListView nullability validation</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/vega/altair/pull/4089" target="_blank" rel="noreferrer">#4089</a><b>Altair</b><span>Clear errors for missing JupyterChart dependencies</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/faststream-community/faststream_fastapi/pull/2" target="_blank" rel="noreferrer">#2</a><b>faststream_fastapi</b><span>Schema metadata preservation</span></li>
+            <li class="contribution-row"><a class="ref" href="https://github.com/calkit/calkit/pull/1028" target="_blank" rel="noreferrer">#1028</a><b>Calkit</b><span>Run a single item without running the rest</span></li>
+          </ul>
         </div>
       </section>
 
-      <section class="background section" id="background" aria-labelledby="background-title">
-        <header class="section-header">
-          <h2 id="background-title">Background</h2>
-          <p>My path combines independent product work, engineering projects, technical training and merged open-source contributions.</p>
-        </header>
-        <div class="background-list">
-          <article>
-            <h3>VolyxAI product work</h3>
-            <p class="background-meta">November 2025–present · Independent product effort</p>
-            <p>Developing applied AI systems across model integration, retrieval and context assembly, multimodal and voice workflows, structured outputs, Python services and event-driven automation.</p>
-          </article>
-          <article>
-            <h3>Independent engineering work</h3>
-            <p class="background-meta">January 2021–present</p>
-            <p>Python, backend and automation projects involving asynchronous workflows, API integrations, data processing, Telegram services and ML evaluation.</p>
-          </article>
-          <article>
-            <h3>Technical training</h3>
-            <p class="background-meta">Threat Detection &amp; Response Capstone · July–August 2025</p>
-            <p>Built Suricata and Snort detection work, Python-based alert enrichment and a DNS intelligence CLI with asynchronous resolution, WHOIS lookup and JSON export.</p>
-          </article>
-          <article>
-            <h3>Education</h3>
-            <p>Bachelor of Technology in Mathematics · Federal University of Technology, Owerri · 2016–2021</p>
-            <p>MSc Artificial Intelligence · Northumbria University · September 2026 intake</p>
-          </article>
-          <article class="certifications">
-            <h3>Certifications &amp; training</h3>
-            <div class="credential-links">
-              <a href="https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7" target="_blank" rel="noreferrer"><span>Scientific Computing with Python</span><small>freeCodeCamp · May 2026</small></a>
-              <a href="https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30" target="_blank" rel="noreferrer"><span>Google AI Specialization</span><small>Google/Coursera · Feb 2026</small></a>
-              <a href="https://verify.skilljar.com/c/fwqra86yief7" target="_blank" rel="noreferrer"><span>Model Context Protocol: Advanced Topics</span><small>Anthropic training · Mar 2026</small></a>
+      <section class="s" id="writing" aria-labelledby="wr-h">
+        <div class="wrap">
+          <div class="shead">
+            <h2 id="wr-h">Writing</h2>
+            <p>Short essays on retrieval, context and the details that decide whether an AI system holds.</p>
+          </div>
+          <ul class="essays">
+            <li><a href="https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag" target="_blank" rel="noreferrer"><span class="et">The hidden complexity of RAG</span><span class="ed">Retrieval looks solved until you measure what it misses.</span></a></li>
+            <li><a href="https://joshua-nwachinemere.hashnode.dev/a-million-token-context-is-not-memory" target="_blank" rel="noreferrer"><span class="et">A million-token context is not memory</span><span class="ed">Bigger windows hold more text. They don’t decide what matters.</span></a></li>
+            <li><a href="https://joshua-nwachinemere.hashnode.dev/mcp-made-tools-connectable-it-did-not-make-them-understandable" target="_blank" rel="noreferrer"><span class="et">MCP made tools connectable, not understandable</span><span class="ed">A working connection isn’t a shared contract.</span></a></li>
+            <li><a href="https://joshua-nwachinemere.hashnode.dev/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research" target="_blank" rel="noreferrer"><span class="et">The handoff problem</span><span class="ed">How multi-model pipelines corrupt good research between steps.</span></a></li>
+            <li><a href="https://joshua-nwachinemere.hashnode.dev/the-two-boundaries-where-voice-agents-quietly-corrupt-state" target="_blank" rel="noreferrer"><span class="et">Where voice agents corrupt state</span><span class="ed">Two boundaries where a conversation and its record drift apart.</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="s" id="background" aria-labelledby="bg-h">
+        <div class="wrap">
+          <div class="shead">
+            <h2 id="bg-h">Background</h2>
+            <p>My path combines independent product work, engineering projects, technical training and merged open-source contributions.</p>
+          </div>
+          <dl class="record">
+            <div>
+              <dt>November 2025–present<br>Independent product effort</dt>
+              <dd><strong>VolyxAI product work</strong>Applied AI systems across model integration, retrieval and context assembly, multimodal and voice workflows, structured outputs, Python services and event-driven automation.</dd>
             </div>
-          </article>
+            <div>
+              <dt>January 2021–present</dt>
+              <dd><strong>Independent engineering work</strong>Python, backend and automation projects involving asynchronous workflows, API integrations, data processing, Telegram services and ML evaluation.</dd>
+            </div>
+            <div>
+              <dt>July–August 2025<br>Threat Detection &amp; Response Capstone</dt>
+              <dd><strong>Technical training</strong>Suricata and Snort detection work, Python-based alert enrichment and a DNS intelligence CLI with asynchronous resolution, WHOIS lookup and JSON export.</dd>
+            </div>
+            <div>
+              <dt>2016–2021<br>September 2026 intake</dt>
+              <dd><strong>Education</strong>Bachelor of Technology in Mathematics, Federal University of Technology, Owerri. MSc Artificial Intelligence, Northumbria University, September 2026 intake.</dd>
+            </div>
+            <div>
+              <dt>Certifications<br>&amp; training</dt>
+              <dd>
+                <strong>Verified credentials</strong>
+                <ul class="certs">
+                  <li><a href="https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7" target="_blank" rel="noreferrer">Scientific Computing with Python<span>freeCodeCamp · May 2026</span></a></li>
+                  <li><a href="https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30" target="_blank" rel="noreferrer">Google AI Specialization<span>Google/Coursera · Feb 2026</span></a></li>
+                  <li><a href="https://verify.skilljar.com/c/fwqra86yief7" target="_blank" rel="noreferrer">Model Context Protocol: Advanced Topics<span>Anthropic training · Mar 2026</span></a></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 
-      <section class="closing" id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title">Interested in working together?</h2>
-        <p>I’m interested in AI Engineer and Applied AI Engineer roles involving Python services, retrieval and context systems, multimodal or voice workflows, evaluation and reliability.</p>
-        <div class="closing-actions">
-          <a class="button button-dark" href="mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity">Email me</a>
-          <a class="button button-light" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
-          <a class="button button-light" href="https://www.linkedin.com/in/joshua-nwachinemere/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="button button-light" href="https://github.com/dk3yyyy" target="_blank" rel="noreferrer">GitHub</a>
+      <section class="s" id="contact" aria-labelledby="ct-h">
+        <div class="wrap contact">
+          <div>
+            <h2 id="ct-h">Tell me what your model gets wrong.</h2>
+            <p class="lede">I’m looking for AI engineer roles where reliability is the job: retrieval, evaluation, model integration and the Python services around them.</p>
+            <div class="ctas">
+              <a class="btn primary" href="mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity">Email me</a>
+              <a class="btn line" href="%BASE_URL%Joshua_Nwachinemere_CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+              <a class="btn line" href="https://github.com/dk3yyyy" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="btn line" href="https://www.linkedin.com/in/joshua-nwachinemere/" target="_blank" rel="noreferrer">LinkedIn</a>
+            </div>
+          </div>
+          <div class="stage3d">
+            <div class="idcard" id="idcard" aria-label="Contact card for Joshua Nwachinemere, AI engineer">
+              <div class="row">
+                <div class="avatar" aria-hidden="true">J</div>
+                <div class="chip" aria-hidden="true"></div>
+              </div>
+              <div class="row row-end">
+                <div>
+                  <div class="who">Joshua Nwachinemere</div>
+                  <div class="role">AI engineer, retrieval and evaluation</div>
+                </div>
+                <span class="ref">github/dk3yyyy</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <p>© 2026 Joshua Nwachinemere</p>
-      <p>AI Engineer · Python and applied AI</p>
-      <a href="#top">Back to top ↑</a>
+    <footer>
+      <div class="wrap">
+        <span>© 2026 Joshua Nwachinemere · AI Engineer · Python and applied AI</span>
+        <span>No cookies, no analytics, no trackers.</span>
+      </div>
     </footer>
+
+    <aside class="assistant-widget" data-assistant>
+      <button class="assistant-launcher" type="button" aria-controls="assistant-panel" aria-expanded="false" aria-label="Ask Joshua" data-tip="Ask Joshua">
+        <svg class="assistant-launcher-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H9l-4 4v-4H5.5A1.5 1.5 0 0 1 4 14.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span class="assistant-launcher-text">Ask Joshua</span>
+      </button>
+
+      <div class="assistant-panel" id="assistant-panel" role="dialog" aria-modal="false" aria-labelledby="assistant-title" hidden>
+        <header class="assistant-panel-header">
+          <div>
+            <p class="assistant-kicker"><span aria-hidden="true"></span> Portfolio guide</p>
+            <h2 id="assistant-title">Ask Joshua</h2>
+          </div>
+          <button class="assistant-close" type="button" aria-label="Close Ask Joshua">×</button>
+        </header>
+
+        <div class="assistant-conversation" id="assistant-conversation" role="log" aria-live="polite" aria-relevant="additions text">
+          <article class="assistant-message assistant-message--answer">
+            <div class="assistant-copy">
+              <p>Ask about Joshua’s work, technical background or engineering approach.</p>
+            </div>
+            <div class="assistant-suggestions" aria-label="Suggested questions">
+              <button type="button" data-question="Who is Joshua?">Who is Joshua?</button>
+              <button type="button" data-question="Which project best demonstrates RAG and evaluation?">RAG and evaluation</button>
+              <button type="button" data-question="What open-source work has Joshua contributed?">Open-source work</button>
+            </div>
+          </article>
+        </div>
+
+        <form class="assistant-form" id="assistant-form">
+          <label class="sr-only" for="assistant-question">Ask a question about Joshua</label>
+          <div class="assistant-input-row">
+            <textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="Ask about Joshua’s work…" required></textarea>
+            <button class="assistant-submit" type="submit" aria-label="Send question">Send</button>
+          </div>
+          <p class="assistant-note">Public portfolio questions only · Cloudflare Workers AI via a Cloudflare Pages Function · Don’t enter personal data</p>
+        </form>
+        <noscript><p class="assistant-noscript">JavaScript is required to use the portfolio guide.</p></noscript>
+      </div>
+    </aside>
 
     <script type="module" src="/src/main.js"></script>
   </body>

@@ -1,4 +1,5 @@
 import './styles.css';
+import './motion.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
 const root = document.documentElement;
@@ -10,17 +11,18 @@ const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 function syncSystemTheme() {
   root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#121416' : '#f3f3f0';
+  if (themeColor) themeColor.content = systemDark.matches ? '#000000' : '#ffffff';
 }
 
 syncSystemTheme();
 if (typeof systemDark.addEventListener === 'function') systemDark.addEventListener('change', syncSystemTheme);
 else systemDark.addListener(syncSystemTheme);
 
-function setMenu(open, { restoreFocus = false } = {}) {
+function setMenu(open, { restoreFocus = false, moveFocus = false } = {}) {
   if (!menuButton || !nav) return;
   menuButton.setAttribute('aria-expanded', String(open));
   nav.dataset.open = String(open);
+  if (open && moveFocus) nav.querySelector('a')?.focus();
   const visibleLabel = menuButton.querySelector('[aria-hidden="true"]');
   const accessibleLabel = menuButton.querySelector('.sr-only');
   if (visibleLabel) visibleLabel.textContent = open ? 'Close' : 'Menu';
@@ -29,7 +31,9 @@ function setMenu(open, { restoreFocus = false } = {}) {
 }
 
 menuButton?.addEventListener('click', () => {
-  setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+  const open = menuButton.getAttribute('aria-expanded') !== 'true';
+  setMenu(open, { moveFocus: open });
+  if (open) setAssistantOpen(false);
 });
 
 nav?.addEventListener('click', (event) => {
@@ -66,7 +70,9 @@ function setAssistantOpen(open, { restoreFocus = false } = {}) {
 }
 
 assistantLauncher?.addEventListener('click', () => {
-  setAssistantOpen(assistantLauncher.getAttribute('aria-expanded') !== 'true');
+  const open = assistantLauncher.getAttribute('aria-expanded') !== 'true';
+  setAssistantOpen(open);
+  if (open) setMenu(false);
 });
 assistantClose?.addEventListener('click', () => setAssistantOpen(false, { restoreFocus: true }));
 

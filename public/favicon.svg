@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Terminal window</title>
-  <desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette</desc>
-  <rect width="64" height="64" rx="10" fill="#f3f3f0"/>
-  <rect x="5.5" y="7.5" width="53" height="49" rx="9" fill="none" stroke="#15171a" stroke-width="7"/>
-  <path data-mark="prompt" d="M19 21l12 11-12 11" fill="none" stroke="#15171a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path data-mark="cursor" d="M36 43h11" fill="none" stroke="#15171a" stroke-width="7" stroke-linecap="round"/>
+  <title id="title">JN monogram</title>
+  <desc id="desc">A serif J and N on white paper, with the blue rule that marks the checked result</desc>
+  <rect width="64" height="64" rx="10" fill="#ffffff"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#000000">JN</text>
+  <rect x="16" y="49" width="32" height="4" rx="2" fill="#1A35E5"/>
 </svg>
