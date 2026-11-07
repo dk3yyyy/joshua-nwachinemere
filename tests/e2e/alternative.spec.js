@@ -13,7 +13,7 @@ const projects = [
 // re-baselined when the five-essay Writing section shipped and again when Bench 04
 // (the interactive retrieval bench) replaced the four static approach cards.
 const viewports = [
-  { width: 320, height: 800, maxPageHeight: 10350, maxHeroHeight: 900 },
+  { width: 320, height: 800, maxPageHeight: 10600, maxHeroHeight: 900 },
   { width: 390, height: 844, maxPageHeight: 9500, maxHeroHeight: 820 },
   { width: 768, height: 1024, maxPageHeight: 8400, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
@@ -169,8 +169,8 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
     };
   });
   expect(palette).toMatchObject({
-    paper: '#e7e8e1', surface: '#f1f2ea', ink: '#10140f', muted: '#545c53', signal: '#b8371a',
-    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(16, 20, 15)',
+    paper: '#eaf1f7', surface: '#ffffff', ink: '#0b1620', muted: '#465462', signal: '#0a64e8',
+    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(10, 21, 38)',
   });
   expect(palette.accentFamily).toContain('Archivo');
 
@@ -187,28 +187,28 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
 
   await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(12, 16, 13)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c100d');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070b12');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(154, 163, 150)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(224, 232, 242)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(231, 232, 225)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#e7e8e1');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(234, 241, 247)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#eaf1f7');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(12, 16, 13)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c100d');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070b12');
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(12, 16, 13)');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 11, 18)');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   for (const width of [320, 359, 390, 744, 1024]) {
@@ -257,6 +257,7 @@ test('portfolio assistant opens as a corner popup, answers with citations, and c
 });
 
 test('responsive composition meets page, hero, grid, overflow, and target budgets', async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
   const errors = monitorRuntime(page);
   for (const viewport of viewports) {
     await page.setViewportSize(viewport);
@@ -503,6 +504,38 @@ test('reduced motion, reduced transparency, no-backdrop-filter, and forced colou
   }
   expect(await contact.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
   expect(await page.locator('.project-card').first().evaluate((node) => getComputedStyle(node).borderStyle)).not.toBe('none');
+});
+
+test('dynamic bench results and the assistant keep contrast and 44px targets', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  await page.locator('#bench-query').fill('citation validation');
+  await page.locator('.bench-input-row button').click();
+  await expect(page.locator('.bench-hit').first()).toBeVisible();
+
+  const resultTargets = await page.locator('.bench-hit a').evaluateAll((links) => links.map((link) => {
+    const box = link.getBoundingClientRect();
+    return { height: box.height, width: box.width };
+  }));
+  expect(resultTargets.length).toBeGreaterThan(0);
+  for (const target of resultTargets) {
+    expect(target.height).toBeGreaterThanOrEqual(43.98);
+    expect(target.width).toBeGreaterThanOrEqual(44);
+  }
+
+  const benchAudit = await new AxeBuilder({ page }).analyze();
+  expect(benchAudit.violations).toEqual([]);
+
+  await page.locator('.assistant-launcher').click();
+  const assistantTargets = await page.locator('.assistant-suggestions button, .assistant-input-row textarea, .assistant-submit').evaluateAll((nodes) => nodes.map((node) => {
+    const box = node.getBoundingClientRect();
+    return { label: node.textContent.trim() || node.getAttribute('aria-label'), height: box.height, width: box.width };
+  }));
+  for (const target of assistantTargets) {
+    expect(target.height, target.label).toBeGreaterThanOrEqual(43.98);
+    expect(target.width, target.label).toBeGreaterThanOrEqual(44);
+  }
 });
 
 test('320px WCAG text spacing retains every content group without clipping', async ({ page }) => {

@@ -1,51 +1,47 @@
-# Direction contract — portfolio redesign
+# Direction contract — portfolio, liquid glass
 
 Surface: `index.html`, personal portfolio. Mode: Experience (the work leads; the
 interface recedes). Builder: impeccable. Hallmark and taste-landing sit out.
 
 ## Thesis
 
-The page is a calibration sheet for an engineer whose argument is that systems
-should show their work. It refuses the warm-paper editorial portfolio and the
-near-black neon engineer portfolio. Every claim sits next to its measurement:
-ruled margins, figure numbers, dimension ticks, and a system rail that plots the
-pipeline instead of describing it.
+The page is a lit room seen through glass. Colour lives in the room, not in the
+panels: three drifting light fields behind translucent sheets, one blue-violet
+signal for emphasis, and type that stays ink-dark so the page still reads as an
+engineer's portfolio rather than a concept demo.
 
 ## Own-world
 
-Cool gray-green sheet (#e7e8e1) and near-black ink (#10140f), one vermilion
-signal (#b8371a) used for emphasis and state, one measure blue for focus. Archivo
-at tight tracking for display, Azeret Mono for labels, numbers, and data. Square
-corners, 1px rules, ink title block, no cards floating on shadows.
+A pale daylight gradient with blue, rose and mint light fields; glass panels
+with 24–30px blur, saturation lift, a bright inner edge, and soft ambient
+shadow. Archivo for display, Azeret Mono for labels and data. Rounded surfaces,
+pill controls, one gradient accent reserved for actions and the headline phrase.
 
 ## Story
 
-A hiring manager understands in one viewport: AI engineer, Python, applied
-systems, open to roles, and where to look. Scrolling reads as a sequence of
-plates, each with a claim and its evidence; the bench proves the method by
-running retrieval on the page itself.
+A hiring manager sees the role, the work, and the way Joshua thinks within one
+viewport. Scrolling is a walk through glass plates, each with a claim and its
+evidence; the retrieval bench turns into a dark instrument panel that proves the
+method rather than describing it.
 
 ## First viewport
 
-Runninghead rule across the top; 76px headline in three lines at 1440 with the
-last phrase underlined in vermilion; one-column intro at 60ch; three-figure
-readout; two actions; availability line. On the right, an ink title block holds
-the section index. Below, a four-station system rail with a pulse that travels
-the pipeline and pauses at each seam.
+A floating glass bar; a large glass hero sheet with the headline, one-column
+intro, three readout pills and two actions; a glass section index beside it; the
+system rail as a translucent strip with four stations and a travelling pulse.
 
 ## Form
 
-Position 2 of 7 in the derivation list: engineering drawing sheet, after the
-rejected "warm literary journal" (the incumbent) and before "oscilloscope
-terminal" (category default). Seed: none (concept-seed launcher not run; the
-world was derived from the subject, not dealt).
+Position 3 of 7: lit glass room, after the rejected calibration sheet and the
+warm literary journal. Seed: none (concept-seed not run; the world came from the
+brief, not a deal).
 
 ## Motion
 
-One authored system: the rail plots and pulses once per cycle; section rules and
-plates reveal on entry with a single exponential ease and small stagger; images
-drift 14px against scroll; a 2px progress line plots reading position. All of it
-is opt-in via `.js-motion`, and reduced motion leaves a fully static page.
+One system: drifting light fields, a plotted rail with a pulse, plates that rise
+16px on entry, figures that drift against scroll, and a 3px gradient progress
+line. All of it is opt-in via `.js-motion`, transform-only, and reduced motion
+leaves a complete static page.
 
 ## Finish
 

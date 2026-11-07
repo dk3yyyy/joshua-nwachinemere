@@ -459,8 +459,8 @@ test('uses the approved terminal-window favicon in the portfolio visual system',
   assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=4" type="image\/svg\+xml" \/>/);
   assert.match(favicon, /<title id="title">Terminal window<\/title>/);
   assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
-  assert.match(favicon, /fill="#f3f3f0"/);
-  assert.match(favicon, /stroke="#15171a"/);
+  assert.match(favicon, /fill="#eaf1f7"/);
+  assert.match(favicon, /stroke="#0b1620"/);
   assert.match(favicon, /data-mark="prompt"/);
   assert.match(favicon, /data-mark="cursor"/);
   assert.doesNotMatch(favicon, /JN split monogram|#cfff48|#2448ff|>J<|>N</);
