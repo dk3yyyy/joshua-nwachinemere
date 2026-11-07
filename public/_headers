@@ -21,7 +21,7 @@
 /icons/*
   Cache-Control: public, max-age=31536000, immutable
 
-/og-card-v6.png
+/og-card-v8.png
   Cache-Control: public, max-age=604800
 
 /favicon.svg
