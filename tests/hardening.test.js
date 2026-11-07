@@ -10,9 +10,9 @@ const exists = async (path) => access(new URL(path, root)).then(() => true, () =
 const html = await read('index.html');
 const css = await read('src/styles.css');
 
-test('ships the purpose-built v7 social card and complete icon metadata', async () => {
+test('ships the purpose-built v8 social card and complete icon metadata', async () => {
   for (const path of [
-    'public/og-card-v7.png',
+    'public/og-card-v8.png',
     'public/favicon.ico',
     'public/apple-touch-icon.png',
     'public/icons/icon-192.png',
@@ -20,11 +20,11 @@ test('ships the purpose-built v7 social card and complete icon metadata', async 
     'public/site.webmanifest',
   ]) assert.equal(await exists(path), true, `Missing ${path}`);
 
-  const card = await read('public/og-card-v7.png', null);
+  const card = await read('public/og-card-v8.png', null);
   assert.equal(card.subarray(1, 4).toString(), 'PNG');
   assert.equal(card.readUInt32BE(16), 1200);
   assert.equal(card.readUInt32BE(20), 630);
-  assert.match(html, /og-card-v7\.png/);
+  assert.match(html, /og-card-v8\.png/);
   assert.doesNotMatch(html, /og-card-v[1-6]\.png/);
   assert.match(html, /rel="apple-touch-icon"[^>]+apple-touch-icon\.png/);
   assert.match(html, /rel="manifest"[^>]+site\.webmanifest/);
@@ -36,13 +36,10 @@ test('uses responsive project imagery and self-hosted licensed fonts', async () 
   assert.ok((html.match(/srcset=/g) ?? []).length >= 3);
   assert.doesNotMatch(css, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
   for (const file of [
-    'public/fonts/manrope-variable.woff2',
-    'public/fonts/dm-mono-400.woff2',
-    'public/fonts/dm-mono-500.woff2',
-    'public/fonts/newsreader-italic-500.woff2',
-    'public/fonts/licenses/OFL-Manrope.txt',
-    'public/fonts/licenses/OFL-DM-Mono.txt',
-    'public/fonts/licenses/OFL-Newsreader.txt',
+    'public/fonts/archivo-var.woff2',
+    'public/fonts/azeret-mono-400.woff2',
+    'public/fonts/licenses/OFL-Archivo.txt',
+    'public/fonts/licenses/OFL-Azeret-Mono.txt',
   ]) assert.equal(await exists(file), true, `Missing ${file}`);
 });
 
@@ -65,10 +62,10 @@ test('adds a static 404 and hardened same-origin headers without blocking produc
   assert.match(notFound, /<title>Page not found · Joshua Nwachinemere<\/title>/);
 });
 
-test('preserves the current nine-contribution chatbot surface', () => {
+test('preserves the current thirteen-contribution chatbot surface', () => {
   assert.match(html, /data-assistant/);
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
-  assert.match(html, /Cloudflare Workers AI via a Cloudflare Pages Function/);
-  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 9);
-  assert.match(html, /<b>09<\/b> merged PRs/);
+  assert.match(html, /Answers are assembled from reviewed portfolio evidence/);
+  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 13);
+  assert.match(html, /<b>13<\/b> upstream PRs/);
 });

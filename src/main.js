@@ -1,4 +1,5 @@
 import './styles.css';
+import './motion.js';
 import './bench/ui.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
@@ -11,7 +12,7 @@ const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 function syncSystemTheme() {
   root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#121416' : '#f3f3f0';
+  if (themeColor) themeColor.content = systemDark.matches ? '#0c0f0e' : '#f1efe9';
 }
 
 syncSystemTheme();
@@ -25,7 +26,7 @@ function setMenu(open, { restoreFocus = false } = {}) {
   const visibleLabel = menuButton.querySelector('[aria-hidden="true"]');
   const accessibleLabel = menuButton.querySelector('.sr-only');
   if (visibleLabel) visibleLabel.textContent = open ? 'Close' : 'Menu';
-  if (accessibleLabel) accessibleLabel.textContent = open ? 'Close navigation' : 'Open navigation';
+  if (accessibleLabel) accessibleLabel.textContent = open ? 'Menu, close navigation' : 'Menu, open navigation';
   if (restoreFocus) menuButton.focus();
 }
 
@@ -109,6 +110,7 @@ function addSuggestions(message, questions) {
   if (!questions?.length) return;
   const suggestions = document.createElement('div');
   suggestions.className = 'assistant-suggestions';
+  suggestions.setAttribute('role', 'group');
   suggestions.setAttribute('aria-label', 'Follow-up questions');
   for (const question of questions) {
     const button = document.createElement('button');

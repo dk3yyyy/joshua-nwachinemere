@@ -48,7 +48,7 @@ URL_PATTERN = re.compile(r"https://[^\s|]+")
 SUMMARY = (
     "AI Engineer building Python systems for retrieval, multimodal inference, speech, model APIs, and ML evaluation. "
     "Built local review intelligence with citation validation and benchmarked evaluation, a privacy-oriented macOS "
-    "assistant, and a temporal forecasting pipeline. Contributed eight merged fixes and tests across AI and data "
+    "assistant, and a temporal forecasting pipeline. Contributed thirteen merged fixes and tests across AI and data "
     "infrastructure projects, including OpenAI Agents SDK and Pydantic AI Harness."
 )
 
@@ -98,7 +98,32 @@ OPEN_SOURCE_CONTRIBUTIONS = [
         "bullets": ["Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata. PR: https://github.com/ag2ai/faststream/pull/2961"],
     },
     {
-        "name": "Additional verified upstream merges | 4 of 8 merged PRs",
+        "name": "Microsoft Agent Framework | Merged PR #7391",
+        "stack": "Python, agent run context, compaction, pytest | Aug 2026",
+        "bullets": ["Ignored excluded tool results during compaction so removed tool output cannot re-enter the model context. PR: https://github.com/microsoft/agent-framework/pull/7391"],
+    },
+    {
+        "name": "Pydantic AI Harness | Merged PR #520",
+        "stack": "Python, media decoding, URL-safe base64, pytest | Aug 2026",
+        "bullets": ["Decoded URL-safe binary media payloads before provider calls, with regression coverage for both alphabets. PR: https://github.com/pydantic/pydantic-ai-harness/pull/520"],
+    },
+    {
+        "name": "FastStream | Merged PR #2984",
+        "stack": "Python, AnyIO, exception groups, pytest | Aug 2026",
+        "bullets": ["Prevented handler exceptions from leaking past the AnyIO task boundary while preserving cancellation. PR: https://github.com/ag2ai/faststream/pull/2984"],
+    },
+    {
+        "name": "FastStream | Merged PR #2976",
+        "stack": "Python, Redis streams, consumer groups, pytest | Aug 2026",
+        "bullets": ["Consumed entries that already existed when a Redis consumer group was created, closing a silent message-loss path. PR: https://github.com/ag2ai/faststream/pull/2976"],
+    },
+    {
+        "name": "Mellea | Merged PR #1469",
+        "stack": "Python, Hugging Face workers, stream timeouts | Jul 2026",
+        "bullets": ["Stopped generation workers when a stream timed out instead of leaving the worker running. PR: https://github.com/generative-computing/mellea/pull/1469"],
+    },
+    {
+        "name": "Additional verified upstream merges | 4 of 13 merged PRs",
         "stack": "Correctness, dependency errors, schema generation, workflow scoping | Jul 2026",
         "bullets": [
             "Apache Arrow Rust: https://github.com/apache/arrow-rs/pull/10486 | Altair: https://github.com/vega/altair/pull/4089 | FastStream FastAPI: https://github.com/faststream-community/faststream_fastapi/pull/2 | Calkit: https://github.com/calkit/calkit/pull/1028",
