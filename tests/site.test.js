@@ -13,12 +13,12 @@ const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.u
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const socialCard = await readFile(new URL('../public/og-card-v7.png', import.meta.url));
+const socialCard = await readFile(new URL('../public/og-card-v8.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v7.png`;
+const socialCardUrl = `${siteUrl}og-card-v8.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -426,7 +426,7 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes production-aligned social metadata and the approved v7 landing-page card', () => {
+test('publishes production-aligned social metadata and the approved v8 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
@@ -439,7 +439,7 @@ test('publishes production-aligned social metadata and the approved v7 landing-p
   assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
   assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
-  assert.doesNotMatch(html, /og-card-v[1-6]\.png/);
+  assert.doesNotMatch(html, /og-card-v[1-7]\.png/);
 });
 
 test('all external new-tab links are protected and fragments resolve uniquely', () => {
@@ -460,11 +460,11 @@ test('CV and identity artifacts remain intact', async () => {
 });
 
 test('uses the approved terminal-window favicon in the portfolio visual system', () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=4" type="image\/svg\+xml" \/>/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=5" type="image\/svg\+xml" \/>/);
   assert.match(favicon, /<title id="title">Terminal window<\/title>/);
   assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
-  assert.match(favicon, /fill="#eaf1f7"/);
-  assert.match(favicon, /stroke="#0b1620"/);
+  assert.match(favicon, /fill="#f1efe9"/);
+  assert.match(favicon, /stroke="#14251c"/);
   assert.match(favicon, /data-mark="prompt"/);
   assert.match(favicon, /data-mark="cursor"/);
   assert.doesNotMatch(favicon, /JN split monogram|#cfff48|#2448ff|>J<|>N</);

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">Terminal window</title>
   <desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette</desc>
-  <rect width="64" height="64" rx="10" fill="#eaf1f7"/>
-  <rect x="5.5" y="7.5" width="53" height="49" rx="9" fill="none" stroke="#0b1620" stroke-width="7"/>
-  <path data-mark="prompt" d="M19 21l12 11-12 11" fill="none" stroke="#0b1620" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path data-mark="cursor" d="M36 43h11" fill="none" stroke="#0b1620" stroke-width="7" stroke-linecap="round"/>
+  <rect width="64" height="64" rx="10" fill="#f1efe9"/>
+  <rect x="5.5" y="7.5" width="53" height="49" rx="9" fill="none" stroke="#14251c" stroke-width="7"/>
+  <path data-mark="prompt" d="M19 21l12 11-12 11" fill="none" stroke="#14251c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path data-mark="cursor" d="M36 43h11" fill="none" stroke="#14251c" stroke-width="7" stroke-linecap="round"/>
 </svg>
