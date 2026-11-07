@@ -4,62 +4,61 @@
   <meta charset="utf-8">
   <title>Joshua Nwachinemere social card</title>
   <style>
-    @font-face { font-family: Manrope; src: url('../public/fonts/manrope-variable.woff2') format('woff2'); font-weight: 400 800; }
-    @font-face { font-family: Newsreader; src: url('../public/fonts/newsreader-italic-500.woff2') format('woff2'); font-style: italic; font-weight: 500; }
+    @font-face { font-family: Archivo; src: url('../public/fonts/archivo-var.woff2') format('woff2'); font-weight: 100 900; }
+    @font-face { font-family: 'Azeret Mono'; src: url('../public/fonts/azeret-mono-400.woff2') format('woff2'); font-weight: 400 500; }
     * { box-sizing: border-box; }
     html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; }
-    body { color: #15171a; background: #f3f3f0; font-family: Manrope, Arial, sans-serif; }
-    .card { position: relative; display: grid; grid-template-columns: 630px 380px; gap: 30px; width: 100%; height: 100%; padding: 72px 80px 68px; }
-    .card::before { content: ''; position: absolute; inset: 26px; border: 1px solid #c4c6c2; border-radius: 28px; pointer-events: none; }
-    .copy { position: relative; z-index: 1; display: flex; flex-direction: column; }
-    .identity { display: flex; align-items: center; gap: 15px; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
-    .seal { display: grid; width: 52px; height: 52px; place-items: center; border: 1.5px solid #45494d; border-radius: 50%; font-size: 14px; letter-spacing: .08em; }
-    .role { margin: 50px 0 14px; color: #383c40; font-size: 19px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
-    h1 { max-width: 620px; margin: 0; font-size: 60px; font-weight: 650; letter-spacing: -.055em; line-height: 1.01; }
-    h1 em { color: #383c40; font-family: Newsreader, Georgia, serif; font-weight: 500; }
-    .proof { margin: 28px 0 0; color: #383c40; font-size: 23px; font-weight: 650; line-height: 1.45; }
-    .proof span { color: #565b60; font-size: 20px; font-weight: 600; }
-    .url { margin-top: auto; font-size: 18px; font-weight: 700; letter-spacing: .01em; }
-    .map { position: relative; align-self: center; width: 380px; height: 380px; border: 1px solid #b7bab5; border-radius: 34px; background-color: rgba(251,251,249,.82); background-image: radial-gradient(circle, rgba(69,73,77,.18) 1px, transparent 1px); background-size: 20px 20px; }
-    .map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .map path { fill: none; stroke: #696e72; stroke-width: 2; }
-    .core { position: absolute; top: 50%; left: 50%; display: grid; width: 108px; height: 108px; place-content: center; border-radius: 50%; color: #fbfbf9; background: #15171a; text-align: center; transform: translate(-50%,-50%); }
-    .core strong { font-size: 27px; letter-spacing: .06em; }
-    .core span { margin-top: 7px; color: #d8dad6; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
-    .node { position: absolute; min-width: 124px; padding: 14px 13px; border: 1px solid #b7bab5; border-radius: 9px; background: #fbfbf9; box-shadow: 0 8px 22px rgba(21,23,26,.06); text-align: center; }
-    .node strong { display: block; font-size: 20px; line-height: 1.1; }
-    .n1 { top: 37px; left: 33px; }
-    .n2 { top: 37px; right: 28px; }
-    .n3 { bottom: 37px; right: 28px; }
-    .n4 { bottom: 37px; left: 33px; }
-
+    body { color: #10140f; background: #e7e8e1; font-family: Archivo, Arial, sans-serif; }
+    .card { position: relative; display: grid; grid-template-columns: 1fr 392px; gap: 40px; width: 100%; height: 100%; padding: 54px 58px 48px; }
+    .card::before { content: ''; position: absolute; inset: 20px; border: 1px solid #10140f; pointer-events: none; }
+    .copy { position: relative; z-index: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topline { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid #10140f; color: #545c53; font: 400 9px/1.3 'Azeret Mono', monospace; letter-spacing: .13em; text-transform: uppercase; }
+    .identity { display: flex; align-items: center; gap: 11px; margin-top: 18px; font-size: 17px; font-weight: 620; letter-spacing: -.02em; }
+    .seal { display: grid; width: 36px; height: 36px; place-items: center; background: #10140f; color: #e7e8e1; font: 500 10px/1 'Azeret Mono', monospace; }
+    .role { margin: 22px 0 9px; color: #545c53; font: 400 9px/1.3 'Azeret Mono', monospace; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 600px; margin: 0; font-size: 56px; font-weight: 620; letter-spacing: -.055em; line-height: .97; }
+    h1 em { color: #b8371a; font-style: normal; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 7px; }
+    .proof { margin: 20px 0 0; max-width: 540px; color: #2c332c; font-size: 17px; line-height: 1.45; }
+    .proof b { font-weight: 620; }
+    .bottom { display: flex; align-items: baseline; gap: 16px; margin-top: auto; padding-top: 12px; border-top: 1px solid #b8beb1; }
+    .url { font: 400 12px/1.3 'Azeret Mono', monospace; letter-spacing: .01em; }
+    .bottom span { color: #545c53; font: 400 9px/1.3 'Azeret Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .panel { position: relative; display: flex; flex-direction: column; padding: 22px 20px 18px; background: #10140f; color: #eceee5; }
+    .panel-label { margin: 0 0 3px; color: #aab1a4; font: 400 8px/1.3 'Azeret Mono', monospace; letter-spacing: .18em; text-transform: uppercase; }
+    .panel h2 { margin: 0 0 12px; font-size: 21px; font-weight: 600; letter-spacing: -.035em; }
+    .rail { position: relative; display: grid; gap: 0; }
+    .rail::before { position: absolute; top: 0; bottom: 0; left: 8px; border-left: 1px dashed #4a554b; content: ''; }
+    .stage { position: relative; display: grid; grid-template-columns: 18px 1fr auto; gap: 3px 10px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid #313a32; }
+    .stage:last-child { border-bottom: 0; }
+    .stage::before { position: absolute; top: 15px; left: 4px; width: 8px; height: 8px; background: #10140f; border: 1px solid #b8371a; content: ''; transform: rotate(45deg); }
+    .stage:nth-child(2)::before { background: #b8371a; }
+    .n { color: #ff6a3f; font: 400 8px/1.3 'Azeret Mono', monospace; }
+    .stage strong { font-size: 17px; font-weight: 600; letter-spacing: -.025em; }
+    .stage small { color: #aab1a4; font: 400 8px/1.3 'Azeret Mono', monospace; }
+    .note { margin: auto 0 0; padding-top: 12px; border-top: 1px solid #313a32; color: #aab1a4; font-size: 11px; line-height: 1.4; }
+    .note b { color: #eceee5; font-weight: 600; }
   </style>
 </head>
 <body>
   <main class="card" role="img" aria-label="Joshua Nwachinemere, AI Engineer. Python systems that show their work, across retrieval, multimodal and voice AI and evaluation. Five projects, nine merged pull requests and five essays.">
     <section class="copy">
+      <div class="topline"><span>Joshua Nwachinemere</span><span>Portfolio · 2026</span></div>
       <div class="identity"><span class="seal">JN</span><span>Joshua Nwachinemere</span></div>
       <p class="role">AI Engineer · Python and applied AI</p>
-      <h1>Python systems that<br><em>show their work.</em></h1>
-      <p class="proof">Retrieval · Multimodal and voice · Evaluation<br><span>5 projects · 9 merged PRs · 5 essays</span></p>
-      <p class="url">Portfolio · joshua-nwachinemere.pages.dev</p>
+      <h1>Python systems that <em>show their work</em>.</h1>
+      <p class="proof">Retrieval, context and evaluation systems, built with <b>evidence at every seam</b>. Five projects and nine merged upstream pull requests.</p>
+      <div class="bottom"><span class="url">joshua-nwachinemere.pages.dev</span><span>Open to AI Engineer roles</span></div>
     </section>
-    <section class="map" aria-hidden="true">
-
-      <svg viewBox="0 0 394 394">
-        <defs>
-          <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#696e72" stroke="none" /></marker>
-        </defs>
-        <path d="M151 76 H247" marker-end="url(#arrow)" />
-        <path d="M315 111 V272" marker-end="url(#arrow)" />
-        <path d="M247 319 H151" marker-end="url(#arrow)" />
-        <path d="M80 272 V111" marker-end="url(#arrow)" />
-      </svg>
-      <div class="core"><strong>JN</strong><span>Engineer</span></div>
-      <div class="node n1"><strong>Input</strong></div>
-      <div class="node n2"><strong>Context</strong></div>
-      <div class="node n3"><strong>Model</strong></div>
-      <div class="node n4"><strong>Evaluation</strong></div>
+    <section class="panel" aria-hidden="true">
+      <p class="panel-label">Applied AI / system map</p>
+      <h2>Four stages. Three seams to check.</h2>
+      <div class="rail">
+        <div class="stage"><span class="n">01</span><strong>Input</strong><small>multimodal</small></div>
+        <div class="stage"><span class="n">02</span><strong>Context</strong><small>retrieval</small></div>
+        <div class="stage"><span class="n">03</span><strong>Model</strong><small>orchestration</small></div>
+        <div class="stage"><span class="n">04</span><strong>Evaluation</strong><small>reliability</small></div>
+      </div>
+      <p class="note"><b>Grounded, reproducible, visible.</b> Each seam is a place where a run can fail quietly, so each one is measured.</p>
     </section>
   </main>
 </body>

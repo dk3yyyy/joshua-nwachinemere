@@ -1,4 +1,5 @@
 import './styles.css';
+import './motion.js';
 import './bench/ui.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
@@ -11,7 +12,7 @@ const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 function syncSystemTheme() {
   root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#121416' : '#f3f3f0';
+  if (themeColor) themeColor.content = systemDark.matches ? '#0c100d' : '#e7e8e1';
 }
 
 syncSystemTheme();

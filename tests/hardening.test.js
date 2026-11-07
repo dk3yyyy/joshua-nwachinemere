@@ -36,13 +36,11 @@ test('uses responsive project imagery and self-hosted licensed fonts', async () 
   assert.ok((html.match(/srcset=/g) ?? []).length >= 3);
   assert.doesNotMatch(css, /fonts\.googleapis\.com|fonts\.gstatic\.com/);
   for (const file of [
-    'public/fonts/manrope-variable.woff2',
-    'public/fonts/dm-mono-400.woff2',
-    'public/fonts/dm-mono-500.woff2',
-    'public/fonts/newsreader-italic-500.woff2',
-    'public/fonts/licenses/OFL-Manrope.txt',
-    'public/fonts/licenses/OFL-DM-Mono.txt',
-    'public/fonts/licenses/OFL-Newsreader.txt',
+    'public/fonts/archivo-var.woff2',
+    'public/fonts/azeret-mono-400.woff2',
+    'public/fonts/azeret-mono-500.woff2',
+    'public/fonts/licenses/OFL-Archivo.txt',
+    'public/fonts/licenses/OFL-Azeret-Mono.txt',
   ]) assert.equal(await exists(file), true, `Missing ${file}`);
 });
 

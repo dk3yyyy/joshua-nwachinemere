@@ -134,10 +134,10 @@ test('hero and availability copy are exact and direct', () => {
   for (const label of ['Input', 'Context', 'Model', 'Evaluation']) assert.match(html, new RegExp(`<strong>${label}<\\/strong>`));
   assert.match(css, /@media \(min-width: 1051px\)[\s\S]*?\.hero-system-map \{ display: block;/);
   assert.match(css, /\.hero-system-map \{ display: none; \}/);
-  assert.match(css, /\.system-map-canvas \{[^}]*border-radius: 28px;/);
+  assert.match(css, /\.system-map-canvas \{[^}]*border-top: 2px solid/);
   assert.equal((html.match(/class="system-node system-node--/g) || []).length, 4);
   assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
-  assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px dashed/);
+  assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px solid/);
   assert.match(html, /Three seams, three places to check\./);
   assert.match(html, /Applied AI \/ system map/);
   assert.equal((html.match(/class="project-bar"/g) || []).length, 3, 'Each featured case needs an ink case bar');
