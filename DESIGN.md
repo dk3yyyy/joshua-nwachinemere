@@ -5,16 +5,19 @@ is `src/styles.css`; this file records the decisions behind them.
 
 ## World
 
-A lit room behind glass. Three slow fields of sand, sage and clay drift on a warm
-bone ground; every surface is a translucent sheet with a blurred backdrop and a
-bright inner edge. Ink stays near-black and the accent is forest green, so the
-material reads as glass rather than a gradient theme.
+A warm bone ground with one static wash of light at the top of the hero. Glass is
+reserved for the three places something passes underneath it: the masthead, the
+assistant panel and its launcher. Everything else is opaque paper with a 1px rule.
+Ink stays near-black and the accent is forest green, used on one filled control
+per view, not as a gradient.
 
 ## Color
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--sheet` / html ground | `#f1efe9` | `#0c0f0e` | page ground |
+| `--paper` / html ground | `#f1efe9` | `#0c0f0e` | page ground |
+| `--paper-raised` | `#fbf9f4` | `#171b18` | cards, rows, figures |
+| `--paper-sunk` | `#ece7dc` | `#0c0f0d` | wells, mats |
 | `--glass` | `rgba(255,255,255,.4)` | `rgba(16,22,19,.6)` | panels |
 | `--glass-raised` | `rgba(255,255,255,.58)` | `rgba(22,29,25,.76)` | bars, figures, assistant |
 | `--glass-soft` | `rgba(255,255,255,.22)` | `rgba(14,20,32,.34)` | rows, chips |

@@ -138,7 +138,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.equal((html.match(/class="system-node system-node--/g) || []).length, 4);
   assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
   assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px solid/);
-  assert.match(html, /Three seams, three places to check\./);
+  assert.match(html, /The handoffs between stages are where this usually breaks\./);
   assert.match(html, /Applied AI \/ system map/);
   assert.equal((html.match(/class="project-bar"/g) || []).length, 3, 'Each featured case needs an ink case bar');
 });
@@ -210,14 +210,14 @@ test('project maturity, ownership, and evaluation evidence remain exact', () => 
     assert.equal(occurrences(textOnly, label), 1, `Expected exact maturity label once: ${label}`);
   }
   assert.equal(occurrences(textOnly, 'Independent project'), 5);
-  assert.ok(textOnly.includes('Evaluated across 1,140 rolling-origin test matches with 53.77% accuracy, using a 56.70% bookmaker benchmark for comparison.'));
+  assert.ok(textOnly.includes('Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark for the same matches is 56.70%.'));
   assert.doesNotMatch(textOnly, /The model did not beat the benchmark/i);
-  assert.ok(textOnly.includes('Three projects where the hard part was keeping the output honest.'));
+  assert.ok(textOnly.includes('Three projects, each built around a check that the output is right.'));
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.doesNotMatch(lens, /<dt>Scope<\/dt>|ad-hoc signed test builds|notarized releases/i);
-  assert.ok(textOnly.includes('User-selected inputs, consent-led capture, sandboxed execution, context isolation and provider-aware routing.'));
+  assert.ok(textOnly.includes('Nothing is captured until you switch it on. The renderer is sandboxed with context isolation, and each provider only gets the context you selected.'));
   assert.ok(textOnly.includes('Clean exact-commit 30-case benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25; answer success and citation validity 0.880.'));
-  assert.ok(textOnly.includes('A validator and one bounded repair pass keep those citations honest.'));
+  assert.ok(textOnly.includes('Every citation is validated, and an answer gets one bounded repair attempt when a sentence isn’t supported.'));
   const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.doesNotMatch(localProject, /<dt>Limitations<\/dt>|Three of 25|median latency|dirty worktree|both 0\.560|general reliability/i);
   assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View results<\/a>/);
@@ -276,7 +276,7 @@ test('adds honest, accessible visual product evidence without the rejected contr
   assert.doesNotMatch(footballProject, /redesigned/i);
   assert.doesNotMatch(html, /class="visual-link"/);
   assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
-  assert.ok(textOnly.includes('Context Aperture — screen, microphone and system audio are deliberate inputs; only what you choose reaches the provider.'));
+  assert.ok(textOnly.includes('Context Aperture. Screen, microphone and system audio are inputs you switch on yourself; only what you choose reaches the provider.'));
 });
 
 test('keeps all five repository URLs and all nine contribution rows visible', () => {
@@ -311,7 +311,7 @@ test('includes the approved approach, background, contact, and footer copy', () 
   for (const heading of ['What I check before I ship', 'Background', 'Tell me what you’re building.']) {
     assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
-  assert.ok(textOnly.includes('This page runs the check instead of describing it. BM25 retrieval over its own claims, with the labelled evaluation underneath.'));
+  assert.ok(textOnly.includes("The search below runs BM25 over a fixed set of claims about this work. The labelled evaluation underneath shows where it misses."));
   assert.match(html, /<div class="bench" data-bench>/);
   assert.match(html, /id="bench-query"/);
   assert.match(html, /<noscript>\s*<div class="approach-grid">/);
@@ -320,7 +320,7 @@ test('includes the approved approach, background, contact, and footer copy', () 
   }
   assert.ok(textOnly.includes('VolyxAI product work'));
   assert.ok(textOnly.includes('Independent product effort'));
-  assert.ok(textOnly.includes('I’m looking for AI Engineer or Applied AI Engineer work: Python services, retrieval and context, multimodal or voice, evaluation and reliability.'));
+  assert.ok(textOnly.includes('I’m looking for AI Engineer or Applied AI Engineer work on Python services, retrieval and context systems, multimodal or voice workflows, and evaluation.'));
   assert.ok(!textOnly.includes('Open to part-time work during study'));
   assert.ok(!textOnly.includes('future full-time graduate roles'));
   assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));

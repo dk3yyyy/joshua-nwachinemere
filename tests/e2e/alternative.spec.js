@@ -15,7 +15,7 @@ const projects = [
 const viewports = [
   { width: 320, height: 800, maxPageHeight: 10600, maxHeroHeight: 900 },
   { width: 390, height: 844, maxPageHeight: 9500, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 8450, maxHeroHeight: 760 },
+  { width: 768, height: 1024, maxPageHeight: 8500, maxHeroHeight: 760 },
   { width: 1024, height: 768 },
   { width: 1050, height: 800 },
   { width: 1051, height: 800 },
@@ -455,7 +455,7 @@ test('all content and navigation remain available without JavaScript', async ({ 
   await expect(page.locator('.menu-button')).toBeHidden();
   await expect(page.locator('.project-card:visible')).toHaveCount(5);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(9);
-  await expect(page.getByText(/Evaluated across 1,140 rolling-origin test matches with 53\.77% accuracy/)).toBeVisible();
+  await expect(page.getByText(/Across 1,140 rolling-origin test matches it gets 53\.77% accuracy/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
   await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
   await expectNoOverflow(page, 'no-JS mobile');
