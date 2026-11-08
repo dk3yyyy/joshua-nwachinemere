@@ -2,7 +2,7 @@
   const systemDark = matchMedia('(prefers-color-scheme: dark)');
 
   document.documentElement.dataset.theme = 'auto';
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', systemDark.matches ? '#0c0f0e' : '#f1efe9');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', systemDark.matches ? '#070c15' : '#e9eef6');
   try {
     localStorage.removeItem('portfolio-theme');
   } catch {

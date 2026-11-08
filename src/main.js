@@ -11,7 +11,7 @@ const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 function syncSystemTheme() {
   root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#0c0f0e' : '#f1efe9';
+  if (themeColor) themeColor.content = systemDark.matches ? '#070c15' : '#e9eef6';
 }
 
 syncSystemTheme();

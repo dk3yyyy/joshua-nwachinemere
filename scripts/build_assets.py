@@ -8,8 +8,9 @@ PUBLIC = ROOT / "public"
 IMAGES = PUBLIC / "images"
 
 PROJECT_IMAGES = [
-    "volyx-lens-context-aperture.jpg",
-    "local-review-intelligence-dashboard-5b174ed3.jpg",
+    "volyx-lens-current-b895e2a7.jpg",
+    "volyx-lens-panel-f56c6caa.jpg",
+    "local-review-intelligence-dashboard-ef7c0e0e.jpg",
     "football-forecasting-dashboard-12cff076.jpg",
 ]
 

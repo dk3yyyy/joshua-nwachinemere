@@ -2,10 +2,10 @@
 @font-face { font-family: 'Azeret Mono'; src: url('/fonts/azeret-mono-400.woff2') format('woff2'); font-style: normal; font-weight: 400 500; font-display: swap; }
 
 :root {
-  --ink: #14181a;
-  --muted: #4f5a54;
-  --accent: #1f5c46;
-  --accent-2: #7a4a2a;
+  --ink: #0a1020;
+  --muted: #4d5b70;
+  --accent: #2447ff;
+  --accent-2: #d94f2a;
   --glass: rgba(255, 255, 255, .52);
   --glass-raised: rgba(255, 255, 255, .68);
   --glass-border: rgba(255, 255, 255, .72);
@@ -16,10 +16,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #f2f3ee;
-    --muted: #e4e9e2;
-    --accent: #8fd0b2;
-    --accent-2: #d8a878;
+    --ink: #f0f4ff;
+    --muted: #b2c0d4;
+    --accent: #9eb0ff;
+    --accent-2: #ff936b;
     --glass: rgba(14, 20, 32, .74);
     --glass-raised: rgba(22, 30, 46, .86);
     --glass-border: rgba(255, 255, 255, .16);
@@ -38,14 +38,14 @@ body {
   padding: 24px;
   color: var(--ink);
   background:
-    radial-gradient(60vw 60vw at 12% 0%, rgba(230, 197, 160, .8), transparent 70%),
-    radial-gradient(55vw 55vw at 88% 12%, rgba(195, 212, 189, .75), transparent 70%),
-    radial-gradient(60vw 60vw at 50% 100%, rgba(220, 198, 178, .75), transparent 70%),
-    linear-gradient(160deg, #f7f4ee, #ece8df 50%, #f3efe6);
+    radial-gradient(60vw 60vw at 12% 0%, rgba(89, 119, 255, .22), transparent 70%),
+    radial-gradient(55vw 55vw at 88% 12%, rgba(126, 164, 235, .22), transparent 70%),
+    radial-gradient(60vw 60vw at 50% 100%, rgba(224, 101, 67, .14), transparent 70%),
+    linear-gradient(160deg, #f4f7fc, #e7edf6 50%, #eef2f8);
   font: 400 17px/1.55 'Archivo', Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  body { background: radial-gradient(60vw 60vw at 12% 0%, #3a3a24, transparent 70%), radial-gradient(55vw 55vw at 88% 12%, #2a3a2c, transparent 70%), linear-gradient(160deg, #11150f, #0c0f0e); }
+  body { background: radial-gradient(60vw 60vw at 12% 0%, #16284a, transparent 70%), radial-gradient(55vw 55vw at 88% 12%, #1b2d4a, transparent 70%), linear-gradient(160deg, #0d1626, #070c15); }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 

@@ -169,8 +169,8 @@ test('professional portfolio is complete, accessible, private, and runtime-clean
     };
   });
   expect(palette).toMatchObject({
-    paper: '#f1efe9', surface: '#ffffff', ink: '#14181a', muted: '#4f5a54', signal: '#1f5c46',
-    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(18, 23, 17)',
+    paper: '#e9eef6', surface: '#ffffff', ink: '#0a1020', muted: '#4d5b70', signal: '#2447ff',
+    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(8, 20, 46)',
   });
   expect(palette.accentFamily).toContain('Archivo');
 
@@ -187,28 +187,28 @@ test('automatic theme always follows the OS and clears legacy manual overrides',
 
   await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 12, 21)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070c15');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
   await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(198, 206, 199)');
+  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(178, 192, 212)');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
 
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(241, 239, 233)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f1efe9');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(233, 238, 246)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#e9eef6');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   await page.emulateMedia({ colorScheme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 12, 21)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#070c15');
 
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(7, 12, 21)');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
 
   for (const width of [320, 359, 390, 744, 1024]) {

@@ -13,12 +13,12 @@ const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.u
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const socialCard = await readFile(new URL('../public/og-card-v8.png', import.meta.url));
+const socialCard = await readFile(new URL('../public/og-card-v9.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v8.png`;
+const socialCardUrl = `${siteUrl}og-card-v9.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -113,19 +113,10 @@ test('hero and availability copy are exact and direct', () => {
   assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>No\. 01 · Applied AI<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
   assert.match(html, /<h1[^>]*>I build Python systems that <em>show their work<\/em>\.<\/h1>/);
   assert.ok(textOnly.includes('Most of my work is Python. I build retrieval and context systems, then the evaluation that decides whether an answer is grounded and whether a failure is visible.'));
-  assert.match(html, /<nav class="inside" aria-label="Inside this portfolio">/);
-  for (const [href, label, count] of [
-    ['#work', 'Selected work', '03'],
-    ['#contributions', 'Open source', '13'],
-    ['#writing', 'Writing', '05'],
-    ['#background', 'Background', '2021'],
-  ]) {
-    assert.match(
-      html,
-      new RegExp(`<a href="${href}"><span class="inside-n">\\d\\d</span><span class="inside-t">${label}</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">${count}</span></a>`),
-      `Missing inside-index row for ${label}`,
-    );
-  }
+  assert.match(html, /<figure class="hero-proof">/);
+  assert.match(html, /Case 01 \/ live product/);
+  assert.match(html, /volyx-lens-panel-f56c6caa\.jpg/);
+  assert.doesNotMatch(html, /<nav class="inside"/);
   assert.match(html, /<p class="hero-readout"><span><b>5<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>5<\/b> featured essays<\/span><\/p>/);
   assert.ok(textOnly.includes('Looking for AI Engineer or Applied AI Engineer roles.'));
   assert.ok(!textOnly.includes('Planning to relocate'));
@@ -248,8 +239,8 @@ test('project maturity, ownership, and evaluation evidence remain exact', () => 
 
 test('adds honest, accessible visual product evidence without the rejected control token', async () => {
   const expectedMedia = [
-    ['project-lens', '%BASE_URL%images/volyx-lens-context-aperture.jpg', 'High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs'],
-    ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg', 'Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table'],
+    ['project-lens', '%BASE_URL%images/volyx-lens-current-b895e2a7.jpg', 'Current Volyx Lens landing page with the app-chrome hero, attached screen and microphone context, and a Lens answer about a changed line'],
+    ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-ef7c0e0e.jpg', 'Current Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table'],
     ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities'],
   ];
   for (const [projectId, source, alt] of expectedMedia) {
@@ -258,8 +249,8 @@ test('adds honest, accessible visual product evidence without the rejected contr
     assert.ok(project.includes(`alt="${alt}"`), `Missing descriptive alt text for ${projectId}`);
     assert.match(project, /<figcaption>[\s\S]+<\/figcaption>/);
   }
-  const lensImage = await stat(new URL('../public/images/volyx-lens-context-aperture.jpg', import.meta.url));
-  const localDashboardImage = await stat(new URL('../public/images/local-review-intelligence-dashboard-5b174ed3.jpg', import.meta.url));
+  const lensImage = await stat(new URL('../public/images/volyx-lens-current-b895e2a7.jpg', import.meta.url));
+  const localDashboardImage = await stat(new URL('../public/images/local-review-intelligence-dashboard-ef7c0e0e.jpg', import.meta.url));
   const footballDashboardImage = await stat(new URL('../public/images/football-forecasting-dashboard-12cff076.jpg', import.meta.url));
   assert.ok(lensImage.size > 10_000);
   assert.ok(localDashboardImage.size > 10_000);
@@ -267,7 +258,7 @@ test('adds honest, accessible visual product evidence without the rejected contr
   const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(
     localProject,
-    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-5b174ed3\.jpg" width="1200" height="833"/,
+    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-ef7c0e0e\.jpg" width="1200" height="833"/,
   );
   assert.doesNotMatch(localProject, /local-review-intelligence-evidence\.jpg/);
   const footballProject = html.match(/<article[^>]+id="project-football"[\s\S]*?<\/article>/)?.[0] ?? '';
@@ -279,7 +270,7 @@ test('adds honest, accessible visual product evidence without the rejected contr
   assert.doesNotMatch(footballProject, /redesigned/i);
   assert.doesNotMatch(html, /class="visual-link"/);
   assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
-  assert.ok(textOnly.includes('Context Aperture. Screen, microphone and system audio are inputs you switch on yourself; only what you choose reaches the provider.'));
+  assert.ok(textOnly.includes('Current product site. Screen, microphone and meeting context are inputs you switch on yourself; only what you choose reaches the provider.'));
 });
 
 test('keeps all five repository URLs and all thirteen contribution rows visible', () => {
@@ -418,7 +409,7 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes production-aligned social metadata and the approved v8 landing-page card', () => {
+test('publishes production-aligned social metadata and the approved v9 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
@@ -452,11 +443,11 @@ test('CV and identity artifacts remain intact', async () => {
 });
 
 test('uses the approved terminal-window favicon in the portfolio visual system', () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=5" type="image\/svg\+xml" \/>/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=6" type="image\/svg\+xml" \/>/);
   assert.match(favicon, /<title id="title">Terminal window<\/title>/);
-  assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
-  assert.match(favicon, /fill="#f1efe9"/);
-  assert.match(favicon, /stroke="#14251c"/);
+  assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and cobalt palette<\/desc>/);
+  assert.match(favicon, /fill="#e9eef6"/);
+  assert.match(favicon, /stroke="#2447ff"/);
   assert.match(favicon, /data-mark="prompt"/);
   assert.match(favicon, /data-mark="cursor"/);
   assert.doesNotMatch(favicon, /JN split monogram|#cfff48|#2448ff|>J<|>N</);
