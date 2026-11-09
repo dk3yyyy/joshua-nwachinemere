@@ -248,8 +248,8 @@ h1 {
 .ledger-breakdown > p { margin: 0 0 9px; color: var(--muted-strong); font: 600 9px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
 .ledger-breakdown > p strong { color: var(--ink); font-weight: 700; }
 .ledger-breakdown ul { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
-.ledger-breakdown li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; }
-.ledger-breakdown li b { color: var(--ink); font-family: var(--display); font-size: 20px; font-weight: 400; letter-spacing: -.03em; }
+.ledger-breakdown li { display: flex; align-items: baseline; justify-content: flex-start; gap: 8px; color: var(--muted); font-size: 11px; }
+.ledger-breakdown li b { min-width: 12px; color: var(--ink); font-family: var(--display); font-size: 20px; font-weight: 400; letter-spacing: -.03em; }
 .text-link { display: inline-block; margin-top: 20px; color: var(--ink); font-size: 12px; font-weight: 600; text-underline-offset: 4px; }
 .ledger-list { display: grid; grid-template-columns: 1fr 1fr; align-content: start; margin: 0; padding: 13px 18px; list-style: none; }
 .ledger-list li { border-bottom: 1px solid var(--border); }
