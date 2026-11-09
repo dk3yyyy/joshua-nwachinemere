@@ -331,6 +331,11 @@ h1 {
   .footer-inner { flex-wrap: wrap; }
 }
 
+@media (min-width: 901px) {
+  .ledger-list li:last-child a { grid-template-columns: 22px minmax(0, 1fr) auto; }
+  .ledger-list li:last-child small { grid-column: 3; grid-row: 1; align-self: center; max-width: 42%; margin-top: 0; text-align: right; }
+}
+
 @media (min-width: 700px) and (max-width: 900px) {
   .evidence-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .evidence-card:last-child { grid-column: auto; }
