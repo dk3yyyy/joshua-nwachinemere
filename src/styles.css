@@ -372,6 +372,10 @@ h1 {
   .evidence-card:last-child { grid-column: auto; }
 }
 
+@media (min-width: 621px) {
+  .hero h1 mark { white-space: nowrap; }
+}
+
 @media (min-width: 380px) and (max-width: 620px) {
   .hero h1 mark { white-space: nowrap; }
 }
