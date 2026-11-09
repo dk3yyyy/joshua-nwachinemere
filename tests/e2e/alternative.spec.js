@@ -64,7 +64,8 @@ test('portfolio content, links, accessibility and runtime are clean', async ({ p
     'href',
     'mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity',
   );
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#fafafa');
+  await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')).toHaveAttribute('content', '#fafafa');
+  await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')).toHaveAttribute('content', '#111110');
   await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
 
   const axe = await new AxeBuilder({ page }).analyze();
