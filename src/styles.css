@@ -359,7 +359,7 @@ h1 {
   .header-actions .button { padding: 8px 11px; font-size: 11px; white-space: nowrap; }
   .menu-button { width: 38px; height: 38px; }
   .site-header.is-open .primary-nav { top: 58px; padding-right: 16px; padding-left: 16px; }
-  .hero { padding: 57px 0 51px; }
+  .hero { padding: 40px 0 51px; }
   .hero-inner { padding: 0 18px; }
   .availability { margin-bottom: 20px; font-size: 11px; }
   h1 { font-size: clamp(40px, 12.8vw, 57px); line-height: 1.18; }
@@ -456,6 +456,12 @@ html:not([data-enhanced]) .assistant-widget { display: none; }
 @media (max-width: 620px) {
   .assistant-widget { right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); }
   .assistant-panel { width: calc(100vw - 28px); max-height: calc(100dvh - 146px); }
+}
+
+@media (max-width: 620px) and (max-height: 820px) {
+  .assistant-launcher { width: 46px; padding: 4px; justify-content: center; }
+  .assistant-launcher > span:last-child { display: none; }
+  .assistant-launcher-mark { width: 36px; height: 36px; }
 }
 
 @media (max-width: 380px) {
