@@ -266,16 +266,16 @@ test('includes the approved background, contact, and footer copy', () => {
 test('features exactly five aligned essays with canonical Hashnode links and no duplicate cross-posted platforms', () => {
   const writingEssays = [
     {
-      title: 'The Hidden Complexity of RAG',
-      href: 'https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag',
-    },
-    {
       title: 'A Million-Token Context Is Not Memory',
       href: 'https://joshua-nwachinemere.hashnode.dev/a-million-token-context-is-not-memory',
     },
     {
       title: 'MCP Made Tools Connectable. It Did Not Make Them Understandable.',
       href: 'https://joshua-nwachinemere.hashnode.dev/mcp-made-tools-connectable-it-did-not-make-them-understandable',
+    },
+    {
+      title: 'The Hidden Complexity of RAG',
+      href: 'https://joshua-nwachinemere.hashnode.dev/the-hidden-complexity-of-rag',
     },
     {
       title: 'The Handoff Problem',
@@ -285,8 +285,7 @@ test('features exactly five aligned essays with canonical Hashnode links and no 
       title: 'The Two Boundaries Where Voice Agents Quietly Corrupt State',
       href: 'https://joshua-nwachinemere.hashnode.dev/the-two-boundaries-where-voice-agents-quietly-corrupt-state',
     },
-  ];
-  const writingSection = html.match(/<section[^>]+id="writing"[\s\S]*?<\/section>/)?.[0] ?? '';
+  ];  const writingSection = html.match(/<section[^>]+id="writing"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.ok(writingSection, 'Missing #writing section');
   assert.equal((writingSection.match(/class="writing-item writing-row"/g) || []).length, writingEssays.length);
   const positions = writingEssays.map(({ href }) => writingSection.indexOf(href));
