@@ -57,7 +57,7 @@ button, input, textarea { font: inherit; }
 
 .site-header {
   position: sticky; z-index: 50; top: 0; border-bottom: 1px solid var(--border);
-  background: rgba(250, 250, 250, .94); backdrop-filter: blur(18px) saturate(120%);
+  background: var(--bg);
 }
 .header-inner {
   display: flex; align-items: center; gap: 28px; width: min(100%, var(--max));
