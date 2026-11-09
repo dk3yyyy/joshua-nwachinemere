@@ -13,12 +13,12 @@ const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.u
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const socialCard = await readFile(new URL('../public/og-card-v8.png', import.meta.url));
+const socialCard = await readFile(new URL('../public/og-card-v9.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v8.png`;
+const socialCardUrl = `${siteUrl}og-card-v9.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -67,6 +67,7 @@ const retiredEmail = 'josh0victor@outlook.com';
 const mailto = `mailto:${contactEmail}?subject=AI%20Engineer%20opportunity`;
 
 const occurrences = (source, value) => source.split(value).length - 1;
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const textOnly = html
   .replace(/<script[\s\S]*?<\/script>/gi, '')
   .replace(/<style[\s\S]*?<\/style>/gi, '')
@@ -91,59 +92,22 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
 });
 
-test('always follows the system theme without a manual theme control or override', () => {
-  assert.match(html, /<script src="\/theme-init\.js"><\/script>/);
+test('keeps the portfolio on a fixed light surface with no theme control', () => {
+  assert.match(html, /<meta name="theme-color" content="#fafafa" \/>/);
   assert.doesNotMatch(html, /theme-control|theme-toggle|theme-icon-|theme-menu|data-theme-option/);
-  assert.doesNotMatch(css, /:root\[data-theme='(?:light|dark)'\]/);
-  assert.match(css, /@media\s*\(prefers-color-scheme:\s*dark\)/);
-  assert.match(css, /:root\[data-theme='auto'\]/);
-  assert.doesNotMatch(css, /\.theme-control|\.theme-toggle|\.theme-icon-/);
-  assert.match(css, /color-scheme:\s*dark/);
-  assert.match(themeInitJs, /portfolio-theme/);
-  assert.match(themeInitJs, /localStorage\.removeItem/);
-  assert.doesNotMatch(themeInitJs, /localStorage\.getItem|localStorage\.setItem/);
-  assert.match(themeInitJs, /prefers-color-scheme: dark/);
-  assert.match(themeInitJs, /meta\[name="theme-color"\]/);
-  assert.match(mainJs, /function syncSystemTheme\(\)/);
-  assert.match(mainJs, /systemDark\.addEventListener\('change', syncSystemTheme\)/);
-  assert.doesNotMatch(mainJs, /THEME_STORAGE_KEY|THEME_STATES|themeToggle|localStorage/);
+  assert.doesNotMatch(css, /prefers-color-scheme:\s*dark/);
+  assert.doesNotMatch(mainJs, /localStorage/);
 });
 
 test('hero and availability copy are exact and direct', () => {
-  assert.match(html, /<div class="hero-runninghead"[^>]*>\s*<span>Joshua Nwachinemere<\/span>\s*<span>No\. 01 · Applied AI<\/span>\s*<span>Portfolio · 2026<\/span>\s*<\/div>/);
-  assert.match(html, /<h1[^>]*>I build Python systems that <em>show their work<\/em>\.<\/h1>/);
-  assert.ok(textOnly.includes('Most of my work is Python. I build retrieval and context systems, then the evaluation that decides whether an answer is grounded and whether a failure is visible.'));
-  assert.match(html, /<nav class="inside" aria-label="Inside this portfolio">/);
-  for (const [href, label, count] of [
-    ['#work', 'Selected work', '03'],
-    ['#contributions', 'Open source', '13'],
-    ['#writing', 'Writing', '05'],
-    ['#background', 'Background', '2021'],
-  ]) {
-    assert.match(
-      html,
-      new RegExp(`<a href="${href}"><span class="inside-n">\\d\\d</span><span class="inside-t">${label}</span><span class="inside-d" aria-hidden="true"></span><span class="inside-c">${count}</span></a>`),
-      `Missing inside-index row for ${label}`,
-    );
-  }
-  assert.match(html, /<p class="hero-readout"><span><b>5<\/b> projects<\/span><span><b>13<\/b> upstream PRs<\/span><span><b>5<\/b> featured essays<\/span><\/p>/);
-  assert.ok(textOnly.includes('Looking for AI Engineer or Applied AI Engineer roles.'));
-  assert.ok(!textOnly.includes('Planning to relocate'));
-  assert.ok(!textOnly.includes('Student visa conditions'));
-  assert.ok(textOnly.includes('MSc Artificial Intelligence · Northumbria University · September 2026 intake'));
-  assert.match(html, />View selected work<\/a>/);
-  assert.match(html, />Download CV<\/a>/);
-  assert.match(html, /class="hero-system-map"[^>]+aria-label="Applied AI workflow: 1 Input, multimodal; 2 Context, retrieval; 3 Model, orchestration; 4 Evaluation, reliability; each arrow is a seam to check\."/);
-  for (const label of ['Input', 'Context', 'Model', 'Evaluation']) assert.match(html, new RegExp(`<strong>${label}<\\/strong>`));
-  assert.match(css, /@media \(min-width: 1051px\)[\s\S]*?\.hero-system-map \{ display: block;/);
-  assert.match(css, /\.hero-system-map \{ display: none; \}/);
-  assert.match(css, /\.system-map-canvas \{[^}]*border-top: 2px solid/);
-  assert.equal((html.match(/class="system-node system-node--/g) || []).length, 4);
-  assert.match(css, /\.system-node small \{[^}]*font: 400 10px\/1\.3/);
-  assert.match(css, /\.system-node \+ \.system-node \{[^}]*border-left: 1px solid/);
-  assert.match(html, /The handoffs between stages are where this usually breaks\./);
-  assert.match(html, /Applied AI \/ system map/);
-  assert.equal((html.match(/class="project-bar"/g) || []).length, 3, 'Each featured case needs an ink case bar');
+  assert.ok(html.includes('<p class="availability"><span class="availability-dot" aria-hidden="true"></span>Open to AI engineer roles</p>'));
+  assert.match(html, /<h1 id="hero-title">Python systems that <mark>show their work\.<\/mark><\/h1>/);
+  assert.ok(textOnly.includes('Retrieval, context and evaluation. I build systems whose answers can be inspected, then ship the checks that prove it.'));
+  assert.match(html, /<div class="hero-projects" aria-label="Selected projects">/);
+  assert.equal((html.match(/class="hero-project"/g) || []).length, 3);
+  assert.match(html, /<a class="button button-primary" href="#work">View selected work <span aria-hidden="true">→<\/span><\/a>/);
+  assert.match(html, /<a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf" target="_blank" rel="noreferrer">Download CV<\/a>/);
+  assert.match(html, /<p class="hero-note"><b>5<\/b> projects <span aria-hidden="true">·<\/span> <b>13<\/b> upstream PRs <span aria-hidden="true">·<\/span> <b>5<\/b> essays<\/p>/);
 });
 
 test('production remains indexable while HTML revalidation stays enabled', () => {
@@ -199,32 +163,25 @@ test('includes a grounded corner chatbot with an accessible popup and explicit s
 
 test('renders exactly three featured and two additional projects in source order', () => {
   assert.equal((html.match(/class="project-card project-card--primary"/g) || []).length, 3);
-  assert.equal((html.match(/class="project-card project-card--compact"/g) || []).length, 2);
-  assert.equal((html.match(/<h3[^>]*data-project-name/g) || []).length, 5);
-  const positions = projectNames.map((name) => html.indexOf(`>${name}</h3>`));
+  assert.equal((html.match(/class="more-work-item"/g) || []).length, 2);
+  assert.equal((html.match(/<h3[^>]*data-project-name/g) || []).length, 3);
+  assert.equal((html.match(/class="more-work-item"/g) || []).length, 2);
+  const positions = projectNames.map((name) => html.indexOf(name));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
-  for (const name of projectNames) assert.equal(occurrences(textOnly, name), 1, `Expected one visible project name: ${name}`);
   assert.doesNotMatch(html, /role="tab(?:list|panel)?"|aria-selected=|data-tab/i);
 });
 
-test('project maturity, ownership, and evaluation evidence remain exact', () => {
-  for (const label of maturityLabels) {
-    assert.equal(occurrences(textOnly, label), 1, `Expected exact maturity label once: ${label}`);
+test('project maturity and evaluation evidence remain exact', () => {
+  for (const label of ['Live product', 'Evaluation', 'Research']) {
+    assert.ok(textOnly.includes(label), `Expected maturity label: ${label}`);
   }
-  assert.equal(occurrences(textOnly, 'Independent project'), 5);
-  assert.ok(textOnly.includes('Across 1,140 rolling-origin test matches it gets 53.77% accuracy. The bookmaker benchmark is 56.70% on the 1,125 matches with non-tied closing odds (98.7% coverage).'));
-  assert.doesNotMatch(textOnly, /The model did not beat the benchmark/i);
-  assert.ok(textOnly.includes('Three projects, each built around a check that the output is right.'));
-  const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
-  assert.doesNotMatch(lens, /<dt>Scope<\/dt>|ad-hoc signed test builds|notarized releases/i);
-  assert.ok(textOnly.includes('Nothing is captured until you switch it on. The renderer is sandboxed with context isolation, and each provider only gets the context you selected.'));
-  assert.ok(textOnly.includes('30-case retrieval benchmark: Semantic Recall@5 0.913 versus 0.770 for BM25.'));
-  assert.ok(textOnly.includes('Every citation is validated, and an answer gets one bounded repair attempt when citations are missing or invalid.'));
-  const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
-  assert.doesNotMatch(localProject, /<dt>Limitations<\/dt>|Three of 25|median latency|dirty worktree|both 0\.560|general reliability/i);
+  assert.equal((html.match(/class="project-card-link"/g) || []).length, 3);
+  assert.ok(textOnly.includes('30-case retrieval benchmark'));
+  assert.ok(textOnly.includes('0.913'));
+  assert.ok(textOnly.includes('0.770'));
+  assert.ok(textOnly.includes('Nothing is captured until you switch it on.'));
   assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View results<\/a>/);
-  assert.doesNotMatch(html, /local_AI_agent\/tree\/main\/evaluation\/results\/v0\.2\.0-ollama-0\.32\.5/);
   assert.equal(createHash('sha256').update(localReviewReport).digest('hex'), '2e2f76e4d74b6ddedb1e37039fbd603d10116d14e01849f04b1df94530193341');
   assert.equal(localReviewReportJson.schema_version, 3);
   assert.equal(localReviewReportJson.provenance.git_commit, '25b65ff85f243f731fa6c376eaefb133c6f4e7e7');
@@ -241,81 +198,65 @@ test('project maturity, ownership, and evaluation evidence remain exact', () => 
     reference_term_support_proxy: 0.86,
     retrieval_recall: 0.9133333333333333,
   });
-  assert.doesNotMatch(textOnly, /Verified behaviour/i);
-  assert.match(lens, /Independent project/);
-  assert.doesNotMatch(lens, /VolyxAI/i);
 });
 
 test('adds honest, accessible visual product evidence without the rejected control token', async () => {
   const expectedMedia = [
-    ['project-lens', '%BASE_URL%images/volyx-lens-context-aperture.jpg', 'High-resolution capture of the live product site showing its Context Aperture interface and Screen, You and Them inputs'],
-    ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-5b174ed3.jpg', 'Local Review Intelligence dashboard showing 123 reviews, summary metrics, rating distribution and the review table'],
-    ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Football Forecasting Lab match-intelligence dashboard showing synthetic demo provenance, overview signals and fictional fixture probabilities'],
+    ['project-lens', '%BASE_URL%images/volyx-lens-current-b895e2a7.jpg', 'Current Volyx Lens landing page with the app-chrome hero and a cited answer'],
+    ['project-local-ai', '%BASE_URL%images/local-review-intelligence-dashboard-ef7c0e0e.jpg', 'Local Review Intelligence dashboard with review metrics and an inspectable review table'],
+    ['project-football', '%BASE_URL%images/football-forecasting-dashboard-12cff076.jpg', 'Football Forecasting Lab match-intelligence dashboard with synthetic demo provenance and fixture probabilities'],
   ];
   for (const [projectId, source, alt] of expectedMedia) {
-    const project = html.match(new RegExp(`<article[^>]+id="${projectId}"[\\s\\S]*?<\\/article>`))?.[0] ?? '';
+    const projectStart = html.indexOf(`id="${projectId}"`);
+    const project = projectStart >= 0 ? html.slice(projectStart, html.indexOf('</article>', projectStart)) : '';
     assert.ok(project.includes(`src="${source}"`), `Missing media source for ${projectId}`);
     assert.ok(project.includes(`alt="${alt}"`), `Missing descriptive alt text for ${projectId}`);
-    assert.match(project, /<figcaption>[\s\S]+<\/figcaption>/);
+    assert.match(project, /<figcaption[\s\S]+<\/figcaption>/);
   }
-  const lensImage = await stat(new URL('../public/images/volyx-lens-context-aperture.jpg', import.meta.url));
-  const localDashboardImage = await stat(new URL('../public/images/local-review-intelligence-dashboard-5b174ed3.jpg', import.meta.url));
+  const lensImage = await stat(new URL('../public/images/volyx-lens-current-b895e2a7.jpg', import.meta.url));
+  const localDashboardImage = await stat(new URL('../public/images/local-review-intelligence-dashboard-ef7c0e0e.jpg', import.meta.url));
   const footballDashboardImage = await stat(new URL('../public/images/football-forecasting-dashboard-12cff076.jpg', import.meta.url));
   assert.ok(lensImage.size > 10_000);
   assert.ok(localDashboardImage.size > 10_000);
   assert.ok(footballDashboardImage.size > 10_000);
-  const localProject = html.match(/<article[^>]+id="project-local-ai"[\s\S]*?<\/article>/)?.[0] ?? '';
-  assert.match(
-    localProject,
-    /<img src="%BASE_URL%images\/local-review-intelligence-dashboard-5b174ed3\.jpg" width="1200" height="833"/,
-  );
-  assert.doesNotMatch(localProject, /local-review-intelligence-evidence\.jpg/);
-  const footballProject = html.match(/<article[^>]+id="project-football"[\s\S]*?<\/article>/)?.[0] ?? '';
-  assert.match(
-    footballProject,
-    /<img src="%BASE_URL%images\/football-forecasting-dashboard-12cff076\.jpg" width="1200" height="833"/,
-  );
-  assert.match(footballProject, /isolated synthetic test dataset/);
-  assert.doesNotMatch(footballProject, /redesigned/i);
   assert.doesNotMatch(html, /class="visual-link"/);
   assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
-  assert.ok(textOnly.includes('Context Aperture. Screen, microphone and system audio are inputs you switch on yourself; only what you choose reaches the provider.'));
 });
 
-test('keeps all five repository URLs and all thirteen contribution rows visible', () => {
-  for (const url of [...repositoryUrls, ...pullRequestUrls]) assert.ok(html.includes(url), `Missing ${url}`);
+test('keeps the repository URLs and all thirteen contribution rows visible', () => {
+  for (const url of repositoryUrls.concat(['https://volyxlens.pages.dev/'])) {
+    assert.ok(html.includes(url), `Missing ${url}`);
+  }
+  for (const url of pullRequestUrls) assert.ok(html.includes(url), `Missing ${url}`);
   assert.equal((html.match(/class="contribution-row"/g) || []).length, 13);
   assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 13);
-  assert.ok(textOnly.includes('Thirteen pull requests merged into other maintainers’ projects. Each one links to the discussion.'));
+  assert.ok(textOnly.includes('Thirteen pull requests accepted by other maintainers. Every row links to the discussion, not a screenshot of one.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
-  assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)|aria-hidden="true"/i);
+  assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)/i);
 });
 
-test('places merged upstream work before the smaller backend projects', () => {
-  const contributionPosition = html.indexOf('id="contributions"');
-  const additionalPosition = html.indexOf('id="additional-work"');
-  assert.ok(contributionPosition >= 0);
-  assert.ok(additionalPosition >= 0);
-  assert.ok(contributionPosition < additionalPosition);
+test('keeps the smaller backend projects next to the featured work', () => {
+  assert.ok(html.includes('id="additional-work"'));
+  assert.ok(html.includes('id="contributions"'));
+  assert.ok(html.indexOf('id="additional-work"') < html.indexOf('id="contributions"'));
 });
 
 test('keeps project actions focused on demos, source, and explanatory evidence', () => {
   assert.doesNotMatch(html, /href="[^"]*\/actions(?:[/?#][^"]*)?"/i);
   assert.doesNotMatch(textOnly, /View CI|View release checks/i);
-  assert.match(textOnly, /Open live demo/);
+  assert.match(textOnly, /Visit site/);
   assert.match(textOnly, /View source/);
-  assert.match(textOnly, /Read architecture/);
-  assert.match(textOnly, /View results/);
+  assert.match(textOnly, /View repository/);
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
-  assert.match(lens, /<a href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">Visit live site<\/a>/);
+  assert.match(lens, /<a class="project-card-link" href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">/);
 });
 
 test('includes the approved background, contact, and footer copy', () => {
-  for (const heading of ['Background', 'Tell me what you’re building.']) {
-    assert.match(textOnly, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  for (const heading of ['Background', 'Let’s build something that can be checked.']) {
+    assert.ok(textOnly.includes(heading));
   }
   assert.ok(textOnly.includes('VolyxAI product work'));
-  assert.ok(textOnly.includes('Independent product effort'));
+  assert.ok(textOnly.includes('Independent engineering'));
   assert.ok(textOnly.includes('I’m looking for AI Engineer or Applied AI Engineer work on Python services, retrieval and context systems, multimodal or voice workflows, and evaluation.'));
   assert.ok(!textOnly.includes('Open to part-time work during study'));
   assert.ok(!textOnly.includes('future full-time graduate roles'));
@@ -339,7 +280,7 @@ test('features exactly five aligned essays with canonical Hashnode links and no 
       href: 'https://joshua-nwachinemere.hashnode.dev/mcp-made-tools-connectable-it-did-not-make-them-understandable',
     },
     {
-      title: 'The Handoff Problem: Why Multi-Model AI Pipelines Quietly Corrupt Good Research',
+      title: 'The Handoff Problem',
       href: 'https://joshua-nwachinemere.hashnode.dev/the-handoff-problem-why-multi-model-ai-pipelines-quietly-corrupt-good-research',
     },
     {
@@ -349,7 +290,7 @@ test('features exactly five aligned essays with canonical Hashnode links and no 
   ];
   const writingSection = html.match(/<section[^>]+id="writing"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.ok(writingSection, 'Missing #writing section');
-  assert.equal((writingSection.match(/class="writing-row"/g) || []).length, writingEssays.length);
+  assert.equal((writingSection.match(/class="writing-item writing-row"/g) || []).length, writingEssays.length);
   const positions = writingEssays.map(({ href }) => writingSection.indexOf(href));
   assert.ok(positions.every((position) => position >= 0), 'Missing an expected essay link');
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
@@ -367,30 +308,28 @@ test('features exactly five aligned essays with canonical Hashnode links and no 
 test('visible portfolio copy stays capability-led rather than limitation-led', () => {
   assert.doesNotMatch(textOnly, /measured limitations|not presented as conventional employment|not employment with the upstream projects|Degrade without hiding failure|reports its loss|The model did not beat the benchmark|ad-hoc signed test builds|notarized releases|Active pre-release|Experimental evaluation/i);
   assert.doesNotMatch(html, /<dt>Limitations<\/dt>|<dt>Scope<\/dt>/i);
-  assert.ok(textOnly.includes('One live AI product, and one workflow built to survive restarts and partial failures.'));
-  assert.ok(textOnly.includes('Diff text is checked for injected instructions; webhooks are signature-verified; hunts are queued and budgeted.'));
+  assert.ok(textOnly.includes('Each project has a check that would fail if the output were wrong.'));
+  assert.ok(textOnly.includes('Citations that validate'));
+  assert.ok(textOnly.includes('Evaluation with a baseline'));
 });
 
 test('shows a focused and verifiable certification set', () => {
-  const certificationSection = html.match(/<article class="certifications">[\s\S]*?<\/article>/)?.[0] ?? '';
+  const certificationSection = html.match(/<div class="credential-links certifications">[\s\S]*?<\/div>/)?.[0] ?? '';
   const expected = [
-    ['Scientific Computing with Python', 'freeCodeCamp · May 2026', 'https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7'],
-    ['Google AI Specialization', 'Google/Coursera · Feb 2026', 'https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30'],
-    ['Model Context Protocol: Advanced Topics', 'Anthropic training · Mar 2026', 'https://verify.skilljar.com/c/fwqra86yief7'],
+    ['Scientific Computing with Python', 'https://www.freecodecamp.org/certification/joshua_nwachinemere/scientific-computing-with-python-v7'],
+    ['Google AI Specialization', 'https://www.coursera.org/account/accomplishments/professional-cert/L1UIFMPUME30'],
+    ['Model Context Protocol: Advanced Topics', 'https://verify.skilljar.com/c/fwqra86yief7'],
   ];
-  assert.ok(certificationSection, 'Missing certifications article');
-  assert.match(certificationSection, /<h3>Certifications &amp; training<\/h3>/);
+  assert.ok(certificationSection, 'Missing certifications block');
   assert.equal((certificationSection.match(/<a\b/g) ?? []).length, 3, 'Certification set must contain exactly three links');
-  for (const [name, metadata, url] of expected) {
+  for (const [name, url] of expected) {
     assert.ok(certificationSection.includes(name), `Missing credential named ${name}`);
-    assert.ok(certificationSection.includes(metadata), `Missing credential metadata: ${metadata}`);
     assert.ok(certificationSection.includes(`href="${url}"`), `Missing verification URL: ${url}`);
   }
   assert.doesNotMatch(certificationSection, /Google AI Professional Certificate|Google Cybersecurity|Claude Code in Action|Introduction to Model Context Protocol|AI Fluency/i);
 });
 
 test('forbids the retired concept, unsupported claims, and unapproved projects', () => {
-  assert.doesNotMatch(textOnly, /↗|→|➡|🔗|🚀/u);
   assert.doesNotMatch(textOnly, /\b(?:dossier|interviewer|proof[- ]note|alternative[- ]concept|candidate brief|evidence edition|decision packet)\b/i);
   assert.doesNotMatch(textOnly, /\b(?:customers?|users served|revenue|commercial outcomes?|production scale|industry-leading|senior|staff|principal)\b/i);
   assert.doesNotMatch(textOnly, /\b\d[\d,]*\s+(?:customers?|users?)\b/i);
@@ -405,33 +344,33 @@ test('preserves private functional email, base-safe CV, canonical, and structure
   assert.ok(emailLinks.length >= 1);
   for (const [, href, label] of emailLinks) {
     assert.equal(href, mailto);
-    assert.equal(label.trim(), 'Email me');
+    assert.equal(label.replace(/\s*<span[^>]*>↗<\/span>\s*$/, '').trim(), 'Email me');
   }
   assert.equal(occurrences(textOnly, 'Email me'), emailLinks.length);
-  assert.doesNotMatch(html.replaceAll(mailto, ''), new RegExp(contactEmail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
-  assert.doesNotMatch(html, new RegExp(retiredEmail.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  assert.doesNotMatch(html.replaceAll(mailto, ''), new RegExp(escapeRegex(contactEmail), 'i'));
+  assert.doesNotMatch(html, new RegExp(escapeRegex(retiredEmail), 'i'));
   assert.doesNotMatch(html, /aria-label="[^"]*@|content="[^"]*@/i);
   assert.match(html, /href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf"/);
-  assert.match(html, new RegExp(`<link rel="canonical" href="${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.ok(html.includes(`<link rel="canonical" href="${siteUrl}"`));
   assert.doesNotMatch(html, /<meta name="robots"[^>]*noindex/i);
   assert.match(html, /"@type": "ProfilePage"/);
   assert.match(html, /"@type": "Person"/);
 });
 
-test('publishes production-aligned social metadata and the approved v8 landing-page card', () => {
+test('publishes production-aligned social metadata and the approved v9 landing-page card', () => {
   assert.equal(socialCard.subarray(1, 4).toString(), 'PNG');
   assert.equal(socialCard.readUInt32BE(16), 1200);
   assert.equal(socialCard.readUInt32BE(20), 630);
-  assert.match(html, new RegExp(`<meta property="og:url" content="${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
-  assert.match(html, new RegExp(`<meta property="og:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
-  assert.match(html, new RegExp(`<meta property="og:image:secure_url" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.ok(html.includes(`<meta property="og:url" content="${siteUrl}"`));
+  assert.ok(html.includes(`<meta property="og:image" content="${socialCardUrl}"`));
+  assert.ok(html.includes(`<meta property="og:image:secure_url" content="${socialCardUrl}"`));
   assert.match(html, /<meta property="og:image:type" content="image\/png"/);
   assert.match(html, /<meta property="og:image:width" content="1200"/);
   assert.match(html, /<meta property="og:image:height" content="630"/);
   assert.match(html, /<meta property="og:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
-  assert.match(html, new RegExp(`<meta name="twitter:image" content="${socialCardUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+  assert.ok(html.includes(`<meta name="twitter:image" content="${socialCardUrl}"`));
   assert.match(html, /<meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work"/);
-  assert.doesNotMatch(html, /og-card-v[1-7]\.png/);
+  assert.doesNotMatch(html, /og-card-v[1-8]\.png/);
 });
 
 test('all external new-tab links are protected and fragments resolve uniquely', () => {
@@ -451,13 +390,12 @@ test('CV and identity artifacts remain intact', async () => {
   assert.ok(docx.size > 1_000);
 });
 
-test('uses the approved terminal-window favicon in the portfolio visual system', () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=5" type="image\/svg\+xml" \/>/);
-  assert.match(favicon, /<title id="title">Terminal window<\/title>/);
-  assert.match(favicon, /<desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette<\/desc>/);
-  assert.match(favicon, /fill="#f1efe9"/);
-  assert.match(favicon, /stroke="#14251c"/);
-  assert.match(favicon, /data-mark="prompt"/);
-  assert.match(favicon, /data-mark="cursor"/);
-  assert.doesNotMatch(favicon, /JN split monogram|#cfff48|#2448ff|>J<|>N</);
+test('uses the approved JN monogram favicon in the portfolio visual system', () => {
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg\?v=7" type="image\/svg\+xml" \/>/);
+  assert.match(favicon, /<title id="title">Joshua Nwachinemere monogram<\/title>/);
+  assert.match(favicon, /<desc id="desc">A black JN monogram on the portfolio yellow tile<\/desc>/);
+  assert.match(favicon, /fill="#f2c200"/);
+  assert.match(favicon, /fill="#111110"/);
+  assert.match(favicon, />JN<\/text>/);
+  assert.doesNotMatch(favicon, /Terminal window|terminal prompt/);
 });

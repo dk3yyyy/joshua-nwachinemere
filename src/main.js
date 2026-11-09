@@ -1,31 +1,20 @@
 import './styles.css';
-import './motion.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
-const root = document.documentElement;
-const menuButton = document.querySelector('.menu-button');
-const nav = document.querySelector('#primary-nav');
+document.documentElement.dataset.enhanced = 'true';
+
+const header = document.querySelector('[data-header]');
+const menuButton = header?.querySelector('.menu-button');
+const nav = header?.querySelector('#primary-nav');
 const desktop = window.matchMedia('(min-width: 901px)');
-const themeColor = document.querySelector('meta[name="theme-color"]');
-const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-function syncSystemTheme() {
-  root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#0c0f0e' : '#f1efe9';
-}
-
-syncSystemTheme();
-if (typeof systemDark.addEventListener === 'function') systemDark.addEventListener('change', syncSystemTheme);
-else systemDark.addListener(syncSystemTheme);
 
 function setMenu(open, { restoreFocus = false } = {}) {
-  if (!menuButton || !nav) return;
+  if (!header || !menuButton || !nav) return;
+  header.classList.toggle('is-open', open);
+  document.body.classList.toggle('menu-open', open);
   menuButton.setAttribute('aria-expanded', String(open));
-  nav.dataset.open = String(open);
-  const visibleLabel = menuButton.querySelector('[aria-hidden="true"]');
   const accessibleLabel = menuButton.querySelector('.sr-only');
-  if (visibleLabel) visibleLabel.textContent = open ? 'Close' : 'Menu';
-  if (accessibleLabel) accessibleLabel.textContent = open ? 'Menu, close navigation' : 'Menu, open navigation';
+  if (accessibleLabel) accessibleLabel.textContent = open ? 'Close navigation' : 'Open navigation';
   if (restoreFocus) menuButton.focus();
 }
 
@@ -38,7 +27,6 @@ nav?.addEventListener('click', (event) => {
 });
 
 desktop.addEventListener('change', () => setMenu(false));
-root.dataset.enhanced = 'true';
 
 // Mark the section currently in view so the navigation reports where you are.
 const navLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
@@ -78,11 +66,8 @@ function setAssistantOpen(open, { restoreFocus = false } = {}) {
   if (!assistantLauncher || !assistantPanel) return;
   assistantLauncher.setAttribute('aria-expanded', String(open));
   assistantPanel.hidden = !open;
-  if (open) {
-    window.requestAnimationFrame(() => assistantInput?.focus());
-  } else if (restoreFocus) {
-    assistantLauncher.focus();
-  }
+  if (open) window.requestAnimationFrame(() => assistantInput?.focus());
+  else if (restoreFocus) assistantLauncher.focus();
 }
 
 assistantLauncher?.addEventListener('click', () => {

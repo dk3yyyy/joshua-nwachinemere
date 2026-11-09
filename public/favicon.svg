@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Terminal window</title>
-  <desc id="desc">A terminal prompt and cursor framed in the portfolio ink and paper palette</desc>
-  <rect width="64" height="64" rx="10" fill="#f1efe9"/>
-  <rect x="5.5" y="7.5" width="53" height="49" rx="9" fill="none" stroke="#14251c" stroke-width="7"/>
-  <path data-mark="prompt" d="M19 21l12 11-12 11" fill="none" stroke="#14251c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path data-mark="cursor" d="M36 43h11" fill="none" stroke="#14251c" stroke-width="7" stroke-linecap="round"/>
+  <title id="title">Joshua Nwachinemere monogram</title>
+  <desc id="desc">A black JN monogram on the portfolio yellow tile</desc>
+  <rect width="64" height="64" rx="14" fill="#f2c200"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="-1.5" fill="#111110">JN</text>
 </svg>
