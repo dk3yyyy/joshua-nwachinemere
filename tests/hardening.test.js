@@ -8,11 +8,14 @@ const read = (path, encoding = 'utf8') => readFile(new URL(path, root), encoding
 const exists = async (path) => access(new URL(path, root)).then(() => true, () => false);
 
 const html = await read('index.html');
+const privacy = await read('public/privacy.html');
+const robots = await read('public/robots.txt');
+const sitemap = await read('public/sitemap.xml');
 const css = await read('src/styles.css');
 
-test('ships the purpose-built v8 social card and complete icon metadata', async () => {
+test('ships the purpose-built v9 social card and complete icon metadata', async () => {
   for (const path of [
-    'public/og-card-v8.png',
+    'public/og-card-v9.png',
     'public/favicon.ico',
     'public/apple-touch-icon.png',
     'public/icons/icon-192.png',
@@ -20,12 +23,12 @@ test('ships the purpose-built v8 social card and complete icon metadata', async 
     'public/site.webmanifest',
   ]) assert.equal(await exists(path), true, `Missing ${path}`);
 
-  const card = await read('public/og-card-v8.png', null);
+  const card = await read('public/og-card-v9.png', null);
   assert.equal(card.subarray(1, 4).toString(), 'PNG');
   assert.equal(card.readUInt32BE(16), 1200);
   assert.equal(card.readUInt32BE(20), 630);
-  assert.match(html, /og-card-v8\.png/);
-  assert.doesNotMatch(html, /og-card-v[1-6]\.png/);
+  assert.match(html, /og-card-v9\.png/);
+  assert.doesNotMatch(html, /og-card-v[1-8]\.png/);
   assert.match(html, /rel="apple-touch-icon"[^>]+apple-touch-icon\.png/);
   assert.match(html, /rel="manifest"[^>]+site\.webmanifest/);
 });
@@ -68,4 +71,19 @@ test('preserves the current thirteen-contribution chatbot surface', () => {
   assert.match(html, /Answers are assembled from reviewed portfolio evidence/);
   assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 13);
   assert.match(html, /<b>13<\/b> upstream PRs/);
+});
+
+
+test('publishes a privacy page with per-page metadata, robots and sitemap coverage', () => {
+  assert.match(privacy, /<title>Privacy · Joshua Nwachinemere<\/title>/);
+  assert.match(privacy, /<meta name="description" content="How this portfolio handles data:/);
+  assert.match(privacy, /<link rel="canonical" href="https:\/\/joshua-nwachinemere\.pages\.dev\/privacy"/);
+  assert.match(privacy, /<meta name="robots" content="index, follow, max-image-preview:large"/);
+  assert.match(privacy, /No first-party cookies, no analytics, no trackers/);
+  assert.doesNotMatch(privacy, /<script[^>]+(?:googletagmanager|plausible|umami|analytics)/i);
+  assert.match(robots, /Sitemap: https:\/\/joshua-nwachinemere\.pages\.dev\/sitemap\.xml/);
+  assert.match(robots, /Disallow: \/api\//);
+  assert.match(sitemap, /<loc>https:\/\/joshua-nwachinemere\.pages\.dev\/privacy<\/loc>/);
+  assert.match(sitemap, /<lastmod>2026-11-09<\/lastmod>/);
+  assert.match(html, /<a href="\/privacy">Privacy<\/a>/);
 });

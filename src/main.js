@@ -1,32 +1,22 @@
 import './styles.css';
-import './motion.js';
 import { answerQuestion, normaliseAssistantResult } from './assistant/core.js';
 
-const root = document.documentElement;
-const menuButton = document.querySelector('.menu-button');
-const nav = document.querySelector('#primary-nav');
+document.documentElement.dataset.enhanced = 'true';
+
+const header = document.querySelector('[data-header]');
+const menuButton = header?.querySelector('.menu-button');
+const nav = header?.querySelector('#primary-nav');
 const desktop = window.matchMedia('(min-width: 901px)');
-const themeColor = document.querySelector('meta[name="theme-color"]');
-const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-function syncSystemTheme() {
-  root.dataset.theme = 'auto';
-  if (themeColor) themeColor.content = systemDark.matches ? '#0c0f0e' : '#f1efe9';
-}
-
-syncSystemTheme();
-if (typeof systemDark.addEventListener === 'function') systemDark.addEventListener('change', syncSystemTheme);
-else systemDark.addListener(syncSystemTheme);
 
 function setMenu(open, { restoreFocus = false } = {}) {
-  if (!menuButton || !nav) return;
+  if (!header || !menuButton || !nav) return;
+  header.classList.toggle('is-open', open);
+  document.body.classList.toggle('menu-open', open);
   menuButton.setAttribute('aria-expanded', String(open));
-  nav.dataset.open = String(open);
-  const visibleLabel = menuButton.querySelector('[aria-hidden="true"]');
   const accessibleLabel = menuButton.querySelector('.sr-only');
-  if (visibleLabel) visibleLabel.textContent = open ? 'Close' : 'Menu';
-  if (accessibleLabel) accessibleLabel.textContent = open ? 'Menu, close navigation' : 'Menu, open navigation';
-  if (restoreFocus) menuButton.focus();
+  if (accessibleLabel) accessibleLabel.textContent = open ? 'Close navigation' : 'Open navigation';
+  if (open) window.requestAnimationFrame(() => nav.querySelector('a')?.focus());
+  else if (restoreFocus) menuButton.focus();
 }
 
 menuButton?.addEventListener('click', () => {
@@ -38,7 +28,16 @@ nav?.addEventListener('click', (event) => {
 });
 
 desktop.addEventListener('change', () => setMenu(false));
-root.dataset.enhanced = 'true';
+
+// Close the mobile menu when a header action or the page outside it is used.
+document.addEventListener('pointerdown', (event) => {
+  if (!header?.classList.contains('is-open')) return;
+  if (!event.target.closest('[data-header]')) {
+    setMenu(false);
+    return;
+  }
+  if (event.target.closest('.brand, .header-actions a')) setMenu(false);
+});
 
 // Mark the section currently in view so the navigation reports where you are.
 const navLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
@@ -78,17 +77,20 @@ function setAssistantOpen(open, { restoreFocus = false } = {}) {
   if (!assistantLauncher || !assistantPanel) return;
   assistantLauncher.setAttribute('aria-expanded', String(open));
   assistantPanel.hidden = !open;
-  if (open) {
-    window.requestAnimationFrame(() => assistantInput?.focus());
-  } else if (restoreFocus) {
-    assistantLauncher.focus();
-  }
+  if (open) window.requestAnimationFrame(() => assistantInput?.focus());
+  else if (restoreFocus) assistantLauncher.focus();
 }
 
 assistantLauncher?.addEventListener('click', () => {
   setAssistantOpen(assistantLauncher.getAttribute('aria-expanded') !== 'true');
 });
 assistantClose?.addEventListener('click', () => setAssistantOpen(false, { restoreFocus: true }));
+
+// The panel is non-modal; a click elsewhere should dismiss it without trapping focus.
+document.addEventListener('pointerdown', (event) => {
+  if (assistantLauncher?.getAttribute('aria-expanded') !== 'true') return;
+  if (!event.target.closest('[data-assistant]')) setAssistantOpen(false);
+});
 
 function createMessage(className, speaker, text) {
   const message = document.createElement('article');
@@ -163,7 +165,10 @@ async function requestAnswer(question) {
 }
 
 function setAssistantBusy(busy) {
-  if (assistantForm) assistantForm.dataset.busy = String(busy);
+  if (assistantForm) {
+    assistantForm.dataset.busy = String(busy);
+    assistantForm.setAttribute('aria-busy', String(busy));
+  }
   if (assistantSubmit) {
     assistantSubmit.disabled = busy;
     assistantSubmit.textContent = busy ? 'Checking…' : 'Send';
@@ -173,7 +178,13 @@ function setAssistantBusy(busy) {
 function appendMessage(message) {
   if (!assistantConversation) return;
   assistantConversation.append(message);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
+  const logRect = assistantConversation.getBoundingClientRect();
+  const messageRect = message.getBoundingClientRect();
+  if (messageRect.height > logRect.height - 24) {
+    assistantConversation.scrollTop += messageRect.top - logRect.top - 8;
+  } else {
+    assistantConversation.scrollTop = assistantConversation.scrollHeight;
+  }
 }
 
 async function askAssistant(question) {
@@ -228,7 +239,7 @@ document.addEventListener('keydown', (event) => {
 
 assistant?.addEventListener('click', (event) => {
   const citation = event.target.closest('.assistant-citations a');
-  if (citation) setAssistantOpen(false);
+  if (citation) setAssistantOpen(false, { restoreFocus: true });
   const suggestion = event.target.closest('[data-question]');
   if (!suggestion) return;
   askAssistant(suggestion.dataset.question);

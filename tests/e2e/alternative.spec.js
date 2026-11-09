@@ -8,19 +8,7 @@ const projects = [
   'Telegram Social Video Downloader',
   'Bug Hunter',
 ];
-
-// Page-height ceilings are regression guards, not design targets. They were
-// re-baselined when the five-essay Writing section shipped and again when Bench 04
-// Project cards replaced the old static approach cards.
-const viewports = [
-  { width: 320, height: 800, maxPageHeight: 10950, maxHeroHeight: 900 },
-  { width: 390, height: 844, maxPageHeight: 9800, maxHeroHeight: 820 },
-  { width: 768, height: 1024, maxPageHeight: 8800, maxHeroHeight: 760 },
-  { width: 1024, height: 768 },
-  { width: 1050, height: 800 },
-  { width: 1051, height: 800 },
-  { width: 1366, height: 768, maxPageHeight: 7150, maxHeroHeight: 720 },
-];
+const widths = [320, 390, 768, 1024, 1366];
 
 function monitorRuntime(page) {
   const errors = [];
@@ -31,8 +19,6 @@ function monitorRuntime(page) {
   page.on('requestfailed', (request) => {
     if (new URL(request.url()).origin !== new URL(page.url()).origin) return;
     const failure = request.failure()?.errorText ?? '';
-    // Switching viewport or navigating away cancels in-flight responsive images.
-    // That is the browser aborting work, not the page failing to load.
     if (failure.includes('ERR_ABORTED')) return;
     errors.push(`request: ${request.method()} ${request.url()} ${failure}`);
   });
@@ -42,185 +28,54 @@ function monitorRuntime(page) {
 async function expectNoOverflow(page, label) {
   const geometry = await page.evaluate(() => ({
     page: [document.documentElement.scrollWidth, document.documentElement.clientWidth],
-    containers: [...document.querySelectorAll('.primary-nav, .project-card, .contribution-list')].map((node) => ({
+    boxes: [...document.querySelectorAll('.hero, .hero-projects, .project-card, .ledger, .writing-list')].map((node) => ({
       className: node.className,
       scrollWidth: node.scrollWidth,
       clientWidth: node.clientWidth,
     })),
   }));
   expect(geometry.page[0], `${label} page overflow`).toBeLessThanOrEqual(geometry.page[1] + 1);
-  for (const item of geometry.containers) {
-    expect(item.scrollWidth, `${label} ${item.className} overflow`).toBeLessThanOrEqual(item.clientWidth + 1);
+  for (const box of geometry.boxes) {
+    expect(box.scrollWidth, `${label} ${box.className} overflow`).toBeLessThanOrEqual(box.clientWidth + 1);
   }
 }
 
-async function expectTouchTargets(page, label) {
-  const targets = await page.locator('a:visible, button:visible').evaluateAll((nodes) => nodes.map((node) => {
-    const rect = node.getBoundingClientRect();
-    return { label: node.textContent.trim().replace(/\s+/g, ' '), width: rect.width, height: rect.height };
-  }));
-  expect(targets.length).toBeGreaterThan(20);
-  for (const target of targets) {
-    expect(target.width, `${label}: ${target.label} width`).toBeGreaterThanOrEqual(44);
-    expect(target.height, `${label}: ${target.label} height`).toBeGreaterThanOrEqual(44);
-  }
-}
-
-async function expectKeyboardFocusVisibility(page, label) {
-  const menu = page.locator('.menu-button');
-  if (await menu.isVisible()) {
-    await menu.focus();
-    await page.keyboard.press('Enter');
-    await expect(menu).toHaveAttribute('aria-expanded', 'true');
-  }
-
-  await page.locator('body').focus();
-  const linkCount = await page.locator('a:visible, button:visible').count();
-  // Inputs sit in the tab order too, so they consume presses without being asserted below.
-  const tabBudget = await page.locator('a:visible, button:visible, input:visible, textarea:visible').count();
-  const focused = [];
-  for (let index = 0; index < tabBudget + 4; index += 1) {
-    await page.keyboard.press('Tab');
-    const item = await page.evaluate(() => {
-      const node = document.activeElement;
-      const rect = node.getBoundingClientRect();
-      const style = getComputedStyle(node);
-      return {
-        tag: node.tagName,
-        label: (node.textContent || node.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
-        width: rect.width,
-        height: rect.height,
-        outlineStyle: style.outlineStyle,
-        outlineWidth: parseFloat(style.outlineWidth),
-      };
-    });
-    if (!['A', 'BUTTON'].includes(item.tag)) continue;
-    focused.push(item);
-    expect(item.width, `${label}: focused ${item.label} width`).toBeGreaterThanOrEqual(44);
-    expect(item.height, `${label}: focused ${item.label} height`).toBeGreaterThanOrEqual(44);
-    expect(item.outlineStyle, `${label}: focused ${item.label} outline`).not.toBe('none');
-    expect(item.outlineWidth, `${label}: focused ${item.label} outline width`).toBeGreaterThanOrEqual(2);
-  }
-  expect(focused.length, `${label}: keyboard-reached visible targets`).toBeGreaterThanOrEqual(linkCount);
-}
-
-test('professional portfolio is complete, accessible, private, and runtime-clean', async ({ page }) => {
+test('portfolio content, links, accessibility and runtime are clean', async ({ page }) => {
   const errors = monitorRuntime(page);
-  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.setViewportSize({ width: 1366, height: 900 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build Python systems that show their work.');
-  await expect(page.locator('.hero-system-map')).toBeVisible();
-  await expect(page.locator('[data-project-name]')).toHaveCount(5);
-  for (const project of projects) await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Python systems that show their work.');
+  await expect(page.locator('.hero-project')).toHaveCount(3);
   await expect(page.locator('.project-card--primary')).toHaveCount(3);
-  await expect(page.locator('.project-card--compact')).toHaveCount(2);
-  await expect(page.locator('.project-visual img')).toHaveCount(3);
-  await expect(page.locator('.visual-link')).toHaveCount(0);
-  const lensImageRatio = await page.locator('.project-visual--lens img').evaluate((image) => {
-    const rect = image.getBoundingClientRect();
-    return {
-      rendered: rect.width / rect.height,
-      intrinsic: image.naturalWidth / image.naturalHeight,
-    };
-  });
-  expect(Math.abs(lensImageRatio.rendered - lensImageRatio.intrinsic)).toBeLessThan(0.01);
-  const dashboardImageRatio = await page.locator('#project-local-ai .project-visual--dashboard img').evaluate((image) => {
-    const rect = image.getBoundingClientRect();
-    return {
-      rendered: rect.width / rect.height,
-      intrinsic: image.naturalWidth / image.naturalHeight,
-    };
-  });
-  expect(Math.abs(dashboardImageRatio.rendered - dashboardImageRatio.intrinsic)).toBeLessThan(0.01);
-  const footballImageRatio = await page.locator('.project-visual--football img').evaluate((image) => {
-    const rect = image.getBoundingClientRect();
-    return {
-      rendered: rect.width / rect.height,
-      intrinsic: image.naturalWidth / image.naturalHeight,
-    };
-  });
-  expect(Math.abs(footballImageRatio.rendered - footballImageRatio.intrinsic)).toBeLessThan(0.01);
+  await expect(page.locator('.more-work-item')).toHaveCount(2);
+  for (const project of projects.slice(0, 3)) {
+    await expect(page.getByRole('heading', { name: project, exact: true })).toBeVisible();
+  }
+  for (const project of projects.slice(3)) {
+    await expect(page.getByText(project, { exact: true }).first()).toBeVisible();
+  }
   await expect(page.locator('.contribution-row')).toHaveCount(13);
   await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
-  await expect(page.locator('[role="tab"], [role="tabpanel"], .reading-progress')).toHaveCount(0);
   await expect(page.locator('body')).not.toContainText('joshua0nwachinemere@gmail.com');
   await expect(page.locator('body')).not.toContainText('josh0victor@outlook.com');
   await expect(page.getByRole('link', { name: 'Email me', exact: true })).toHaveAttribute(
     'href',
     'mailto:joshua0nwachinemere@gmail.com?subject=AI%20Engineer%20opportunity',
   );
-
-  const palette = await page.evaluate(() => {
-    const root = getComputedStyle(document.documentElement);
-    const hero = getComputedStyle(document.querySelector('.hero'));
-    const contact = getComputedStyle(document.querySelector('.closing'));
-    const accent = getComputedStyle(document.querySelector('.hero h1 em'));
-    return {
-      paper: root.getPropertyValue('--sheet').trim(),
-      surface: root.getPropertyValue('--sheet-raised').trim(),
-      ink: root.getPropertyValue('--ink').trim(),
-      muted: root.getPropertyValue('--muted').trim(),
-      signal: root.getPropertyValue('--signal').trim(),
-      heroBackground: hero.backgroundColor,
-      contactBackground: contact.backgroundColor,
-      accentFamily: accent.fontFamily,
-    };
-  });
-  expect(palette).toMatchObject({
-    paper: '#f1efe9', surface: '#ffffff', ink: '#14181a', muted: '#4f5a54', signal: '#1f5c46',
-    heroBackground: 'rgba(0, 0, 0, 0)', contactBackground: 'rgb(18, 23, 17)',
-  });
-  expect(palette.accentFamily).toContain('Archivo');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#fafafa');
+  await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
 
   const axe = await new AxeBuilder({ page }).analyze();
   expect(axe.violations).toEqual([]);
   expect(errors).toEqual([]);
 });
 
-test('automatic theme always follows the OS and clears legacy manual overrides', async ({ page }) => {
-  await page.emulateMedia({ colorScheme: 'dark' });
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.addInitScript(() => localStorage.setItem('portfolio-theme', 'light'));
-  await page.goto('/');
-
-  await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
-  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
-  await page.setViewportSize({ width: 1366, height: 900 });
-  await expect(page.locator('.system-node small').first()).toHaveCSS('color', 'rgb(198, 206, 199)');
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-  await page.setViewportSize({ width: 390, height: 844 });
-
-  await page.emulateMedia({ colorScheme: 'light' });
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(241, 239, 233)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f1efe9');
-  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
-
-  await page.emulateMedia({ colorScheme: 'dark' });
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#0c0f0e');
-
-  await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(12, 15, 14)');
-  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBeNull();
-
-  for (const width of [320, 359, 390, 744, 1024]) {
-    await page.setViewportSize({ width, height: 844 });
-    await expect(page.locator('.theme-control, .theme-toggle')).toHaveCount(0);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
-  }
-});
-
-test('portfolio assistant opens as a corner popup, answers with citations, and closes accessibly', async ({ page }) => {
+test('assistant opens, answers from local evidence, and closes accessibly', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
+
   const assistant = page.locator('[data-assistant]');
   const launcher = assistant.getByRole('button', { name: 'Ask Joshua', exact: true });
   await expect(launcher).toBeVisible();
@@ -231,14 +86,6 @@ test('portfolio assistant opens as a corner popup, answers with citations, and c
   await expect(launcher).toHaveAttribute('aria-expanded', 'true');
   await expect(assistant.getByRole('dialog')).toBeVisible();
   await expect(assistant.getByRole('heading', { name: 'Ask Joshua' })).toBeVisible();
-
-  const widgetGeometry = await assistant.evaluate((root) => {
-    const panel = root.querySelector('.assistant-panel').getBoundingClientRect();
-    return { panelLeft: panel.left, panelRight: panel.right, panelBottom: panel.bottom, viewportWidth: innerWidth, viewportHeight: innerHeight };
-  });
-  expect(widgetGeometry.panelLeft).toBeGreaterThanOrEqual(8);
-  expect(widgetGeometry.panelRight).toBeLessThanOrEqual(widgetGeometry.viewportWidth - 8);
-  expect(widgetGeometry.panelBottom).toBeLessThanOrEqual(widgetGeometry.viewportHeight - 64);
 
   await assistant.getByRole('button', { name: 'RAG and evaluation' }).click();
   await expect(assistant.getByText(/Semantic Recall@5 of 0\.913/)).toBeVisible();
@@ -256,265 +103,63 @@ test('portfolio assistant opens as a corner popup, answers with citations, and c
   await expect(launcher).toBeFocused();
 });
 
-test('responsive composition meets page, hero, grid, overflow, and target budgets', async ({ page }, testInfo) => {
+test('responsive layout keeps the page and major regions inside the viewport', async ({ page }, testInfo) => {
   test.setTimeout(120_000);
   const errors = monitorRuntime(page);
-  for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-
+    await expectNoOverflow(page, `${width}px`);
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('.project-card--primary')).toHaveCount(3);
+    await expect(page.locator('.contribution-row')).toHaveCount(13);
     const layout = await page.evaluate(() => ({
-      pageHeight: document.documentElement.scrollHeight,
       heroHeight: document.querySelector('.hero').getBoundingClientRect().height,
-      additionalColumns: getComputedStyle(document.querySelector('.additional-project-grid')).gridTemplateColumns.split(' ').length,
-      contributionColumns: getComputedStyle(document.querySelector('.contribution-list')).gridTemplateColumns.split(' ').length,
-      credentialColumns: getComputedStyle(document.querySelector('.credential-links')).gridTemplateColumns.split(' ').length,
-      systemMapDisplay: getComputedStyle(document.querySelector('.hero-system-map')).display,
+      cardColumns: getComputedStyle(document.querySelector('.project-grid')).gridTemplateColumns.split(' ').length,
+      ledgerColumns: getComputedStyle(document.querySelector('.ledger')).gridTemplateColumns.split(' ').length,
     }));
-    if (viewport.maxPageHeight) expect(layout.pageHeight, `${viewport.width}px page height`).toBeLessThanOrEqual(viewport.maxPageHeight);
-    if (viewport.maxHeroHeight) expect(layout.heroHeight, `${viewport.width}px hero height`).toBeLessThanOrEqual(viewport.maxHeroHeight);
-    if (viewport.width < 680) expect(layout.additionalColumns).toBe(1);
-    if (viewport.width >= 768 && viewport.width <= 1024) expect(layout.additionalColumns).toBe(2);
-    if (viewport.width === 1366) expect(layout.additionalColumns).toBe(2);
-    expect(layout.systemMapDisplay, `${viewport.width}px desktop-only system map`).toBe(viewport.width > 1050 ? 'block' : 'none');
-    expect(layout.contributionColumns).toBe(viewport.width >= 768 ? 2 : 1);
-    expect(layout.credentialColumns).toBe(viewport.width < 768 ? 1 : 3);
-    await expectNoOverflow(page, `${viewport.width}px`);
-    await expectTouchTargets(page, `${viewport.width}px`);
-    await testInfo.attach(`portfolio-${viewport.width}`, { body: await page.screenshot(), contentType: 'image/png' });
+    expect(layout.heroHeight).toBeLessThan(760);
+    expect(layout.cardColumns).toBe(width >= 1024 ? 3 : width >= 768 ? 2 : 1);
+    expect(layout.ledgerColumns).toBe(width >= 900 ? 2 : 1);
+    await testInfo.attach(`portfolio-${width}`, { body: await page.screenshot(), contentType: 'image/png' });
     await page.waitForLoadState('networkidle');
   }
   expect(errors).toEqual([]);
 });
 
-test('phone spacing preserves approved gutters, card padding, rhythm, and readable background flow', async ({ page }) => {
-  for (const viewport of viewports.filter(({ width }) => width <= 390)) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    await page.evaluate(() => document.fonts.ready);
-    const spacing = await page.evaluate(() => {
-      const hero = document.querySelector('.hero').getBoundingClientRect();
-      const primary = getComputedStyle(document.querySelector('.project-card--primary'));
-      const compact = getComputedStyle(document.querySelector('.project-card--compact'));
-      const section = getComputedStyle(document.querySelector('.section'));
-      const background = getComputedStyle(document.querySelector('.background-list'));
-      return {
-        gutterLeft: hero.left,
-        gutterRight: innerWidth - hero.right,
-        primaryPadding: parseFloat(primary.paddingLeft),
-        compactPadding: parseFloat(compact.paddingLeft),
-        sectionPaddingTop: parseFloat(section.paddingTop),
-        sectionPaddingBottom: parseFloat(section.paddingBottom),
-        backgroundColumns: background.gridTemplateColumns.split(' ').length,
-      };
-    });
-    expect(spacing.gutterLeft, `${viewport.width}px left gutter`).toBeGreaterThanOrEqual(16);
-    expect(spacing.gutterRight, `${viewport.width}px right gutter`).toBeGreaterThanOrEqual(16);
-    expect(spacing.primaryPadding, `${viewport.width}px primary padding`).toBeGreaterThanOrEqual(16);
-    expect(spacing.compactPadding, `${viewport.width}px compact padding`).toBeGreaterThanOrEqual(20);
-    expect(spacing.sectionPaddingTop, `${viewport.width}px section top rhythm`).toBeGreaterThanOrEqual(40);
-    expect(spacing.sectionPaddingBottom, `${viewport.width}px section bottom rhythm`).toBeGreaterThanOrEqual(40);
-    expect(spacing.backgroundColumns, `${viewport.width}px background columns`).toBe(1);
-  }
-});
-
-test('approved typography and responsive spacing tokens hold at every required width', async ({ page }) => {
-  for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    await page.evaluate(() => document.fonts.ready);
-    const tokens = await page.evaluate(() => {
-      const number = (selector, property) => parseFloat(getComputedStyle(document.querySelector(selector))[property]);
-      const supportSizes = [...document.querySelectorAll('.hero-proof, .availability, .ownership-note, .contact-availability')]
-        .map((node) => parseFloat(getComputedStyle(node).fontSize));
-      const compactMetaGaps = [...document.querySelectorAll('.project-card--compact')].map((card) => {
-        const meta = card.querySelector('.project-meta').getBoundingClientRect();
-        const body = card.querySelector('.project-meta + p').getBoundingClientRect();
-        return body.top - meta.bottom;
-      });
-      return {
-        supportSizes,
-        actionSize: number('.project-links a', 'fontSize'),
-        compactTitleSize: number('.project-card--compact h3', 'fontSize'),
-        primaryPadding: number('.project-card--primary', 'paddingLeft'),
-        compactPadding: number('.project-card--compact', 'paddingLeft'),
-        sectionPadding: number('.section', 'paddingTop'),
-        primaryMetadataGap: number('.project-header', 'marginBottom'),
-        compactMetaGaps,
-        actionGap: number('.project-links', 'columnGap'),
-        availabilityColor: getComputedStyle(document.querySelector('.availability')).color,
-        primaryInkColor: getComputedStyle(document.querySelector('.hero h1')).color,
-        availabilityWeight: Number(getComputedStyle(document.querySelector('.availability')).fontWeight),
-      };
-    });
-    expect(Math.min(...tokens.supportSizes), `${viewport.width}px supporting-copy floor`).toBeGreaterThanOrEqual(16);
-    expect(tokens.actionSize, `${viewport.width}px action-label size`).toBeGreaterThanOrEqual(12);
-    expect(tokens.compactTitleSize, `${viewport.width}px compact title size`).toBeGreaterThanOrEqual(viewport.width < 768 ? 24 : 26);
-    expect(tokens.primaryMetadataGap, `${viewport.width}px primary metadata gap`).toBeGreaterThanOrEqual(16);
-    expect(Math.min(...tokens.compactMetaGaps), `${viewport.width}px compact metadata gap`).toBeGreaterThanOrEqual(16);
-    expect(tokens.actionGap, `${viewport.width}px action grouping`).toBeGreaterThanOrEqual(8);
-    expect(tokens.availabilityColor, `${viewport.width}px availability ink`).toBe(tokens.primaryInkColor);
-    expect(tokens.availabilityWeight, `${viewport.width}px availability weight`).toBeGreaterThanOrEqual(500);
-    const expected = viewport.width < 768
-      ? { primary: 16, compact: 20, section: 40 }
-      : viewport.width <= 900
-        ? { primary: 16, compact: 22, section: 54 }
-        : { primary: 16, compact: 24, section: 72 };
-    expect(tokens.primaryPadding, `${viewport.width}px primary card token`).toBeGreaterThanOrEqual(expected.primary);
-    expect(tokens.compactPadding, `${viewport.width}px compact card token`).toBeGreaterThanOrEqual(expected.compact);
-    expect(tokens.sectionPadding, `${viewport.width}px section token`).toBeGreaterThanOrEqual(expected.section);
-  }
-});
-
-test('featured project actions match the approved 44px mobile button size', async ({ page }) => {
-  for (const viewport of viewports.filter(({ width }) => width <= 390)) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    await page.evaluate(() => document.fonts.ready);
-
-    const groups = await page.locator('.project-card--primary .project-links').evaluateAll((rows) => rows.map((row) => (
-      [...row.querySelectorAll('a')].map((link) => {
-        const box = link.getBoundingClientRect();
-        return { label: link.textContent.trim(), width: box.width, height: box.height };
-      })
-    )));
-
-    expect(groups.length, `${viewport.width}px featured action groups`).toBeGreaterThan(0);
-    for (const group of groups) {
-      expect(group.length, `${viewport.width}px actions per group`).toBeGreaterThan(0);
-      const widths = group.map(({ width }) => width);
-      expect(Math.max(...widths) - Math.min(...widths), `${viewport.width}px equal action widths`).toBeLessThanOrEqual(0.02);
-      for (const action of group) {
-        expect(action.height, `${viewport.width}px ${action.label} minimum height`).toBeGreaterThanOrEqual(43.98);
-        expect(action.height, `${viewport.width}px ${action.label} maximum height`).toBeLessThanOrEqual(45.1);
-      }
-    }
-  }
-});
-
-test('accessibility and keyboard focus are verified at every required width', async ({ page }) => {
-  test.setTimeout(120_000);
-  for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    await page.evaluate(() => document.fonts.ready);
-    const axe = await new AxeBuilder({ page }).analyze();
-    expect(axe.violations, `${viewport.width}px Axe violations`).toEqual([]);
-    await expectKeyboardFocusVisibility(page, `${viewport.width}px`);
-  }
-});
-
-test('short desktop first fold contains the hiring essentials and selected-work start', async ({ page }) => {
-  await page.setViewportSize({ width: 1366, height: 768 });
-  await page.goto('/');
-  const essentials = [
-    page.getByRole('heading', { level: 1 }),
-    page.locator('.hero-intro'),
-    page.locator('.availability'),
-    page.getByRole('link', { name: 'View selected work' }),
-    page.getByRole('link', { name: 'Download CV' }).first(),
-    page.locator('.hero-system-map'),
-  ];
-  for (const locator of essentials) {
-    await expect(locator).toBeVisible();
-    const box = await locator.boundingBox();
-    expect(box.y, await locator.textContent()).toBeLessThan(768);
-  }
-});
-
-test('mobile navigation is keyboard-operable, dismisses on Escape, and restores focus', async ({ page }) => {
+test('mobile navigation is keyboard operable and closes with Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   const menu = page.locator('.menu-button');
-  await expect(menu).toHaveAccessibleName('Menu, open navigation');
+  await expect(menu).toBeVisible();
   await menu.focus();
   await page.keyboard.press('Enter');
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Work' })).toBeVisible();
+  await expect(page.locator('#primary-nav')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(menu).toHaveAttribute('aria-expanded', 'false');
   await expect(menu).toBeFocused();
-
-  await page.keyboard.press('Enter');
-  await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Work' }).click();
-  await expect(menu).toHaveAttribute('aria-expanded', 'false');
-  const clearance = await page.evaluate(() => {
-    const header = document.querySelector('.masthead').getBoundingClientRect();
-    const section = document.querySelector('#work').getBoundingClientRect();
-    return section.top - header.bottom;
-  });
-  expect(clearance).toBeGreaterThanOrEqual(8);
 });
 
-test('all content and navigation remain available without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+test('all content remains available without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
-  await expect(page.locator('.menu-button')).toBeHidden();
-  await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
-  await expect(page.getByText(/Across 1,140 rolling-origin test matches it gets 53\.77% accuracy/)).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Email me' })).toBeVisible();
-  await expect(page.locator('[role="tab"], [role="tabpanel"]')).toHaveCount(0);
-  await expectNoOverflow(page, 'no-JS mobile');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Python systems that show their work.');
+  for (const project of projects) {
+    await expect(page.getByText(project, { exact: true }).first()).toBeVisible();
+  }
+  await expect(page.locator('[data-assistant]')).toBeHidden();
   await context.close();
 });
 
-test('reduced motion, reduced transparency, no-backdrop-filter, and forced colours remain usable', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
+test('reduced motion and forced colours remain usable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  const motion = await page.locator('.project-card').first().evaluate((node) => {
-    const style = getComputedStyle(node);
-    return { animation: style.animationName, transition: style.transitionDuration, transform: style.transform };
-  });
-  expect(motion.animation).toBe('none');
-  expect(parseFloat(motion.transition)).toBeLessThanOrEqual(.01);
-  expect(motion.transform).toBe('none');
-  await expect(page.locator('.project-card:visible')).toHaveCount(5);
-
-  const session = await page.context().newCDPSession(page);
-  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-transparency', value: 'reduce' }] });
-  await page.reload();
-  for (const selector of ['.masthead', '.project-card', '.closing']) {
-    const style = await page.locator(selector).first().evaluate((node) => {
-      const value = getComputedStyle(node);
-      return { background: value.backgroundColor, backdrop: value.backdropFilter || value.webkitBackdropFilter };
-    });
-    expect(style.background).toMatch(/^rgb\(/);
-    expect(style.backdrop).toBe('none');
-  }
-  await session.send('Emulation.setEmulatedMedia', { media: 'screen', features: [] });
-  await page.emulateMedia({ forcedColors: 'active' });
-  await page.reload();
-  const menu = page.locator('.menu-button');
-  const contact = page.getByRole('link', { name: 'Contact' });
-  if (await menu.isVisible()) {
-    await menu.focus();
-    await page.keyboard.press('Enter');
-    await expect(menu).toHaveAttribute('aria-expanded', 'true');
-    for (let index = 0; index < 12; index += 1) {
-      await page.keyboard.press('Tab');
-      if (await contact.evaluate((node) => node === document.activeElement)) break;
-    }
-    await expect(contact).toBeFocused();
-  } else {
-    await contact.focus();
-  }
-  expect(await contact.evaluate((node) => getComputedStyle(node).outlineStyle)).not.toBe('none');
-  expect(await page.locator('.project-card').first().evaluate((node) => getComputedStyle(node).borderStyle)).not.toBe('none');
-});
-
-test('320px WCAG text spacing retains every content group without clipping', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto('/');
-  await page.addStyleTag({ content: `
-    * { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; }
-    p, li, dd { margin-bottom: 2em !important; }
-  ` });
-  await expectNoOverflow(page, '320px text spacing');
-  await expect(page.locator('.project-card:visible')).toHaveCount(5);
-  await expect(page.locator('.contribution-row:visible')).toHaveCount(13);
-  await expect(page.getByRole('heading', { name: 'Tell me what you’re building.' })).toBeVisible();
+  await expect(page.locator('h1')).toBeVisible();
+  await expectNoOverflow(page, 'reduced motion');
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

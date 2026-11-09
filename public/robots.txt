@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://joshua-nwachinemere.pages.dev/sitemap.xml
