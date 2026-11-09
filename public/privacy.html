@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#fafafa" />
   <meta name="author" content="Joshua Nwachinemere" />
   <meta name="description" content="How this portfolio handles data: no analytics, no advertising cookies, and a portfolio guide that never sends your raw question to the AI provider." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://joshua-nwachinemere.pages.dev/privacy" />
   <meta property="og:title" content="Privacy · Joshua Nwachinemere" />
   <meta property="og:description" content="How this portfolio handles data: no analytics, no advertising cookies, and a portfolio guide that never sends your raw question to the AI provider." />
@@ -26,7 +26,7 @@
   <meta name="twitter:image" content="https://joshua-nwachinemere.pages.dev/og-card-v9.png" />
   <meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work" />
   <link rel="icon" href="/favicon.svg?v=7" type="image/svg+xml" />
-  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32 48x48" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preload" href="/fonts/cal-sans-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -65,10 +65,10 @@
 
     <section aria-labelledby="guide">
       <h2 id="guide">The portfolio guide</h2>
-      <p>The “Ask Joshua” panel answers questions from a fixed set of reviewed portfolio records. When you submit a question, your browser sends it to this site’s server. The server validates it locally and rejects questions that look like personal data, credentials, prompt injection or requests outside the portfolio.</p>
+      <p>The “Ask Joshua” panel answers questions from a fixed set of reviewed portfolio records. When you submit a question, your browser sends it to this site’s server. The server validates it locally and applies sensitive-data and prompt-injection checks before any model call.</p>
       <p>If a safe question reaches the AI routing step, the server sends Cloudflare Workers AI a set of fixed routing labels, a request-scoped subset of reviewed evidence IDs, and short unverified excerpts from public portfolio sources. Your raw question and its wording are not sent to the model. The model may only choose from that bounded evidence set; the answer and citations you see are rebuilt from the reviewed records on the server.</p>
       <p>The site does not intentionally store your question. Cloudflare processes the request as the hosting and AI provider under its <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">privacy policy</a>. The guide keeps a 500-character limit, has no file upload, and should not be used for confidential or personal information.</p>
-      <p>If Workers AI is unavailable, the server falls back to deterministic local retrieval. The guide works without sending your question to a model in that case. If Workers AI is not configured at all, the server can use a Groq adapter with the same bounded inputs; the provider receives the same reviewed evidence and public source excerpts, never your raw question.</p>
+      <p>If Workers AI is unavailable, the API returns no model-routed answer and the page falls back to deterministic retrieval in the browser. Model routing is disabled in production until an edge rate-limit binding is configured. If Workers AI is not configured at all, the server can use a Groq adapter with the same bounded inputs; the provider receives the same reviewed evidence and public source excerpts, never your raw question.</p>
     </section>
 
     <section aria-labelledby="email">
@@ -105,7 +105,7 @@
     <div class="foot-inner">
       <p>© 2026 Joshua Nwachinemere</p>
       <p><a href="/">Portfolio</a><span aria-hidden="true"> · </span><a href="/#contact">Contact</a></p>
-      <p>No cookies, no analytics, no trackers.</p>
+      <p>No first-party cookies, no analytics, no trackers.</p>
     </div>
   </footer>
 </body>

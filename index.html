@@ -26,14 +26,13 @@
     <meta name="twitter:image" content="https://joshua-nwachinemere.pages.dev/og-card-v9.png" />
     <meta name="twitter:image:alt" content="Joshua Nwachinemere, AI Engineer building Python systems that show their work" />
     <link rel="icon" href="/favicon.svg?v=7" type="image/svg+xml" />
-    <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="me" href="https://github.com/dk3yyyy" />
     <link rel="me" href="https://www.linkedin.com/in/joshua-nwachinemere/" />
     <link rel="preload" href="%BASE_URL%fonts/cal-sans-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="%BASE_URL%fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" as="image" href="%BASE_URL%images/volyx-lens-current-b895e2a7.jpg" type="image/jpeg" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -56,9 +55,10 @@
             "description": "AI Engineer building Python systems for retrieval, context and evaluation.",
             "jobTitle": "AI Engineer",
             "worksFor": { "@type": "Organization", "name": "VolyxAI" },
-            "alumniOf": { "@type": "CollegeOrUniversity", "name": "Northumbria University" },
+            "alumniOf": { "@type": "CollegeOrUniversity", "name": "Federal University of Technology, Owerri" },
+            "affiliation": { "@type": "CollegeOrUniversity", "name": "Northumbria University" },
             "knowsAbout": ["Python", "retrieval", "context engineering", "multimodal AI", "voice AI", "model integration", "machine learning evaluation", "FastAPI"],
-            "sameAs": ["https://github.com/dk3yyyy", "https://www.linkedin.com/in/joshua-nwachinemere/"]
+            "sameAs": ["https://github.com/dk3yyyy", "https://www.linkedin.com/in/joshua-nwachinemere/", "https://joshua-nwachinemere.hashnode.dev"]
           },
           {
             "@type": "WebSite",
@@ -117,7 +117,7 @@
           <p class="availability"><span class="availability-dot" aria-hidden="true"></span>Open to AI engineer roles</p>
           <h1 id="hero-title">Python systems that <mark>show their work.</mark></h1>
           <p class="hero-lede">Retrieval, context and evaluation. I build systems whose answers can be inspected, then ship the checks that prove it.</p>
-          <div class="hero-projects" aria-label="Selected projects">
+          <div class="hero-projects" role="group" aria-label="Selected projects">
             <a class="hero-project" href="#project-lens"><span class="project-chip project-chip--lens" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"></circle><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"></circle></svg></span><span><strong>Volyx Lens</strong><small>Live product</small></span></a>
             <a class="hero-project" href="#project-local-ai"><span class="project-chip project-chip--review" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19V9m5 10V5m5 14v-7m5 7V8"></path></svg></span><span><strong>Local Review</strong><small>Evaluation</small></span></a>
             <a class="hero-project" href="#project-football"><span class="project-chip project-chip--football" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="m12 7 3.8 2.8-1.5 4.4h-4.6l-1.5-4.4L12 7Zm-7.2 5 3.7 1.2m10.2-1.2-3.7 1.2M9.7 18l1.5-4.4m3.6 0 1.5 4.4"></path></svg></span><span><strong>Football Lab</strong><small>Research</small></span></a>
@@ -160,7 +160,7 @@
             </article>
           </div>
 
-          <div class="more-work" id="additional-work" aria-label="Additional projects">
+          <div class="more-work" id="additional-work" role="group" aria-label="Additional projects">
             <a class="more-work-item" id="project-downloader" href="https://github.com/dk3yyyy/telegram-social-video-downloader" target="_blank" rel="noreferrer"><span class="more-work-number">04</span><span><strong>Telegram Social Video Downloader</strong><small>n8n and FastAPI workflow with SQLite job state and restart recovery.</small></span></a>
             <div class="more-work-item" id="project-bug-hunter"><span class="more-work-number">05</span><span><strong><a href="https://bug-hunter-ty2y.onrender.com/" target="_blank" rel="noreferrer">Bug Hunter</a></strong><small>AI reviewer with a skeptical verifier, signature-checked webhooks and a sample report. <a class="more-work-source" href="https://github.com/dk3yyyy/bug-hunter" target="_blank" rel="noreferrer">Source</a></small></span></div>
           </div>
@@ -246,7 +246,7 @@
 
 
     <aside class="assistant-widget" data-assistant>
-      <button class="assistant-launcher" type="button" aria-controls="assistant-panel" aria-expanded="false">
+      <button class="assistant-launcher" type="button" aria-controls="assistant-panel" aria-expanded="false" aria-label="Ask Joshua">
         <span class="assistant-launcher-mark" aria-hidden="true">JN</span>
         <span>Ask Joshua</span>
       </button>
@@ -271,7 +271,7 @@
           </article>
         </div>
 
-        <form class="assistant-form" id="assistant-form">
+        <form class="assistant-form" id="assistant-form" method="post">
           <label class="sr-only" for="assistant-question">Ask a question about Joshua</label>
           <div class="assistant-input-row">
             <textarea id="assistant-question" name="question" rows="1" maxlength="500" placeholder="Ask about Joshua’s work…" required></textarea>
@@ -283,7 +283,7 @@
       </div>
     </aside>
 
-    <footer class="site-footer"><div class="footer-inner"><p>© 2026 Joshua Nwachinemere</p><p>AI Engineer · Python and applied AI</p><p>No cookies, no analytics, no trackers. <a href="/privacy">Privacy</a></p><a class="back-top" href="#top">Back to top</a></div></footer>
+    <footer class="site-footer"><div class="footer-inner"><p>© 2026 Joshua Nwachinemere</p><p>AI Engineer · Python and applied AI</p><p><a href="/privacy">Privacy</a> · No first-party cookies, no analytics, no trackers.</p><a class="back-top" href="#top">Back to top</a></div></footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

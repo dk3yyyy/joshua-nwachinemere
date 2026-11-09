@@ -78,8 +78,8 @@ test('publishes a privacy page with per-page metadata, robots and sitemap covera
   assert.match(privacy, /<title>Privacy · Joshua Nwachinemere<\/title>/);
   assert.match(privacy, /<meta name="description" content="How this portfolio handles data:/);
   assert.match(privacy, /<link rel="canonical" href="https:\/\/joshua-nwachinemere\.pages\.dev\/privacy"/);
-  assert.match(privacy, /<meta name="robots" content="index, follow"/);
-  assert.match(privacy, /No cookies, no analytics, no trackers/);
+  assert.match(privacy, /<meta name="robots" content="index, follow, max-image-preview:large"/);
+  assert.match(privacy, /No first-party cookies, no analytics, no trackers/);
   assert.doesNotMatch(privacy, /<script[^>]+(?:googletagmanager|plausible|umami|analytics)/i);
   assert.match(robots, /Sitemap: https:\/\/joshua-nwachinemere\.pages\.dev\/sitemap\.xml/);
   assert.match(robots, /Disallow: \/api\//);

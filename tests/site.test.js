@@ -6,7 +6,6 @@ import { readFile, stat } from 'node:fs/promises';
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
 const mainJs = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
-const themeInitJs = await readFile(new URL('../public/theme-init.js', import.meta.url), 'utf8');
 const favicon = await readFile(new URL('../public/favicon.svg', import.meta.url), 'utf8');
 const productionHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8');
 const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
@@ -103,7 +102,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.ok(html.includes('<p class="availability"><span class="availability-dot" aria-hidden="true"></span>Open to AI engineer roles</p>'));
   assert.match(html, /<h1 id="hero-title">Python systems that <mark>show their work\.<\/mark><\/h1>/);
   assert.ok(textOnly.includes('Retrieval, context and evaluation. I build systems whose answers can be inspected, then ship the checks that prove it.'));
-  assert.match(html, /<div class="hero-projects" aria-label="Selected projects">/);
+  assert.match(html, /<div class="hero-projects" role="group" aria-label="Selected projects">/);
   assert.equal((html.match(/class="hero-project"/g) || []).length, 3);
   assert.equal(html.includes('<a class="button button-primary" href="#work">View selected work</a>'), true);
   assert.match(html, /<a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf" target="_blank" rel="noreferrer">Download CV<\/a>/);
