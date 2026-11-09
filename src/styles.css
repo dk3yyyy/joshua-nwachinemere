@@ -331,6 +331,11 @@ h1 {
   .footer-inner { flex-wrap: wrap; }
 }
 
+@media (min-width: 700px) and (max-width: 900px) {
+  .evidence-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .evidence-card:last-child { grid-column: auto; }
+}
+
 @media (min-width: 380px) and (max-width: 620px) {
   .hero h1 mark { white-space: nowrap; }
 }
@@ -364,7 +369,7 @@ h1 {
   .hero { padding: 40px 0 51px; }
   .hero-inner { padding: 0 18px; }
   .availability { margin-bottom: 20px; font-size: 11px; }
-  h1 { font-size: clamp(40px, 12.8vw, 57px); line-height: 1.18; }
+  h1 { font-size: clamp(40px, 12.8vw, 57px); line-height: 1.24; }
   .hero-lede { margin-top: 18px; font-size: 15px; }
   .hero-projects { display: grid; grid-template-columns: 1fr; gap: 6px; width: 100%; max-width: 350px; margin-top: 18px; }
   .hero-project { width: 100%; padding: 7px 10px 7px 7px; }
@@ -374,7 +379,7 @@ h1 {
   .hero-actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 23px; }
   .hero-actions .button { width: 100%; }
   .hero-note { font-size: 10px; }
-  .section { padding: 55px 0; }
+  .section { padding: var(--section-gap) 0; }
   .section-inner { padding: 0 16px; }
   .section-heading { margin-bottom: 29px; }
   .section-heading h2 { font-size: clamp(33px, 9.5vw, 44px); }
