@@ -113,7 +113,7 @@ button, input, textarea { font: inherit; }
 h1, h2, h3, p { text-wrap: pretty; }
 h1 {
   max-width: 900px; margin: 0 auto; font-family: var(--display); font-weight: 400;
-  font-size: clamp(44px, 5.1vw, 70px); line-height: 1.18; letter-spacing: -.035em;
+  font-size: clamp(44px, 5.1vw, 70px); line-height: 1.24; letter-spacing: -.035em;
   text-wrap: balance;
 }
 .hero-lede { max-width: 660px; margin: 20px auto 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
@@ -142,12 +142,12 @@ h1 {
 .section-heading { max-width: 840px; margin: 0 auto 42px; text-align: center; }
 .section-heading h2 {
   margin: 0; font-family: var(--display); font-size: clamp(36px, 3.7vw, 53px);
-  font-weight: 400; line-height: 1.04; letter-spacing: -.032em; text-wrap: balance;
+  font-weight: 400; line-height: 1.12; letter-spacing: -.022em; text-wrap: balance;
 }
 .section-heading p { max-width: 610px; margin: 17px auto 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
-.hero h1 mark { padding: .02em .13em .09em; color: var(--ink); background: var(--accent); border-radius: .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero h1 mark { padding: .02em .13em .04em; color: #141414; background: var(--accent); border-radius: .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .section-heading mark, .closing mark {
-  padding: .04em .13em .09em; color: var(--ink); background: var(--accent);
+  padding: .02em .13em .05em; color: #141414; background: var(--accent);
   border-radius: .13em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 .section-heading--left { margin-right: 0; margin-left: 0; text-align: left; }
@@ -283,7 +283,7 @@ h1 {
 .closing { padding: 104px 32px 110px; border-top: 1px solid var(--border); background: var(--surface); }
 .closing-inner { width: min(100%, 900px); margin: 0 auto; text-align: center; }
 .closing .availability { margin-bottom: 22px; }
-.closing h2 { margin: 0 auto; font-family: var(--display); font-size: clamp(38px, 4.6vw, 62px); font-weight: 400; line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
+.closing h2 { margin: 0 auto; font-family: var(--display); font-size: clamp(38px, 4.6vw, 62px); font-weight: 400; line-height: 1.12; letter-spacing: -.03em; text-wrap: balance; }
 .closing > p, .closing-inner > p:not(.availability) { max-width: 610px; margin: 21px auto 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
 .closing-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 27px; }
 
