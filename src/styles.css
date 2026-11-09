@@ -104,7 +104,7 @@ button, input, textarea { font: inherit; }
   outline: 2px solid var(--ink); outline-offset: 3px;
 }
 
-.hero { padding: 44px 0 64px; }
+.hero { padding: 44px 0 44px; }
 .hero-inner { width: min(100%, 1120px); margin: 0 auto; padding: 0 32px; text-align: center; }
 .availability {
   display: inline-flex; align-items: center; gap: 8px; margin: 0 0 26px;
