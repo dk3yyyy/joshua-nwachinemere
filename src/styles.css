@@ -298,24 +298,8 @@ h1 {
 
 
 @media (min-width: 1600px) {
-  .hero-inner {
-    display: grid;
-    width: min(100%, 1440px);
-    grid-template-columns: 188px minmax(0, 1fr) 188px;
-    grid-template-areas:
-      "avail title note"
-      ". lede ."
-      ". projects ."
-      ". actions .";
-    column-gap: 32px;
-    align-items: start;
-  }
-  .availability { grid-area: avail; align-self: start; justify-self: start; margin-top: 50px; text-align: left; }
-  .hero h1 { grid-area: title; }
-  .hero-lede { grid-area: lede; }
-  .hero-projects { grid-area: projects; }
-  .hero-actions { grid-area: actions; }
-  .hero-note { grid-area: note; align-self: start; justify-self: end; max-width: 188px; margin: 50px 0 0; text-align: right; line-height: 1.8; }
+  .hero-inner { width: 100%; max-width: none; padding: 0 40px; }
+  .hero h1 { max-width: none; white-space: nowrap; text-wrap: nowrap; font-size: 5.8vw; }
 }
 
 @media (max-width: 1080px) {
