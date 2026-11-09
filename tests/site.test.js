@@ -243,9 +243,8 @@ test('keeps the smaller backend projects next to the featured work', () => {
 test('keeps project actions focused on demos, source, and explanatory evidence', () => {
   assert.doesNotMatch(html, /href="[^"]*\/actions(?:[/?#][^"]*)?"/i);
   assert.doesNotMatch(textOnly, /View CI|View release checks/i);
-  assert.match(textOnly, /Visit site/);
-  assert.match(textOnly, /View source/);
-  assert.match(textOnly, /View repository/);
+  assert.match(textOnly, /Live site/);
+  assert.equal((textOnly.match(/\bSource\b/g) || []).length >= 2, true);
   const lens = html.match(/<article[^>]+id="project-lens"[\s\S]*?<\/article>/)?.[0] ?? '';
   assert.match(lens, /<a class="project-card-link" href="https:\/\/volyxlens\.pages\.dev\/" target="_blank" rel="noreferrer">/);
 });
