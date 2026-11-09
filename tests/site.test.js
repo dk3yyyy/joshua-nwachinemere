@@ -105,7 +105,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.ok(textOnly.includes('Retrieval, context and evaluation. I build systems whose answers can be inspected, then ship the checks that prove it.'));
   assert.match(html, /<div class="hero-projects" aria-label="Selected projects">/);
   assert.equal((html.match(/class="hero-project"/g) || []).length, 3);
-  assert.match(html, /<a class="button button-primary" href="#work">View selected work <span aria-hidden="true">→<\/span><\/a>/);
+  assert.equal(html.includes('<a class="button button-primary" href="#work">View selected work</a>'), true);
   assert.match(html, /<a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf" target="_blank" rel="noreferrer">Download CV<\/a>/);
   assert.match(html, /<p class="hero-note"><b>5<\/b> projects <span aria-hidden="true">·<\/span> <b>13<\/b> upstream PRs <span aria-hidden="true">·<\/span> <b>5<\/b> essays<\/p>/);
 });
@@ -262,7 +262,7 @@ test('includes the approved background, contact, and footer copy', () => {
   assert.ok(!textOnly.includes('future full-time graduate roles'));
   assert.ok(textOnly.includes('© 2026 Joshua Nwachinemere'));
   assert.ok(textOnly.includes('AI Engineer · Python and applied AI'));
-  assert.ok(textOnly.includes('Back to top ↑'));
+  assert.ok(textOnly.includes('Back to top'));
 });
 
 test('features exactly five aligned essays with canonical Hashnode links and no duplicate cross-posted platforms', () => {

@@ -148,7 +148,10 @@ async function requestAnswer(question) {
 }
 
 function setAssistantBusy(busy) {
-  if (assistantForm) assistantForm.dataset.busy = String(busy);
+  if (assistantForm) {
+    assistantForm.dataset.busy = String(busy);
+    assistantForm.setAttribute('aria-busy', String(busy));
+  }
   if (assistantSubmit) {
     assistantSubmit.disabled = busy;
     assistantSubmit.textContent = busy ? 'Checking…' : 'Send';
