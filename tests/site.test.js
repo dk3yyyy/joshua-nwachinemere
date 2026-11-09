@@ -91,10 +91,12 @@ test('uses the approved semantic landmarks, navigation, and deep links', () => {
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
 });
 
-test('keeps the portfolio on a fixed light surface with no theme control', () => {
-  assert.match(html, /<meta name="theme-color" content="#fafafa" \/>/);
+test('follows the system light and dark themes without a manual control', () => {
+  assert.match(html, /<meta name="color-scheme" content="light dark" \/>/);
+  assert.match(html, /<meta name="theme-color" content="#fafafa" media="\(prefers-color-scheme: light\)" \/>/);
+  assert.match(html, /<meta name="theme-color" content="#111110" media="\(prefers-color-scheme: dark\)" \/>/);
   assert.doesNotMatch(html, /theme-control|theme-toggle|theme-icon-|theme-menu|data-theme-option/);
-  assert.doesNotMatch(css, /prefers-color-scheme:\s*dark/);
+  assert.match(css, /prefers-color-scheme:\s*dark/);
   assert.doesNotMatch(mainJs, /localStorage/);
 });
 
