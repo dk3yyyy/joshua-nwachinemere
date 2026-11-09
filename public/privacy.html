@@ -68,7 +68,7 @@
       <p>The “Ask Joshua” panel answers questions from a fixed set of reviewed portfolio records. When you submit a question, your browser sends it to this site’s server. The server validates it locally and applies sensitive-data and prompt-injection checks before any model call.</p>
       <p>If a safe question reaches the AI routing step, the server sends Cloudflare Workers AI a set of fixed routing labels, a request-scoped subset of reviewed evidence IDs, and short unverified excerpts from public portfolio sources. Your raw question and its wording are not sent to the model. The model may only choose from that bounded evidence set; the answer and citations you see are rebuilt from the reviewed records on the server.</p>
       <p>The site does not intentionally store your question. Cloudflare processes the request as the hosting and AI provider under its <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">privacy policy</a>. The guide keeps a 500-character limit, has no file upload, and should not be used for confidential or personal information.</p>
-      <p>If Workers AI is unavailable, the API returns no model-routed answer and the page falls back to deterministic retrieval in the browser. Model routing is disabled in production until an edge rate-limit binding is configured. If Workers AI is not configured at all, the server can use a Groq adapter with the same bounded inputs; the provider receives the same reviewed evidence and public source excerpts, never your raw question.</p>
+      <p>If production model routing is unavailable, the API returns no model-routed answer and the page answers from the reviewed evidence set without a model call. Model routing is disabled in production until an edge rate-limit binding is configured. The Groq adapter is used only in preview comparisons.</p>
     </section>
 
     <section aria-labelledby="email">
@@ -79,12 +79,12 @@
     <section aria-labelledby="who">
       <h2 id="who">Who is responsible</h2>
       <p>Joshua Nwachinemere, founder of VolyxAI, is responsible for this portfolio. You can reach me at <a href="mailto:joshua0nwachinemere@gmail.com?subject=Privacy%20question">joshua0nwachinemere@gmail.com</a>.</p>
-      <p>I do not keep a first-party database of visitors or guide questions. Cloudflare’s retention of technical request data is governed by its privacy policy. If you email me, I keep the message only as long as needed to answer and to keep a record of the conversation.</p>
+      <p>I do not keep a first-party database of visitors or guide questions. Cloudflare’s retention of technical request data is governed by its privacy policy. If you email me, I keep the email while it is useful to answer you or maintain the correspondence, and delete it on request.</p>
     </section>
 
     <section aria-labelledby="rights">
       <h2 id="rights">Your rights</h2>
-      <p>If you are in the UK or EU, you can ask for access to, correction of, or deletion of personal data you have sent me, and you can object to how it is used. Email me with the request. You can also complain to the <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noreferrer">Information Commissioner’s Office</a>.</p>
+      <p>If you are in the UK or EU, you can ask for access to, correction of, or deletion of personal data you have sent me, and you can object to how it is used. Email me with the request. If you are in the UK, you can complain to the <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noreferrer">Information Commissioner’s Office</a>. If you are in the EU, you can complain to your local data protection authority.</p>
     </section>
 
     <section aria-labelledby="links">

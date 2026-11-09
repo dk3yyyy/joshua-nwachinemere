@@ -15,7 +15,8 @@ function setMenu(open, { restoreFocus = false } = {}) {
   menuButton.setAttribute('aria-expanded', String(open));
   const accessibleLabel = menuButton.querySelector('.sr-only');
   if (accessibleLabel) accessibleLabel.textContent = open ? 'Close navigation' : 'Open navigation';
-  if (restoreFocus) menuButton.focus();
+  if (open) window.requestAnimationFrame(() => nav.querySelector('a')?.focus());
+  else if (restoreFocus) menuButton.focus();
 }
 
 menuButton?.addEventListener('click', () => {
@@ -27,6 +28,16 @@ nav?.addEventListener('click', (event) => {
 });
 
 desktop.addEventListener('change', () => setMenu(false));
+
+// Close the mobile menu when a header action or the page outside it is used.
+document.addEventListener('pointerdown', (event) => {
+  if (!header?.classList.contains('is-open')) return;
+  if (!event.target.closest('[data-header]')) {
+    setMenu(false);
+    return;
+  }
+  if (event.target.closest('.brand, .header-actions a')) setMenu(false);
+});
 
 // Mark the section currently in view so the navigation reports where you are.
 const navLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
@@ -74,6 +85,12 @@ assistantLauncher?.addEventListener('click', () => {
   setAssistantOpen(assistantLauncher.getAttribute('aria-expanded') !== 'true');
 });
 assistantClose?.addEventListener('click', () => setAssistantOpen(false, { restoreFocus: true }));
+
+// The panel is non-modal; a click elsewhere should dismiss it without trapping focus.
+document.addEventListener('pointerdown', (event) => {
+  if (assistantLauncher?.getAttribute('aria-expanded') !== 'true') return;
+  if (!event.target.closest('[data-assistant]')) setAssistantOpen(false);
+});
 
 function createMessage(className, speaker, text) {
   const message = document.createElement('article');
@@ -161,7 +178,13 @@ function setAssistantBusy(busy) {
 function appendMessage(message) {
   if (!assistantConversation) return;
   assistantConversation.append(message);
-  assistantConversation.scrollTop = assistantConversation.scrollHeight;
+  const logRect = assistantConversation.getBoundingClientRect();
+  const messageRect = message.getBoundingClientRect();
+  if (messageRect.height > logRect.height - 24) {
+    assistantConversation.scrollTop += messageRect.top - logRect.top - 8;
+  } else {
+    assistantConversation.scrollTop = assistantConversation.scrollHeight;
+  }
 }
 
 async function askAssistant(question) {
@@ -216,7 +239,7 @@ document.addEventListener('keydown', (event) => {
 
 assistant?.addEventListener('click', (event) => {
   const citation = event.target.closest('.assistant-citations a');
-  if (citation) setAssistantOpen(false);
+  if (citation) setAssistantOpen(false, { restoreFocus: true });
   const suggestion = event.target.closest('[data-question]');
   if (!suggestion) return;
   askAssistant(suggestion.dataset.question);

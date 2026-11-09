@@ -99,7 +99,7 @@ test('keeps the portfolio on a fixed light surface with no theme control', () =>
 });
 
 test('hero and availability copy are exact and direct', () => {
-  assert.ok(html.includes('<p class="availability"><span class="availability-dot" aria-hidden="true"></span>Open to AI engineer roles</p>'));
+  assert.ok(html.includes('<p class="availability"><span class="availability-dot" aria-hidden="true"></span>Open to AI Engineer roles</p>'));
   assert.match(html, /<h1 id="hero-title">Python systems that <mark>show their work\.<\/mark><\/h1>/);
   assert.ok(textOnly.includes('Retrieval, context and evaluation. I build systems whose answers can be inspected, then ship the checks that prove it.'));
   assert.match(html, /<div class="hero-projects" role="group" aria-label="Selected projects">/);
@@ -152,7 +152,7 @@ test('includes a grounded corner chatbot with an accessible popup and explicit s
   assert.match(assistant, /aria-live="polite"/);
   assert.match(assistant, /maxlength="500"/);
   assert.match(assistant, /Answers are assembled from reviewed portfolio evidence/);
-  assert.match(assistant, /Questions aren’t published/);
+  assert.match(assistant, /The guide is not a secure channel/);
   assert.match(assistant, /Answers are assembled from reviewed portfolio evidence/);
   assert.equal((assistant.match(/data-question=/g) || []).length, 3);
   assert.match(css, /\.assistant-widget \{[^}]*position: fixed;/);
@@ -180,7 +180,7 @@ test('project maturity and evaluation evidence remain exact', () => {
   assert.ok(textOnly.includes('0.913'));
   assert.ok(textOnly.includes('0.770'));
   assert.ok(textOnly.includes('Nothing is captured until you switch it on.'));
-  assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View results<\/a>/);
+  assert.match(html, /href="%BASE_URL%evidence\/local-review-intelligence-evaluation-report\.json"[^>]*>View evaluation results \(JSON\)<\/a>/);
   assert.equal(createHash('sha256').update(localReviewReport).digest('hex'), '2e2f76e4d74b6ddedb1e37039fbd603d10116d14e01849f04b1df94530193341');
   assert.equal(localReviewReportJson.schema_version, 3);
   assert.equal(localReviewReportJson.provenance.git_commit, '25b65ff85f243f731fa6c376eaefb133c6f4e7e7');
@@ -229,7 +229,7 @@ test('keeps the repository URLs and all thirteen contribution rows visible', () 
   for (const url of pullRequestUrls) assert.ok(html.includes(url), `Missing ${url}`);
   assert.equal((html.match(/class="contribution-row"/g) || []).length, 13);
   assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 13);
-  assert.ok(textOnly.includes('Thirteen pull requests accepted by other maintainers. Every row links to the discussion, not a screenshot of one.'));
+  assert.ok(textOnly.includes('Thirteen pull requests accepted by other maintainers. Every row opens the accepted pull request, not a screenshot of one.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)/i);
 });
@@ -308,7 +308,7 @@ test('visible portfolio copy stays capability-led rather than limitation-led', (
   assert.doesNotMatch(textOnly, /measured limitations|not presented as conventional employment|not employment with the upstream projects|Degrade without hiding failure|reports its loss|The model did not beat the benchmark|ad-hoc signed test builds|notarized releases|Active pre-release|Experimental evaluation/i);
   assert.doesNotMatch(html, /<dt>Limitations<\/dt>|<dt>Scope<\/dt>/i);
   assert.ok(textOnly.includes('Each project has a check that would fail if the output were wrong.'));
-  assert.ok(textOnly.includes('Citations that validate'));
+  assert.ok(textOnly.includes('Citations you can check'));
   assert.ok(textOnly.includes('Evaluation with a baseline'));
 });
 
