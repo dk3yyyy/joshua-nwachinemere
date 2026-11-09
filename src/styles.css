@@ -273,7 +273,7 @@ h1 {
 .writing-item strong { display: block; font-size: 15px; font-weight: 620; line-height: 1.3; letter-spacing: -.02em; }
 .writing-item small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
 .background-card { padding: 25px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--field); }
-.background-card h2 { margin: 0 0 20px; font-family: var(--display); font-size: 28px; font-weight: 400; letter-spacing: -.035em; line-height: 1.05; }
+.background-card h2 { margin: 0 0 20px; font-family: var(--display); font-size: 28px; font-weight: 400; letter-spacing: -.025em; line-height: 1.1; }
 .background-item { padding: 12px 0; border-top: 1px solid var(--border-strong); }
 .background-item p { margin: 0; font-size: 13px; font-weight: 620; }
 .background-item small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.45; }
