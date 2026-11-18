@@ -11,7 +11,7 @@
   "sourceConflicts": [
     {
       "id": "merged-pr-count",
-      "resolution": "Use nine independently merged third-party PRs as the current GitHub-verified count; the production portfolio and CV still display eight and are stale relative to Mellea PR #1469."
+      "resolution": "Use twelve independently merged third-party PRs across eight repositories as the current GitHub-verified count. The earlier nine-PR figure predated the FastStream #2976/#2984, Pydantic AI Harness #520, Mellea #1469 and FastStream FastAPI #2 merges; microsoft/agent-framework #7391 is excluded because it is not verifiably merged."
     },
     {
       "id": "independent-work-start",
@@ -1207,7 +1207,7 @@
       },
       "status": "active",
       "asOf": "2026-08-01",
-      "text": "Joshua has nine independently verified merged pull requests across eight maintained open-source projects (FastStream, Apache Arrow Rust, Calkit, faststream_fastapi, Mellea x2, OpenAI Agents Python, Pydantic AI Harness, Vega-Altair). The production portfolio and CV state eight; the assistant-preview site adds Mellea #1469 as the ninth. Use the individual pull-request records for specific project, repository or PR-number questions.",
+      "text": "Joshua has twelve independently verified merged pull requests across eight maintained open-source projects: FastStream x3 (#2961, #2976, #2984), OpenAI Agents Python, Pydantic AI Harness x2 (#503, #520), Mellea x2 (#1469, #1471), Apache Arrow Rust, Vega-Altair, FastStream FastAPI and Calkit. Four further merged PRs are in his own VolyxAI organisation and do not count as third-party contributions, and microsoft/agent-framework #7391 is excluded because it is not verifiably merged. Use the individual pull-request records for specific project, repository or PR-number questions.",
       "source": {
         "title": "Joshua Nwachinemere portfolio contributions",
         "url": "https://joshua-nwachinemere.pages.dev/#contributions",
@@ -2047,11 +2047,11 @@
         "start": null,
         "end": null,
         "status": "active",
-        "asOf": "2026-08-01"
+        "asOf": "2026-11-18"
       },
       "status": "active",
-      "asOf": "2026-08-01",
-      "text": "As of 2026-08-01 Joshua has several open (not merged) upstream PRs that must not be claimed as merged: microsoft/agent-framework #7391, pola-rs/polars #28594, traceloop/openllmetry #4386, warpdotdev/warp #14466, vega/altair #4090, ag2ai/faststream #2976, pydantic/pydantic-ai-harness #500 and #520, NousResearch/hermes-agent #74073; numpy/numpy #32141 was closed unmerged. Status may change.",
+      "asOf": "2026-11-18",
+      "text": "As of 2026-11-18 microsoft/agent-framework #7391 is no longer reachable (the repository returns 404), so it is excluded from every merged-contribution claim. Other upstream PRs that were open and unmerged must not be claimed as merged: pola-rs/polars #28594 (closed unmerged), traceloop/openllmetry #4386, warpdotdev/warp #14466 (closed unmerged), vega/altair #4090, pydantic/pydantic-ai-harness #500 (closed unmerged), NousResearch/hermes-agent #74073; numpy/numpy #32141 was closed unmerged. The verified merged count is twelve.",
       "source": {
         "title": "GitHub PR search — author dk3yyyy",
         "url": "https://github.com/search?q=type:pr+author:dk3yyyy",

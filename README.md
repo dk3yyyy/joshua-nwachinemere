@@ -35,3 +35,20 @@ DOCX and PDF generation is byte-reproducible by default. Set `SOURCE_DATE_EPOCH`
 ## Deployment
 
 The project is a static Vite site. It is ready for a root-domain deployment on Cloudflare Pages, Netlify, Vercel, or another static host. A GitHub Pages project-site deployment needs an explicit Vite `base` path first. Publishing, production metadata, and host-level security headers remain separate release steps that require approval.
+
+### Custom domain
+
+Every canonical URL, `og:url`, `og:image`, `twitter:image`, sitemap entry, robots directive and the assistant's citation base comes from one build-time switch:
+
+```sh
+SITE_ORIGIN=https://joshuanwachinemere.dev npm run build
+```
+
+Without `SITE_ORIGIN` the build keeps the `https://joshua-nwachinemere.pages.dev` origin, so local builds, previews and tests are unaffected. To publish on the domain:
+
+1. Add `joshuanwachinemere.dev` as a custom domain on the Cloudflare Pages project (`joshua-nwachinemere`) and let Cloudflare create the `CNAME`/A records.
+2. Set `SITE_ORIGIN=https://joshuanwachinemere.dev` in the Pages project's production environment variables.
+3. Redeploy `main`, then confirm `https://joshuanwachinemere.dev/`, `/privacy`, `/sitemap.xml` and `/og-card-v10.png` all return 200.
+4. Keep the old `pages.dev` host serving; it becomes a duplicate origin, not a broken link. The `dk3yyyy/joshua-portfolio` GitHub Pages stub should then point at the new domain instead of `pages.dev`.
+5. The social card has the host printed on it. Regenerate it with `SITE_ORIGIN=https://joshuanwachinemere.dev npm run build:assets`, save the result as `public/og-card-v10.png`, and update the `og:image`/`twitter:image` references plus the site tests — the filename bump is what busts cached previews.
+

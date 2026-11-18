@@ -42,13 +42,13 @@ PHONE = "+234 913 148 0096"
 
 GITHUB_URL = "https://github.com/dk3yyyy"
 LINKEDIN_URL = "https://www.linkedin.com/in/joshua-nwachinemere"
-PORTFOLIO_URL = "https://joshua-nwachinemere.pages.dev"
+PORTFOLIO_URL = os.environ.get("SITE_ORIGIN", "https://joshua-nwachinemere.pages.dev").rstrip("/")
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
     "AI Engineer building Python systems for retrieval, multimodal inference, speech, model APIs, and ML evaluation. "
     "Built local review intelligence with citation validation and benchmarked evaluation, a privacy-oriented macOS "
-    "assistant, and a temporal forecasting pipeline. Contributed thirteen merged fixes and tests across AI and data "
+    "assistant, and a temporal forecasting pipeline. Contributed twelve merged fixes and tests across AI and data "
     "infrastructure projects, including OpenAI Agents SDK and Pydantic AI Harness."
 )
 
@@ -98,11 +98,6 @@ OPEN_SOURCE_CONTRIBUTIONS = [
         "bullets": ["Restored FastAPI 0.140 compatibility for slotted Dependant objects while retaining native dependency fields and FastStream schema metadata. PR: https://github.com/ag2ai/faststream/pull/2961"],
     },
     {
-        "name": "Microsoft Agent Framework | Merged PR #7391",
-        "stack": "Python, agent run context, compaction, pytest | Aug 2026",
-        "bullets": ["Ignored excluded tool results during compaction so removed tool output cannot re-enter the model context. PR: https://github.com/microsoft/agent-framework/pull/7391"],
-    },
-    {
         "name": "Pydantic AI Harness | Merged PR #520",
         "stack": "Python, media decoding, URL-safe base64, pytest | Aug 2026",
         "bullets": ["Decoded URL-safe binary media payloads before provider calls, with regression coverage for both alphabets. PR: https://github.com/pydantic/pydantic-ai-harness/pull/520"],
@@ -123,7 +118,7 @@ OPEN_SOURCE_CONTRIBUTIONS = [
         "bullets": ["Stopped generation workers when a stream timed out instead of leaving the worker running. PR: https://github.com/generative-computing/mellea/pull/1469"],
     },
     {
-        "name": "Additional verified upstream merges | 4 of 13 merged PRs",
+        "name": "Additional verified upstream merges | 4 of 12 merged PRs",
         "stack": "Correctness, dependency errors, schema generation, workflow scoping | Jul 2026",
         "bullets": [
             "Apache Arrow Rust: https://github.com/apache/arrow-rs/pull/10486 | Altair: https://github.com/vega/altair/pull/4089 | FastStream FastAPI: https://github.com/faststream-community/faststream_fastapi/pull/2 | Calkit: https://github.com/calkit/calkit/pull/1028",

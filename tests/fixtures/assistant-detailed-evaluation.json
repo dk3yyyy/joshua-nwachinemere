@@ -2687,7 +2687,7 @@
       "expect": {
         "abstain": true
       },
-      "note": "Correct count is nine merged."
+      "note": "Correct count is twelve merged across eight repositories."
     },
     {
       "id": "adv-mdlink-001",

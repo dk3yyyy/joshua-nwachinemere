@@ -75,6 +75,6 @@ lazily with intrinsic dimensions reserved.
 
 ## Truth constraints
 
-All figures are the existing verified claims: five projects, thirteen merged
+All figures are the existing verified claims: five projects, twelve merged
 upstream PRs, five essays, the 30-case retrieval evaluation and the 1,140-match
 forecasting evaluation. No invented metrics, customers or outcomes.

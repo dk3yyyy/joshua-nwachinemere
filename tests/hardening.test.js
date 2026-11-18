@@ -15,7 +15,7 @@ const css = await read('src/styles.css');
 
 test('ships the purpose-built v9 social card and complete icon metadata', async () => {
   for (const path of [
-    'public/og-card-v9.png',
+    'public/og-card-v10.png',
     'public/favicon.ico',
     'public/apple-touch-icon.png',
     'public/icons/icon-192.png',
@@ -23,11 +23,11 @@ test('ships the purpose-built v9 social card and complete icon metadata', async 
     'public/site.webmanifest',
   ]) assert.equal(await exists(path), true, `Missing ${path}`);
 
-  const card = await read('public/og-card-v9.png', null);
+  const card = await read('public/og-card-v10.png', null);
   assert.equal(card.subarray(1, 4).toString(), 'PNG');
   assert.equal(card.readUInt32BE(16), 1200);
   assert.equal(card.readUInt32BE(20), 630);
-  assert.match(html, /og-card-v9\.png/);
+  assert.match(html, /og-card-v10\.png/);
   assert.doesNotMatch(html, /og-card-v[1-8]\.png/);
   assert.match(html, /rel="apple-touch-icon"[^>]+apple-touch-icon\.png/);
   assert.match(html, /rel="manifest"[^>]+site\.webmanifest/);
@@ -65,12 +65,12 @@ test('adds a static 404 and hardened same-origin headers without blocking produc
   assert.match(notFound, /<title>Page not found · Joshua Nwachinemere<\/title>/);
 });
 
-test('preserves the current thirteen-contribution chatbot surface', () => {
+test('preserves the current twelve-contribution chatbot surface', () => {
   assert.match(html, /data-assistant/);
   assert.match(html, /<h2 id="assistant-title">Ask Joshua<\/h2>/);
   assert.match(html, /Answers are assembled from reviewed portfolio evidence/);
-  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 13);
-  assert.match(html, /<b>13<\/b> upstream PRs/);
+  assert.equal((html.match(/class="contribution-row"/g) ?? []).length, 12);
+  assert.match(html, /<b>12<\/b> upstream PRs/);
 });
 
 

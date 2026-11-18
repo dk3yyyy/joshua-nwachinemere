@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "postbuild": "node scripts/apply-pages-environment.mjs && npm run build:pages-functions",
+    "postbuild": "node scripts/apply-pages-environment.mjs && npm run build:pages-functions && node scripts/set-site-origin.mjs",
     "build:pages-functions": "node scripts/build-pages-worker.mjs",
     "build:assets": "python scripts/build_assets.py && node scripts/build-social-card.js",
     "preview": "vite preview --host 0.0.0.0",

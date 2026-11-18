@@ -105,8 +105,8 @@ export const evidence = Object.freeze([
     id: 'open-source',
     title: 'Merged open-source contributions',
     href: '#contributions',
-    keywords: 'open source opensource contribution contributed pull request pr merged github retry recovery deterministic tests compatibility validation schema workflow thirteen',
-    text: 'Joshua has thirteen merged pull requests in other maintainers’ projects: OpenAI Agents SDK, Pydantic AI Harness (two), Mellea (two), FastStream (three), Apache Arrow Rust, Altair, FastStream FastAPI, Calkit and Microsoft Agent Framework. The changes cover retry policy, media decoding, stream timeouts, tracing tests, FastAPI compatibility, nullability validation, chart diagnostics, schema preservation and workflow scoping.',
+    keywords: 'open source opensource contribution contributed pull request pr merged github retry recovery deterministic tests compatibility validation schema workflow twelve',
+    text: 'Joshua has twelve merged pull requests in other maintainers’ projects: OpenAI Agents SDK, Pydantic AI Harness (two), Mellea (two), FastStream (three), Apache Arrow Rust, Altair, FastStream FastAPI and Calkit. The changes cover retry policy, media decoding, stream timeouts, tracing tests, FastAPI compatibility, nullability validation, chart diagnostics, schema preservation and workflow scoping.',
   },
   {
     id: 'engineering-approach',

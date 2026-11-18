@@ -12,12 +12,12 @@ const wranglerConfig = await readFile(new URL('../wrangler.jsonc', import.meta.u
 const assistantDocs = await readFile(new URL('../docs/portfolio-assistant.md', import.meta.url), 'utf8');
 const pagesWorkerBuildScript = await readFile(new URL('../scripts/build-pages-worker.mjs', import.meta.url), 'utf8');
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const socialCard = await readFile(new URL('../public/og-card-v9.png', import.meta.url));
+const socialCard = await readFile(new URL('../public/og-card-v10.png', import.meta.url));
 const localReviewReport = await readFile(new URL('../public/evidence/local-review-intelligence-evaluation-report.json', import.meta.url));
 const localReviewReportJson = JSON.parse(localReviewReport);
 
 const siteUrl = 'https://joshua-nwachinemere.pages.dev/';
-const socialCardUrl = `${siteUrl}og-card-v9.png`;
+const socialCardUrl = `${siteUrl}og-card-v10.png`;
 const projectNames = [
   'Volyx Lens',
   'Local Review Intelligence',
@@ -50,7 +50,6 @@ const pullRequestUrls = [
   'https://github.com/ag2ai/faststream/pull/2976',
   'https://github.com/pydantic/pydantic-ai-harness/pull/520',
   'https://github.com/ag2ai/faststream/pull/2984',
-  'https://github.com/microsoft/agent-framework/pull/7391',
   'https://github.com/openai/openai-agents-python/pull/3991',
   'https://github.com/pydantic/pydantic-ai-harness/pull/503',
   'https://github.com/generative-computing/mellea/pull/1471',
@@ -108,7 +107,7 @@ test('hero and availability copy are exact and direct', () => {
   assert.equal((html.match(/class="hero-project"/g) || []).length, 3);
   assert.equal(html.includes('<a class="button button-primary" href="#work">View selected work</a>'), true);
   assert.match(html, /<a class="button button-secondary" href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf" target="_blank" rel="noreferrer">Download CV<\/a>/);
-  assert.match(html, /<p class="hero-note"><b>5<\/b> projects <span aria-hidden="true">·<\/span> <b>13<\/b> upstream PRs <span aria-hidden="true">·<\/span> <b>5<\/b> essays<\/p>/);
+  assert.match(html, /<p class="hero-note"><b>5<\/b> projects <span aria-hidden="true">·<\/span> <b>12<\/b> upstream PRs <span aria-hidden="true">·<\/span> <b>5<\/b> essays<\/p>/);
 });
 
 test('production remains indexable while HTML revalidation stays enabled', () => {
@@ -224,14 +223,14 @@ test('adds honest, accessible visual product evidence without the rejected contr
   assert.doesNotMatch(textOnly, /INSUFFICIENT_EVIDENCE/);
 });
 
-test('keeps the repository URLs and all thirteen contribution rows visible', () => {
+test('keeps the repository URLs and all twelve contribution rows visible', () => {
   for (const url of repositoryUrls.concat(['https://volyxlens.pages.dev/'])) {
     assert.ok(html.includes(url), `Missing ${url}`);
   }
   for (const url of pullRequestUrls) assert.ok(html.includes(url), `Missing ${url}`);
-  assert.equal((html.match(/class="contribution-row"/g) || []).length, 13);
-  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 13);
-  assert.ok(textOnly.includes('Thirteen pull requests accepted by other maintainers. Every row opens the accepted pull request, not a screenshot of one.'));
+  assert.equal((html.match(/class="contribution-row"/g) || []).length, 12);
+  assert.equal(pullRequestUrls.filter((url) => html.includes(url)).length, 12);
+  assert.ok(textOnly.includes('Twelve pull requests accepted by other maintainers. Every row opens the accepted pull request, not a screenshot of one.'));
   const contributionSection = html.match(/<section[^>]+id="contributions"[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.doesNotMatch(contributionSection, /<details|\shidden(?:=|\s)/i);
 });

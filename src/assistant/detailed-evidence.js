@@ -36,6 +36,7 @@ export function isApprovedEvidenceUrl(value) {
   if (url.hostname === 'dev.to') return /^\/dk3yyyy(?:\/|$)/.test(url.pathname);
   if (url.hostname === 'medium.com') return /^\/(?:@joshua-nwachinemere(?:\/|$)|feed\/@joshua-nwachinemere$)/.test(url.pathname);
   if (url.hostname === 'joshua-nwachinemere.pages.dev') return true;
+  if (url.hostname === 'joshuanwachinemere.dev' || url.hostname === 'www.joshuanwachinemere.dev') return true;
   if (url.hostname === 'assistant-review.joshua-nwachinemere.pages.dev') {
     return url.pathname === '/evidence/local-review-intelligence-evaluation-report.json' && !url.search;
   }
