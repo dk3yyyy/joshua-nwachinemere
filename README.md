@@ -44,11 +44,14 @@ Every canonical URL, `og:url`, `og:image`, `twitter:image`, sitemap entry, robot
 SITE_ORIGIN=https://joshuanwachinemere.dev npm run build
 ```
 
-Without `SITE_ORIGIN` the build keeps the `https://joshua-nwachinemere.pages.dev` origin, so local builds, previews and tests are unaffected. To publish on the domain:
+Without `SITE_ORIGIN` the build keeps the `https://joshua-nwachinemere.pages.dev` origin, so local builds, previews and tests are unaffected.
 
-1. Add `joshuanwachinemere.dev` as a custom domain on the Cloudflare Pages project (`joshua-nwachinemere`) and let Cloudflare create the `CNAME`/A records.
-2. Set `SITE_ORIGIN=https://joshuanwachinemere.dev` in the Pages project's production environment variables.
-3. Redeploy `main`, then confirm `https://joshuanwachinemere.dev/`, `/privacy`, `/sitemap.xml` and `/og-card-v10.png` all return 200.
-4. Keep the old `pages.dev` host serving; it becomes a duplicate origin, not a broken link. The `dk3yyyy/joshua-portfolio` GitHub Pages stub should then point at the new domain instead of `pages.dev`.
-5. The social card has the host printed on it. Regenerate it with `SITE_ORIGIN=https://joshuanwachinemere.dev npm run build:assets`, save the result as `public/og-card-v10.png`, and update the `og:image`/`twitter:image` references plus the site tests — the filename bump is what busts cached previews.
+**Current state:** the production Pages environment sets `SITE_ORIGIN=https://joshuanwachinemere.dev`, so every deploy of `main` publishes the domain in the canonical, `og:url`, `og:image`, sitemap, robots and assistant citations. `joshuanwachinemere.dev` and `www.joshuanwachinemere.dev` are attached to the project, proxied to `joshua-nwachinemere.pages.dev`, with an active Cloudflare certificate. The `pages.dev` host still serves the same deployment as a fallback, and `dk3yyyy/joshua-portfolio` on GitHub Pages redirects to the domain.
+
+To attach a different domain later:
+
+1. Add the hostname under **Workers & Pages → `joshua-nwachinemere` → Custom domains** and let Cloudflare create the `CNAME` record.
+2. Set `SITE_ORIGIN=<new origin>` in the Pages production environment variables.
+3. Push any commit to `main` (the deploy retry endpoint is not available), then confirm `/`, `/privacy`, `/sitemap.xml` and the current `og-card` all return 200 on the new host.
+4. The social card has the host printed on it. Regenerate it with `SITE_ORIGIN=<new origin> npm run build:assets`, save the result under a new filename, and update the `og:image`/`twitter:image` references plus the site tests — the filename bump is what busts cached previews.
 
