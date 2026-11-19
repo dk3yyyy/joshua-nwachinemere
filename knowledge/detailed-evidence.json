@@ -498,12 +498,15 @@
       "aliases": [
         "portfolio",
         "website",
-        "joshua-nwachinemere.pages.dev"
+        "joshua-nwachinemere.pages.dev",
+        "joshuanwachinemere.dev",
+        "www.joshuanwachinemere.dev"
       ],
       "keywords": [
         "portfolio",
         "site",
-        "Cloudflare Pages"
+        "Cloudflare Pages",
+        "custom domain"
       ],
       "entities": {
         "tech": [],
@@ -520,17 +523,17 @@
         "start": null,
         "end": null,
         "status": "active",
-        "asOf": "2026-08-01"
+        "asOf": "2026-11-19"
       },
       "status": "active",
-      "asOf": "2026-08-01",
-      "text": "Joshua's portfolio site is https://joshua-nwachinemere.pages.dev, a static Vite site deployed on Cloudflare Pages.",
+      "asOf": "2026-11-19",
+      "text": "Joshua's portfolio site is https://joshuanwachinemere.dev, served from a custom domain on Cloudflare Pages; the earlier https://joshua-nwachinemere.pages.dev address serves the same deployment as a fallback.",
       "source": {
         "title": "Joshua Nwachinemere portfolio",
-        "url": "https://joshua-nwachinemere.pages.dev",
+        "url": "https://joshuanwachinemere.dev",
         "kind": "portfolio",
         "publisher": "Joshua Nwachinemere",
-        "accessedAt": "2026-08-01"
+        "accessedAt": "2026-11-19"
       },
       "edges": [],
       "keys": {
